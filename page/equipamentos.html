@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Equipamentos - AutoRelatório
+    </title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+
+        /* ==========================
+           SIDEBAR
+        ========================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .logo {
+
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom:
+                1px solid #1b243b;
+        }
+
+
+        .logo-icon {
+
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .logo-text {
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .logo-text span {
+
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+
+        .menu {
+
+            padding: 17px 9px;
+        }
+
+
+        .menu a {
+
+            height: 40px;
+
+            padding: 0 12px;
+
+            margin-bottom: 3px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+        }
+
+
+        .menu a:hover {
+
+            background: #151f3a;
+
+            color: white;
+        }
+
+
+        .menu a.active {
+
+            background: #12315c;
+
+            color: #3b82f6;
+
+            border-left:
+                2px solid #3b82f6;
+        }
+
+
+        .menu-icon {
+
+            width: 16px;
+
+            text-align: center;
+        }
+
+
+        .sidebar-bottom {
+
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top:
+                1px solid #1b243b;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .profile-circle {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-name {
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-info {
+
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .logout {
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+        }
+
+
+        /* ==========================
+           PRINCIPAL
+        ========================== */
+
+        .main {
+
+            margin-left: 240px;
+
+            width:
+                calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+
+        .topbar {
+
+            height: 65px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #dfe3e9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+
+        .page-title h1 {
+
+            font-size: 18px;
+
+            color: #111827;
+
+            margin-bottom: 3px;
+        }
+
+
+        .page-title p {
+
+            font-size: 11px;
+
+            color: #8b95a5;
+        }
+
+
+        .user {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================
+           CONTEÚDO
+        ========================== */
+
+        .content {
+
+            padding: 25px 24px 40px;
+
+            width: 100%;
+        }
+
+
+        .content-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom: 20px;
+        }
+
+
+        .equipment-count {
+
+            font-size: 14px;
+
+            color: #687386;
+        }
+
+
+        .new-button {
+
+            height: 37px;
+
+            padding: 0 18px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #2166b1;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .new-button:hover {
+
+            background: #19599d;
+        }
+
+
+        /* ==========================
+           FILTRO
+        ========================== */
+
+        .filtro-area {
+
+            background: white;
+
+            border:
+                1px solid #dce1e7;
+
+            border-radius: 7px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 15px;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+        }
+
+
+        .filtro-area span {
+
+            font-size: 13px;
+
+            color: #475569;
+        }
+
+
+        .limpar-filtro {
+
+            border: none;
+
+            background: none;
+
+            color: #2563eb;
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+
+        /* ==========================
+           TABELA
+        ========================== */
+
+        .table-container {
+
+            width: 100%;
+
+            background: white;
+
+            border:
+                1px solid #dce1e7;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse:
+                collapse;
+
+            table-layout: fixed;
+        }
+
+
+        thead {
+
+            background: #fafbfc;
+        }
+
+
+        th {
+
+            height: 40px;
+
+            padding: 0 20px;
+
+            text-align: left;
+
+            color: #9aa5b5;
+
+            font-family: monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+
+            font-weight: normal;
+
+            border-bottom:
+                1px solid #dfe3e9;
+        }
+
+
+        th:nth-child(1),
+        td:nth-child(1) {
+
+            width: 14%;
+        }
+
+
+        th:nth-child(2),
+        td:nth-child(2) {
+
+            width: 28%;
+        }
+
+
+        th:nth-child(3),
+        td:nth-child(3) {
+
+            width: 14%;
+        }
+
+
+        th:nth-child(4),
+        td:nth-child(4) {
+
+            width: 25%;
+        }
+
+
+        th:nth-child(5),
+        td:nth-child(5) {
+
+            width: 19%;
+        }
+
+
+        tbody tr {
+
+            height: 57px;
+
+            border-bottom:
+                1px solid #edf0f3;
+        }
+
+
+        tbody tr:hover {
+
+            background: #fafcff;
+        }
+
+
+        td {
+
+            padding: 0 20px;
+
+            font-size: 13px;
+        }
+
+
+        .patrimonio {
+
+            font-family: monospace;
+
+            font-size: 11px;
+
+            color: #61738c;
+        }
+
+
+        .equipment-name {
+
+            font-size: 14px;
+
+            color: #111827;
+
+            font-weight: 500;
+        }
+
+
+        .area-name {
+
+            color: #687386;
+
+            font-size: 13px;
+        }
+
+
+        .location {
+
+            font-family: monospace;
+
+            font-size: 11px;
+
+            color: #8b95a5;
+        }
+
+
+        .status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 5px 9px;
+
+            border-radius: 14px;
+
+            font-size: 11px;
+        }
+
+
+        .status.operando {
+
+            background: #ecfdf3;
+
+            color: #008a4b;
+        }
+
+
+        .status.manutencao {
+
+            background: #fff5e9;
+
+            color: #c75300;
+        }
+
+
+        .status.parado {
+
+            background: #fff0f0;
+
+            color: #dc2626;
+        }
+
+
+        .sem-dados {
+
+            text-align: center;
+
+            padding: 45px !important;
+
+            color: #8b95a5;
+        }
+
+
+        /* ==========================
+           MODAL
+        ========================== */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.45);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 1000;
+        }
+
+
+        .modal.ativo {
+
+            display: flex;
+        }
+
+
+        .modal-box {
+
+            width: 480px;
+
+            max-width:
+                calc(100% - 30px);
+
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 25px;
+        }
+
+
+        .modal-box h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .campo {
+
+            margin-bottom: 15px;
+        }
+
+
+        .campo label {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+
+        .campo input,
+        .campo select {
+
+            width: 100%;
+
+            height: 42px;
+
+            border:
+                1px solid #d4dae3;
+
+            border-radius: 5px;
+
+            padding: 0 12px;
+
+            outline: none;
+
+            background: white;
+        }
+
+
+        .campo input:focus,
+        .campo select:focus {
+
+            border-color: #2563eb;
+        }
+
+
+        .modal-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .cancel-button {
+
+            height: 37px;
+
+            padding: 0 18px;
+
+            border:
+                1px solid #ccd3dd;
+
+            border-radius: 5px;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+
+        /* ==========================
+           RESPONSIVIDADE
+        ========================== */
+
+        @media(max-width:750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+            .table-container {
+
+                overflow-x: auto;
+            }
+
+            table {
+
+                min-width: 850px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MENU
+========================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            ▰
+        </div>
+
+        <div class="logo-text">
+
+            AutoRelatório
+
+            <span>
+                INDUSTRIAL
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="dashboard.html">
+            <span class="menu-icon">⌂</span>
+            Dashboard
+        </a>
+
+        <a href="nova_inspecao.html">
+            <span class="menu-icon">✓</span>
+            Nova Inspeção
+        </a>
+
+        <a href="registrar_problema.html">
+            <span class="menu-icon">△</span>
+            Registrar Problema
+        </a>
+
+        <a href="historico.html">
+            <span class="menu-icon">♢</span>
+            Histórico
+        </a>
+
+        <a href="relatorios.html">
+            <span class="menu-icon">▧</span>
+            Relatórios
+        </a>
+
+        <a href="areas.html">
+            <span class="menu-icon">▦</span>
+            Áreas
+        </a>
+
+        <a href="equipamentos.html"
+           class="active">
+
+            <span class="menu-icon">⌁</span>
+
+            Equipamentos
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="profile">
+
+            <div class="profile-circle">
+                TC
+            </div>
+
+            <div>
+
+                <div class="profile-name">
+                    Técnico
+                </div>
+
+                <div class="profile-info">
+                    Perfil Técnico
+                </div>
+
+            </div>
+
+        </div>
+
+        <a href="../pagina_inicial.html"
+           class="logout">
+
+            ⇥ &nbsp; Sair
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- ==========================================
+     PRINCIPAL
+========================================== -->
+
+<main class="main">
+
+
+    <header class="topbar">
+
+        <div class="page-title">
+
+            <h1>
+                Equipamentos
+            </h1>
+
+            <p>
+                Cadastro e controle de patrimônio
+            </p>
+
+        </div>
+
+
+        <div class="user">
+            TC
+        </div>
+
+    </header>
+
+
+    <section class="content">
+
+
+        <div class="content-top">
+
+            <div
+                class="equipment-count"
+                id="contadorEquipamentos">
+
+                0 equipamentos cadastrados
+
+            </div>
+
+
+            <button
+                class="new-button"
+                id="btnNovoEquipamento">
+
+                + &nbsp; Novo Equipamento
+
+            </button>
+
+        </div>
+
+
+        <!-- FILTRO VINDO DA PÁGINA ÁREAS -->
+
+        <div
+            class="filtro-area"
+            id="filtroArea">
+
+            <span id="textoFiltro"></span>
+
+            <button
+                class="limpar-filtro"
+                id="limparFiltro">
+
+                Mostrar todos
+
+            </button>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>PATRIMÔNIO</th>
+
+                        <th>EQUIPAMENTO</th>
+
+                        <th>ÁREA</th>
+
+                        <th>LOCALIZAÇÃO</th>
+
+                        <th>STATUS</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tabelaEquipamentos">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ==========================================
+     MODAL NOVO EQUIPAMENTO
+========================================== -->
+
+<div
+    class="modal"
+    id="modalEquipamento">
+
+
+    <div class="modal-box">
+
+
+        <h2>
+            Novo Equipamento
+        </h2>
+
+
+        <form id="formEquipamento">
+
+
+            <div class="campo">
+
+                <label for="patrimonio">
+
+                    Nº Patrimônio *
+
+                </label>
+
+                <input
+                    type="text"
+                    id="patrimonio"
+                    placeholder="Ex: AF-003"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="nomeEquipamento">
+
+                    Equipamento *
+
+                </label>
+
+                <input
+                    type="text"
+                    id="nomeEquipamento"
+                    placeholder="Ex: Alto Forno #3"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="areaEquipamento">
+
+                    Área Industrial *
+
+                </label>
+
+                <select
+                    id="areaEquipamento"
+                    required>
+
+                    <option value="">
+                        Selecione a área
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="localizacao">
+
+                    Localização
+
+                </label>
+
+                <input
+                    type="text"
+                    id="localizacao"
+                    placeholder="Ex: Setor A - Bloco 3"
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="statusEquipamento">
+
+                    Status *
+
+                </label>
+
+                <select
+                    id="statusEquipamento"
+                    required>
+
+                    <option value="Operando">
+                        Operando
+                    </option>
+
+                    <option value="Manutenção">
+                        Manutenção
+                    </option>
+
+                    <option value="Parado">
+                        Parado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelarEquipamento">
+
+                    Cancelar
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="new-button">
+
+                    Salvar Equipamento
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================================================
+       CONFIGURAÇÕES
+    ========================================================= */
+
+    const CHAVE_AREAS =
+        "autoRelatorio_areas";
+
+
+    const CHAVE_EQUIPAMENTOS =
+        "autoRelatorio_equipamentos";
+
+
+    /* =========================================================
+       PEGAR ÁREA DA URL
+
+       Exemplo:
+       equipamentos.html?area=Reducao
+    ========================================================= */
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    let areaFiltro =
+        parametros.get("area");
+
+
+    /* =========================================================
+       ELEMENTOS
+    ========================================================= */
+
+    const contadorEquipamentos =
+        document.getElementById(
+            "contadorEquipamentos"
+        );
+
+
+    const tabelaEquipamentos =
+        document.getElementById(
+            "tabelaEquipamentos"
+        );
+
+
+    const modalEquipamento =
+        document.getElementById(
+            "modalEquipamento"
+        );
+
+
+    const areaEquipamento =
+        document.getElementById(
+            "areaEquipamento"
+        );
+
+
+    const filtroArea =
+        document.getElementById(
+            "filtroArea"
+        );
+
+
+    const textoFiltro =
+        document.getElementById(
+            "textoFiltro"
+        );
+
+
+    /* =========================================================
+       CARREGAR DADOS
+    ========================================================= */
+
+    function carregarAreas() {
+
+        return JSON.parse(
+
+            localStorage.getItem(
+                CHAVE_AREAS
+            ) || "[]"
+
+        );
+
+    }
+
+
+    function carregarEquipamentos() {
+
+        return JSON.parse(
+
+            localStorage.getItem(
+                CHAVE_EQUIPAMENTOS
+            ) || "[]"
+
+        );
+
+    }
+
+
+    function salvarEquipamentos(
+        equipamentos
+    ) {
+
+        localStorage.setItem(
+
+            CHAVE_EQUIPAMENTOS,
+
+            JSON.stringify(
+                equipamentos
+            )
+
+        );
+
+    }
+
+
+    /* =========================================================
+       CARREGAR ÁREAS NO SELECT
+    ========================================================= */
+
+    function carregarSelectAreas() {
+
+        const areas =
+            carregarAreas();
+
+
+        areaEquipamento.innerHTML = `
+
+            <option value="">
+                Selecione a área
+            </option>
+
+        `;
+
+
+        areas.forEach(
+            function(area) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    area.nome;
+
+
+                option.textContent =
+                    area.nome;
+
+
+                areaEquipamento
+                    .appendChild(option);
+
+            }
+        );
+
+
+        /*
+           Se veio da página Áreas,
+           já seleciona automaticamente.
+        */
+
+        if (areaFiltro) {
+
+            areaEquipamento.value =
+                areaFiltro;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RENDERIZAR TABELA
+    ========================================================= */
+
+    function renderizarEquipamentos() {
+
+        let equipamentos =
+            carregarEquipamentos();
+
+
+        /*
+           Se existe filtro de área,
+           mostra somente os equipamentos
+           daquela área.
+        */
+
+        if (areaFiltro) {
+
+            equipamentos =
+                equipamentos.filter(
+                    function(equipamento) {
+
+                        return equipamento.area ===
+                            areaFiltro;
+
+                    }
+                );
+
+
+            filtroArea.style.display =
+                "flex";
+
+
+            textoFiltro.textContent =
+                "Exibindo equipamentos da área: " +
+                areaFiltro;
+
+        }
+        else {
+
+            filtroArea.style.display =
+                "none";
+
+        }
+
+
+        /* CONTADOR */
+
+        contadorEquipamentos.textContent =
+
+            equipamentos.length +
+
+            (equipamentos.length === 1
+
+                ? " equipamento cadastrado"
+
+                : " equipamentos cadastrados");
+
+
+        /* LIMPAR TABELA */
+
+        tabelaEquipamentos.innerHTML =
+            "";
+
+
+        /* NENHUM EQUIPAMENTO */
+
+        if (
+            equipamentos.length === 0
+        ) {
+
+            tabelaEquipamentos.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="sem-dados">
+
+                        Nenhum equipamento
+                        cadastrado.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        /* CRIAR LINHAS */
+
+        equipamentos.forEach(
+
+            function(equipamento) {
+
+
+                const linha =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                let classeStatus =
+                    "operando";
+
+
+                if (
+                    equipamento.status ===
+                    "Manutenção"
+                ) {
+
+                    classeStatus =
+                        "manutencao";
+
+                }
+
+
+                if (
+                    equipamento.status ===
+                    "Parado"
+                ) {
+
+                    classeStatus =
+                        "parado";
+
+                }
+
+
+                linha.innerHTML = `
+
+                    <td>
+
+                        <span class="patrimonio">
+
+                            ${equipamento.patrimonio}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="equipment-name">
+
+                            ${equipamento.nome}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="area-name">
+
+                            ${equipamento.area}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="location">
+
+                            ${equipamento.localizacao || "-"}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status ${classeStatus}">
+
+                            ${equipamento.status}
+
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                tabelaEquipamentos
+                    .appendChild(linha);
+
+            }
+
+        );
+
+    }
+
+
+    /* =========================================================
+       ABRIR NOVO EQUIPAMENTO
+    ========================================================= */
+
+    document
+        .getElementById(
+            "btnNovoEquipamento"
+        )
+        .addEventListener(
+            "click",
+            function() {
+
+                carregarSelectAreas();
+
+
+                if (areaFiltro) {
+
+                    areaEquipamento.value =
+                        areaFiltro;
+
+                }
+
+
+                modalEquipamento
+                    .classList
+                    .add("ativo");
+
+
+                document
+                    .getElementById(
+                        "patrimonio"
+                    )
+                    .focus();
+
+            }
+        );
+
+
+    /* =========================================================
+       CANCELAR
+    ========================================================= */
+
+    document
+        .getElementById(
+            "cancelarEquipamento"
+        )
+        .addEventListener(
+            "click",
+            function() {
+
+                modalEquipamento
+                    .classList
+                    .remove("ativo");
+
+
+                document
+                    .getElementById(
+                        "formEquipamento"
+                    )
+                    .reset();
+
+            }
+        );
+
+
+    /* =========================================================
+       SALVAR EQUIPAMENTO
+    ========================================================= */
+
+    document
+        .getElementById(
+            "formEquipamento"
+        )
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const patrimonio =
+                    document
+                        .getElementById(
+                            "patrimonio"
+                        )
+                        .value
+                        .trim();
+
+
+                const nome =
+                    document
+                        .getElementById(
+                            "nomeEquipamento"
+                        )
+                        .value
+                        .trim();
+
+
+                const area =
+                    areaEquipamento
+                        .value;
+
+
+                const localizacao =
+                    document
+                        .getElementById(
+                            "localizacao"
+                        )
+                        .value
+                        .trim();
+
+
+                const status =
+                    document
+                        .getElementById(
+                            "statusEquipamento"
+                        )
+                        .value;
+
+
+                if (
+                    !patrimonio ||
+                    !nome ||
+                    !area
+                ) {
+
+                    alert(
+                        "Preencha os campos obrigatórios."
+                    );
+
+                    return;
+
+                }
+
+
+                let equipamentos =
+                    carregarEquipamentos();
+
+
+                /* VERIFICAR PATRIMÔNIO */
+
+                const patrimonioExiste =
+                    equipamentos.some(
+
+                        function(equipamento) {
+
+                            return equipamento
+                                .patrimonio
+                                .toLowerCase()
+                                ===
+                                patrimonio
+                                    .toLowerCase();
+
+                        }
+
+                    );
+
+
+                if (patrimonioExiste) {
+
+                    alert(
+                        "Já existe um equipamento com esse patrimônio."
+                    );
+
+                    return;
+
+                }
+
+
+                const novoEquipamento = {
+
+                    id:
+                        Date.now(),
+
+                    patrimonio:
+                        patrimonio,
+
+                    nome:
+                        nome,
+
+                    area:
+                        area,
+
+                    localizacao:
+                        localizacao,
+
+                    status:
+                        status
+
+                };
+
+
+                equipamentos.push(
+                    novoEquipamento
+                );
+
+
+                salvarEquipamentos(
+                    equipamentos
+                );
+
+
+                /* FECHAR MODAL */
+
+                modalEquipamento
+                    .classList
+                    .remove("ativo");
+
+
+                /* LIMPAR FORMULÁRIO */
+
+                document
+                    .getElementById(
+                        "formEquipamento"
+                    )
+                    .reset();
+
+
+                /* ATUALIZAR TABELA */
+
+                renderizarEquipamentos();
+
+            }
+        );
+
+
+    /* =========================================================
+       LIMPAR FILTRO DE ÁREA
+    ========================================================= */
+
+    document
+        .getElementById(
+            "limparFiltro"
+        )
+        .addEventListener(
+            "click",
+            function() {
+
+                areaFiltro = null;
+
+
+                /*
+                   Remove ?area=...
+                   sem recarregar a página
+                */
+
+                window.history
+                    .replaceState(
+                        {},
+                        "",
+                        "equipamentos.html"
+                    );
+
+
+                renderizarEquipamentos();
+
+            }
+        );
+
+
+    /* =========================================================
+       FECHAR MODAL CLICANDO FORA
+    ========================================================= */
+
+    modalEquipamento
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    modalEquipamento
+                ) {
+
+                    modalEquipamento
+                        .classList
+                        .remove("ativo");
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       INICIAR
+    ========================================================= */
+
+    carregarSelectAreas();
+
+    renderizarEquipamentos();
+
+</script>
+
+
+</body>
+
+</html>

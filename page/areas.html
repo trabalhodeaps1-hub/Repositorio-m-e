@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas Industriais - AutoRelatório</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #0b132b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+            color: #3b82f6;
+            font-size: 8px;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+        .menu a {
+            height: 40px;
+            padding: 0 12px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 5px;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #12315c;
+            color: #3b82f6;
+            border-left: 2px solid #3b82f6;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 20px 18px;
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 22px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2867b5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            color: #7f8ba0;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .logout {
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        /* ================= PRINCIPAL ================= */
+
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 65px;
+            background: white;
+            border-bottom: 1px solid #dfe3e9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .page-title h1 {
+            font-size: 18px;
+            color: #111827;
+        }
+
+        .page-title p {
+            font-size: 11px;
+            color: #8b95a5;
+            margin-top: 3px;
+        }
+
+        .user {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2867b5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 25px 24px 40px;
+        }
+
+        .content-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .area-count {
+            font-size: 14px;
+            color: #687386;
+        }
+
+        .new-button {
+            height: 37px;
+            padding: 0 18px;
+            border: none;
+            border-radius: 5px;
+            background: #2166b1;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .new-button:hover {
+            background: #19599d;
+        }
+
+        /* ================= CARDS ================= */
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .area-card {
+            background: white;
+            border: 1px solid #dce1e7;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 190px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .area-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,.07);
+            border-color: #9dbde4;
+        }
+
+        .area-icon {
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .area-card h3 {
+            font-size: 17px;
+            color: #111827;
+            margin-bottom: 7px;
+        }
+
+        .area-card p {
+            font-size: 12px;
+            color: #607087;
+            line-height: 1.5;
+            min-height: 45px;
+        }
+
+        .area-footer {
+            border-top: 1px solid #edf0f3;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-size: 11px;
+            color: #8190a5;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ================= DETALHES ================= */
+
+        #areaDetalhes {
+            display: none;
+        }
+
+        .detalhes-header {
+            background: white;
+            border: 1px solid #dce1e7;
+            border-radius: 9px;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .voltar {
+            border: none;
+            background: none;
+            color: #2166b1;
+            cursor: pointer;
+            margin-bottom: 18px;
+            font-weight: bold;
+        }
+
+        .detalhes-header h2 {
+            font-size: 23px;
+            margin-bottom: 7px;
+        }
+
+        .detalhes-header p {
+            color: #687386;
+            font-size: 13px;
+        }
+
+        .equipamentos-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .equipamentos-topo h3 {
+            font-size: 16px;
+        }
+
+        .lista-equipamentos {
+            display: grid;
+            gap: 10px;
+        }
+
+        .equipamento-card {
+            background: white;
+            border: 1px solid #dce1e7;
+            border-radius: 7px;
+            padding: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .equipamento-card h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .equipamento-card p {
+            color: #718096;
+            font-size: 11px;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+        }
+
+        .operando {
+            background: #ecfdf3;
+            color: #008a4b;
+        }
+
+        .manutencao {
+            background: #fff5e9;
+            color: #c75300;
+        }
+
+        .parado {
+            background: #fff0f0;
+            color: #dc2626;
+        }
+
+        .vazio {
+            background: white;
+            border: 1px dashed #cbd5e1;
+            padding: 35px;
+            text-align: center;
+            color: #8793a5;
+            border-radius: 8px;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.ativo {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            width: 430px;
+            max-width: calc(100% - 30px);
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .campo input,
+        .campo textarea {
+            width: 100%;
+            border: 1px solid #d4dae3;
+            border-radius: 5px;
+            padding: 11px;
+            outline: none;
+        }
+
+        .campo textarea {
+            resize: vertical;
+            min-height: 85px;
+        }
+
+        .campo input:focus,
+        .campo textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancelar {
+            background: white;
+            border: 1px solid #ccd3dd;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media(max-width:1000px) {
+            .areas-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:750px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        @media(max-width:600px) {
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">▰</div>
+
+        <div class="logo-text">
+            AutoRelatório
+            <span>INDUSTRIAL</span>
+        </div>
+    </div>
+
+    <nav class="menu">
+        <a href="dashboard.html"><span class="menu-icon">⌂</span>Dashboard</a>
+        <a href="nova_inspecao.html"><span class="menu-icon">✓</span>Nova Inspeção</a>
+        <a href="registrar_problema.html"><span class="menu-icon">△</span>Registrar Problema</a>
+        <a href="historico.html"><span class="menu-icon">♢</span>Histórico</a>
+        <a href="relatorios.html"><span class="menu-icon">▧</span>Relatórios</a>
+        <a href="areas.html" class="active"><span class="menu-icon">▦</span>Áreas</a>
+        <a href="equipamentos.html"><span class="menu-icon">⌁</span>Equipamentos</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="profile">
+            <div class="profile-circle">TC</div>
+            <div>
+                <div class="profile-name">Técnico</div>
+                <div class="profile-info">Perfil Técnico</div>
+            </div>
+        </div>
+
+        <a href="../pagina_inicial.html" class="logout">⇥ &nbsp; Sair</a>
+    </div>
+
+</aside>
+
+<main class="main">
+
+    <header class="topbar">
+        <div class="page-title">
+            <h1>Áreas Industriais</h1>
+            <p>Cadastro e gerenciamento de áreas</p>
+        </div>
+
+        <div class="user">TC</div>
+    </header>
+
+    <section class="content">
+
+        <!-- LISTA DE ÁREAS -->
+
+        <div id="areaLista">
+
+            <div class="content-top">
+                <div class="area-count" id="contadorAreas">
+                    0 áreas cadastradas
+                </div>
+
+                <button class="new-button" id="btnNovaArea">
+                    + &nbsp; Nova Área
+                </button>
+            </div>
+
+            <div class="areas-grid" id="areasGrid"></div>
+
+        </div>
+
+        <!-- DETALHES DA ÁREA -->
+
+        <div id="areaDetalhes">
+
+            <div class="detalhes-header">
+
+                <button class="voltar" id="btnVoltar">
+                    ← Voltar para áreas
+                </button>
+
+                <h2 id="detalheNome"></h2>
+                <p id="detalheDescricao"></p>
+
+            </div>
+
+            <div class="equipamentos-topo">
+
+                <h3 id="tituloEquipamentos">
+                    Equipamentos
+                </h3>
+
+                <button class="new-button" id="btnNovoEquipamento">
+                    + &nbsp; Novo Equipamento
+                </button>
+
+            </div>
+
+            <div class="lista-equipamentos" id="listaEquipamentos"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL NOVA ÁREA -->
+
+<div class="modal" id="modalArea">
+
+    <div class="modal-box">
+
+        <h2>Nova Área Industrial</h2>
+
+        <form id="formArea">
+
+            <div class="campo">
+                <label>Nome da área *</label>
+                <input id="nomeArea" required placeholder="Ex: Redução">
+            </div>
+
+            <div class="campo">
+                <label>Descrição</label>
+                <textarea id="descricaoArea"
+                    placeholder="Descrição da área industrial"></textarea>
+            </div>
+
+            <div class="campo">
+                <label>Ícone</label>
+                <input id="iconeArea" placeholder="Ex: 🏭">
+            </div>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="cancelar"
+                        id="cancelarArea">
+                    Cancelar
+                </button>
+
+                <button type="submit"
+                        class="new-button">
+                    Salvar Área
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       DADOS
+    ===================================================== */
+
+    const CHAVE_AREAS = "autoRelatorio_areas";
+    const CHAVE_EQUIPAMENTOS = "autoRelatorio_equipamentos";
+
+
+    /* ÁREAS INICIAIS */
+
+    const areasPadrao = [
+        {
+            id: 1,
+            nome: "Redução",
+            descricao: "Alto-fornos e sistema de injeção de carvão",
+            icone: "🏭"
+        },
+
+        {
+            id: 2,
+            nome: "Aciaria",
+            descricao: "Convertedores LD, fornos panela e lingotamento contínuo",
+            icone: "🔥"
+        },
+
+        {
+            id: 3,
+            nome: "Laminação",
+            descricao: "Laminadores a quente e a frio, linha de acabamento",
+            icone: "⚙️"
+        },
+
+        {
+            id: 4,
+            nome: "Utilidades",
+            descricao: "Geração de energia, ar comprimido e tratamento de água",
+            icone: "⚡"
+        },
+
+        {
+            id: 5,
+            nome: "Manutenção",
+            descricao: "Oficinas mecânica, elétrica e instrumentação",
+            icone: "🔧"
+        },
+
+        {
+            id: 6,
+            nome: "Logística",
+            descricao: "Pátios, pontes rolantes e sistemas de movimentação",
+            icone: "🏗️"
+        }
+    ];
+
+
+    function carregarAreas() {
+
+        let dados = JSON.parse(
+            localStorage.getItem(CHAVE_AREAS) || "null"
+        );
+
+        if (!dados) {
+
+            dados = areasPadrao;
+
+            localStorage.setItem(
+                CHAVE_AREAS,
+                JSON.stringify(dados)
+            );
+
+        }
+
+        return dados;
+    }
+
+
+    function carregarEquipamentos() {
+
+        return JSON.parse(
+            localStorage.getItem(CHAVE_EQUIPAMENTOS) || "[]"
+        );
+
+    }
+
+
+    let areas = carregarAreas();
+    let areaSelecionada = null;
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+    const areasGrid =
+        document.getElementById("areasGrid");
+
+    const contadorAreas =
+        document.getElementById("contadorAreas");
+
+    const areaLista =
+        document.getElementById("areaLista");
+
+    const areaDetalhes =
+        document.getElementById("areaDetalhes");
+
+    const detalheNome =
+        document.getElementById("detalheNome");
+
+    const detalheDescricao =
+        document.getElementById("detalheDescricao");
+
+    const tituloEquipamentos =
+        document.getElementById("tituloEquipamentos");
+
+    const listaEquipamentos =
+        document.getElementById("listaEquipamentos");
+
+    const modalArea =
+        document.getElementById("modalArea");
+
+
+    /* =====================================================
+       RENDERIZAR ÁREAS
+    ===================================================== */
+
+    function renderizarAreas() {
+
+        areas = carregarAreas();
+
+        const equipamentos =
+            carregarEquipamentos();
+
+
+        contadorAreas.textContent =
+            `${areas.length} área${areas.length !== 1 ? "s" : ""} cadastrada${areas.length !== 1 ? "s" : ""}`;
+
+
+        areasGrid.innerHTML = "";
+
+
+        areas.forEach(function(area) {
+
+            const quantidade =
+                equipamentos.filter(function(eq) {
+                    return eq.area === area.nome;
+                }).length;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className = "area-card";
+
+
+            card.innerHTML = `
+                <div class="area-icon">
+                    ${area.icone || "🏭"}
+                </div>
+
+                <h3>${area.nome}</h3>
+
+                <p>${area.descricao || "Sem descrição cadastrada."}</p>
+
+                <div class="area-footer">
+
+                    <span>
+                        ◇ ${quantidade}
+                        equipamento${quantidade !== 1 ? "s" : ""}
+                    </span>
+
+                    <span>›</span>
+
+                </div>
+            `;
+
+
+            card.addEventListener(
+                "click",
+                function() {
+
+                    abrirArea(area.id);
+
+                }
+            );
+
+
+            areasGrid.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       ABRIR ÁREA
+    ===================================================== */
+
+    function abrirArea(id) {
+
+        areas = carregarAreas();
+
+        areaSelecionada =
+            areas.find(function(area) {
+                return area.id === id;
+            });
+
+
+        if (!areaSelecionada) {
+            return;
+        }
+
+
+        areaLista.style.display = "none";
+        areaDetalhes.style.display = "block";
+
+
+        detalheNome.textContent =
+            `${areaSelecionada.icone || "🏭"} ${areaSelecionada.nome}`;
+
+        detalheDescricao.textContent =
+            areaSelecionada.descricao || "";
+
+
+        renderizarEquipamentosArea();
+
+    }
+
+
+    /* =====================================================
+       EQUIPAMENTOS DA ÁREA
+    ===================================================== */
+
+    function renderizarEquipamentosArea() {
+
+        const equipamentos =
+            carregarEquipamentos().filter(
+                function(eq) {
+
+                    return eq.area ===
+                        areaSelecionada.nome;
+
+                }
+            );
+
+
+        tituloEquipamentos.textContent =
+            `Equipamentos da área — ${equipamentos.length}`;
+
+
+        listaEquipamentos.innerHTML = "";
+
+
+        if (equipamentos.length === 0) {
+
+            listaEquipamentos.innerHTML = `
+                <div class="vazio">
+
+                    Nenhum equipamento cadastrado
+                    nesta área.
+
+                    <br><br>
+
+                    Utilize o botão
+                    <strong>+ Novo Equipamento</strong>.
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        equipamentos.forEach(function(eq) {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "equipamento-card";
+
+
+            let classeStatus =
+                eq.status === "Manutenção"
+                ? "manutencao"
+                : eq.status === "Parado"
+                ? "parado"
+                : "operando";
+
+
+            card.innerHTML = `
+
+                <div>
+
+                    <h4>
+                        ${eq.nome}
+                    </h4>
+
+                    <p>
+                        Patrimônio:
+                        ${eq.patrimonio || "Não informado"}
+                    </p>
+
+                    <p>
+                        ${eq.localizacao || ""}
+                    </p>
+
+                </div>
+
+
+                <span class="status ${classeStatus}">
+                    ${eq.status || "Operando"}
+                </span>
+
+            `;
+
+
+            listaEquipamentos.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       NOVA ÁREA
+    ===================================================== */
+
+    document
+        .getElementById("btnNovaArea")
+        .addEventListener(
+            "click",
+            function() {
+
+                modalArea.classList.add("ativo");
+
+                document
+                    .getElementById("nomeArea")
+                    .focus();
+
+            }
+        );
+
+
+    document
+        .getElementById("cancelarArea")
+        .addEventListener(
+            "click",
+            function() {
+
+                modalArea.classList.remove("ativo");
+
+                document
+                    .getElementById("formArea")
+                    .reset();
+
+            }
+        );
+
+
+    document
+        .getElementById("formArea")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const nome =
+                    document
+                        .getElementById("nomeArea")
+                        .value
+                        .trim();
+
+                const descricao =
+                    document
+                        .getElementById("descricaoArea")
+                        .value
+                        .trim();
+
+                const icone =
+                    document
+                        .getElementById("iconeArea")
+                        .value
+                        .trim();
+
+
+                if (!nome) {
+                    return;
+                }
+
+
+                areas = carregarAreas();
+
+
+                const existe =
+                    areas.some(function(area) {
+
+                        return area.nome
+                            .toLowerCase() ===
+                            nome.toLowerCase();
+
+                    });
+
+
+                if (existe) {
+
+                    alert("Essa área já está cadastrada.");
+
+                    return;
+
+                }
+
+
+                const novaArea = {
+
+                    id: Date.now(),
+
+                    nome: nome,
+
+                    descricao: descricao,
+
+                    icone: icone || "🏭"
+
+                };
+
+
+                areas.push(novaArea);
+
+
+                localStorage.setItem(
+                    CHAVE_AREAS,
+                    JSON.stringify(areas)
+                );
+
+
+                document
+                    .getElementById("formArea")
+                    .reset();
+
+
+                modalArea.classList.remove("ativo");
+
+
+                renderizarAreas();
+
+            }
+        );
+
+
+    /* =====================================================
+       VOLTAR
+    ===================================================== */
+
+    document
+        .getElementById("btnVoltar")
+        .addEventListener(
+            "click",
+            function() {
+
+                areaSelecionada = null;
+
+                areaDetalhes.style.display =
+                    "none";
+
+                areaLista.style.display =
+                    "block";
+
+                renderizarAreas();
+
+            }
+        );
+
+
+    /* =====================================================
+       NOVO EQUIPAMENTO DA ÁREA
+    ===================================================== */
+
+    document
+        .getElementById("btnNovoEquipamento")
+        .addEventListener(
+            "click",
+            function() {
+
+                if (!areaSelecionada) {
+                    return;
+                }
+
+
+                window.location.href =
+                    "equipamentos.html?area=" +
+                    encodeURIComponent(
+                        areaSelecionada.nome
+                    );
+
+            }
+        );
+
+
+    /* =====================================================
+       INICIAR
+    ===================================================== */
+
+    renderizarAreas();
+
+</script>
+
+</body>
+</html>

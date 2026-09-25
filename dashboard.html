@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AutoRelatório</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f5f6fa;
+
+            color: #172033;
+        }
+
+        /* MENU */
+
+        .menu {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 220px;
+
+            height: 100vh;
+
+            background: #0b132b;
+
+            color: white;
+
+            padding: 25px 15px;
+        }
+
+        .logo {
+
+            padding: 10px;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-bottom: 30px;
+        }
+
+        .industrial {
+
+            color: #3b82f6;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            margin-top: 4px;
+        }
+
+        .menu a {
+
+            display: block;
+
+            padding: 13px;
+
+            margin-bottom: 5px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        .menu a:hover {
+
+            background: #1c2541;
+
+            color: white;
+        }
+
+        .menu .ativo {
+
+            background: #1c2541;
+
+            color: white;
+        }
+
+        /* CONTEÚDO */
+
+        .conteudo {
+
+            margin-left: 220px;
+        }
+
+        /* TOPO */
+
+        .topo {
+
+            height: 80px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: 0 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .titulo {
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+        .subtitulo {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+        }
+
+        .usuario {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        /* PÁGINA */
+
+        .pagina {
+
+            padding: 30px;
+        }
+
+        /* BOAS VINDAS */
+
+        .boas-vindas {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 22px;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .data {
+
+            font-size: 11px;
+
+            color: #777;
+
+            font-weight: bold;
+        }
+
+        .boas-vindas h2 {
+
+            margin: 7px 0;
+
+            font-size: 22px;
+        }
+
+        .boas-vindas p {
+
+            margin: 0;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .botao {
+
+            display: inline-block;
+
+            padding: 11px 16px;
+
+            border-radius: 7px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        /* CARDS */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .card {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 20px;
+        }
+
+        .card-titulo {
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+        .numero {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+        .positivo {
+
+            color: #15803d;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+        }
+
+        /* ÁREA INFERIOR */
+
+        .baixo {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 20px;
+        }
+
+        .caixa {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 20px;
+        }
+
+        .caixa h3 {
+
+            margin-top: 0;
+
+            font-size: 15px;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+
+            text-align: left;
+
+            padding: 13px 8px;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+            font-size: 12px;
+        }
+
+        th {
+
+            color: #777;
+        }
+
+        .ok {
+
+            color: #15803d;
+
+            font-weight: bold;
+        }
+
+        .problema {
+
+            color: #dc2626;
+
+            font-weight: bold;
+        }
+
+        /* RESPONSIVO */
+
+        @media(max-width: 900px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .baixo {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- MENU -->
+
+    <aside class="menu">
+
+        <div class="logo">
+
+            AutoRelatório
+
+            <div class="industrial">
+                INDUSTRIAL
+            </div>
+
+        </div>
+
+        <a href="dashboard.html"
+           class="ativo">
+            ▦ &nbsp; Dashboard
+        </a>
+
+        <a href="nova_inspecao.html">
+            ＋ &nbsp; Nova Inspeção
+        </a>
+
+        <a href="registrar_problema.html">
+            ⚠ &nbsp; Registrar Problema
+        </a>
+
+        <a href="historico.html">
+            ◷ &nbsp; Histórico
+        </a>
+
+        <a href="relatorios.html">
+            ▤ &nbsp; Relatórios
+        </a>
+
+        <a href="areas.html">
+            ⌂ &nbsp; Áreas
+        </a>
+
+        <a href="equipamentos.html">
+            ⚙ &nbsp; Equipamentos
+        </a>
+
+    </aside>
+
+
+    <main class="conteudo">
+
+        <!-- TOPO -->
+
+        <header class="topo">
+
+            <div>
+
+                <div class="titulo">
+                    Dashboard
+                </div>
+
+                <div class="subtitulo">
+                    Planta Tubarão • Turno A
+                </div>
+
+            </div>
+
+            <div class="usuario">
+                E
+            </div>
+
+        </header>
+
+
+        <section class="pagina">
+
+
+            <!-- BOAS VINDAS -->
+
+            <div class="boas-vindas">
+
+                <div>
+
+                    <div class="data">
+                        SEXTA-FEIRA, 08/08/2026
+                    </div>
+
+                    <h2>
+                        Bom dia, Fulano.
+                    </h2>
+
+                    <p>
+                        3 inspeções agendadas para hoje
+                        • Turno A • Planta Tubarão
+                    </p>
+
+                </div>
+
+                <a class="botao"
+                   href="nova_inspecao.html">
+
+                    + Nova Inspeção
+
+                </a>
+
+            </div>
+
+
+            <!-- CARDS -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div class="card-titulo">
+                        Inspeções este mês
+                    </div>
+
+                    <div class="numero">
+                        47
+                    </div>
+
+                    <div class="positivo">
+                        ↑ 12%
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-titulo">
+                        Problemas registrados
+                    </div>
+
+                    <div class="numero">
+                        4
+                    </div>
+
+                    <div class="positivo">
+                        ↓ 8%
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-titulo">
+                        Problemas em aberto
+                    </div>
+
+                    <div class="numero">
+                        2
+                    </div>
+
+                    <div class="problema">
+                        ↓ 3
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-titulo">
+                        Críticos pendentes
+                    </div>
+
+                    <div class="numero">
+                        1
+                    </div>
+
+                    <div class="positivo">
+                        ↓ 100%
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PARTE INFERIOR -->
+
+            <div class="baixo">
+
+
+                <!-- INSPEÇÕES -->
+
+                <div class="caixa">
+
+                    <h3>
+                        Inspeções recentes
+                    </h3>
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Equipamento
+                            </th>
+
+                            <th>
+                                Inspeção
+                            </th>
+
+                            <th>
+                                Área
+                            </th>
+
+                            <th>
+                                Situação
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Alto Forno #3
+                                </strong>
+                            </td>
+
+                            <td>
+                                INS-2026-001
+                            </td>
+
+                            <td>
+                                Redução
+                            </td>
+
+                            <td class="problema">
+                                1 problema
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Laminador de Tiras a Quente
+                                </strong>
+                            </td>
+
+                            <td>
+                                INS-2026-002
+                            </td>
+
+                            <td>
+                                Laminação
+                            </td>
+
+                            <td class="problema">
+                                2 problemas
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Ponte Rolante CR-07
+                                </strong>
+                            </td>
+
+                            <td>
+                                INS-2026-003
+                            </td>
+
+                            <td>
+                                Aciaria
+                            </td>
+
+                            <td class="ok">
+                                OK
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Forno Panela FP-02
+                                </strong>
+                            </td>
+
+                            <td>
+                                INS-2026-004
+                            </td>
+
+                            <td>
+                                Aciaria
+                            </td>
+
+                            <td class="problema">
+                                1 problema
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- CRITICIDADE -->
+
+                <div class="caixa">
+
+                    <h3>
+                        Problemas por criticidade
+                    </h3>
+
+                    <table>
+
+                        <tr>
+                            <th>
+                                Criticidade
+                            </th>
+
+                            <th>
+                                Quantidade
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Crítica
+                            </td>
+
+                            <td>
+                                1
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Alta
+                            </td>
+
+                            <td>
+                                2
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Média
+                            </td>
+
+                            <td>
+                                1
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Baixa
+                            </td>
+
+                            <td>
+                                0
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

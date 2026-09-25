@@ -1,0 +1,527 @@
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #0b172a;
+
+    background-color: #f5f6f8;
+}
+
+
+/* =========================================
+   LADO ESQUERDO
+========================================= */
+
+.LadoEsquerdo {
+    width: 67%;
+    min-height: 100vh;
+
+    padding: 48px;
+
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+
+    background-image:
+
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 0px,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 160px
+        ),
+
+        linear-gradient(
+            120deg,
+            #081b35,
+            #17385e
+        );
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.cabecalho-logo {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 8px;
+}
+
+.icone-logo {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #2879dc;
+
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 18px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo strong {
+    color: white;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.logo span {
+    margin-top: 2px;
+
+    color: #4d9cff;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================
+   ARCELORMITTAL
+========================================= */
+
+.empresa {
+    margin-top: 3px;
+    margin-bottom: 23px;
+
+    color: #63adff;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================
+   TÍTULO PRINCIPAL
+========================================= */
+
+.LadoEsquerdo h1 {
+    max-width: 520px;
+
+    margin-bottom: 26px;
+
+    color: white;
+
+    font-size: 48px;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -1px;
+}
+
+.LadoEsquerdo h1 span {
+    color: #3181ed;
+}
+
+
+/* =========================================
+   DESCRIÇÃO
+========================================= */
+
+.descricao {
+    max-width: 500px;
+
+    color: #adc1d8;
+
+    font-size: 17px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   INDICADORES
+========================================= */
+
+.indicadores {
+    width: 100%;
+
+    display: flex;
+
+    gap: 16px;
+
+    margin-top: auto;
+}
+
+.indicador {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.linha {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 16px;
+
+    background-color: #2776d1;
+}
+
+.indicador strong {
+    margin-bottom: 6px;
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.indicador span {
+    color: #758ca7;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   LADO DIREITO
+========================================= */
+
+.LadoDireito {
+    width: 33%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 40px 32px;
+
+    background-color: #f7f8fa;
+}
+
+
+/* =========================================
+   CONTEÚDO DO CADASTRO
+========================================= */
+
+.conteudo-cadastro {
+    width: 100%;
+    max-width: 385px;
+}
+
+
+/* =========================================
+   TÍTULO CRIAR CONTA
+========================================= */
+
+.titulo-cadastro {
+    margin-bottom: 26px;
+}
+
+.titulo-cadastro h2 {
+    margin-bottom: 7px;
+
+    color: #08172b;
+
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.titulo-cadastro p {
+    color: #687386;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   FORMULÁRIO
+========================================= */
+
+form {
+    width: 100%;
+}
+
+.campo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 17px;
+}
+
+
+/* LABEL */
+
+.campo label {
+    margin-bottom: 7px;
+
+    color: #14233b;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* ASTERISCO VERMELHO */
+
+.campo label span {
+    color: #e53935;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.campo input,
+.campo select {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d9dee7;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background-color: white;
+
+    color: #17243a;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+
+/* PLACEHOLDER */
+
+.campo input::placeholder {
+    color: #a3aabd;
+}
+
+
+/* FOCO */
+
+.campo input:focus,
+.campo select:focus {
+    border-color: #2f80ed;
+
+    box-shadow:
+        0 0 0 3px rgba(47, 128, 237, 0.10);
+}
+
+
+/* =========================================
+   MATRÍCULA + CARGO NA MESMA LINHA
+========================================= */
+
+.linha-formulario {
+    width: 100%;
+
+    display: flex;
+
+    gap: 13px;
+}
+
+.linha-formulario .campo {
+    flex: 1;
+}
+
+
+/* =========================================
+   SELECT CARGO
+========================================= */
+
+.campo select {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   BOTÃO CRIAR CONTA
+========================================= */
+
+button {
+    width: 100%;
+    height: 45px;
+
+    margin-top: 1px;
+    margin-bottom: 20px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #2c75d1;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #1e63b9;
+
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   FAZER LOGIN
+========================================= */
+
+.fazer-login {
+    text-align: center;
+
+    color: #687386;
+
+    font-size: 14px;
+}
+
+.fazer-login a {
+    margin-left: 3px;
+
+    color: #0866e8;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.fazer-login a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    .LadoEsquerdo,
+    .LadoDireito {
+        width: 100%;
+    }
+
+    .LadoEsquerdo {
+        min-height: 650px;
+
+        padding: 40px 30px;
+    }
+
+    .LadoDireito {
+        min-height: auto;
+
+        padding: 45px 30px;
+    }
+
+    .conteudo-cadastro {
+        max-width: 500px;
+    }
+
+    .LadoEsquerdo h1 {
+        font-size: 40px;
+    }
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 550px) {
+
+    .LadoEsquerdo {
+        min-height: auto;
+
+        padding: 30px 22px 40px;
+    }
+
+    .LadoEsquerdo h1 {
+        font-size: 34px;
+    }
+
+    .descricao {
+        margin-bottom: 35px;
+
+        font-size: 15px;
+    }
+
+    .indicadores {
+        flex-direction: column;
+
+        gap: 22px;
+    }
+
+    .LadoDireito {
+        padding: 35px 22px;
+    }
+
+    .titulo-cadastro h2 {
+        font-size: 24px;
+    }
+
+    /*
+       Matrícula e cargo passam
+       a ficar um embaixo do outro
+       no celular
+    */
+
+    .linha-formulario {
+        flex-direction: column;
+
+        gap: 0;
+    }
+}

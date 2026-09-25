@@ -1,473 +1,3373 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Problema - AutoRelatório</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Registrar Problema - AutoRelatório
+    </title>
+
     <style>
+
+        /* =========================================
+           CONFIGURAÇÕES GERAIS
+        ========================================= */
+
         * {
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
         }
 
         body {
+            min-height: 100vh;
+            background-color: #f4f6f9;
+            color: #0c1b33;
+        }
+
+
+        /* =========================================
+           MENU LATERAL
+        ========================================= */
+
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            background-color: #0b132b;
+            color: white;
+
             display: flex;
-            background-color: #f3f4f6;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .logo {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: #2563eb;
+
+            border-radius: 4px;
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+
+            margin-top: 2px;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+        }
+
+
+        /* =========================================
+           MENU
+        ========================================= */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border-radius: 5px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background-color: #151f3a;
+            color: white;
+        }
+
+        .menu a.active {
+            background-color: #12315c;
+
+            color: #3b82f6;
+
+            border-left: 2px solid #3b82f6;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+
+        /* =========================================
+           PARTE INFERIOR DO MENU
+        ========================================= */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background-color: #2867b5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            margin-top: 3px;
+
+            color: #7f8ba0;
+
+            font-size: 9px;
+        }
+
+        .logout {
+            display: inline-flex;
+            align-items: center;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+
+        /* =========================================
+           CONTEÚDO PRINCIPAL
+        ========================================= */
+
+        .main {
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
             min-height: 100vh;
         }
 
-        /* Menu Lateral (Sidebar) */
-        .sidebar {
-            width: 220px;
-            background-color: #0b132b;
-            color: #ffffff;
-            padding: 20px 15px;
+
+        /* =========================================
+           TOPO
+        ========================================= */
+
+        .topbar {
+            height: 65px;
+
+            padding: 0 25px;
+
             display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-        }
-
-        .brand {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            padding-left: 10px;
-        }
-
-        .brand span {
-            display: block;
-            font-size: 0.65rem;
-            color: #4895ef;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 4px;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 0.88rem;
-            transition: background-color 0.2s, color 0.2s;
-        }
-
-        .nav-item:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-item.active {
-            background-color: #1c2541;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        /* Conteúdo Principal */
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Cabeçalho Superior */
-        .top-header {
-            background-color: #ffffff;
-            padding: 15px 30px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+
+            background-color: white;
+
+            border-bottom: 1px solid #e1e5eb;
         }
 
-        .top-header h1 {
-            font-size: 1.25rem;
-            color: #111827;
+        .page-title h1 {
+            margin-bottom: 4px;
+
+            font-size: 18px;
         }
 
-        .top-header p {
-            font-size: 0.8rem;
-            color: #6b7280;
+        .page-title p {
+            color: #7a8494;
+
+            font-size: 12px;
         }
 
-        .user-profile {
+        .top-right {
+            display: flex;
+            align-items: center;
+
+            gap: 17px;
+        }
+
+        .notification {
+            color: #506075;
+
+            cursor: pointer;
+        }
+
+        .user {
             width: 32px;
             height: 32px;
-            background-color: #1d61b8;
-            color: white;
-            border-radius: 50%;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            border-radius: 50%;
+
+            background-color: #2867b5;
+
+            color: white;
+
+            font-size: 11px;
+
             font-weight: bold;
-            font-size: 0.85rem;
         }
 
-        /* Área do Formulário */
-        .content-area {
+
+        /* =========================================
+           ÁREA DE CONTEÚDO
+        ========================================= */
+
+        .content {
             padding: 30px;
-            display: flex;
-            justify-content: center;
         }
 
-        .container {
-            background-color: #ffffff;
+
+        /* =========================================
+           CARD
+        ========================================= */
+
+        .form-card {
             width: 100%;
-            max-width: 650px;
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            background-color: white;
+
+            border: 1px solid #dde2e9;
+
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e5e7eb;
+
             overflow: hidden;
+
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.03);
         }
 
-        fieldset {
-            background-color: #f8f9fa;
-            border: none;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 20px 25px;
+        .form-header {
+            padding: 25px 30px;
+
+            border-bottom: 1px solid #e5e8ed;
         }
 
-        .subtitle-code {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            margin-bottom: 4px;
-        }
+        .inspection-code {
+            margin-bottom: 10px;
 
-        fieldset h2 {
-            font-size: 1.15rem;
-            color: #111827;
-        }
+            color: #2975dc;
 
-        .form-content {
-            padding: 25px;
-        }
+            font-size: 12px;
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label.field-label {
-            display: block;
-            font-size: 0.85rem;
             font-weight: 600;
-            color: #374151;
-            margin-bottom: 6px;
+        }
+
+        .form-header h2 {
+            font-size: 19px;
+        }
+
+
+        /* =========================================
+           FORMULÁRIO
+        ========================================= */
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+
+            margin-bottom: 23px;
+        }
+
+        .field label {
+            margin-bottom: 8px;
+
+            color: #162238;
+
+            font-size: 13px;
+
+            font-weight: 600;
         }
 
         .required {
-            color: #ef4444;
+            color: #e52e3d;
         }
 
-        input[type="text"],
-        textarea {
+        .field input,
+        .field textarea,
+        .field select {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
+
+            border: 1px solid #d7dce4;
+
             border-radius: 6px;
-            font-size: 0.9rem;
-            color: #111827;
-            background-color: #ffffff;
+
+            background-color: white;
+
+            color: #162238;
+
+            font-size: 14px;
+
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+
+            transition: 0.2s;
         }
 
-        input:focus, textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        .field input,
+        .field select {
+            height: 44px;
+
+            padding: 0 13px;
         }
 
-        textarea {
+        .field textarea {
+            min-height: 120px;
+
+            padding: 13px;
+
             resize: vertical;
         }
 
-        /* Layout em colunas para Criticidade e Prioridade */
-        .selection-grid {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            border-color: #2e7de1;
+
+            box-shadow:
+                0 0 0 3px rgba(46, 125, 225, 0.10);
         }
 
-        .selection-col {
-            flex: 1;
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: #a0a8b7;
         }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 6px;
-        }
 
-        /* Oculta os radio buttons originais */
-        .btn-check {
-            display: none;
-        }
+        /* =========================================
+           NOVO - ORIGEM DO PROBLEMA
+        ========================================= */
 
-        /* Estilização dos Botões/Cards de Seleção */
-        .btn-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            font-size: 0.82rem;
-            color: #374151;
-            cursor: pointer;
-            text-align: center;
-            user-select: none;
-            transition: all 0.2s ease;
-        }
+        .origem-box {
+            margin-bottom: 25px;
 
-        .btn-card:hover {
-            border-color: #d1d5db;
-            background-color: #f9fafb;
-        }
+            padding: 18px;
 
-        /* Estado Selecionado para Criticidade */
-        .btn-check[name="criticidade"]:checked + .btn-card {
-            background-color: #fef3c7;
-            border-color: #f59e0b;
-            color: #b45309;
-            font-weight: 600;
-        }
+            background-color: #f8fafc;
 
-        /* Estado Selecionado para Prioridade */
-        .btn-check[name="prioridade"]:checked + .btn-card {
-            background-color: #eff6ff;
-            border-color: #3b82f6;
-            color: #1d4ed8;
-            font-weight: 600;
-        }
+            border: 1px solid #dce3ec;
 
-        /* Área de Upload de Foto (Estilo Caixa Tracejada) */
-        .upload-area {
-            border: 2px dashed #d1d5db;
             border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            width: 110px;
-            height: 110px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            background-color: #fafafa;
-            transition: border-color 0.2s, background-color 0.2s;
         }
 
-        .upload-area:hover {
-            border-color: #9ca3af;
-            background-color: #f3f4f6;
+        .origem-titulo {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #162238;
+
+            font-size: 13px;
+
+            font-weight: 600;
         }
 
-        .upload-icon {
-            font-size: 1.2rem;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-
-        .upload-text {
-            font-size: 0.75rem;
-            color: #6b7280;
-        }
-
-        /* Esconde o input file padrão */
-        #fotografias {
-            display: none;
-        }
-
-        /* Botões */
-        .button-group {
+        .origem-opcoes {
             display: flex;
             gap: 12px;
-            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .origem-opcao {
+            min-width: 220px;
+
+            padding: 13px 15px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            border: 1px solid #d7dce4;
+
+            border-radius: 6px;
+
+            background-color: white;
+
+            color: #3b4657;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .origem-opcao:hover {
+            border-color: #2e7de1;
+
+            background-color: #f7faff;
+        }
+
+        .origem-opcao:has(input:checked) {
+            border-color: #2e7de1;
+
+            background-color: #f0f6ff;
+        }
+
+        .origem-opcao input {
+            accent-color: #2d76dc;
+        }
+
+
+        /* =========================================
+           DADOS DO PROBLEMA AVULSO
+        ========================================= */
+
+        #dadosProblemaAvulso {
+            display: none;
+
+            margin-bottom: 25px;
+
+            padding: 20px;
+
+            border: 1px solid #dce3ec;
+
+            border-radius: 8px;
+
+            background-color: #fafbfd;
+        }
+
+        .avulso-titulo {
+            margin-bottom: 18px;
+
+            color: #162238;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .linha-campos {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 15px;
+        }
+
+
+        /* =========================================
+           OPÇÕES
+        ========================================= */
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-title {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #162238;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .options {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .option {
+            min-width: 125px;
+
+            padding: 12px 15px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            border: 1px solid #d7dce4;
+
+            border-radius: 6px;
+
+            background-color: white;
+
+            color: #3b4657;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            border-color: #2e7de1;
+
+            background-color: #f7faff;
+        }
+
+        .option:has(input:checked) {
+            border-color: #2e7de1;
+
+            background-color: #f0f6ff;
+        }
+
+        .option input {
+            accent-color: #2d76dc;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           FOTOGRAFIAS
+        ========================================= */
+
+        .photos {
+            margin-top: 10px;
+
+            margin-bottom: 28px;
+        }
+
+        .photo-title {
+            margin-bottom: 10px;
+
+            color: #162238;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .photo-box {
+            width: 145px;
+            height: 100px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            border: 1px dashed #9aa6b6;
+
+            border-radius: 7px;
+
+            background-color: #fafbfc;
+
+            color: #657286;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .photo-box:hover {
+            border-color: #2e7de1;
+
+            background-color: #f3f8ff;
+        }
+
+        .photo-box input {
+            display: none;
+        }
+
+        .photo-icon {
+            color: #2d76dc;
+
+            font-size: 21px;
+        }
+
+        .photo-box span {
+            font-size: 12px;
+        }
+
+        .foto-info {
+            margin-top: 8px;
+
+            color: #6e7989;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           BOTÕES
+        ========================================= */
+
+        .buttons {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+
+            padding-top: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            min-width: 135px;
+
+            height: 43px;
+
+            padding: 0 20px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
         }
 
         .btn-cancel {
-            background-color: #ffffff;
-            border: 1px solid #d1d5db;
-            color: #374151;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            border: 1px solid #d5dae2;
+
+            background-color: white;
+
+            color: #536074;
         }
 
         .btn-cancel:hover {
-            background-color: #f9fafb;
+            background-color: #f2f4f7;
         }
 
-        .btn-submit {
-            flex: 1;
-            background-color: #1d61b8;
+        .btn-primary {
             border: none;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
+
+            background-color: #2d76dc;
+
+            color: white;
         }
 
-        .btn-submit:hover {
-            background-color: #154a8a;
+        .btn-primary:hover {
+            background-color: #1e63bd;
+
+            transform: translateY(-1px);
         }
+
+
+        /* =========================================
+           RESPONSIVIDADE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+
+                width: calc(100% - 200px);
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+            .topbar {
+                height: auto;
+
+                min-height: 65px;
+
+                padding: 15px 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .form-body {
+                padding: 20px;
+            }
+
+            .origem-opcoes {
+                flex-direction: column;
+            }
+
+            .origem-opcao {
+                width: 100%;
+
+                min-width: 0;
+            }
+
+            .linha-campos {
+                grid-template-columns: 1fr;
+            }
+
+            .options {
+                flex-direction: column;
+            }
+
+            .option {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-    <!-- Lateral (Sidebar) -->
+
+    <!-- =========================================
+         MENU LATERAL
+    ========================================== -->
+
     <aside class="sidebar">
-        <div class="brand">
-            AutoRelatório
-            <span>INDUSTRIAL</span>
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
         </div>
-        <ul class="nav-menu">
-            <li class="nav-item">Dashboard</li>
-            <li class="nav-item">Nova Inspeção</li>
-            <li class="nav-item active">Registrar Problema</li>
-            <li class="nav-item">Histórico</li>
-            <li class="nav-item">Relatórios</li>
-            <li class="nav-item">Áreas</li>
-            <li class="nav-item">Equipamentos</li>
-        </ul>
+
+
+        <!-- MENU -->
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="nova_inspecao.html">
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
+                Nova Inspeção
+
+            </a>
+
+
+            <a
+                href="registrar_problema.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    △
+                </span>
+
+                Registrar Problema
+
+            </a>
+
+
+            <a href="historico.html">
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
+                Histórico
+
+            </a>
+
+
+            <a href="relatorios.html">
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a href="areas.html">
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
+                Áreas
+
+            </a>
+
+
+            <a href="equipamentos.html">
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
+                Equipamentos
+
+            </a>
+
+        </nav>
+
+
+        <!-- =========================================
+             PERFIL / SAIR
+        ========================================== -->
+
+        <div class="sidebar-bottom">
+
+            <div class="profile">
+
+                <div class="profile-circle">
+                    TC
+                </div>
+
+                <div>
+
+                    <div class="profile-name">
+                        Técnico
+                    </div>
+
+                    <div class="profile-info">
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+
+                ⇥ &nbsp; Sair
+
+            </a>
+
+        </div>
+
     </aside>
 
-    <!-- Conteúdo Principal -->
-    <div class="main-wrapper">
-        
-        <!-- Cabeçalho Superior -->
-        <header class="top-header">
-            <div>
-                <h1>Registrar Problema</h1>
-                <p>INS-2026-005 · Alto Forno #3</p>
+
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPO -->
+
+        <header class="topbar">
+
+            <div class="page-title">
+
+                <h1>
+                    Registrar Problema
+                </h1>
+
+                <p id="codigoTopo">
+                    Registro de ocorrência
+                </p>
+
             </div>
-            <div class="user-profile">E</div>
+
+
+            <div class="top-right">
+
+                <div class="notification">
+                    ♢
+                </div>
+
+                <div class="user">
+                    TC
+                </div>
+
+            </div>
+
         </header>
 
-        <!-- Formulário Centralizado -->
-        <main class="content-area">
-            <div class="container">
-                <form>
-                    <fieldset>
-                        <p class="subtitle-code">INS-2026-005 · Alto Forno #3 · Redução</p>
-                        <h2>Registrar Problema</h2>
-                    </fieldset>
 
-                    <div class="form-content">
-                        
-                        <div class="form-group">
-                            <label for="titulo" class="field-label">Título do problema <span class="required">*</span></label>
-                            <input type="text" name="titulo" id="titulo" placeholder="Ex: Vazamento no circuito de resfriamento" required>
-                        </div>
+        <!-- FORMULÁRIO -->
 
-                        <div class="form-group">
-                            <label for="descricao" class="field-label">Descrição técnica <span class="required">*</span></label>
-                            <textarea name="descricao" id="descricao" rows="4" placeholder="Descreva detalhadamente o problema encontrado, sintomas, medições, localização exata..." required></textarea>
-                        </div>
+        <section class="content">
 
-                        <!-- Opções de Seleção de Criticidade e Prioridade -->
-                        <div class="selection-grid">
-                            
-                            <!-- Coluna Criticidade -->
-                            <div class="selection-col">
-                                <label class="field-label">Criticidade <span class="required">*</span></label>
-                                <div class="options-grid">
-                                    <input type="radio" name="criticidade" id="critica" value="critica" class="btn-check" required>
-                                    <label for="critica" class="btn-card">Crítica</label>
+            <div class="form-card">
 
-                                    <input type="radio" name="criticidade" id="alta" value="alta" class="btn-check">
-                                    <label for="alta" class="btn-card">Alta</label>
 
-                                    <input type="radio" name="criticidade" id="media" value="media" class="btn-check">
-                                    <label for="media" class="btn-card">Média</label>
+                <!-- CABEÇALHO -->
 
-                                    <input type="radio" name="criticidade" id="baixa" value="baixa" class="btn-check">
-                                    <label for="baixa" class="btn-card">Baixa</label>
-                                </div>
-                            </div>
+                <div class="form-header">
 
-                            <!-- Coluna Prioridade -->
-                            <div class="selection-col">
-                                <label class="field-label">Prioridade <span class="required">*</span></label>
-                                <div class="options-grid">
-                                    <input type="radio" name="prioridade" id="urgente" value="urgente" class="btn-check" required>
-                                    <label for="urgente" class="btn-card">Urgente</label>
+                    <div
+                        class="inspection-code"
+                        id="dadosInspecao"
+                    >
+                        Selecione como deseja registrar o problema
+                    </div>
 
-                                    <input type="radio" name="prioridade" id="alta_p" value="alta" class="btn-check">
-                                    <label for="alta_p" class="btn-card">Alta</label>
+                    <h2>
+                        Registrar Problema
+                    </h2>
 
-                                    <input type="radio" name="prioridade" id="normal" value="normal" class="btn-check">
-                                    <label for="normal" class="btn-card">Normal</label>
+                </div>
 
-                                    <input type="radio" name="prioridade" id="baixa_p" value="baixa" class="btn-check">
-                                    <label for="baixa_p" class="btn-card">Baixa</label>
-                                </div>
-                            </div>
 
-                        </div>
+                <!-- FORMULÁRIO -->
 
-                        <!-- Anexo de Fotografias -->
-                        <div class="form-group">
-                            <label class="field-label">Fotografias</label>
-                            
-                            <!-- Caixa Clicável -->
-                            <label for="fotografias" class="upload-area" id="uploadLabel">
-                                <span class="upload-icon">📷</span>
-                                <span class="upload-text" id="uploadText">Foto</span>
+                <form
+                    class="form-body"
+                    id="formProblema"
+                >
+
+
+                    <!-- =====================================
+                         ORIGEM DO PROBLEMA
+                    ====================================== -->
+
+                    <div class="origem-box">
+
+                        <span class="origem-titulo">
+                            Como este problema foi identificado?
+                        </span>
+
+                        <div class="origem-opcoes">
+
+                            <label class="origem-opcao">
+
+                                <input
+                                    type="radio"
+                                    name="origemProblema"
+                                    value="inspecao"
+                                    id="origemInspecao"
+                                >
+
+                                Vincular à inspeção atual
+
                             </label>
-                            
-                            <!-- Input Oculto -->
-                            <input type="file" name="fotografias" id="fotografias" accept="image/*" multiple>
-                        </div>
 
-                        <script>
-                            const fileInput = document.getElementById('fotografias');
-                            const uploadText = document.getElementById('uploadText');
-                            const uploadLabel = document.getElementById('uploadLabel');
 
-                            // Atualiza o texto do botão quando o usuário seleciona uma imagem
-                            fileInput.addEventListener('change', function() {
-                                if (this.files && this.files.length > 0) {
-                                    if (this.files.length === 1) {
-                                        uploadText.innerText = "1 foto anexada";
-                                  } else {
-                                        uploadText.innerText = `${this.files.length} fotos`;
-                                    }
-                                    uploadLabel.style.borderColor = "#1d61b8";
-                                    uploadLabel.style.backgroundColor = "#eff6ff";
-                                }
-                            });
+                            <label class="origem-opcao">
 
-                            // Reseta o texto do upload ao clicar em Cancelar
-                            document.querySelector('form').addEventListener('reset', function() {
-                                uploadText.innerText = "Foto";
-                                uploadLabel.style.borderColor = "#d1d5db";
-                                uploadLabel.style.backgroundColor = "#fafafa";
-                            });
-                        </script>
+                                <input
+                                    type="radio"
+                                    name="origemProblema"
+                                    value="avulso"
+                                    id="origemAvulso"
+                                >
 
-                        <!-- Botões do Formulário -->
-                        <div class="button-group">
-                            <input type="reset" class="btn-cancel" value="Cancelar">
-                            <input type="submit" class="btn-submit" value="📄 Salvar e Gerar Relatório">
+                                Registrar sem inspeção
+
+                            </label>
+
                         </div>
 
                     </div>
+
+
+                    <!-- =====================================
+                         DADOS PARA PROBLEMA SEM INSPEÇÃO
+                    ====================================== -->
+
+                    <div id="dadosProblemaAvulso">
+
+                        <div class="avulso-titulo">
+                            Localização do problema
+                        </div>
+
+
+                        <div class="linha-campos">
+
+
+                            <!-- ÁREA -->
+
+                            <div class="field">
+
+                                <label for="areaProblema">
+
+                                    Área Industrial
+
+                                    <span class="required">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <select id="areaProblema">
+
+                                    <option value="">
+                                        Selecione a área
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- EQUIPAMENTO -->
+
+                            <div class="field">
+
+                                <label for="equipamentoProblema">
+
+                                    Equipamento
+
+                                    <span class="required">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <select id="equipamentoProblema">
+
+                                    <option value="">
+                                        Selecione o equipamento
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PATRIMÔNIO -->
+
+                        <div class="field">
+
+                            <label for="patrimonioProblema">
+                                Nº Patrimônio
+                            </label>
+
+                            <input
+                                type="text"
+                                id="patrimonioProblema"
+                                placeholder="Ex: AF-003"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TÍTULO -->
+
+                    <div class="field">
+
+                        <label for="tituloProblema">
+
+                            Título do problema
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="tituloProblema"
+                            name="tituloProblema"
+                            placeholder="Ex: Vazamento no circuito de resfriamento"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIÇÃO -->
+
+                    <div class="field">
+
+                        <label for="descricaoProblema">
+
+                            Descrição técnica
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <textarea
+                            id="descricaoProblema"
+                            name="descricaoProblema"
+                            placeholder="Descreva detalhadamente o problema encontrado, sintomas, medições, localização exata..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- CRITICIDADE -->
+
+                    <div class="option-group">
+
+                        <span class="option-title">
+
+                            Criticidade
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </span>
+
+
+                        <div class="options">
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="criticidade"
+                                    value="Crítica"
+                                    required
+                                >
+
+                                Crítica
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="criticidade"
+                                    value="Alta"
+                                >
+
+                                Alta
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="criticidade"
+                                    value="Média"
+                                >
+
+                                Média
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="criticidade"
+                                    value="Baixa"
+                                >
+
+                                Baixa
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRIORIDADE -->
+
+                    <div class="option-group priority">
+
+                        <span class="option-title">
+
+                            Prioridade
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </span>
+
+
+                        <div class="options">
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="prioridade"
+                                    value="Urgente"
+                                    required
+                                >
+
+                                Urgente
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="prioridade"
+                                    value="Alta"
+                                >
+
+                                Alta
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="prioridade"
+                                    value="Normal"
+                                >
+
+                                Normal
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="prioridade"
+                                    value="Baixa"
+                                >
+
+                                Baixa
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOTOGRAFIAS -->
+
+                    <div class="photos">
+
+                        <div class="photo-title">
+                            Fotografias
+                        </div>
+
+
+                        <label class="photo-box">
+
+                            <input
+                                type="file"
+                                id="fotografias"
+                                name="fotografias"
+                                accept="image/*"
+                                multiple
+                            >
+
+                            <div class="photo-icon">
+                                ▧
+                            </div>
+
+                            <span>
+                                Adicionar fotos
+                            </span>
+
+                        </label>
+
+
+                        <div
+                            class="foto-info"
+                            id="fotoInfo"
+                        >
+                            Nenhuma foto selecionada
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOTÕES -->
+
+                    <div class="buttons">
+
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            id="btnCancelar"
+                        >
+                            Cancelar
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            ▧ &nbsp; Salvar e Gerar Relatório
+                        </button>
+
+                    </div>
+
                 </form>
+
             </div>
-        </main>
-    </div>
+
+        </section>
+
+    </main>
+
+
+    <!--
+        CONTINUA NA PARTE 2.
+
+        NÃO COLOQUE </body> OU </html> AQUI.
+
+        A PARTE 2 COMEÇARÁ COM O <script>
+        RESPONSÁVEL POR:
+
+        - detectar a inspeção atual;
+        - permitir problema sem inspeção;
+        - carregar áreas reais;
+        - carregar equipamentos reais;
+        - filtrar equipamentos pela área;
+        - salvar problema avulso;
+        - salvar problema vinculado à inspeção;
+        - atualizar os dados no localStorage;
+        - manter o botão Sair funcionando.
+    --><script>
+/* =========================================================
+   REGISTRAR PROBLEMA
+   - COM INSPEÇÃO
+   - SEM INSPEÇÃO
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================================
+       ELEMENTOS DA PÁGINA
+    ===================================================== */
+
+    const formProblema =
+        document.getElementById("formProblema");
+
+    const origemInspecao =
+        document.getElementById("origemInspecao");
+
+    const origemAvulso =
+        document.getElementById("origemAvulso");
+
+    const dadosProblemaAvulso =
+        document.getElementById("dadosProblemaAvulso");
+
+    const dadosInspecao =
+        document.getElementById("dadosInspecao");
+
+    const areaProblema =
+        document.getElementById("areaProblema");
+
+    const equipamentoProblema =
+        document.getElementById("equipamentoProblema");
+
+    const patrimonioProblema =
+        document.getElementById("patrimonioProblema");
+
+    const tituloProblema =
+        document.getElementById("tituloProblema");
+
+    const descricaoProblema =
+        document.getElementById("descricaoProblema");
+
+    const fotografias =
+        document.getElementById("fotografias");
+
+    const fotoInfo =
+        document.getElementById("fotoInfo");
+
+    const btnCancelar =
+        document.getElementById("btnCancelar");
+
+    const btnSair =
+        document.getElementById("btnSair");
+
+
+    /* =====================================================
+       FUNÇÕES AUXILIARES
+    ===================================================== */
+
+    function lerLocalStorage(chave) {
+
+        try {
+
+            const dados =
+                JSON.parse(localStorage.getItem(chave));
+
+            return dados;
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao ler:",
+                chave,
+                erro
+            );
+
+            return null;
+        }
+    }
+
+
+    function gerarId(prefixo) {
+
+        return (
+            prefixo +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.floor(Math.random() * 10000)
+        );
+    }
+
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "";
+        }
+
+        const partes =
+            data.split("-");
+
+        if (partes.length !== 3) {
+            return data;
+        }
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+    }
+
+
+    function dataHoje() {
+
+        const agora =
+            new Date();
+
+        const ano =
+            agora.getFullYear();
+
+        const mes =
+            String(
+                agora.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dia =
+            String(
+                agora.getDate()
+            ).padStart(2, "0");
+
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
+    }
+
+
+    function horaAtual() {
+
+        const agora =
+            new Date();
+
+        const horas =
+            String(
+                agora.getHours()
+            ).padStart(2, "0");
+
+        const minutos =
+            String(
+                agora.getMinutes()
+            ).padStart(2, "0");
+
+        return (
+            horas +
+            ":" +
+            minutos
+        );
+    }
+
+
+    /* =====================================================
+       INSPEÇÕES
+    ===================================================== */
+
+    let inspecoes =
+        lerLocalStorage("inspecoes") || [];
+
+
+    /*
+       Vamos tentar descobrir se existe uma inspeção
+       selecionada anteriormente.
+    */
+
+    let inspecaoAtual = null;
+
+
+    const idInspecaoAtual =
+        localStorage.getItem("inspecaoAtualId");
+
+
+    if (idInspecaoAtual) {
+
+        inspecaoAtual =
+            inspecoes.find(function (inspecao) {
+
+                return (
+                    String(inspecao.id) ===
+                    String(idInspecaoAtual)
+                );
+
+            });
+
+    }
+
+
+    /*
+       Compatibilidade caso seu sistema tenha salvo
+       a inspeção inteira em outra chave.
+    */
+
+    if (!inspecaoAtual) {
+
+        const inspecaoSalva =
+            lerLocalStorage("inspecaoAtual");
+
+        if (inspecaoSalva) {
+
+            inspecaoAtual =
+                inspecaoSalva;
+
+        }
+
+    }
+
+
+    /*
+       Outra chave possível usada durante o fluxo
+       Nova Inspeção -> Registrar Problema.
+    */
+
+    if (!inspecaoAtual) {
+
+        const inspecaoSelecionada =
+            lerLocalStorage("inspecaoSelecionada");
+
+        if (inspecaoSelecionada) {
+
+            inspecaoAtual =
+                inspecaoSelecionada;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CONFIGURA A ORIGEM INICIAL
+    ===================================================== */
+
+    if (inspecaoAtual) {
+
+        origemInspecao.checked = true;
+
+        origemAvulso.checked = false;
+
+        dadosProblemaAvulso.style.display =
+            "none";
+
+
+        const codigo =
+            inspecaoAtual.codigo ||
+            inspecaoAtual.numero ||
+            inspecaoAtual.id ||
+            "Inspeção";
+
+
+        const equipamento =
+            inspecaoAtual.equipamento ||
+            inspecaoAtual.nomeEquipamento ||
+            "";
+
+
+        dadosInspecao.textContent =
+            codigo +
+            (
+                equipamento
+                    ? " • " + equipamento
+                    : ""
+            );
+
+    } else {
+
+        /*
+           Se não existe inspeção atual,
+           automaticamente permite registrar
+           um problema avulso.
+        */
+
+        origemAvulso.checked = true;
+
+        origemInspecao.checked = false;
+
+        origemInspecao.disabled = true;
+
+        dadosProblemaAvulso.style.display =
+            "block";
+
+        dadosInspecao.textContent =
+            "Registro independente de inspeção";
+
+    }
+
+
+    /* =====================================================
+       TROCA ENTRE INSPEÇÃO E REGISTRO AVULSO
+    ===================================================== */
+
+    origemInspecao.addEventListener(
+        "change",
+        function () {
+
+            if (!origemInspecao.checked) {
+                return;
+            }
+
+
+            if (!inspecaoAtual) {
+
+                alert(
+                    "Não existe uma inspeção ativa para vincular este problema."
+                );
+
+                origemAvulso.checked = true;
+
+                origemInspecao.checked = false;
+
+                dadosProblemaAvulso.style.display =
+                    "block";
+
+                return;
+            }
+
+
+            dadosProblemaAvulso.style.display =
+                "none";
+
+
+            const codigo =
+                inspecaoAtual.codigo ||
+                inspecaoAtual.numero ||
+                inspecaoAtual.id ||
+                "Inspeção";
+
+
+            dadosInspecao.textContent =
+                "Problema vinculado à " +
+                codigo;
+
+        }
+    );
+
+
+    origemAvulso.addEventListener(
+        "change",
+        function () {
+
+            if (!origemAvulso.checked) {
+                return;
+            }
+
+
+            dadosProblemaAvulso.style.display =
+                "block";
+
+
+            dadosInspecao.textContent =
+                "Registro independente de inspeção";
+
+        }
+    );
+
+
+    /* =====================================================
+       ÁREAS REAIS CADASTRADAS
+    ===================================================== */
+
+    function obterAreas() {
+
+        /*
+           Tentamos as chaves utilizadas normalmente
+           pelo sistema.
+        */
+
+        let areas =
+            lerLocalStorage("areas") || [];
+
+
+        if (
+            !Array.isArray(areas) ||
+            areas.length === 0
+        ) {
+
+            areas =
+                lerLocalStorage("areasIndustriais") || [];
+
+        }
+
+
+        return Array.isArray(areas)
+            ? areas
+            : [];
+    }
+
+
+    function nomeDaArea(area) {
+
+        if (typeof area === "string") {
+            return area;
+        }
+
+
+        return (
+            area.nome ||
+            area.area ||
+            area.titulo ||
+            ""
+        );
+    }
+
+
+    function idDaArea(area) {
+
+        if (typeof area === "string") {
+            return area;
+        }
+
+
+        return (
+            area.id ||
+            area.nome ||
+            area.area ||
+            ""
+        );
+    }
+
+
+    function carregarAreas() {
+
+        const areas =
+            obterAreas();
+
+
+        areaProblema.innerHTML =
+            '<option value="">Selecione a área</option>';
+
+
+        areas.forEach(function (area) {
+
+            const nome =
+                nomeDaArea(area);
+
+            const id =
+                idDaArea(area);
+
+
+            if (!nome) {
+                return;
+            }
+
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                id;
+
+
+            option.textContent =
+                nome;
+
+
+            option.dataset.nome =
+                nome;
+
+
+            areaProblema.appendChild(option);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       EQUIPAMENTOS REAIS
+    ===================================================== */
+
+    function obterEquipamentos() {
+
+        let equipamentos =
+            lerLocalStorage("equipamentos") || [];
+
+
+        if (
+            !Array.isArray(equipamentos) ||
+            equipamentos.length === 0
+        ) {
+
+            equipamentos =
+                lerLocalStorage(
+                    "equipamentosIndustriais"
+                ) || [];
+
+        }
+
+
+        return Array.isArray(equipamentos)
+            ? equipamentos
+            : [];
+    }
+
+
+    function nomeDoEquipamento(equipamento) {
+
+        if (typeof equipamento === "string") {
+            return equipamento;
+        }
+
+
+        return (
+            equipamento.nome ||
+            equipamento.equipamento ||
+            equipamento.titulo ||
+            ""
+        );
+    }
+
+
+    function idDoEquipamento(equipamento) {
+
+        if (typeof equipamento === "string") {
+            return equipamento;
+        }
+
+
+        return (
+            equipamento.id ||
+            equipamento.nome ||
+            equipamento.equipamento ||
+            ""
+        );
+    }
+
+
+    function areaDoEquipamento(equipamento) {
+
+        if (typeof equipamento === "string") {
+            return "";
+        }
+
+
+        return (
+            equipamento.areaId ||
+            equipamento.idArea ||
+            equipamento.area ||
+            equipamento.areaNome ||
+            ""
+        );
+    }
+
+
+    function patrimonioDoEquipamento(equipamento) {
+
+        if (typeof equipamento === "string") {
+            return "";
+        }
+
+
+        return (
+            equipamento.patrimonio ||
+            equipamento.numeroPatrimonio ||
+            equipamento.tag ||
+            equipamento.codigo ||
+            ""
+        );
+    }
+
+
+    /* =====================================================
+       CARREGA EQUIPAMENTOS CONFORME A ÁREA
+    ===================================================== */
+
+    function carregarEquipamentos() {
+
+        const areaSelecionada =
+            areaProblema.value;
+
+
+        const optionArea =
+            areaProblema.options[
+                areaProblema.selectedIndex
+            ];
+
+
+        const nomeAreaSelecionada =
+            optionArea
+                ? optionArea.dataset.nome
+                : "";
+
+
+        equipamentoProblema.innerHTML =
+            '<option value="">Selecione o equipamento</option>';
+
+
+        patrimonioProblema.value = "";
+
+
+        if (!areaSelecionada) {
+            return;
+        }
+
+
+        const equipamentos =
+            obterEquipamentos();
+
+
+        equipamentos.forEach(
+            function (equipamento) {
+
+                const areaEquipamento =
+                    String(
+                        areaDoEquipamento(equipamento)
+                    ).trim();
+
+
+                const corresponde =
+                    areaEquipamento ===
+                        String(areaSelecionada).trim() ||
+
+                    areaEquipamento.toLowerCase() ===
+                        String(
+                            nomeAreaSelecionada
+                        ).trim().toLowerCase();
+
+
+                if (!corresponde) {
+                    return;
+                }
+
+
+                const nome =
+                    nomeDoEquipamento(
+                        equipamento
+                    );
+
+
+                if (!nome) {
+                    return;
+                }
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    idDoEquipamento(
+                        equipamento
+                    );
+
+
+                option.textContent =
+                    nome;
+
+
+                option.dataset.nome =
+                    nome;
+
+
+                option.dataset.patrimonio =
+                    patrimonioDoEquipamento(
+                        equipamento
+                    );
+
+
+                equipamentoProblema.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    areaProblema.addEventListener(
+        "change",
+        carregarEquipamentos
+    );
+
+
+    /* =====================================================
+       PATRIMÔNIO AUTOMÁTICO
+    ===================================================== */
+
+    equipamentoProblema.addEventListener(
+        "change",
+        function () {
+
+            const option =
+                equipamentoProblema.options[
+                    equipamentoProblema.selectedIndex
+                ];
+
+
+            if (!option) {
+
+                patrimonioProblema.value = "";
+
+                return;
+            }
+
+
+            patrimonioProblema.value =
+                option.dataset.patrimonio || "";
+
+        }
+    );
+
+
+    carregarAreas();
+
+
+    /* =====================================================
+       FOTOGRAFIAS
+    ===================================================== */
+
+    let fotosBase64 = [];
+
+
+    fotografias.addEventListener(
+        "change",
+        async function () {
+
+            const arquivos =
+                Array.from(
+                    fotografias.files
+                );
+
+
+            if (arquivos.length === 0) {
+
+                fotosBase64 = [];
+
+                fotoInfo.textContent =
+                    "Nenhuma foto selecionada";
+
+                return;
+            }
+
+
+            fotoInfo.textContent =
+                arquivos.length === 1
+                    ? "1 foto selecionada"
+                    : arquivos.length +
+                      " fotos selecionadas";
+
+
+            fotosBase64 = [];
+
+
+            for (
+                const arquivo of arquivos
+            ) {
+
+                try {
+
+                    const base64 =
+                        await converterImagemBase64(
+                            arquivo
+                        );
+
+
+                    fotosBase64.push(base64);
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao carregar foto:",
+                        erro
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    function converterImagemBase64(arquivo) {
+
+        return new Promise(
+            function (resolve, reject) {
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function () {
+
+                        resolve(
+                            reader.result
+                        );
+
+                    };
+
+
+                reader.onerror =
+                    function () {
+
+                        reject(
+                            new Error(
+                                "Erro ao ler imagem."
+                            )
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(
+                    arquivo
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CANCELAR
+    ===================================================== */
+
+    btnCancelar.addEventListener(
+        "click",
+        function () {
+
+            const confirmar =
+                confirm(
+                    "Deseja cancelar o registro deste problema?"
+                );
+
+
+            if (!confirmar) {
+                return;
+            }
+
+
+            if (inspecaoAtual) {
+
+                window.location.href =
+                    "nova_inspecao.html";
+
+            } else {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       BOTÃO SAIR
+    ===================================================== */
+
+    btnSair.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+
+            const confirmar =
+                confirm(
+                    "Deseja realmente sair do sistema?"
+                );
+
+
+            if (!confirmar) {
+                return;
+            }
+
+
+            /*
+               Não apagamos os registros do sistema.
+               Apenas dados relacionados à sessão.
+            */
+
+            localStorage.removeItem(
+                "usuarioLogado"
+            );
+
+            localStorage.removeItem(
+                "sessaoUsuario"
+            );
+
+            localStorage.removeItem(
+                "inspecaoAtualId"
+            );
+
+            localStorage.removeItem(
+                "inspecaoAtual"
+            );
+
+            localStorage.removeItem(
+                "inspecaoSelecionada"
+            );
+
+
+            /*
+               Como as páginas ficam dentro da pasta /page/,
+               ../pagina_inicial.html volta para o login.
+            */
+
+            window.location.href =
+                "../pagina_inicial.html";
+
+        }
+    );
+
+
+    /* =====================================================
+       SALVAR PROBLEMA
+    ===================================================== */
+
+    formProblema.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            /* ---------------------------------------------
+               TÍTULO
+            --------------------------------------------- */
+
+            const titulo =
+                tituloProblema.value.trim();
+
+
+            if (!titulo) {
+
+                alert(
+                    "Informe o título do problema."
+                );
+
+                tituloProblema.focus();
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               DESCRIÇÃO
+            --------------------------------------------- */
+
+            const descricao =
+                descricaoProblema.value.trim();
+
+
+            if (!descricao) {
+
+                alert(
+                    "Informe a descrição técnica do problema."
+                );
+
+                descricaoProblema.focus();
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               CRITICIDADE
+            --------------------------------------------- */
+
+            const criticidadeSelecionada =
+                document.querySelector(
+                    'input[name="criticidade"]:checked'
+                );
+
+
+            if (!criticidadeSelecionada) {
+
+                alert(
+                    "Selecione a criticidade."
+                );
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               PRIORIDADE
+            --------------------------------------------- */
+
+            const prioridadeSelecionada =
+                document.querySelector(
+                    'input[name="prioridade"]:checked'
+                );
+
+
+            if (!prioridadeSelecionada) {
+
+                alert(
+                    "Selecione a prioridade."
+                );
+
+                return;
+            }
+
+
+            const criticidade =
+                criticidadeSelecionada.value;
+
+
+            const prioridade =
+                prioridadeSelecionada.value;
+
+
+            /* =================================================
+               PROBLEMA VINCULADO À INSPEÇÃO
+            ================================================= */
+
+            if (
+                origemInspecao.checked &&
+                inspecaoAtual
+            ) {
+
+                salvarProblemaNaInspecao(
+                    titulo,
+                    descricao,
+                    criticidade,
+                    prioridade
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+               PROBLEMA SEM INSPEÇÃO
+            ================================================= */
+
+            if (origemAvulso.checked) {
+
+                salvarProblemaAvulso(
+                    titulo,
+                    descricao,
+                    criticidade,
+                    prioridade
+                );
+
+                return;
+            }
+
+
+            alert(
+                "Selecione como deseja registrar o problema."
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       SALVAR DENTRO DE UMA INSPEÇÃO
+    ===================================================== */
+
+    function salvarProblemaNaInspecao(
+        titulo,
+        descricao,
+        criticidade,
+        prioridade
+    ) {
+
+        if (!inspecaoAtual) {
+
+            alert(
+                "Nenhuma inspeção foi encontrada."
+            );
+
+            return;
+        }
+
+
+        const problema = {
+
+            id:
+                gerarId("PROB"),
+
+            origem:
+                "inspecao",
+
+            inspecaoId:
+                inspecaoAtual.id ||
+                null,
+
+            titulo:
+                titulo,
+
+            descricao:
+                descricao,
+
+            criticidade:
+                criticidade,
+
+            prioridade:
+                prioridade,
+
+            status:
+                "Aberto",
+
+            statusRelatorio:
+                "Em elaboração",
+
+            fotos:
+                fotosBase64,
+
+            data:
+                dataHoje(),
+
+            hora:
+                horaAtual(),
+
+            criadoEm:
+                new Date().toISOString()
+
+        };
+
+
+        /*
+           Garante que exista o array problemas.
+        */
+
+        if (
+            !Array.isArray(
+                inspecaoAtual.problemas
+            )
+        ) {
+
+            inspecaoAtual.problemas = [];
+
+        }
+
+
+        inspecaoAtual.problemas.push(
+            problema
+        );
+
+
+        /*
+           Atualiza a inspeção dentro do array.
+        */
+
+        let indice =
+            inspecoes.findIndex(
+                function (inspecao) {
+
+                    return (
+                        String(inspecao.id) ===
+                        String(inspecaoAtual.id)
+                    );
+
+                }
+            );
+
+
+        if (indice >= 0) {
+
+            inspecoes[indice] =
+                inspecaoAtual;
+
+        } else {
+
+            /*
+               Caso a inspeção atual tenha vindo
+               de uma chave temporária.
+            */
+
+            inspecoes.push(
+                inspecaoAtual
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "inspecoes",
+            JSON.stringify(inspecoes)
+        );
+
+
+        localStorage.setItem(
+            "inspecaoAtual",
+            JSON.stringify(inspecaoAtual)
+        );
+
+
+        /*
+           Guarda o problema para que Relatórios
+           consiga abrir o último relatório criado.
+        */
+
+        localStorage.setItem(
+            "problemaAtual",
+            JSON.stringify(problema)
+        );
+
+
+        criarRelatorio(
+            problema,
+            inspecaoAtual
+        );
+
+
+        alert(
+            "Problema registrado com sucesso!"
+        );
+
+
+        window.location.href =
+            "relatorios.html";
+
+    }
+
+
+    /* =====================================================
+       SALVAR PROBLEMA AVULSO
+    ===================================================== */
+
+    function salvarProblemaAvulso(
+        titulo,
+        descricao,
+        criticidade,
+        prioridade
+    ) {
+
+        /* ---------------------------------------------
+           ÁREA
+        --------------------------------------------- */
+
+        if (!areaProblema.value) {
+
+            alert(
+                "Selecione a área industrial."
+            );
+
+            areaProblema.focus();
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           EQUIPAMENTO
+        --------------------------------------------- */
+
+        if (!equipamentoProblema.value) {
+
+            alert(
+                "Selecione o equipamento."
+            );
+
+            equipamentoProblema.focus();
+
+            return;
+        }
+
+
+        const optionArea =
+            areaProblema.options[
+                areaProblema.selectedIndex
+            ];
+
+
+        const optionEquipamento =
+            equipamentoProblema.options[
+                equipamentoProblema.selectedIndex
+            ];
+
+
+        const nomeArea =
+            optionArea.dataset.nome ||
+            optionArea.textContent;
+
+
+        const nomeEquipamento =
+            optionEquipamento.dataset.nome ||
+            optionEquipamento.textContent;
+
+
+        const problema = {
+
+            id:
+                gerarId("PROB"),
+
+            origem:
+                "avulso",
+
+            inspecaoId:
+                null,
+
+            titulo:
+                titulo,
+
+            descricao:
+                descricao,
+
+            criticidade:
+                criticidade,
+
+            prioridade:
+                prioridade,
+
+            areaId:
+                areaProblema.value,
+
+            area:
+                nomeArea,
+
+            equipamentoId:
+                equipamentoProblema.value,
+
+            equipamento:
+                nomeEquipamento,
+
+            patrimonio:
+                patrimonioProblema.value.trim(),
+
+            status:
+                "Aberto",
+
+            statusRelatorio:
+                "Em elaboração",
+
+            fotos:
+                fotosBase64,
+
+            data:
+                dataHoje(),
+
+            hora:
+                horaAtual(),
+
+            criadoEm:
+                new Date().toISOString()
+
+        };
+
+
+        let problemasAvulsos =
+            lerLocalStorage(
+                "problemasAvulsos"
+            ) || [];
+
+
+        if (
+            !Array.isArray(
+                problemasAvulsos
+            )
+        ) {
+
+            problemasAvulsos = [];
+
+        }
+
+
+        problemasAvulsos.push(
+            problema
+        );
+
+
+        localStorage.setItem(
+            "problemasAvulsos",
+            JSON.stringify(
+                problemasAvulsos
+            )
+        );
+
+
+        /*
+           Também criamos uma coleção geral de problemas.
+
+           Isso ajuda Dashboard, Histórico e Relatórios
+           a trabalharem futuramente com todos os registros.
+        */
+
+        let todosProblemas =
+            lerLocalStorage(
+                "problemas"
+            ) || [];
+
+
+        if (
+            !Array.isArray(
+                todosProblemas
+            )
+        ) {
+
+            todosProblemas = [];
+
+        }
+
+
+        todosProblemas.push(
+            problema
+        );
+
+
+        localStorage.setItem(
+            "problemas",
+            JSON.stringify(
+                todosProblemas
+            )
+        );
+
+
+        localStorage.setItem(
+            "problemaAtual",
+            JSON.stringify(problema)
+        );
+
+
+        criarRelatorio(
+            problema,
+            null
+        );
+
+
+        alert(
+            "Problema registrado com sucesso!"
+        );
+
+
+        window.location.href =
+            "relatorios.html";
+
+    }
+
+
+    /* =====================================================
+       CRIAR RELATÓRIO
+    ===================================================== */
+
+    function criarRelatorio(
+        problema,
+        inspecao
+    ) {
+
+        let relatorios =
+            lerLocalStorage(
+                "relatorios"
+            ) || [];
+
+
+        if (
+            !Array.isArray(
+                relatorios
+            )
+        ) {
+
+            relatorios = [];
+
+        }
+
+
+        /*
+           Número sequencial do relatório.
+        */
+
+        const numero =
+            relatorios.length + 1;
+
+
+        const codigoRelatorio =
+            "REL-" +
+            new Date().getFullYear() +
+            "-" +
+            String(numero).padStart(
+                3,
+                "0"
+            );
+
+
+        let area = "";
+
+        let equipamento = "";
+
+        let patrimonio = "";
+
+        let codigoInspecao = "";
+
+
+        /*
+           Se veio de uma inspeção.
+        */
+
+        if (inspecao) {
+
+            area =
+                inspecao.area ||
+                inspecao.nomeArea ||
+                "";
+
+
+            equipamento =
+                inspecao.equipamento ||
+                inspecao.nomeEquipamento ||
+                "";
+
+
+            patrimonio =
+                inspecao.patrimonio ||
+                inspecao.numeroPatrimonio ||
+                "";
+
+
+            codigoInspecao =
+                inspecao.codigo ||
+                inspecao.numero ||
+                inspecao.id ||
+                "";
+
+        }
+
+
+        /*
+           Se é problema avulso.
+        */
+
+        if (!inspecao) {
+
+            area =
+                problema.area ||
+                "";
+
+
+            equipamento =
+                problema.equipamento ||
+                "";
+
+
+            patrimonio =
+                problema.patrimonio ||
+                "";
+
+
+            codigoInspecao =
+                "Sem inspeção";
+
+        }
+
+
+        const relatorio = {
+
+            id:
+                gerarId("REL"),
+
+            codigo:
+                codigoRelatorio,
+
+            problemaId:
+                problema.id,
+
+            inspecaoId:
+                problema.inspecaoId,
+
+            inspecao:
+                codigoInspecao,
+
+            origem:
+                problema.origem,
+
+            titulo:
+                problema.titulo,
+
+            descricao:
+                problema.descricao,
+
+            criticidade:
+                problema.criticidade,
+
+            prioridade:
+                problema.prioridade,
+
+            area:
+                area,
+
+            equipamento:
+                equipamento,
+
+            patrimonio:
+                patrimonio,
+
+            fotos:
+                problema.fotos || [],
+
+            status:
+                "Em elaboração",
+
+            aprovacao:
+                "Pendente",
+
+            data:
+                problema.data,
+
+            hora:
+                problema.hora,
+
+            criadoEm:
+                new Date().toISOString()
+
+        };
+
+
+        relatorios.push(
+            relatorio
+        );
+
+
+        localStorage.setItem(
+            "relatorios",
+            JSON.stringify(
+                relatorios
+            )
+        );
+
+
+        localStorage.setItem(
+            "relatorioAtual",
+            JSON.stringify(
+                relatorio
+            )
+        );
+
+    }
+
+
+    /* =====================================================
+       GARANTE COLEÇÃO GERAL DOS PROBLEMAS
+       VINCULADOS À INSPEÇÃO
+    ===================================================== */
+
+    function sincronizarProblemasInspecoes() {
+
+        let problemasGerais =
+            lerLocalStorage(
+                "problemas"
+            ) || [];
+
+
+        if (
+            !Array.isArray(
+                problemasGerais
+            )
+        ) {
+
+            problemasGerais = [];
+
+        }
+
+
+        let alterou = false;
+
+
+        inspecoes.forEach(
+            function (inspecao) {
+
+                if (
+                    !Array.isArray(
+                        inspecao.problemas
+                    )
+                ) {
+
+                    return;
+                }
+
+
+                inspecao.problemas.forEach(
+                    function (problema) {
+
+                        const existe =
+                            problemasGerais.some(
+                                function (p) {
+
+                                    return (
+                                        String(p.id) ===
+                                        String(problema.id)
+                                    );
+
+                                }
+                            );
+
+
+                        if (!existe) {
+
+                            problemasGerais.push({
+                                ...problema,
+
+                                origem:
+                                    problema.origem ||
+                                    "inspecao",
+
+                                inspecaoId:
+                                    problema.inspecaoId ||
+                                    inspecao.id,
+
+                                area:
+                                    problema.area ||
+                                    inspecao.area ||
+                                    inspecao.nomeArea ||
+                                    "",
+
+                                equipamento:
+                                    problema.equipamento ||
+                                    inspecao.equipamento ||
+                                    inspecao.nomeEquipamento ||
+                                    "",
+
+                                patrimonio:
+                                    problema.patrimonio ||
+                                    inspecao.patrimonio ||
+                                    inspecao.numeroPatrimonio ||
+                                    ""
+                            });
+
+
+                            alterou = true;
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        if (alterou) {
+
+            localStorage.setItem(
+                "problemas",
+                JSON.stringify(
+                    problemasGerais
+                )
+            );
+
+        }
+
+    }
+
+
+    sincronizarProblemasInspecoes();
+
+
+    /* =====================================================
+       PERFIL DO USUÁRIO
+    ===================================================== */
+
+    function carregarUsuario() {
+
+        const usuario =
+            lerLocalStorage(
+                "usuarioLogado"
+            );
+
+
+        if (!usuario) {
+            return;
+        }
+
+
+        const nome =
+            usuario.nome ||
+            usuario.nomeCompleto ||
+            "Técnico";
+
+
+        const perfil =
+            usuario.perfil ||
+            usuario.cargo ||
+            "Técnico";
+
+
+        const iniciais =
+            nome
+                .split(" ")
+                .filter(Boolean)
+                .slice(0, 2)
+                .map(function (parte) {
+
+                    return parte[0];
+
+                })
+                .join("")
+                .toUpperCase();
+
+
+        const profileCircle =
+            document.querySelector(
+                ".profile-circle"
+            );
+
+
+        const profileName =
+            document.querySelector(
+                ".profile-name"
+            );
+
+
+        const profileInfo =
+            document.querySelector(
+                ".profile-info"
+            );
+
+
+        const userTop =
+            document.querySelector(
+                ".user"
+            );
+
+
+        if (profileCircle) {
+
+            profileCircle.textContent =
+                iniciais || "TC";
+
+        }
+
+
+        if (userTop) {
+
+            userTop.textContent =
+                iniciais || "TC";
+
+        }
+
+
+        if (profileName) {
+
+            profileName.textContent =
+                nome;
+
+        }
+
+
+        if (profileInfo) {
+
+            profileInfo.textContent =
+                "Perfil " + perfil;
+
+        }
+
+    }
+
+
+    carregarUsuario();
+
+});
+
+
+</script>
 
 </body>
 </html>

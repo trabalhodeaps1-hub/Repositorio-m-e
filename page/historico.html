@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Histórico de Inspeções - AutoRelatório</title>
+
+
+    <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+
+        /* =====================================================
+           MENU LATERAL
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+            height: 65px;
+
+            padding: 10px 16px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            font-size: 16px;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        .logo-text span {
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border-radius: 5px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+
+        .menu a.active {
+            background: #12315c;
+
+            color: #3b82f6;
+
+            border-left: 2px solid #3b82f6;
+        }
+
+
+        .menu-icon {
+            width: 16px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           PERFIL / PARTE INFERIOR
+        ===================================================== */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            border-top: 1px solid #1b243b;
+
+            padding: 20px 18px;
+        }
+
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            flex-shrink: 0;
+        }
+
+
+        .profile-name {
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-info {
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .logout {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 9px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+
+        .logout:hover {
+            color: white;
+        }
+
+
+        /* =====================================================
+           ÁREA PRINCIPAL
+        ===================================================== */
+
+        .main {
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
+
+        .topbar {
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #e1e5eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+
+        .page-title h1 {
+            font-size: 18px;
+
+            color: #111827;
+
+            margin-bottom: 4px;
+        }
+
+
+        .page-title p {
+            font-size: 12px;
+
+            color: #8b95a5;
+        }
+
+
+        .top-right {
+            display: flex;
+            align-items: center;
+
+            gap: 17px;
+        }
+
+
+        .notification {
+            font-size: 16px;
+
+            color: #64748b;
+
+            position: relative;
+        }
+
+
+        .notification::after {
+            content: "";
+
+            position: absolute;
+
+            width: 6px;
+            height: 6px;
+
+            background: #ef4444;
+
+            border-radius: 50%;
+
+            top: -1px;
+            right: -2px;
+        }
+
+
+        .user {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .content {
+            padding: 30px;
+        }
+
+
+        /* =====================================================
+           FILTROS
+        ===================================================== */
+
+        .filters {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .search-box {
+            flex: 1;
+
+            height: 42px;
+
+            background: white;
+
+            border: 1px solid #d9dee7;
+
+            border-radius: 6px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 13px;
+
+            gap: 9px;
+        }
+
+
+        .search-icon {
+            color: #9aa5b5;
+
+            font-size: 16px;
+        }
+
+
+        .search-box input {
+            width: 100%;
+            height: 100%;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            font-size: 13px;
+
+            color: #26354a;
+        }
+
+
+        .search-box input::placeholder {
+            color: #9aa5b5;
+        }
+
+
+        .area-filter {
+            width: 165px;
+            height: 42px;
+
+            border: 1px solid #d9dee7;
+
+            border-radius: 6px;
+
+            background: white;
+
+            padding: 0 12px;
+
+            font-size: 13px;
+
+            color: #26354a;
+
+            outline: none;
+        }
+
+
+        .new-button {
+            height: 42px;
+
+            padding: 0 18px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #2867b5;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .new-button:hover {
+            background: #1f5a9f;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           CONTADOR
+        ===================================================== */
+
+        .result-count {
+            color: #8b95a5;
+
+            font-size: 11px;
+
+            font-family: monospace;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           LISTA
+        ===================================================== */
+
+        .inspection-list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .inspection-card {
+            min-height: 76px;
+
+            background: white;
+
+            border: 1px solid #dce1e8;
+
+            border-radius: 7px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 12px 17px;
+
+            transition: 0.15s;
+
+            cursor: pointer;
+        }
+
+
+        .inspection-card:hover {
+            border-color: #b8c2d0;
+
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+
+            transform: translateY(-1px);
+        }
+
+
+        .inspection-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 6px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            margin-right: 14px;
+
+            flex-shrink: 0;
+        }
+
+
+        .inspection-info {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .inspection-name {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .inspection-name strong {
+            font-size: 13px;
+
+            color: #111827;
+        }
+
+
+        .inspection-area {
+            color: #8b95a5;
+
+            font-size: 11px;
+        }
+
+
+        .inspection-meta {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            color: #8b95a5;
+
+            font-size: 10px;
+
+            font-family: monospace;
+        }
+
+
+        .dot {
+            color: #c1c7d0;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .inspection-status {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            margin-left: 15px;
+        }
+
+
+        .status {
+            min-width: 90px;
+            height: 27px;
+
+            padding: 0 11px;
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+
+        .status-problem {
+            background: #fff7ed;
+
+            border: 1px solid #fed7aa;
+
+            color: #ea580c;
+        }
+
+
+        .status-ok {
+            background: #ecfdf5;
+
+            border: 1px solid #bbf7d0;
+
+            color: #059669;
+        }
+
+
+        .arrow {
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           SEM INSPEÇÕES
+        ===================================================== */
+
+        .empty-state {
+            background: white;
+
+            border: 1px solid #dce1e8;
+
+            border-radius: 7px;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: #8b95a5;
+
+            font-size: 13px;
+        }
+
+
+        .empty-state strong {
+            display: block;
+
+            color: #374151;
+
+            font-size: 15px;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+
+                width: calc(100% - 200px);
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .filters {
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                flex-basis: 100%;
+            }
+
+            .area-filter {
+                flex: 1;
+            }
+
+            .inspection-meta {
+                flex-wrap: wrap;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .inspection-card {
+                align-items: flex-start;
+
+                padding: 13px;
+            }
+
+            .inspection-status {
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <nav class="menu">
+
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="nova_inspecao.html">
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
+                Nova Inspeção
+
+            </a>
+
+
+            <a href="registrar_problema.html">
+
+                <span class="menu-icon">
+                    △
+                </span>
+
+                Registrar Problema
+
+            </a>
+
+
+            <a
+                href="historico.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
+                Histórico
+
+            </a>
+
+
+            <a href="relatorios.html">
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a href="areas.html">
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
+                Áreas
+
+            </a>
+
+
+            <a href="equipamentos.html">
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
+                Equipamentos
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- PERFIL -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="profile">
+
+
+                <div class="profile-circle">
+                    TC
+                </div>
+
+
+                <div>
+
+                    <div class="profile-name">
+                        Técnico
+                    </div>
+
+                    <div class="profile-info">
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+
+                <span>
+                    ⇥
+                </span>
+
+                Sair
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <header class="topbar">
+
+
+            <div class="page-title">
+
+                <h1>
+                    Histórico de Inspeções
+                </h1>
+
+                <p>
+                    Consulta e acompanhamento
+                </p>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="notification">
+                    ♧
+                </div>
+
+                <div class="user">
+                    TC
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        <section class="content">
+
+
+            <!-- =================================================
+                 FILTROS
+            ================================================== -->
+
+            <div class="filters">
+
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="campoPesquisa"
+                        placeholder="Buscar por equipamento, patrimônio ou ID..."
+                    >
+
+                </div>
+
+
+                <select
+                    class="area-filter"
+                    id="filtroArea"
+                >
+
+                    <option value="">
+                        Todas as áreas
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    class="new-button"
+                    onclick="window.location.href='nova_inspecao.html'"
+                >
+                    + &nbsp; Nova
+                </button>
+
+
+            </div>
+
+
+            <!-- CONTADOR -->
+
+            <div
+                class="result-count"
+                id="contadorInspecoes"
+            >
+                0 inspeção(ões) encontrada(s)
+            </div>
+
+
+            <!--
+                OS CARDS SERÃO GERADOS
+                AUTOMATICAMENTE PELO JAVASCRIPT
+                COM BASE NAS INSPEÇÕES REAIS.
+            -->
+
+            <div
+                class="inspection-list"
+                id="listaInspecoes"
+            >
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        /* =====================================================
+           LER LISTA DO LOCALSTORAGE
+        ===================================================== */
+
+        function lerLista(chave) {
+
+            try {
+
+                const dados =
+                    localStorage.getItem(chave);
+
+
+                if (!dados) {
+
+                    return [];
+
+                }
+
+
+                const convertido =
+                    JSON.parse(dados);
+
+
+                return Array.isArray(convertido)
+                    ? convertido
+                    : [];
+
+            }
+
+            catch (erro) {
+
+                console.error(
+                    "Erro ao carregar " + chave,
+                    erro
+                );
+
+
+                return [];
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DADOS REAIS
+        ===================================================== */
+
+        const inspecoes =
+            lerLista("inspecoes");
+
+
+        const problemas =
+            lerLista("problemas");
+
+
+        const areasCadastradas =
+            lerLista("autoRelatorio_areas");
+
+
+        /* =====================================================
+           ELEMENTOS
+        ===================================================== */
+
+        const lista =
+            document.getElementById(
+                "listaInspecoes"
+            );
+
+
+        const contador =
+            document.getElementById(
+                "contadorInspecoes"
+            );
+
+
+        const pesquisa =
+            document.getElementById(
+                "campoPesquisa"
+            );
+
+
+        const filtroArea =
+            document.getElementById(
+                "filtroArea"
+            );
+
+
+        /* =====================================================
+           CARREGAR ÁREAS REAIS NO FILTRO
+        ===================================================== */
+
+        function carregarAreasNoFiltro() {
+
+            filtroArea.innerHTML = `
+
+                <option value="">
+                    Todas as áreas
+                </option>
+
+            `;
+
+
+            /*
+                Primeiro tentamos usar as áreas
+                cadastradas na página Áreas.
+            */
+
+            if (areasCadastradas.length > 0) {
+
+                areasCadastradas.forEach(
+
+                    function (area) {
+
+                        if (!area.nome) {
+
+                            return;
+
+                        }
+
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        option.value =
+                            area.nome;
+
+
+                        option.textContent =
+                            area.nome;
+
+
+                        filtroArea.appendChild(
+                            option
+                        );
+
+                    }
+
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+                Caso ainda não exista cadastro
+                de áreas, pegamos as áreas que
+                aparecem nas inspeções reais.
+            */
+
+            const nomesAreas =
+                [];
+
+
+            inspecoes.forEach(
+
+                function (inspecao) {
+
+                    if (
+                        inspecao.area &&
+                        !nomesAreas.includes(
+                            inspecao.area
+                        )
+                    ) {
+
+                        nomesAreas.push(
+                            inspecao.area
+                        );
+
+                    }
+
+                }
+
+            );
+
+
+            nomesAreas.sort();
+
+
+            nomesAreas.forEach(
+
+                function (nomeArea) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        nomeArea;
+
+
+                    option.textContent =
+                        nomeArea;
+
+
+                    filtroArea.appendChild(
+                        option
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           FORMATAR DATA
+        ===================================================== */
+
+        function formatarData(data) {
+
+            if (!data) {
+
+                return "Data não informada";
+
+            }
+
+
+            const partes =
+                data.split("-");
+
+
+            if (
+                partes.length !== 3
+            ) {
+
+                return data;
+
+            }
+
+
+            return (
+                partes[2] +
+                "/" +
+                partes[1] +
+                "/" +
+                partes[0]
+            );
+
+        }
+
+
+        /* =====================================================
+           LOCALIZAR PROBLEMAS DA INSPEÇÃO
+        ===================================================== */
+
+        function problemasDaInspecao(
+            inspecao
+        ) {
+
+            /*
+                PRIMEIRO:
+
+                Procura os problemas que já estão
+                armazenados dentro da própria
+                inspeção.
+            */
+
+            if (
+                Array.isArray(
+                    inspecao.problemas
+                ) &&
+                inspecao.problemas.length > 0
+            ) {
+
+                return inspecao.problemas;
+
+            }
+
+
+            /*
+                SEGUNDO:
+
+                Mantemos compatibilidade com uma
+                eventual lista global "problemas".
+            */
+
+            return problemas.filter(
+
+                function (problema) {
+
+                    const referencia =
+                        problema.inspecaoId ??
+                        problema.idInspecao ??
+                        problema.inspecao ??
+                        problema.inspecao_id;
+
+
+                    return (
+                        String(referencia) ===
+                        String(inspecao.id)
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           SEGURANÇA PARA TEXTO
+        ===================================================== */
+
+        function escaparHTML(valor) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                String(
+                    valor ?? ""
+                );
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           CRIAR CARD
+        ===================================================== */
+
+        function criarCard(inspecao) {
+
+
+            const problemasEncontrados =
+                problemasDaInspecao(
+                    inspecao
+                );
+
+
+            const quantidadeProblemas =
+                problemasEncontrados.length;
+
+
+            /* EQUIPAMENTO */
+
+            const equipamento =
+                inspecao.equipamento ||
+                "Equipamento não informado";
+
+
+            /* ÁREA */
+
+            const area =
+                inspecao.area ||
+                "Área não informada";
+
+
+            /* CÓDIGO */
+
+            const codigo =
+                inspecao.codigo ||
+                "Sem código";
+
+
+            /* DATA */
+
+            const data =
+                formatarData(
+                    inspecao.data
+                );
+
+
+            /* HORA */
+
+            const hora =
+                inspecao.hora ||
+                "--:--";
+
+
+            /* INSPETOR */
+
+            const inspetor =
+                inspecao.inspetor ||
+                inspecao.usuario ||
+                inspecao.nomeInspetor ||
+                "Técnico";
+
+
+            /* STATUS */
+
+            let classeStatus =
+                "status-ok";
+
+
+            let textoStatus =
+                "Sem ocorrências";
+
+
+            if (
+                quantidadeProblemas > 0
+            ) {
+
+                classeStatus =
+                    "status-problem";
+
+
+                textoStatus =
+                    quantidadeProblemas +
+                    (
+                        quantidadeProblemas === 1
+                            ? " problema"
+                            : " problemas"
+                    );
+
+            }
+
+
+            /* =================================================
+               CRIAR CARD
+            ================================================= */
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "inspection-card";
+
+
+            /*
+                Valores usados pela pesquisa
+                e pelos filtros.
+            */
+
+            card.dataset.equipamento =
+                equipamento.toLowerCase();
+
+
+            card.dataset.codigo =
+                codigo.toLowerCase();
+
+
+            card.dataset.area =
+                area;
+
+
+            /* CONTEÚDO */
+
+            card.innerHTML = `
+
+                <div class="inspection-icon">
+                    ☑
+                </div>
+
+
+                <div class="inspection-info">
+
+
+                    <div class="inspection-name">
+
+                        <strong>
+                            ${escaparHTML(equipamento)}
+                        </strong>
+
+                        <span>
+                            ·
+                        </span>
+
+                        <span class="inspection-area">
+                            ${escaparHTML(area)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="inspection-meta">
+
+                        <span>
+                            ${escaparHTML(codigo)}
+                        </span>
+
+                        <span class="dot">
+                            ·
+                        </span>
+
+                        <span>
+                            ${escaparHTML(data)}
+                            às
+                            ${escaparHTML(hora)}
+                        </span>
+
+                        <span class="dot">
+                            ·
+                        </span>
+
+                        <span>
+                            ${escaparHTML(inspetor)}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="inspection-status">
+
+
+                    <div class="status ${classeStatus}">
+                        ${escaparHTML(textoStatus)}
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+            /* =================================================
+               CLICAR NA INSPEÇÃO
+            ================================================= */
+
+            card.addEventListener(
+
+                "click",
+
+                function () {
+
+                    localStorage.setItem(
+
+                        "inspecaoSelecionada",
+
+                        String(
+                            inspecao.id
+                        )
+
+                    );
+
+                    /*
+                        Por enquanto apenas selecionamos
+                        a inspeção.
+
+                        Quando criarmos/ligarmos a tela
+                        completa de detalhes, esse ID
+                        estará disponível.
+                    */
+
+                }
+
+            );
+
+
+            return card;
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR INSPEÇÕES
+        ===================================================== */
+
+        function renderizarInspecoes() {
+
+
+            lista.innerHTML =
+                "";
+
+
+            const textoPesquisa =
+                pesquisa.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const areaSelecionada =
+                filtroArea.value;
+
+
+            /* =================================================
+               FILTRAR
+            ================================================= */
+
+            const filtradas =
+                inspecoes.filter(
+
+                    function (inspecao) {
+
+
+                        const equipamento =
+                            String(
+                                inspecao.equipamento || ""
+                            ).toLowerCase();
+
+
+                        const codigo =
+                            String(
+                                inspecao.codigo || ""
+                            ).toLowerCase();
+
+
+                        const patrimonio =
+                            String(
+                                inspecao.patrimonio || ""
+                            ).toLowerCase();
+
+
+                        const area =
+                            String(
+                                inspecao.area || ""
+                            );
+
+
+                        const correspondePesquisa =
+
+                            equipamento.includes(
+                                textoPesquisa
+                            ) ||
+
+                            codigo.includes(
+                                textoPesquisa
+                            ) ||
+
+                            patrimonio.includes(
+                                textoPesquisa
+                            );
+
+
+                        const correspondeArea =
+
+                            !areaSelecionada ||
+
+                            area ===
+                            areaSelecionada;
+
+
+                        return (
+                            correspondePesquisa &&
+                            correspondeArea
+                        );
+
+                    }
+
+                );
+
+
+            /* =================================================
+               MAIS RECENTES PRIMEIRO
+            ================================================= */
+
+            filtradas.sort(
+
+                function (a, b) {
+
+                    const dataA =
+                        new Date(
+                            `${a.data || "1970-01-01"}T${a.hora || "00:00"}`
+                        );
+
+
+                    const dataB =
+                        new Date(
+                            `${b.data || "1970-01-01"}T${b.hora || "00:00"}`
+                        );
+
+
+                    return (
+                        dataB -
+                        dataA
+                    );
+
+                }
+
+            );
+
+
+            /* =================================================
+               CONTADOR REAL
+            ================================================= */
+
+            contador.textContent =
+                filtradas.length +
+                (
+                    filtradas.length === 1
+                        ? " inspeção encontrada"
+                        : " inspeções encontradas"
+                );
+
+
+            /* =================================================
+               NENHUMA INSPEÇÃO
+            ================================================= */
+
+            if (
+                filtradas.length === 0
+            ) {
+
+                lista.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <strong>
+                            Nenhuma inspeção encontrada
+                        </strong>
+
+                        As inspeções registradas aparecerão
+                        automaticamente aqui.
+
+                    </div>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            /* =================================================
+               CRIAR CARDS
+            ================================================= */
+
+            filtradas.forEach(
+
+                function (inspecao) {
+
+                    lista.appendChild(
+
+                        criarCard(
+                            inspecao
+                        )
+
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           PESQUISA EM TEMPO REAL
+        ===================================================== */
+
+        pesquisa.addEventListener(
+
+            "input",
+
+            renderizarInspecoes
+
+        );
+
+
+        /* =====================================================
+           FILTRO POR ÁREA
+        ===================================================== */
+
+        filtroArea.addEventListener(
+
+            "change",
+
+            renderizarInspecoes
+
+        );
+
+
+        /* =====================================================
+           BOTÃO SAIR
+        ===================================================== */
+
+        const btnSair =
+            document.getElementById(
+                "btnSair"
+            );
+
+
+        if (btnSair) {
+
+            btnSair.addEventListener(
+
+                "click",
+
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    /*
+                        Limpa apenas os dados
+                        relacionados à sessão.
+
+                        NÃO apaga:
+                        - inspeções
+                        - problemas
+                        - áreas
+                        - equipamentos
+                        - relatórios
+                    */
+
+                    sessionStorage.clear();
+
+
+                    localStorage.removeItem(
+                        "usuarioLogado"
+                    );
+
+
+                    localStorage.removeItem(
+                        "sessaoUsuario"
+                    );
+
+
+                    /*
+                        VOLTAR PARA LOGIN
+                    */
+
+                    window.location.href =
+                        "../pagina_inicial.html";
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           INICIAR PÁGINA
+        ===================================================== */
+
+        carregarAreasNoFiltro();
+
+        renderizarInspecoes();
+
+    </script>
+
+
+</body>
+
+</html>

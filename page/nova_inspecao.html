@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nova Inspeção - AutoRelatório</title>
+
+
+    <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f6f9;
+            color: #0d1b32;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           MESMO PADRÃO DO DASHBOARD / ÁREAS
+        ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+
+        .logo-icon {
+
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+
+        .logo-text {
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .logo-text span {
+
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+
+            padding: 17px 9px;
+        }
+
+
+        .menu a {
+
+            height: 40px;
+
+            padding: 0 12px;
+
+            margin-bottom: 3px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+
+        .menu a:hover {
+
+            background: #151f3a;
+
+            color: white;
+        }
+
+
+        .menu a.active {
+
+            background: #12315c;
+
+            color: #3b82f6;
+
+            border-left: 2px solid #3b82f6;
+        }
+
+
+        .menu-icon {
+
+            width: 16px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           PARTE INFERIOR DA SIDEBAR
+        ===================================================== */
+
+        .sidebar-bottom {
+
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .profile-circle {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-name {
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-info {
+
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .logout {
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+
+        .logout:hover {
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        .main {
+
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPO
+        ===================================================== */
+
+        .topbar {
+
+            height: 65px;
+
+            padding: 0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: white;
+
+            border-bottom: 1px solid #e1e5eb;
+        }
+
+
+        .page-title h1 {
+
+            font-size: 18px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .page-title p {
+
+            color: #7a8494;
+
+            font-size: 12px;
+        }
+
+
+        .top-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+        }
+
+
+        .notification {
+
+            color: #506075;
+
+            cursor: pointer;
+        }
+
+
+        .user {
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .content {
+
+            padding: 30px;
+        }
+
+
+        /* =====================================================
+           CARD DO FORMULÁRIO
+        ===================================================== */
+
+        .form-card {
+
+            width: 100%;
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            background: white;
+
+            border: 1px solid #dde2e9;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        }
+
+
+        .form-header {
+
+            padding: 25px 30px;
+
+            border-bottom: 1px solid #e5e8ed;
+        }
+
+
+        .form-header h2 {
+
+            font-size: 19px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .form-header p {
+
+            color: #778292;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           FORMULÁRIO
+        ===================================================== */
+
+        .form-body {
+
+            padding: 30px;
+        }
+
+
+        .row {
+
+            display: flex;
+
+            gap: 20px;
+        }
+
+
+        .row .field {
+
+            flex: 1;
+        }
+
+
+        .field {
+
+            display: flex;
+
+            flex-direction: column;
+
+            margin-bottom: 22px;
+        }
+
+
+        .field label {
+
+            margin-bottom: 8px;
+
+            color: #162238;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .required {
+
+            color: #e52e3d;
+        }
+
+
+        .field input,
+        .field select,
+        .field textarea {
+
+            width: 100%;
+
+            border: 1px solid #d7dce4;
+
+            border-radius: 6px;
+
+            background: white;
+
+            color: #162238;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        .field input,
+        .field select {
+
+            height: 44px;
+
+            padding: 0 13px;
+        }
+
+
+        .field textarea {
+
+            min-height: 115px;
+
+            padding: 13px;
+
+            resize: vertical;
+        }
+
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+
+            border-color: #2e7de1;
+
+            box-shadow:
+                0 0 0 3px rgba(46, 125, 225, 0.10);
+        }
+
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+
+            color: #a0a8b7;
+        }
+
+
+        .field input[readonly] {
+
+            background: #f5f7fa;
+
+            color: #667085;
+
+            cursor: not-allowed;
+        }
+
+
+        .field select:disabled {
+
+            background: #f5f7fa;
+
+            color: #8b95a5;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+
+            padding-top: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .btn {
+
+            min-width: 130px;
+
+            height: 43px;
+
+            padding: 0 20px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .btn-cancel {
+
+            border: 1px solid #d5dae2;
+
+            background: white;
+
+            color: #536074;
+        }
+
+
+        .btn-cancel:hover {
+
+            background: #f2f4f7;
+        }
+
+
+        .btn-primary {
+
+            border: none;
+
+            background: #2d76dc;
+
+            color: white;
+        }
+
+
+        .btn-primary:hover {
+
+            background: #1e63bd;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                width: 200px;
+            }
+
+
+            .main {
+
+                margin-left: 200px;
+
+                width: calc(100% - 200px);
+            }
+
+
+            .content {
+
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+
+                display: none;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+
+            .topbar {
+
+                padding: 0 20px;
+            }
+
+
+            .content {
+
+                padding: 15px;
+            }
+
+
+            .form-body {
+
+                padding: 20px;
+            }
+
+
+            .row {
+
+                flex-direction: column;
+
+                gap: 0;
+            }
+
+
+            .buttons {
+
+                flex-direction: column-reverse;
+            }
+
+
+            .btn {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <nav class="menu">
+
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="nova_inspecao.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
+                Nova Inspeção
+
+            </a>
+
+
+            <a href="registrar_problema.html">
+
+                <span class="menu-icon">
+                    △
+                </span>
+
+                Registrar Problema
+
+            </a>
+
+
+            <a href="historico.html">
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
+                Histórico
+
+            </a>
+
+
+            <a href="relatorios.html">
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a href="areas.html">
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
+                Áreas
+
+            </a>
+
+
+            <a href="equipamentos.html">
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
+                Equipamentos
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- =================================================
+             PERFIL
+        ================================================== -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="profile">
+
+
+                <div class="profile-circle">
+                    TC
+                </div>
+
+
+                <div>
+
+                    <div class="profile-name">
+                        Técnico
+                    </div>
+
+                    <div class="profile-info">
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+
+                ⇥ &nbsp; Sair
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPO -->
+
+        <header class="topbar">
+
+
+            <div class="page-title">
+
+                <h1>
+                    Nova Inspeção
+                </h1>
+
+                <p>
+                    Registrar inspeção de campo
+                </p>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="notification">
+                    ♢
+                </div>
+
+                <div class="user">
+                    TC
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =================================================
+             FORMULÁRIO
+        ================================================== -->
+
+        <section class="content">
+
+
+            <div class="form-card">
+
+
+                <div class="form-header">
+
+                    <h2>
+                        Nova Inspeção
+                    </h2>
+
+                    <p>
+                        Preencha os dados da inspeção de campo
+                    </p>
+
+                </div>
+
+
+                <form
+                    class="form-body"
+                    id="formInspecao"
+                >
+
+
+                    <!-- DATA E HORA -->
+
+                    <div class="row">
+
+
+                        <div class="field">
+
+                            <label for="data">
+
+                                Data
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="date"
+                                id="data"
+                                name="data"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="hora">
+
+                                Hora
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="time"
+                                id="hora"
+                                name="hora"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ÁREA -->
+
+                    <div class="field">
+
+                        <label for="area">
+
+                            Área Industrial
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="area"
+                            name="area"
+                            required
+                        >
+
+                            <option
+                                value=""
+                                selected
+                                disabled
+                            >
+                                Selecione a área
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- EQUIPAMENTO -->
+
+                    <div class="field">
+
+                        <label for="equipamento">
+
+                            Equipamento
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="equipamento"
+                            name="equipamento"
+                            required
+                            disabled
+                        >
+
+                            <option value="">
+                                Primeiro selecione a área
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PATRIMÔNIO -->
+
+                    <div class="field">
+
+                        <label for="patrimonio">
+                            Nº Patrimônio
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="patrimonio"
+                            name="patrimonio"
+                            placeholder="Preenchido automaticamente"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <!-- OBSERVAÇÕES -->
+
+                    <div class="field">
+
+                        <label for="observacoes">
+                            Observações gerais
+                        </label>
+
+
+                        <textarea
+                            id="observacoes"
+                            name="observacoes"
+                            placeholder="Condições gerais do equipamento, contexto da inspeção..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- BOTÕES -->
+
+                    <div class="buttons">
+
+
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            id="btnCancelar"
+                        >
+                            Cancelar
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            name="acao"
+                            value="salvar"
+                        >
+                            Registrar Inspeção
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            name="acao"
+                            value="problema"
+                        >
+                            Registrar e Adicionar Problema
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        /* =====================================================
+           CHAVES DO SISTEMA
+        ===================================================== */
+
+        const CHAVE_AREAS =
+            "autoRelatorio_areas";
+
+
+        const CHAVE_EQUIPAMENTOS =
+            "autoRelatorio_equipamentos";
+
+
+        /* =====================================================
+           CAMPOS
+        ===================================================== */
+
+        const campoArea =
+            document.getElementById("area");
+
+
+        const campoEquipamento =
+            document.getElementById("equipamento");
+
+
+        const campoPatrimonio =
+            document.getElementById("patrimonio");
+
+
+        /* =====================================================
+           BUSCAR ÁREAS CADASTRADAS
+        ===================================================== */
+
+        function buscarAreas() {
+
+            try {
+
+                const dados =
+                    JSON.parse(
+                        localStorage.getItem(
+                            CHAVE_AREAS
+                        ) || "[]"
+                    );
+
+
+                return Array.isArray(dados)
+                    ? dados
+                    : [];
+
+            }
+            catch (erro) {
+
+                console.error(
+                    "Erro ao carregar áreas:",
+                    erro
+                );
+
+                return [];
+
+            }
+
+        }
+
+
+        /* =====================================================
+           BUSCAR EQUIPAMENTOS CADASTRADOS
+        ===================================================== */
+
+        function buscarEquipamentos() {
+
+            try {
+
+                const dados =
+                    JSON.parse(
+                        localStorage.getItem(
+                            CHAVE_EQUIPAMENTOS
+                        ) || "[]"
+                    );
+
+
+                return Array.isArray(dados)
+                    ? dados
+                    : [];
+
+            }
+            catch (erro) {
+
+                console.error(
+                    "Erro ao carregar equipamentos:",
+                    erro
+                );
+
+                return [];
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CARREGAR ÁREAS REAIS
+        ===================================================== */
+
+        function carregarAreasCadastradas() {
+
+            const areas =
+                buscarAreas();
+
+
+            campoArea.innerHTML = `
+
+                <option
+                    value=""
+                    selected
+                    disabled
+                >
+                    Selecione a área
+                </option>
+
+            `;
+
+
+            if (areas.length === 0) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value = "";
+
+                option.disabled = true;
+
+                option.textContent =
+                    "Nenhuma área cadastrada";
+
+
+                campoArea.appendChild(
+                    option
+                );
+
+
+                return;
+
+            }
+
+
+            areas.forEach(
+
+                function (area) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        area.nome;
+
+
+                    option.textContent =
+                        area.nome;
+
+
+                    campoArea.appendChild(
+                        option
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           CARREGAR EQUIPAMENTOS DA ÁREA
+        ===================================================== */
+
+        function carregarEquipamentosDaArea() {
+
+            const nomeArea =
+                campoArea.value;
+
+
+            campoEquipamento.innerHTML =
+                "";
+
+
+            campoPatrimonio.value =
+                "";
+
+
+            if (!nomeArea) {
+
+                campoEquipamento.disabled =
+                    true;
+
+
+                campoEquipamento.innerHTML = `
+
+                    <option value="">
+                        Primeiro selecione a área
+                    </option>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            const equipamentos =
+                buscarEquipamentos();
+
+
+            const equipamentosDaArea =
+                equipamentos.filter(
+
+                    function (equipamento) {
+
+                        return (
+                            equipamento.area ===
+                            nomeArea
+                        );
+
+                    }
+
+                );
+
+
+            if (
+                equipamentosDaArea.length === 0
+            ) {
+
+                campoEquipamento.disabled =
+                    true;
+
+
+                campoEquipamento.innerHTML = `
+
+                    <option value="">
+                        Nenhum equipamento cadastrado nesta área
+                    </option>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            campoEquipamento.disabled =
+                false;
+
+
+            const primeiraOpcao =
+                document.createElement(
+                    "option"
+                );
+
+
+            primeiraOpcao.value =
+                "";
+
+
+            primeiraOpcao.disabled =
+                true;
+
+
+            primeiraOpcao.selected =
+                true;
+
+
+            primeiraOpcao.textContent =
+                "Selecione o equipamento";
+
+
+            campoEquipamento.appendChild(
+                primeiraOpcao
+            );
+
+
+            equipamentosDaArea.forEach(
+
+                function (equipamento) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        equipamento.nome;
+
+
+                    if (
+                        equipamento.patrimonio
+                    ) {
+
+                        option.textContent =
+                            equipamento.nome +
+                            " — " +
+                            equipamento.patrimonio;
+
+                    }
+                    else {
+
+                        option.textContent =
+                            equipamento.nome;
+
+                    }
+
+
+                    option.dataset.id =
+                        equipamento.id || "";
+
+
+                    option.dataset.patrimonio =
+                        equipamento.patrimonio || "";
+
+
+                    option.dataset.localizacao =
+                        equipamento.localizacao || "";
+
+
+                    option.dataset.status =
+                        equipamento.status || "";
+
+
+                    campoEquipamento
+                        .appendChild(
+                            option
+                        );
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           AO ALTERAR ÁREA
+        ===================================================== */
+
+        campoArea.addEventListener(
+
+            "change",
+
+            function () {
+
+                carregarEquipamentosDaArea();
+
+            }
+
+        );
+
+
+        /* =====================================================
+           AO ALTERAR EQUIPAMENTO
+        ===================================================== */
+
+        campoEquipamento.addEventListener(
+
+            "change",
+
+            function () {
+
+                const opcaoSelecionada =
+                    campoEquipamento.options[
+                        campoEquipamento.selectedIndex
+                    ];
+
+
+                if (!opcaoSelecionada) {
+
+                    campoPatrimonio.value =
+                        "";
+
+                    return;
+
+                }
+
+
+                campoPatrimonio.value =
+                    opcaoSelecionada
+                        .dataset
+                        .patrimonio || "";
+
+            }
+
+        );
+
+
+        /* =====================================================
+           DATA E HORA AUTOMÁTICAS
+        ===================================================== */
+
+        document.addEventListener(
+
+            "DOMContentLoaded",
+
+            function () {
+
+                const agora =
+                    new Date();
+
+
+                const ano =
+                    agora.getFullYear();
+
+
+                const mes =
+                    String(
+                        agora.getMonth() + 1
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                const dia =
+                    String(
+                        agora.getDate()
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                const horas =
+                    String(
+                        agora.getHours()
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                const minutos =
+                    String(
+                        agora.getMinutes()
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                document
+                    .getElementById(
+                        "data"
+                    )
+                    .value =
+                    `${ano}-${mes}-${dia}`;
+
+
+                document
+                    .getElementById(
+                        "hora"
+                    )
+                    .value =
+                    `${horas}:${minutos}`;
+
+
+                carregarAreasCadastradas();
+
+                carregarEquipamentosDaArea();
+
+            }
+
+        );
+
+
+        /* =====================================================
+           BOTÃO CANCELAR
+        ===================================================== */
+
+        document
+            .getElementById(
+                "btnCancelar"
+            )
+            .addEventListener(
+
+                "click",
+
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+
+            );
+
+
+        /* =====================================================
+           GERAR PRÓXIMO CÓDIGO
+        ===================================================== */
+
+        function gerarCodigo(
+            inspecoes
+        ) {
+
+            const anoAtual =
+                new Date()
+                    .getFullYear();
+
+
+            let maiorNumero =
+                0;
+
+
+            inspecoes.forEach(
+
+                function (inspecao) {
+
+                    if (
+                        !inspecao.codigo
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const partes =
+                        inspecao.codigo
+                            .split("-");
+
+
+                    if (
+                        partes.length === 3 &&
+                        Number(partes[1]) ===
+                        anoAtual
+                    ) {
+
+                        const numero =
+                            Number(
+                                partes[2]
+                            );
+
+
+                        if (
+                            !isNaN(numero) &&
+                            numero >
+                            maiorNumero
+                        ) {
+
+                            maiorNumero =
+                                numero;
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+            const proximoNumero =
+                String(
+                    maiorNumero + 1
+                ).padStart(
+                    3,
+                    "0"
+                );
+
+
+            return (
+                "INS-" +
+                anoAtual +
+                "-" +
+                proximoNumero
+            );
+
+        }
+
+
+        /* =====================================================
+           SALVAR NOVA INSPEÇÃO
+        ===================================================== */
+
+        document
+            .getElementById(
+                "formInspecao"
+            )
+            .addEventListener(
+
+                "submit",
+
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    /* QUAL BOTÃO FOI CLICADO */
+
+                    const botaoClicado =
+                        event.submitter;
+
+
+                    const acao =
+                        botaoClicado
+                            ? botaoClicado.value
+                            : "salvar";
+
+
+                    /* PEGAR CAMPOS */
+
+                    const data =
+                        document
+                            .getElementById(
+                                "data"
+                            )
+                            .value;
+
+
+                    const hora =
+                        document
+                            .getElementById(
+                                "hora"
+                            )
+                            .value;
+
+
+                    const area =
+                        campoArea.value;
+
+
+                    const equipamento =
+                        campoEquipamento.value;
+
+
+                    const patrimonio =
+                        campoPatrimonio
+                            .value
+                            .trim();
+
+
+                    const observacoes =
+                        document
+                            .getElementById(
+                                "observacoes"
+                            )
+                            .value
+                            .trim();
+
+
+                    /* =================================================
+                       VALIDAÇÃO
+                    ================================================= */
+
+                    if (
+                        !data ||
+                        !hora ||
+                        !area ||
+                        !equipamento
+                    ) {
+
+                        alert(
+                            "Preencha todos os campos obrigatórios."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                       Garante que o equipamento
+                       pertence realmente à área.
+                    */
+
+                    const equipamentosCadastrados =
+                        buscarEquipamentos();
+
+
+                    const equipamentoValido =
+                        equipamentosCadastrados.find(
+
+                            function (item) {
+
+                                return (
+                                    item.nome ===
+                                    equipamento &&
+
+                                    item.area ===
+                                    area
+                                );
+
+                            }
+
+                        );
+
+
+                    if (!equipamentoValido) {
+
+                        alert(
+                            "O equipamento selecionado não pertence à área informada."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /* =================================================
+                       BUSCAR INSPEÇÕES
+                    ================================================= */
+
+                    let inspecoes =
+                        [];
+
+
+                    try {
+
+                        const dadosSalvos =
+                            localStorage.getItem(
+                                "inspecoes"
+                            );
+
+
+                        if (dadosSalvos) {
+
+                            const dadosConvertidos =
+                                JSON.parse(
+                                    dadosSalvos
+                                );
+
+
+                            if (
+                                Array.isArray(
+                                    dadosConvertidos
+                                )
+                            ) {
+
+                                inspecoes =
+                                    dadosConvertidos;
+
+                            }
+
+                        }
+
+                    }
+                    catch (erro) {
+
+                        console.error(
+                            "Erro ao carregar inspeções:",
+                            erro
+                        );
+
+
+                        inspecoes =
+                            [];
+
+                    }
+
+
+                    /* =================================================
+                       GERAR CÓDIGO
+                    ================================================= */
+
+                    const codigo =
+                        gerarCodigo(
+                            inspecoes
+                        );
+
+
+                    /* =================================================
+                       CRIAR ID
+                    ================================================= */
+
+                    const id =
+                        Date.now();
+
+
+                    /* =================================================
+                       CRIAR INSPEÇÃO
+                    ================================================= */
+
+                    const novaInspecao = {
+
+                        id:
+                            id,
+
+                        codigo:
+                            codigo,
+
+                        data:
+                            data,
+
+                        hora:
+                            hora,
+
+                        area:
+                            area,
+
+                        equipamento:
+                            equipamento,
+
+                        equipamentoId:
+                            equipamentoValido.id || "",
+
+                        patrimonio:
+                            patrimonio,
+
+                        localizacao:
+                            equipamentoValido.localizacao || "",
+
+                        observacoes:
+                            observacoes,
+
+                        situacao:
+                            "OK",
+
+                        problemas:
+                            [],
+
+                        criadaEm:
+                            new Date()
+                                .toISOString()
+
+                    };
+
+
+                    /* =================================================
+                       ADICIONAR
+                    ================================================= */
+
+                    inspecoes.push(
+                        novaInspecao
+                    );
+
+
+                    /* =================================================
+                       SALVAR
+                    ================================================= */
+
+                    try {
+
+                        localStorage.setItem(
+
+                            "inspecoes",
+
+                            JSON.stringify(
+                                inspecoes
+                            )
+
+                        );
+
+                    }
+                    catch (erro) {
+
+                        console.error(
+                            "Erro ao salvar inspeção:",
+                            erro
+                        );
+
+
+                        alert(
+                            "Não foi possível salvar a inspeção."
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /* =================================================
+                       REGISTRAR E ADICIONAR PROBLEMA
+                    ================================================= */
+
+                    if (
+                        acao ===
+                        "problema"
+                    ) {
+
+                        /*
+                           Guarda a inspeção criada
+                           para vincular o problema.
+                        */
+
+                        localStorage.setItem(
+
+                            "inspecaoAtual",
+
+                            String(id)
+
+                        );
+
+
+                        window.location.href =
+                            "registrar_problema.html";
+
+                    }
+
+
+                    /* =================================================
+                       SOMENTE REGISTRAR INSPEÇÃO
+                    ================================================= */
+
+                    else {
+
+                        /*
+                           Nenhum problema será
+                           registrado nesse momento.
+                        */
+
+                        localStorage.removeItem(
+                            "inspecaoAtual"
+                        );
+
+
+                        alert(
+                            "Inspeção " +
+                            codigo +
+                            " registrada com sucesso!"
+                        );
+
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    }
+
+                }
+
+            );
+
+
+        /* =====================================================
+           SAIR DO SISTEMA
+        ===================================================== */
+
+        const btnSair =
+            document.getElementById(
+                "btnSair"
+            );
+
+
+        if (btnSair) {
+
+            btnSair.addEventListener(
+
+                "click",
+
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    /*
+                       Limpa somente a sessão.
+
+                       NÃO apaga:
+                       - áreas
+                       - equipamentos
+                       - inspeções
+                       - problemas
+                       - relatórios
+                    */
+
+                    sessionStorage.clear();
+
+
+                    localStorage.removeItem(
+                        "usuarioLogado"
+                    );
+
+
+                    localStorage.removeItem(
+                        "sessaoUsuario"
+                    );
+
+
+                    /*
+                       Voltar para a tela de login.
+                    */
+
+                    window.location.href =
+                        "../pagina_inicial.html";
+
+                }
+
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
