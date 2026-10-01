@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meu Perfil - AutoRelatório</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+        .logo {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           PERFIL INFERIOR
+        ===================================================== */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+
+            cursor: pointer;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+        .logout {
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        .main {
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #dfe3e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+        .topbar-info {
+            color: #7c8797;
+
+            font-size: 12px;
+        }
+
+        .topbar-direita {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .voltar-dashboard {
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .voltar-dashboard:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .content {
+            max-width: 1050px;
+
+            margin: 0 auto;
+
+            padding: 32px 28px 50px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header small {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #2563eb;
+
+            font-size: 10px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        .page-header h1 {
+            color: #0d1c34;
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #778295;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           CARD PRINCIPAL
+        ===================================================== */
+
+        .perfil-card {
+            background: white;
+
+            border: 1px solid #dfe3e9;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+        }
+
+        /* =====================================================
+           CABEÇALHO DO PERFIL
+        ===================================================== */
+
+        .perfil-header {
+            padding: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            background: #fbfcfd;
+        }
+
+        .usuario {
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .foto-grande {
+            width: 95px;
+            height: 95px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 26px;
+            font-weight: bold;
+
+            border: 4px solid white;
+
+            box-shadow:
+                0 2px 10px
+                rgba(0, 0, 0, 0.12);
+        }
+
+        .foto-grande img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+        .usuario-texto h2 {
+            color: #172033;
+
+            font-size: 20px;
+
+            margin-bottom: 7px;
+        }
+
+        .usuario-texto p {
+            color: #7d8899;
+
+            font-size: 11px;
+        }
+
+        .badge-perfil {
+            display: inline-block;
+
+            margin-top: 9px;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            background: #eaf2ff;
+
+            color: #2563eb;
+
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           BOTÃO EDITAR
+        ===================================================== */
+
+        .btn-editar {
+            min-height: 39px;
+
+            padding: 0 16px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #2d76dc;
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .btn-editar:hover {
+            background: #1f63bd;
+        }
+
+        /* =====================================================
+           INFORMAÇÕES
+        ===================================================== */
+
+        .informacoes {
+            padding: 28px 30px;
+        }
+
+        .titulo-secao {
+            margin-bottom: 22px;
+        }
+
+        .titulo-secao h3 {
+            color: #172033;
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+        .titulo-secao p {
+            color: #8791a0;
+
+            font-size: 11px;
+        }
+
+        .dados-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 7px;
+
+            overflow: hidden;
+        }
+
+        .dado {
+            min-height: 88px;
+
+            padding: 18px;
+
+            border-bottom: 1px solid #e6e9ed;
+        }
+
+        .dado:nth-child(odd) {
+            border-right: 1px solid #e6e9ed;
+        }
+
+        .dado:nth-last-child(-n + 2) {
+            border-bottom: none;
+        }
+
+        .dado-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #8993a3;
+
+            font-size: 9px;
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+        .dado-valor {
+            color: #263348;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            word-break: break-word;
+        }
+
+        /* =====================================================
+           SEGURANÇA
+        ===================================================== */
+
+        .seguranca {
+            margin-top: 25px;
+
+            padding: 16px;
+
+            background: #f3f7ff;
+
+            border: 1px solid #d9e7ff;
+
+            border-radius: 6px;
+
+            color: #52627a;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        .seguranca strong {
+            color: #2563eb;
+        }
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .perfil-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dados-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dado:nth-child(odd) {
+                border-right: none;
+            }
+
+            .dado {
+                border-bottom: 1px solid #e6e9ed !important;
+            }
+
+            .dado:last-child {
+                border-bottom: none !important;
+            }
+
+            .btn-editar {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="nova_inspecao.html">
+                <span class="menu-icon">✓</span>
+                Nova Inspeção
+            </a>
+
+            <a href="registrar_problema.html">
+                <span class="menu-icon">△</span>
+                Registrar Problema
+            </a>
+
+            <a href="historico.html">
+                <span class="menu-icon">♢</span>
+                Histórico
+            </a>
+
+            <a href="relatorios.html">
+                <span class="menu-icon">▧</span>
+                Relatórios
+            </a>
+
+            <a href="areas.html">
+                <span class="menu-icon">▦</span>
+                Áreas
+            </a>
+
+            <a href="equipamentos.html">
+                <span class="menu-icon">⌁</span>
+                Equipamentos
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div
+                class="profile"
+                id="perfilSidebar"
+                title="Meu perfil"
+            >
+
+                <div class="profile-circle">
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+                    <img
+                        id="sidebarFoto"
+                        alt="Foto do usuário"
+                    >
+
+                </div>
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
+                        Técnico
+                    </div>
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+                ⇥ &nbsp; Sair
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         PRINCIPAL
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <header class="topbar">
+
+            <div class="topbar-info">
+                Planta Tubarão • Minha conta
+            </div>
+
+            <div class="topbar-direita">
+
+                <a
+                    href="dashboard.html"
+                    class="voltar-dashboard"
+                >
+                    ← Voltar ao Dashboard
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+
+            <div class="page-header">
+
+                <small>
+                    MINHA CONTA
+                </small>
+
+                <h1>
+                    Meu Perfil
+                </h1>
+
+                <p>
+                    Consulte seus dados pessoais e informações de acesso.
+                </p>
+
+            </div>
+
+
+            <div class="perfil-card">
+
+
+                <!-- CABEÇALHO -->
+
+                <div class="perfil-header">
+
+                    <div class="usuario">
+
+
+                        <div class="foto-grande">
+
+                            <span id="fotoIniciais">
+                                TC
+                            </span>
+
+                            <img
+                                id="fotoPerfil"
+                                alt="Foto de perfil"
+                            >
+
+                        </div>
+
+
+                        <div class="usuario-texto">
+
+                            <h2 id="nomePrincipal">
+                                Técnico
+                            </h2>
+
+                            <p id="matriculaPrincipal">
+                                Matrícula não informada
+                            </p>
+
+                            <span
+                                class="badge-perfil"
+                                id="badgePerfil"
+                            >
+                                Perfil Técnico
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="editar_perfil.html"
+                        class="btn-editar"
+                    >
+                        ✎ Editar perfil
+                    </a>
+
+                </div>
+
+
+                <!-- INFORMAÇÕES -->
+
+                <div class="informacoes">
+
+                    <div class="titulo-secao">
+
+                        <h3>
+                            Informações pessoais
+                        </h3>
+
+                        <p>
+                            Dados vinculados à sua conta no AutoRelatório.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dados-grid">
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                Nome completo
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoNome"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                Matrícula
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoMatricula"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                E-mail
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoEmail"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                Telefone
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoTelefone"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                Perfil de acesso
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoPerfil"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                        <div class="dado">
+
+                            <span class="dado-label">
+                                Última atualização
+                            </span>
+
+                            <div
+                                class="dado-valor"
+                                id="dadoAtualizacao"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="seguranca">
+
+                        <strong>
+                            Segurança da conta:
+                        </strong>
+
+                        suas permissões de acesso são definidas pelo
+                        perfil atribuído à sua conta. A alteração dos
+                        dados pessoais ou da foto não modifica suas
+                        permissões no sistema.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                /* =================================================
+                   FUNÇÃO PARA LER LOCALSTORAGE
+                ================================================= */
+
+                function lerJSON(chave, padrao = {}) {
+
+                    try {
+
+                        const valor =
+                            localStorage.getItem(chave);
+
+                        if (!valor) {
+                            return padrao;
+                        }
+
+                        return JSON.parse(valor);
+
+                    }
+
+                    catch (erro) {
+
+                        console.error(
+                            "Erro ao ler:",
+                            chave,
+                            erro
+                        );
+
+                        return padrao;
+                    }
+                }
+
+
+                /* =================================================
+                   OBTER INICIAIS
+                ================================================= */
+
+                function obterIniciais(nome) {
+
+                    const partes =
+                        String(nome || "Técnico")
+                            .trim()
+                            .split(/\s+/)
+                            .filter(Boolean);
+
+
+                    if (partes.length === 0) {
+                        return "TC";
+                    }
+
+
+                    if (partes.length === 1) {
+
+                        return partes[0]
+                            .substring(0, 2)
+                            .toUpperCase();
+                    }
+
+
+                    return (
+                        partes[0][0] +
+                        partes[partes.length - 1][0]
+                    ).toUpperCase();
+
+                }
+
+
+                /* =================================================
+                   FORMATAR DATA
+                ================================================= */
+
+                function formatarData(data) {
+
+                    if (!data) {
+                        return "Não informado";
+                    }
+
+
+                    const objetoData =
+                        new Date(data);
+
+
+                    if (
+                        Number.isNaN(
+                            objetoData.getTime()
+                        )
+                    ) {
+
+                        return "Não informado";
+                    }
+
+
+                    return objetoData
+                        .toLocaleString(
+                            "pt-BR",
+                            {
+                                dateStyle: "short",
+                                timeStyle: "short"
+                            }
+                        );
+
+                }
+
+
+                /* =================================================
+                   CARREGAR DADOS
+                ================================================= */
+
+                function carregarPerfil() {
+
+
+                    const perfilSalvo =
+                        lerJSON(
+                            "perfilUsuario",
+                            {}
+                        );
+
+
+                    const sessao =
+                        lerJSON(
+                            "sessaoUsuario",
+                            {}
+                        );
+
+
+                    /*
+                       Primeiro tenta pegar os dados
+                       de perfilUsuario.
+
+                       Caso não existam, utiliza
+                       os dados da sessão.
+                    */
+
+                    const dados = {
+
+                        nome:
+                            perfilSalvo.nome ||
+                            sessao.nome ||
+                            "Técnico",
+
+                        matricula:
+                            perfilSalvo.matricula ||
+                            sessao.matricula ||
+                            "",
+
+                        email:
+                            perfilSalvo.email ||
+                            sessao.email ||
+                            "",
+
+                        telefone:
+                            perfilSalvo.telefone ||
+                            sessao.telefone ||
+                            "",
+
+                        perfil:
+                            perfilSalvo.perfil ||
+                            sessao.perfil ||
+                            "Perfil Técnico",
+
+                        foto:
+                            perfilSalvo.foto ||
+                            sessao.foto ||
+                            "",
+
+                        atualizadoEm:
+                            perfilSalvo.atualizadoEm ||
+                            ""
+
+                    };
+
+
+                    /* =============================================
+                       CABEÇALHO
+                    ============================================== */
+
+                    document.getElementById(
+                        "nomePrincipal"
+                    ).textContent =
+                        dados.nome;
+
+
+                    document.getElementById(
+                        "matriculaPrincipal"
+                    ).textContent =
+                        dados.matricula
+                            ? "Matrícula: " + dados.matricula
+                            : "Matrícula não informada";
+
+
+                    document.getElementById(
+                        "badgePerfil"
+                    ).textContent =
+                        dados.perfil;
+
+
+                    /* =============================================
+                       DADOS
+                    ============================================== */
+
+                    document.getElementById(
+                        "dadoNome"
+                    ).textContent =
+                        dados.nome ||
+                        "Não informado";
+
+
+                    document.getElementById(
+                        "dadoMatricula"
+                    ).textContent =
+                        dados.matricula ||
+                        "Não informado";
+
+
+                    document.getElementById(
+                        "dadoEmail"
+                    ).textContent =
+                        dados.email ||
+                        "Não informado";
+
+
+                    document.getElementById(
+                        "dadoTelefone"
+                    ).textContent =
+                        dados.telefone ||
+                        "Não informado";
+
+
+                    document.getElementById(
+                        "dadoPerfil"
+                    ).textContent =
+                        dados.perfil ||
+                        "Perfil Técnico";
+
+
+                    document.getElementById(
+                        "dadoAtualizacao"
+                    ).textContent =
+                        formatarData(
+                            dados.atualizadoEm
+                        );
+
+
+                    /* =============================================
+                       FOTO
+                    ============================================== */
+
+                    const foto =
+                        document.getElementById(
+                            "fotoPerfil"
+                        );
+
+
+                    const iniciais =
+                        document.getElementById(
+                            "fotoIniciais"
+                        );
+
+
+                    const letras =
+                        obterIniciais(
+                            dados.nome
+                        );
+
+
+                    if (dados.foto) {
+
+                        foto.src =
+                            dados.foto;
+
+                        foto.style.display =
+                            "block";
+
+                        iniciais.style.display =
+                            "none";
+
+                    }
+
+                    else {
+
+                        foto.style.display =
+                            "none";
+
+                        iniciais.style.display =
+                            "inline";
+
+                        iniciais.textContent =
+                            letras;
+
+                    }
+
+
+                    /* =============================================
+                       SIDEBAR
+                    ============================================== */
+
+                    document.getElementById(
+                        "sidebarNome"
+                    ).textContent =
+                        dados.nome;
+
+
+                    document.getElementById(
+                        "sidebarPerfil"
+                    ).textContent =
+                        dados.perfil;
+
+
+                    const sidebarFoto =
+                        document.getElementById(
+                            "sidebarFoto"
+                        );
+
+
+                    const sidebarIniciais =
+                        document.getElementById(
+                            "sidebarIniciais"
+                        );
+
+
+                    if (dados.foto) {
+
+                        sidebarFoto.src =
+                            dados.foto;
+
+                        sidebarFoto.style.display =
+                            "block";
+
+                        sidebarIniciais.style.display =
+                            "none";
+
+                    }
+
+                    else {
+
+                        sidebarFoto.style.display =
+                            "none";
+
+                        sidebarIniciais.style.display =
+                            "inline";
+
+                        sidebarIniciais.textContent =
+                            letras;
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   CLICAR NO PERFIL DA SIDEBAR
+                ================================================= */
+
+                document.getElementById(
+                    "perfilSidebar"
+                ).addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "meu_perfil.html";
+
+                    }
+                );
+
+
+                /* =================================================
+                   SAIR
+                ================================================= */
+
+                document.getElementById(
+                    "btnSair"
+                ).addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const confirmar =
+                            confirm(
+                                "Deseja realmente sair do sistema?"
+                            );
+
+
+                        if (!confirmar) {
+                            return;
+                        }
+
+
+                        /*
+                           Apaga somente a sessão.
+
+                           Não apagamos:
+                           - perfil
+                           - áreas
+                           - equipamentos
+                           - inspeções
+                           - problemas
+                           - relatórios
+                        */
+
+                        sessionStorage.clear();
+
+
+                        localStorage.removeItem(
+                            "usuarioLogado"
+                        );
+
+
+                        localStorage.removeItem(
+                            "sessaoUsuario"
+                        );
+
+
+                        window.location.href =
+                            "../index.html";
+
+                    }
+                );
+
+
+                /* =================================================
+                   INICIAR
+                ================================================= */
+
+                carregarPerfil();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard - AutoRelatório</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard - AutoRelatório
+    </title>
+
 
     <style>
 
@@ -20,11 +29,13 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+
         html,
         body {
             width: 100%;
             min-height: 100%;
         }
+
 
         body {
             min-height: 100vh;
@@ -72,6 +83,7 @@
             border-bottom: 1px solid #1b243b;
         }
 
+
         .logo-icon {
             width: 32px;
             height: 32px;
@@ -85,13 +97,16 @@
             justify-content: center;
 
             color: white;
+
             font-size: 16px;
         }
+
 
         .logo-text {
             font-size: 14px;
             font-weight: bold;
         }
+
 
         .logo-text span {
             display: block;
@@ -99,6 +114,7 @@
             color: #3b82f6;
 
             font-size: 8px;
+
             letter-spacing: 1.2px;
 
             margin-top: 2px;
@@ -112,6 +128,7 @@
         .menu {
             padding: 17px 9px;
         }
+
 
         .menu a {
             height: 40px;
@@ -135,10 +152,12 @@
             transition: 0.2s;
         }
 
+
         .menu a:hover {
             background: #151f3a;
             color: white;
         }
+
 
         .menu a.active {
             background: #12315c;
@@ -146,6 +165,7 @@
 
             border-left: 2px solid #3b82f6;
         }
+
 
         .menu-icon {
             width: 16px;
@@ -165,6 +185,7 @@
             border-top: 1px solid #1b243b;
         }
 
+
         .profile {
             display: flex;
             align-items: center;
@@ -173,6 +194,7 @@
 
             margin-bottom: 22px;
         }
+
 
         .profile-circle {
             width: 32px;
@@ -186,14 +208,30 @@
             align-items: center;
             justify-content: center;
 
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
+
+            flex-shrink: 0;
         }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
 
         .profile-name {
             font-size: 12px;
             font-weight: bold;
         }
+
 
         .profile-info {
             color: #7f8ba0;
@@ -202,6 +240,7 @@
 
             margin-top: 3px;
         }
+
 
         .logout {
             color: #aeb8ca;
@@ -215,6 +254,7 @@
 
             cursor: pointer;
         }
+
 
         .logout:hover {
             color: white;
@@ -250,16 +290,338 @@
             justify-content: space-between;
 
             padding: 0 25px;
+
+            position: relative;
+
+            z-index: 50;
         }
+
 
         .topbar-info {
             font-size: 12px;
             color: #7c8797;
         }
 
+
+        /* =====================================================
+           AÇÕES DO TOPO
+        ===================================================== */
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            position: relative;
+        }
+
+
+        /* =====================================================
+           NOTIFICAÇÕES
+        ===================================================== */
+
+        .notification-wrapper {
+            position: relative;
+        }
+
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            color: #5f6b7c;
+
+            font-size: 19px;
+
+            transition: 0.2s;
+        }
+
+
+        .notification-button:hover {
+            background: #f1f4f8;
+            color: #2563eb;
+        }
+
+
+        .notification-count {
+            position: absolute;
+
+            top: 1px;
+            right: 0;
+
+            min-width: 17px;
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 10px;
+
+            background: #e53935;
+            color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+
+        /* =====================================================
+           PAINEL DE NOTIFICAÇÕES
+        ===================================================== */
+
+        .notification-panel {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 360px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, 0.15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 500;
+        }
+
+
+        .notification-panel.aberto {
+            display: block;
+        }
+
+
+        .notification-header {
+            min-height: 60px;
+
+            padding: 15px 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .notification-header h3 {
+            color: #172033;
+
+            font-size: 14px;
+        }
+
+
+        .notification-header button {
+            border: none;
+            background: transparent;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .notification-header button:hover {
+            text-decoration: underline;
+        }
+
+
+        .notification-list {
+            max-height: 380px;
+
+            overflow-y: auto;
+        }
+
+
+        .notification-item {
+            padding: 14px 16px;
+
+            display: flex;
+
+            gap: 12px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+
+        .notification-item.nao-lida {
+            background: #f4f8ff;
+        }
+
+
+        .notification-item.nao-lida:hover {
+            background: #edf4ff;
+        }
+
+
+        .notification-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+        }
+
+
+        .notification-icon.aprovado {
+            background: #e8f7ee;
+            color: #218447;
+        }
+
+
+        .notification-icon.devolvido {
+            background: #fff4e5;
+            color: #d97706;
+        }
+
+
+        .notification-icon.comentario {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+
+        .notification-icon.alerta {
+            background: #fff0f0;
+            color: #d63b3b;
+        }
+
+
+        .notification-content {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .notification-title {
+            margin-bottom: 4px;
+
+            color: #263348;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .notification-text {
+            color: #6f7b8c;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        .notification-time {
+            margin-top: 6px;
+
+            color: #9aa4b2;
+
+            font-size: 9px;
+        }
+
+
+        .notification-empty {
+            padding: 35px 20px;
+
+            color: #8b95a5;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           PERFIL DO TOPO
+        ===================================================== */
+
+        .user-wrapper {
+            position: relative;
+        }
+
+
+        .user-button {
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+
+            padding: 3px;
+
+            border-radius: 20px;
+
+            transition: 0.2s;
+        }
+
+
+        .user-button:hover {
+            background: #f1f4f8;
+        }
+
+
         .user {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
 
             border-radius: 50%;
 
@@ -271,8 +633,191 @@
             align-items: center;
             justify-content: center;
 
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
+        }
+
+
+        .user img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .user-arrow {
+            color: #8993a2;
+
+            font-size: 9px;
+
+            margin-right: 4px;
+        }
+
+
+        /* =====================================================
+           MENU DO PERFIL
+        ===================================================== */
+
+        .profile-menu {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 245px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, 0.15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 500;
+        }
+
+
+        .profile-menu.aberto {
+            display: block;
+        }
+
+
+        .profile-menu-header {
+            padding: 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .profile-menu-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-menu-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-menu-name {
+            color: #172033;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-menu-role {
+            color: #7f8ba0;
+
+            font-size: 10px;
+        }
+
+
+        .profile-menu-links {
+            padding: 7px;
+        }
+
+
+        .profile-menu-links a,
+        .profile-menu-links button {
+            width: 100%;
+
+            min-height: 38px;
+
+            padding: 0 11px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #465266;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .profile-menu-links a:hover,
+        .profile-menu-links button:hover {
+            background: #f4f6f9;
+
+            color: #2563eb;
+        }
+
+
+        .profile-menu-links .menu-sair {
+            color: #c83e3e;
+
+            border-top: 1px solid #edf0f3;
+
+            margin-top: 6px;
+
+            padding-top: 7px;
+
+            border-radius: 0;
+        }
+
+
+        .profile-menu-links .menu-sair:hover {
+            color: #b52e2e;
+
+            background: #fff5f5;
         }
 
 
@@ -298,6 +843,7 @@
             margin-bottom: 30px;
         }
 
+
         .welcome small {
             display: block;
 
@@ -311,6 +857,7 @@
             letter-spacing: 0.5px;
         }
 
+
         .welcome h2 {
             margin-bottom: 7px;
 
@@ -319,11 +866,13 @@
             font-size: 25px;
         }
 
+
         .welcome p {
             color: #748093;
 
             font-size: 13px;
         }
+
 
         .welcome p span {
             color: #2775dc;
@@ -353,6 +902,7 @@
             transition: 0.2s;
         }
 
+
         .btn-new:hover {
             background: #1f63bd;
 
@@ -367,12 +917,14 @@
         .cards {
             display: grid;
 
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns:
+                repeat(4, 1fr);
 
             gap: 18px;
 
             margin-bottom: 25px;
         }
+
 
         .card {
             min-height: 125px;
@@ -385,8 +937,11 @@
 
             border-radius: 8px;
 
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            box-shadow:
+                0 1px 3px
+                rgba(0, 0, 0, 0.03);
         }
+
 
         .card-titulo {
             margin-bottom: 17px;
@@ -396,6 +951,7 @@
             font-size: 12px;
             font-weight: 600;
         }
+
 
         .numero {
             color: #0d1c34;
@@ -412,7 +968,8 @@
         .dashboard-grid {
             display: grid;
 
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns:
+                2fr 1fr;
 
             gap: 20px;
         }
@@ -431,6 +988,7 @@
 
             overflow: hidden;
         }
+
 
         .caixa h3 {
             padding: 20px 22px;
@@ -453,6 +1011,7 @@
             border-collapse: collapse;
         }
 
+
         th {
             padding: 12px 16px;
 
@@ -470,6 +1029,7 @@
             text-transform: uppercase;
         }
 
+
         td {
             padding: 15px 16px;
 
@@ -480,9 +1040,11 @@
             font-size: 13px;
         }
 
+
         tbody tr:last-child td {
             border-bottom: none;
         }
+
 
         tbody tr:hover {
             background: #fafbfc;
@@ -504,10 +1066,12 @@
             font-weight: 600;
         }
 
+
         .status-ok {
             background: #e9f8ef;
             color: #218447;
         }
+
 
         .status-problema {
             background: #fff0f0;
@@ -535,8 +1099,10 @@
         @media (max-width: 1050px) {
 
             .cards {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
+
 
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -551,11 +1117,13 @@
                 display: none;
             }
 
+
             .main {
                 margin-left: 0;
 
                 width: 100%;
             }
+
 
             .content {
                 padding: 20px;
@@ -569,12 +1137,19 @@
             .topbar {
                 height: 60px;
 
-                padding: 0 18px;
+                padding: 0 15px;
             }
+
+
+            .topbar-info {
+                font-size: 10px;
+            }
+
 
             .content {
                 padding: 18px;
             }
+
 
             .welcome {
                 align-items: flex-start;
@@ -584,22 +1159,47 @@
                 gap: 18px;
             }
 
+
             .btn-new {
                 width: 100%;
 
                 text-align: center;
             }
 
+
             .cards {
                 grid-template-columns: 1fr;
             }
+
 
             .caixa {
                 overflow-x: auto;
             }
 
+
             table {
                 min-width: 550px;
+            }
+
+
+            .notification-panel {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+                left: 10px;
+
+                width: auto;
+            }
+
+
+            .profile-menu {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+
+                width: 245px;
             }
 
         }
@@ -627,6 +1227,7 @@
                 ▰
             </div>
 
+
             <div class="logo-text">
 
                 AutoRelatório
@@ -645,7 +1246,10 @@
         <nav class="menu">
 
 
-            <a href="dashboard.html" class="active">
+            <a
+                href="dashboard.html"
+                class="active"
+            >
 
                 <span class="menu-icon">
                     ⌂
@@ -725,7 +1329,9 @@
         </nav>
 
 
-        <!-- PARTE INFERIOR -->
+        <!-- =================================================
+             PERFIL INFERIOR
+        ================================================== -->
 
         <div class="sidebar-bottom">
 
@@ -733,17 +1339,34 @@
             <div class="profile">
 
                 <div class="profile-circle">
-                    TC
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+                    <img
+                        id="sidebarFoto"
+                        src=""
+                        alt="Foto do usuário"
+                    >
+
                 </div>
 
 
                 <div>
 
-                    <div class="profile-name">
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
                         Técnico
                     </div>
 
-                    <div class="profile-info">
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
                         Perfil Técnico
                     </div>
 
@@ -752,7 +1375,11 @@
             </div>
 
 
-            <a href="#" class="logout" id="btnSair">
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
 
                 ⇥ &nbsp; Sair
 
@@ -772,22 +1399,267 @@
     <main class="main">
 
 
-        <!-- TOPO -->
+        <!-- =================================================
+             TOPO
+        ================================================== -->
 
         <header class="topbar">
 
+
             <div class="topbar-info">
+
                 Planta Tubarão • Turno A
+
             </div>
 
-            <div class="user">
-                TC
+
+            <!-- AÇÕES DO LADO DIREITO -->
+
+            <div class="topbar-actions">
+
+
+                <!-- =========================================
+                     NOTIFICAÇÕES
+                ========================================== -->
+
+                <div class="notification-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="btnNotificacoes"
+                        title="Notificações"
+                        aria-label="Abrir notificações"
+                    >
+
+                        🔔
+
+                        <span
+                            class="notification-count vazio"
+                            id="contadorNotificacoes"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- PAINEL DE NOTIFICAÇÕES -->
+
+                    <div
+                        class="notification-panel"
+                        id="painelNotificacoes"
+                    >
+
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notificações
+                            </h3>
+
+
+                            <button
+                                type="button"
+                                id="btnMarcarTodasLidas"
+                            >
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="notification-list"
+                            id="listaNotificacoes"
+                        >
+
+                            <div class="notification-empty">
+
+                                Nenhuma notificação no momento.
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =========================================
+                     PERFIL DO USUÁRIO
+                ========================================== -->
+
+                <div class="user-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="user-button"
+                        id="btnPerfil"
+                        title="Meu perfil"
+                        aria-label="Abrir menu do perfil"
+                    >
+
+
+                        <div class="user">
+
+                            <span id="topIniciais">
+                                TC
+                            </span>
+
+
+                            <img
+                                id="topFoto"
+                                src=""
+                                alt="Foto do usuário"
+                            >
+
+                        </div>
+
+
+                        <span class="user-arrow">
+                            ▼
+                        </span>
+
+
+                    </button>
+
+
+                    <!-- MENU DO PERFIL -->
+
+                    <div
+                        class="profile-menu"
+                        id="menuPerfil"
+                    >
+
+
+                        <div class="profile-menu-header">
+
+
+                            <div class="profile-menu-avatar">
+
+                                <span id="menuIniciais">
+                                    TC
+                                </span>
+
+
+                                <img
+                                    id="menuFoto"
+                                    src=""
+                                    alt="Foto do usuário"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="profile-menu-name"
+                                    id="menuNome"
+                                >
+                                    Técnico
+                                </div>
+
+
+                                <div
+                                    class="profile-menu-role"
+                                    id="menuFuncao"
+                                >
+                                    Perfil Técnico
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="profile-menu-links">
+
+
+                            <a href="perfil.html">
+
+                                👤
+
+                                <span>
+                                    Meu Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="editar_perfil.html">
+
+                                ✎
+
+                                <span>
+                                    Editar Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="alterar_senha.html">
+
+                                🔒
+
+                                <span>
+                                    Alterar Senha
+                                </span>
+
+                            </a>
+
+
+                            <a href="preferencias.html">
+
+                                ⚙
+
+                                <span>
+                                    Preferências
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="menu-sair"
+                                id="btnSairPerfil"
+                            >
+
+                                ⇥
+
+                                <span>
+                                    Sair
+                                </span>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
             </div>
+
 
         </header>
 
 
-        <!-- CONTEÚDO -->
+        <!-- =================================================
+             CONTEÚDO
+        ================================================== -->
 
         <section class="content">
 
@@ -801,12 +1673,13 @@
 
                 <div>
 
+
                     <small id="dataAtual">
                         -
                     </small>
 
 
-                    <h2>
+                    <h2 id="saudacaoUsuario">
                         Bom dia, Técnico.
                     </h2>
 
@@ -821,6 +1694,7 @@
                         • Turno A • Planta Tubarão
 
                     </p>
+
 
                 </div>
 
@@ -838,101 +1712,85 @@
             </div>
 
 
-            <!-- =================================================
-                 CARDS
+                       <!-- =================================================
+                 CARDS DO DASHBOARD
             ================================================== -->
 
             <div class="cards">
 
-
-                <!-- INSPEÇÕES -->
-
                 <div class="card">
-
                     <div class="card-titulo">
-                        Inspeções este mês
+                        Inspeções realizadas
                     </div>
 
                     <div
                         class="numero"
-                        id="totalInspecoes"
+                        id="cardInspecoes"
                     >
                         0
                     </div>
-
                 </div>
 
 
-                <!-- PROBLEMAS -->
-
                 <div class="card">
-
                     <div class="card-titulo">
-                        Problemas registrados
+                        Problemas identificados
                     </div>
 
                     <div
                         class="numero"
-                        id="totalProblemas"
+                        id="cardProblemas"
                     >
                         0
                     </div>
-
                 </div>
 
 
-                <!-- ABERTOS -->
-
                 <div class="card">
-
                     <div class="card-titulo">
-                        Problemas em aberto
+                        Relatórios aguardando aprovação
                     </div>
 
                     <div
                         class="numero"
-                        id="problemasAbertos"
+                        id="cardPendentes"
                     >
                         0
                     </div>
-
                 </div>
 
 
-                <!-- CRÍTICOS -->
-
                 <div class="card">
-
                     <div class="card-titulo">
-                        Críticos pendentes
+                        Relatórios aprovados
                     </div>
 
                     <div
                         class="numero"
-                        id="criticosPendentes"
+                        id="cardAprovados"
                     >
                         0
                     </div>
-
                 </div>
-
 
             </div>
 
 
             <!-- =================================================
-                 TABELAS
+                 CONTEÚDO INFERIOR
             ================================================== -->
 
             <div class="dashboard-grid">
 
 
-                <!-- INSPEÇÕES RECENTES -->
+                <!-- =============================================
+                     ÚLTIMAS INSPEÇÕES
+                ============================================== -->
 
                 <div class="caixa">
 
                     <h3>
-                        Inspeções recentes
+                        Últimas inspeções
                     </h3>
 
 
@@ -941,23 +1799,10 @@
                         <thead>
 
                             <tr>
-
-                                <th>
-                                    Equipamento
-                                </th>
-
-                                <th>
-                                    Inspeção
-                                </th>
-
-                                <th>
-                                    Área
-                                </th>
-
-                                <th>
-                                    Situação
-                                </th>
-
+                                <th>Data</th>
+                                <th>Área</th>
+                                <th>Equipamento</th>
+                                <th>Status</th>
                             </tr>
 
                         </thead>
@@ -983,12 +1828,14 @@
                 </div>
 
 
-                <!-- PROBLEMAS POR CRITICIDADE -->
+                <!-- =============================================
+                     RESUMO DOS RELATÓRIOS
+                ============================================== -->
 
                 <div class="caixa">
 
                     <h3>
-                        Problemas por criticidade
+                        Situação dos relatórios
                     </h3>
 
 
@@ -997,74 +1844,29 @@
                         <thead>
 
                             <tr>
-
-                                <th>
-                                    Criticidade
-                                </th>
-
-                                <th>
-                                    Quantidade
-                                </th>
-
+                                <th>Status</th>
+                                <th>Total</th>
                             </tr>
 
                         </thead>
 
 
-                        <tbody>
-
-
-                            <tr>
-
-                                <td>
-                                    Crítica
-                                </td>
-
-                                <td id="qtdCritica">
-                                    0
-                                </td>
-
-                            </tr>
-
+                        <tbody id="tabelaRelatorios">
 
                             <tr>
-
-                                <td>
-                                    Alta
-                                </td>
-
-                                <td id="qtdAlta">
-                                    0
-                                </td>
-
+                                <td>Aguardando aprovação</td>
+                                <td id="resumoPendentes">0</td>
                             </tr>
-
 
                             <tr>
-
-                                <td>
-                                    Média
-                                </td>
-
-                                <td id="qtdMedia">
-                                    0
-                                </td>
-
+                                <td>Aprovados</td>
+                                <td id="resumoAprovados">0</td>
                             </tr>
-
 
                             <tr>
-
-                                <td>
-                                    Baixa
-                                </td>
-
-                                <td id="qtdBaixa">
-                                    0
-                                </td>
-
+                                <td>Devolvidos para edição</td>
+                                <td id="resumoDevolvidos">0</td>
                             </tr>
-
 
                         </tbody>
 
@@ -1072,667 +1874,1631 @@
 
                 </div>
 
-
             </div>
 
-
         </section>
-
 
     </main>
 
 
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
     <script>
 
-        /* =====================================================
-           CARREGAR INSPEÇÕES
-        ===================================================== */
-
-        function carregarInspecoes() {
-
-            try {
-
-                const dados =
-                    localStorage.getItem("inspecoes");
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
 
-                if (!dados) {
-                    return [];
-                }
+                /* =================================================
+                   CHAVES DO SISTEMA
+                ================================================= */
+
+                const CHAVE_INSPECOES =
+                    "inspecoes";
+
+                const CHAVE_PROBLEMAS =
+                    "problemas";
+
+                const CHAVE_NOTIFICACOES =
+                    "notificacoes";
+
+                const CHAVE_PERFIL =
+                    "perfilUsuario";
 
 
-                const resultado =
-                    JSON.parse(dados);
+                /* =================================================
+                   ELEMENTOS DO SINO
+                ================================================= */
+
+                const btnNotificacoes =
+                    document.getElementById(
+                        "btnNotificacoes"
+                    );
 
 
-                return Array.isArray(resultado)
-                    ? resultado
-                    : [];
-
-            }
-            catch (erro) {
-
-                console.error(
-                    "Erro ao carregar inspeções:",
-                    erro
-                );
-
-                return [];
-
-            }
-
-        }
+                const painelNotificacoes =
+                    document.getElementById(
+                        "painelNotificacoes"
+                    );
 
 
-        /* =====================================================
-           FORMATAR DATA ISO
-        ===================================================== */
-
-        function formatarDataISO(data) {
-
-            const ano =
-                data.getFullYear();
+                const contadorNotificacoes =
+                    document.getElementById(
+                        "contadorNotificacoes"
+                    );
 
 
-            const mes =
-                String(
-                    data.getMonth() + 1
-                ).padStart(
-                    2,
-                    "0"
-                );
+                const listaNotificacoes =
+                    document.getElementById(
+                        "listaNotificacoes"
+                    );
 
 
-            const dia =
-                String(
-                    data.getDate()
-                ).padStart(
-                    2,
-                    "0"
-                );
+                const btnMarcarTodasLidas =
+                    document.getElementById(
+                        "btnMarcarTodasLidas"
+                    );
 
 
-            return (
-                ano +
-                "-" +
-                mes +
-                "-" +
-                dia
-            );
+                /* =================================================
+                   ELEMENTOS DO PERFIL
+                ================================================= */
 
-        }
-
-
-        /* =====================================================
-           ATUALIZAR DASHBOARD
-        ===================================================== */
-
-        function atualizarDashboard() {
+                const btnPerfil =
+                    document.getElementById(
+                        "btnPerfil"
+                    );
 
 
-            const inspecoes =
-                carregarInspecoes();
+                const menuPerfil =
+                    document.getElementById(
+                        "menuPerfil"
+                    );
 
 
-            /* =================================================
-               DATA ATUAL
-            ================================================= */
-
-            const hoje =
-                new Date();
+                const btnSair =
+                    document.getElementById(
+                        "btnSair"
+                    );
 
 
-            const dataFormatada =
-                hoje.toLocaleDateString(
-
-                    "pt-BR",
-
-                    {
-                        weekday: "long",
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric"
-                    }
-
-                );
+                const btnSairPerfil =
+                    document.getElementById(
+                        "btnSairPerfil"
+                    );
 
 
-            document
-                .getElementById(
-                    "dataAtual"
-                )
-                .textContent =
-                    dataFormatada.toUpperCase();
+                /* =================================================
+                   FUNÇÕES AUXILIARES
+                ================================================= */
 
+                function lerJSON(
+                    chave,
+                    padrao
+                ) {
 
-            const hojeISO =
-                formatarDataISO(
-                    hoje
-                );
+                    try {
 
-
-            /* =================================================
-               INSPEÇÕES DO MÊS
-            ================================================= */
-
-            const mesAtual =
-                hoje.getMonth();
-
-
-            const anoAtual =
-                hoje.getFullYear();
-
-
-            const inspecoesMes =
-                inspecoes.filter(
-
-                    function (inspecao) {
-
-
-                        if (!inspecao.data) {
-                            return false;
-                        }
-
-
-                        const dataInspecao =
-                            new Date(
-                                inspecao.data +
-                                "T00:00:00"
+                        const valor =
+                            localStorage.getItem(
+                                chave
                             );
 
 
-                        if (
-                            isNaN(
-                                dataInspecao.getTime()
+                        if (!valor) {
+                            return padrao;
+                        }
+
+
+                        return JSON.parse(
+                            valor
+                        );
+
+                    }
+                    catch (erro) {
+
+                        console.error(
+                            "Erro ao ler:",
+                            chave,
+                            erro
+                        );
+
+
+                        return padrao;
+                    }
+
+                }
+
+
+                function salvarJSON(
+                    chave,
+                    valor
+                ) {
+
+                    try {
+
+                        localStorage.setItem(
+                            chave,
+                            JSON.stringify(
+                                valor
                             )
-                        ) {
-
-                            return false;
-
-                        }
-
-
-                        return (
-
-                            dataInspecao.getMonth() ===
-                            mesAtual
-
-                            &&
-
-                            dataInspecao.getFullYear() ===
-                            anoAtual
-
                         );
 
+
+                        return true;
+
                     }
+                    catch (erro) {
 
-                );
-
-
-            document
-                .getElementById(
-                    "totalInspecoes"
-                )
-                .textContent =
-                    inspecoesMes.length;
-
-
-            /* =================================================
-               INSPEÇÕES DE HOJE
-            ================================================= */
-
-            const inspecoesHoje =
-                inspecoes.filter(
-
-                    function (inspecao) {
-
-                        return (
-                            inspecao.data ===
-                            hojeISO
+                        console.error(
+                            "Erro ao salvar:",
+                            chave,
+                            erro
                         );
 
+
+                        return false;
                     }
 
-                );
+                }
 
 
-            document
-                .getElementById(
-                    "inspecoesHoje"
-                )
-                .textContent =
-                    inspecoesHoje.length;
-
-
-            /* =================================================
-               JUNTAR PROBLEMAS DAS INSPEÇÕES
-            ================================================= */
-
-            let todosProblemas =
-                [];
-
-
-            inspecoes.forEach(
-
-                function (inspecao) {
+                function escaparHTML(
+                    valor
+                ) {
 
                     if (
-                        Array.isArray(
-                            inspecao.problemas
+                        valor === null ||
+                        valor === undefined
+                    ) {
+                        return "";
+                    }
+
+
+                    return String(valor)
+
+                        .replace(
+                            /&/g,
+                            "&amp;"
                         )
+
+                        .replace(
+                            /</g,
+                            "&lt;"
+                        )
+
+                        .replace(
+                            />/g,
+                            "&gt;"
+                        )
+
+                        .replace(
+                            /"/g,
+                            "&quot;"
+                        )
+
+                        .replace(
+                            /'/g,
+                            "&#039;"
+                        );
+
+                }
+
+
+                function normalizar(
+                    valor
+                ) {
+
+                    return String(
+                        valor || ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+                }
+
+
+                function formatarData(
+                    data
+                ) {
+
+                    if (!data) {
+                        return "-";
+                    }
+
+
+                    if (
+                        String(data)
+                            .includes("/")
                     ) {
 
-                        todosProblemas =
-                            todosProblemas.concat(
-                                inspecao.problemas
-                            );
+                        return data;
+                    }
+
+
+                    const partes =
+                        String(data)
+                            .split("-");
+
+
+                    if (
+                        partes.length !== 3
+                    ) {
+
+                        return data;
+                    }
+
+
+                    return (
+                        partes[2] +
+                        "/" +
+                        partes[1] +
+                        "/" +
+                        partes[0]
+                    );
+
+                }
+
+
+                /* =================================================
+                   DATA ATUAL
+                ================================================= */
+
+                function atualizarData() {
+
+                    const agora =
+                        new Date();
+
+
+                    const texto =
+                        agora.toLocaleDateString(
+                            "pt-BR",
+                            {
+                                weekday: "long",
+                                day: "2-digit",
+                                month: "long",
+                                year: "numeric"
+                            }
+                        );
+
+
+                    const elemento =
+                        document.getElementById(
+                            "dataAtual"
+                        );
+
+
+                    if (elemento) {
+
+                        elemento.textContent =
+                            texto.charAt(0)
+                                .toUpperCase() +
+                            texto.slice(1);
 
                     }
 
                 }
 
-            );
 
+                /* =================================================
+                   PERFIL PADRÃO
+                ================================================= */
 
-            /* =================================================
-               TOTAL DE PROBLEMAS
-            ================================================= */
+                function obterPerfil() {
 
-            document
-                .getElementById(
-                    "totalProblemas"
-                )
-                .textContent =
-                    todosProblemas.length;
-
-
-            /* =================================================
-               PROBLEMAS EM ABERTO
-            ================================================= */
-
-            const problemasAbertos =
-                todosProblemas.filter(
-
-                    function (problema) {
-
-                        return (
-                            problema.status ===
-                            "Aberto"
+                    const salvo =
+                        lerJSON(
+                            CHAVE_PERFIL,
+                            null
                         );
-
-                    }
-
-                );
-
-
-            document
-                .getElementById(
-                    "problemasAbertos"
-                )
-                .textContent =
-                    problemasAbertos.length;
-
-
-            /* =================================================
-               CRÍTICOS PENDENTES
-            ================================================= */
-
-            const criticosPendentes =
-                todosProblemas.filter(
-
-                    function (problema) {
-
-                        return (
-
-                            problema.criticidade ===
-                            "Crítica"
-
-                            &&
-
-                            problema.status ===
-                            "Aberto"
-
-                        );
-
-                    }
-
-                );
-
-
-            document
-                .getElementById(
-                    "criticosPendentes"
-                )
-                .textContent =
-                    criticosPendentes.length;
-
-
-            /* =================================================
-               CONTAGEM POR CRITICIDADE
-            ================================================= */
-
-            function contarCriticidade(tipo) {
-
-                return todosProblemas.filter(
-
-                    function (problema) {
-
-                        return (
-                            problema.criticidade ===
-                            tipo
-                        );
-
-                    }
-
-                ).length;
-
-            }
-
-
-            document
-                .getElementById(
-                    "qtdCritica"
-                )
-                .textContent =
-                    contarCriticidade(
-                        "Crítica"
-                    );
-
-
-            document
-                .getElementById(
-                    "qtdAlta"
-                )
-                .textContent =
-                    contarCriticidade(
-                        "Alta"
-                    );
-
-
-            document
-                .getElementById(
-                    "qtdMedia"
-                )
-                .textContent =
-                    contarCriticidade(
-                        "Média"
-                    );
-
-
-            document
-                .getElementById(
-                    "qtdBaixa"
-                )
-                .textContent =
-                    contarCriticidade(
-                        "Baixa"
-                    );
-
-
-            /* =================================================
-               INSPEÇÕES RECENTES
-            ================================================= */
-
-            const tabela =
-                document.getElementById(
-                    "tabelaInspecoes"
-                );
-
-
-            if (
-                inspecoes.length === 0
-            ) {
-
-                tabela.innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="4"
-                            class="sem-registros"
-                        >
-
-                            Nenhuma inspeção registrada.
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-
-                return;
-
-            }
-
-
-            tabela.innerHTML =
-                "";
-
-
-            /* ORDENA DA MAIS NOVA PARA MAIS ANTIGA */
-
-            const recentes =
-                [...inspecoes]
-
-                    .sort(
-
-                        function (a, b) {
-
-
-                            const dataA =
-                                a.criadaEm
-
-                                    ? new Date(
-                                        a.criadaEm
-                                    ).getTime()
-
-                                    : Number(a.id) || 0;
-
-
-                            const dataB =
-                                b.criadaEm
-
-                                    ? new Date(
-                                        b.criadaEm
-                                    ).getTime()
-
-                                    : Number(b.id) || 0;
-
-
-                            return (
-                                dataB -
-                                dataA
-                            );
-
-                        }
-
-                    )
-
-                    .slice(
-                        0,
-                        5
-                    );
-
-
-            recentes.forEach(
-
-                function (inspecao) {
-
-
-                    const linha =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    /* EQUIPAMENTO */
-
-                    const tdEquipamento =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    tdEquipamento.textContent =
-                        inspecao.equipamento ||
-                        "-";
-
-
-                    /* CÓDIGO */
-
-                    const tdCodigo =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    tdCodigo.textContent =
-                        inspecao.codigo ||
-                        "-";
-
-
-                    /* ÁREA */
-
-                    const tdArea =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    tdArea.textContent =
-                        inspecao.area ||
-                        "-";
-
-
-                    /* SITUAÇÃO */
-
-                    const tdSituacao =
-                        document.createElement(
-                            "td"
-                        );
-
-
-                    const status =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    status.classList.add(
-                        "status"
-                    );
-
-
-                    const quantidadeProblemas =
-                        Array.isArray(
-                            inspecao.problemas
-                        )
-
-                            ? inspecao
-                                .problemas
-                                .length
-
-                            : 0;
 
 
                     if (
-                        quantidadeProblemas > 0
+                        salvo &&
+                        typeof salvo === "object"
                     ) {
 
-                        status.classList.add(
-                            "status-problema"
+                        return {
+
+                            nome:
+                                salvo.nome ||
+                                "Técnico",
+
+                            funcao:
+                                salvo.funcao ||
+                                "Técnico",
+
+                            perfil:
+                                salvo.perfil ||
+                                "Perfil Técnico",
+
+                            matricula:
+                                salvo.matricula ||
+                                "",
+
+                            email:
+                                salvo.email ||
+                                "",
+
+                            foto:
+                                salvo.foto ||
+                                ""
+
+                        };
+
+                    }
+
+
+                    /*
+                        Tenta aproveitar dados
+                        de uma sessão existente.
+                    */
+
+                    const sessao =
+                        lerJSON(
+                            "sessaoUsuario",
+                            null
                         );
 
 
-                        status.textContent =
-                            quantidadeProblemas === 1
+                    if (
+                        sessao &&
+                        typeof sessao === "object"
+                    ) {
 
-                                ? "1 problema"
+                        return {
 
-                                : quantidadeProblemas +
-                                " problemas";
+                            nome:
+                                sessao.nome ||
+                                "Técnico",
+
+                            funcao:
+                                sessao.funcao ||
+                                "Técnico",
+
+                            perfil:
+                                sessao.perfil ||
+                                "Perfil Técnico",
+
+                            matricula:
+                                sessao.matricula ||
+                                "",
+
+                            email:
+                                sessao.email ||
+                                "",
+
+                            foto:
+                                sessao.foto ||
+                                ""
+
+                        };
+
+                    }
+
+
+                    return {
+
+                        nome:
+                            "Técnico",
+
+                        funcao:
+                            "Técnico",
+
+                        perfil:
+                            "Perfil Técnico",
+
+                        matricula:
+                            "",
+
+                        email:
+                            "",
+
+                        foto:
+                            ""
+
+                    };
+
+                }
+
+
+                /* =================================================
+                   INICIAIS
+                ================================================= */
+
+                function obterIniciais(
+                    nome
+                ) {
+
+                    const partes =
+                        String(
+                            nome || "Técnico"
+                        )
+                            .trim()
+                            .split(/\s+/)
+                            .filter(Boolean);
+
+
+                    if (
+                        partes.length === 0
+                    ) {
+
+                        return "TC";
+                    }
+
+
+                    if (
+                        partes.length === 1
+                    ) {
+
+                        return partes[0]
+                            .substring(0, 2)
+                            .toUpperCase();
+
+                    }
+
+
+                    return (
+                        partes[0][0] +
+                        partes[
+                            partes.length - 1
+                        ][0]
+                    ).toUpperCase();
+
+                }
+
+
+                /* =================================================
+                   SINCRONIZAR FOTO
+                ================================================= */
+
+                function aplicarAvatar(
+                    imagem,
+                    iniciais,
+                    foto,
+                    letras
+                ) {
+
+                    if (
+                        foto &&
+                        String(foto).trim() !== ""
+                    ) {
+
+                        imagem.src =
+                            foto;
+
+
+                        imagem.style.display =
+                            "block";
+
+
+                        iniciais.style.display =
+                            "none";
 
                     }
                     else {
 
-                        status.classList.add(
-                            "status-ok"
+                        imagem.removeAttribute(
+                            "src"
                         );
 
 
-                        status.textContent =
-                            "OK";
+                        imagem.style.display =
+                            "none";
+
+
+                        iniciais.style.display =
+                            "inline";
+
+
+                        iniciais.textContent =
+                            letras;
 
                     }
 
+                }
 
-                    tdSituacao.appendChild(
-                        status
+
+                /* =================================================
+                   CARREGAR PERFIL
+                ================================================= */
+
+                function carregarPerfil() {
+
+                    const perfil =
+                        obterPerfil();
+
+
+                    const iniciais =
+                        obterIniciais(
+                            perfil.nome
+                        );
+
+
+                    /*
+                        SIDEBAR
+                    */
+
+                    document.getElementById(
+                        "sidebarNome"
+                    ).textContent =
+                        perfil.nome;
+
+
+                    document.getElementById(
+                        "sidebarPerfil"
+                    ).textContent =
+                        perfil.perfil;
+
+
+                    aplicarAvatar(
+
+                        document.getElementById(
+                            "sidebarFoto"
+                        ),
+
+                        document.getElementById(
+                            "sidebarIniciais"
+                        ),
+
+                        perfil.foto,
+
+                        iniciais
                     );
 
 
-                    /* MONTAR LINHA */
+                    /*
+                        TOPO
+                    */
 
-                    linha.appendChild(
-                        tdEquipamento
+                    aplicarAvatar(
+
+                        document.getElementById(
+                            "topFoto"
+                        ),
+
+                        document.getElementById(
+                            "topIniciais"
+                        ),
+
+                        perfil.foto,
+
+                        iniciais
                     );
 
 
-                    linha.appendChild(
-                        tdCodigo
+                    /*
+                        MENU
+                    */
+
+                    document.getElementById(
+                        "menuNome"
+                    ).textContent =
+                        perfil.nome;
+
+
+                    document.getElementById(
+                        "menuFuncao"
+                    ).textContent =
+                        perfil.perfil;
+
+
+                    aplicarAvatar(
+
+                        document.getElementById(
+                            "menuFoto"
+                        ),
+
+                        document.getElementById(
+                            "menuIniciais"
+                        ),
+
+                        perfil.foto,
+
+                        iniciais
                     );
 
 
-                    linha.appendChild(
-                        tdArea
-                    );
+                    /*
+                        SAUDAÇÃO
+                    */
+
+                    const primeiroNome =
+                        perfil.nome
+                            .split(" ")[0] ||
+                        "Técnico";
 
 
-                    linha.appendChild(
-                        tdSituacao
-                    );
+                    const hora =
+                        new Date()
+                            .getHours();
 
 
-                    tabela.appendChild(
-                        linha
+                    let saudacao =
+                        "Bom dia";
+
+
+                    if (
+                        hora >= 12 &&
+                        hora < 18
+                    ) {
+
+                        saudacao =
+                            "Boa tarde";
+
+                    }
+                    else if (
+                        hora >= 18
+                    ) {
+
+                        saudacao =
+                            "Boa noite";
+                    }
+
+
+                    document.getElementById(
+                        "saudacaoUsuario"
+                    ).textContent =
+                        saudacao +
+                        ", " +
+                        primeiroNome +
+                        ".";
+
+                }
+
+
+                /* =================================================
+                   NOTIFICAÇÕES
+                ================================================= */
+
+                function carregarNotificacoes() {
+
+                    const dados =
+                        lerJSON(
+                            CHAVE_NOTIFICACOES,
+                            []
+                        );
+
+
+                    return Array.isArray(
+                        dados
+                    )
+                        ? dados
+                        : [];
+
+                }
+
+
+                function salvarNotificacoes(
+                    notificacoes
+                ) {
+
+                    salvarJSON(
+                        CHAVE_NOTIFICACOES,
+                        notificacoes
                     );
 
                 }
 
-            );
 
-        }
+                /* =================================================
+                   CRIAR NOTIFICAÇÃO
+                ================================================= */
+
+                function criarNotificacao(
+                    tipo,
+                    titulo,
+                    mensagem,
+                    relatorioId,
+                    destino
+                ) {
+
+                    const notificacoes =
+                        carregarNotificacoes();
 
 
-        /* =====================================================
-           SAIR DO SISTEMA
-        ===================================================== */
-
-        const btnSair =
-            document.getElementById(
-                "btnSair"
-            );
+                    const agora =
+                        new Date();
 
 
-        if (btnSair) {
+                    const nova = {
 
-            btnSair.addEventListener(
+                        id:
+                            "NOT-" +
+                            Date.now(),
 
-                "click",
+                        tipo:
+                            tipo,
 
-                function (event) {
+                        titulo:
+                            titulo,
 
-                    event.preventDefault();
+                        mensagem:
+                            mensagem,
+
+                        relatorioId:
+                            relatorioId ||
+                            null,
+
+                        destino:
+                            destino ||
+                            null,
+
+                        data:
+                            agora
+                                .toLocaleDateString(
+                                    "pt-BR"
+                                ),
+
+                        hora:
+                            agora
+                                .toLocaleTimeString(
+                                    "pt-BR",
+                                    {
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    }
+                                ),
+
+                        criadaEm:
+                            agora.toISOString(),
+
+                        lida:
+                            false
+
+                    };
+
+
+                    notificacoes.unshift(
+                        nova
+                    );
+
+
+                    salvarNotificacoes(
+                        notificacoes
+                    );
+
+
+                    renderizarNotificacoes();
+
+
+                    return nova;
+
+                }
+
+
+                /*
+                    Deixa a função disponível
+                    para outras partes do sistema.
+
+                    Exemplo futuro:
+
+                    window.criarNotificacao(...)
+                */
+
+                window.criarNotificacao =
+                    criarNotificacao;
+
+
+                /* =================================================
+                   ÍCONE DA NOTIFICAÇÃO
+                ================================================= */
+
+                function dadosTipoNotificacao(
+                    tipo
+                ) {
+
+                    switch (
+                        normalizar(tipo)
+                    ) {
+
+                        case "aprovado":
+
+                            return {
+                                icone: "✓",
+                                classe: "aprovado"
+                            };
+
+
+                        case "devolvido":
+
+                            return {
+                                icone: "↩",
+                                classe: "devolvido"
+                            };
+
+
+                        case "comentario":
+
+                            return {
+                                icone: "💬",
+                                classe: "comentario"
+                            };
+
+
+                        case "critico":
+
+                            return {
+                                icone: "!",
+                                classe: "alerta"
+                            };
+
+
+                        default:
+
+                            return {
+                                icone: "i",
+                                classe: "comentario"
+                            };
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   RENDERIZAR NOTIFICAÇÕES
+                ================================================= */
+
+                function renderizarNotificacoes() {
+
+                    const notificacoes =
+                        carregarNotificacoes();
+
+
+                    const naoLidas =
+                        notificacoes.filter(
+                            function (
+                                notificacao
+                            ) {
+
+                                return (
+                                    notificacao.lida !==
+                                    true
+                                );
+
+                            }
+                        ).length;
+
+
+                    contadorNotificacoes
+                        .textContent =
+                            naoLidas > 99
+                                ? "99+"
+                                : naoLidas;
+
+
+                    if (
+                        naoLidas === 0
+                    ) {
+
+                        contadorNotificacoes
+                            .classList
+                            .add(
+                                "vazio"
+                            );
+
+                    }
+                    else {
+
+                        contadorNotificacoes
+                            .classList
+                            .remove(
+                                "vazio"
+                            );
+
+                    }
+
+
+                    listaNotificacoes.innerHTML =
+                        "";
+
+
+                    if (
+                        notificacoes.length === 0
+                    ) {
+
+                        listaNotificacoes
+                            .innerHTML = `
+
+                                <div class="notification-empty">
+
+                                    Nenhuma notificação no momento.
+
+                                </div>
+
+                            `;
+
+
+                        return;
+                    }
+
+
+                    notificacoes.forEach(
+                        function (
+                            notificacao
+                        ) {
+
+                            const tipo =
+                                dadosTipoNotificacao(
+                                    notificacao.tipo
+                                );
+
+
+                            const item =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            item.className =
+                                "notification-item" +
+                                (
+                                    notificacao.lida
+                                        ? ""
+                                        : " nao-lida"
+                                );
+
+
+                            item.innerHTML = `
+
+                                <div
+                                    class="
+                                        notification-icon
+                                        ${tipo.classe}
+                                    "
+                                >
+                                    ${tipo.icone}
+                                </div>
+
+
+                                <div class="notification-content">
+
+                                    <div class="notification-title">
+
+                                        ${escaparHTML(
+                                            notificacao.titulo ||
+                                            "Notificação"
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="notification-text">
+
+                                        ${escaparHTML(
+                                            notificacao.mensagem ||
+                                            ""
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="notification-time">
+
+                                        ${escaparHTML(
+                                            notificacao.data ||
+                                            ""
+                                        )}
+
+                                        ${notificacao.hora ? " • " : ""}
+
+                                        ${escaparHTML(
+                                            notificacao.hora ||
+                                            ""
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+
+                            item.addEventListener(
+                                "click",
+                                function () {
+
+                                    abrirNotificacao(
+                                        notificacao.id
+                                    );
+
+                                }
+                            );
+
+
+                            listaNotificacoes
+                                .appendChild(
+                                    item
+                                );
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================================
+                   ABRIR NOTIFICAÇÃO
+                ================================================= */
+
+                function abrirNotificacao(
+                    id
+                ) {
+
+                    const notificacoes =
+                        carregarNotificacoes();
+
+
+                    const notificacao =
+                        notificacoes.find(
+                            function (item) {
+
+                                return (
+                                    String(item.id) ===
+                                    String(id)
+                                );
+
+                            }
+                        );
+
+
+                    if (!notificacao) {
+                        return;
+                    }
+
+
+                    notificacao.lida =
+                        true;
+
+
+                    salvarNotificacoes(
+                        notificacoes
+                    );
+
+
+                    renderizarNotificacoes();
+
+
+                    painelNotificacoes
+                        .classList
+                        .remove(
+                            "aberto"
+                        );
 
 
                     /*
-                       Limpa somente dados relacionados
-                       à sessão.
+                        Se a notificação tiver
+                        relatório associado,
+                        abre Relatórios.
+                    */
 
-                       NÃO usamos localStorage.clear(),
-                       pois isso apagaria inspeções,
-                       problemas, áreas e equipamentos.
+                    if (
+                        notificacao.relatorioId
+                    ) {
+
+                        localStorage.setItem(
+                            "relatorioAtualId",
+                            String(
+                                notificacao.relatorioId
+                            )
+                        );
+
+
+                        window.location.href =
+                            "relatorios.html";
+
+
+                        return;
+                    }
+
+
+                    /*
+                        Se houver um destino
+                        específico.
+                    */
+
+                    if (
+                        notificacao.destino
+                    ) {
+
+                        window.location.href =
+                            notificacao.destino;
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   MARCAR TODAS COMO LIDAS
+                ================================================= */
+
+                function marcarTodasComoLidas() {
+
+                    const notificacoes =
+                        carregarNotificacoes();
+
+
+                    notificacoes.forEach(
+                        function (
+                            notificacao
+                        ) {
+
+                            notificacao.lida =
+                                true;
+
+                        }
+                    );
+
+
+                    salvarNotificacoes(
+                        notificacoes
+                    );
+
+
+                    renderizarNotificacoes();
+
+                }
+
+
+                /* =================================================
+                   GERAR NOTIFICAÇÕES A PARTIR DOS RELATÓRIOS
+
+                   Isso permite que alterações feitas pelo
+                   supervisor futuramente apareçam no sino.
+                ================================================= */
+
+                function sincronizarNotificacoesRelatorios() {
+
+                    const inspecoes =
+                        lerJSON(
+                            CHAVE_INSPECOES,
+                            []
+                        );
+
+
+                    if (
+                        !Array.isArray(
+                            inspecoes
+                        )
+                    ) {
+                        return;
+                    }
+
+
+                    const notificacoes =
+                        carregarNotificacoes();
+
+
+                    let alterou =
+                        false;
+
+
+                    inspecoes.forEach(
+                        function (
+                            inspecao
+                        ) {
+
+                            const codigo =
+                                inspecao.codigoRelatorio ||
+                                inspecao.codigo ||
+                                "Relatório";
+
+
+                            const idRelatorio =
+                                inspecao.id;
+
+
+                            const status =
+                                normalizar(
+                                    inspecao.statusRelatorio ||
+                                    inspecao.statusAprovacao
+                                );
+
+
+                            /*
+                                APROVADO
+                            */
+
+                            if (
+                                status === "aprovado"
+                            ) {
+
+                                const chave =
+                                    "AUTO-APROVADO-" +
+                                    idRelatorio;
+
+
+                                const existe =
+                                    notificacoes.some(
+                                        function (
+                                            item
+                                        ) {
+
+                                            return (
+                                                item.chave ===
+                                                chave
+                                            );
+
+                                        }
+                                    );
+
+
+                                if (!existe) {
+
+                                    notificacoes.unshift({
+
+                                        id:
+                                            "NOT-" +
+                                            Date.now() +
+                                            "-" +
+                                            Math.random(),
+
+                                        chave:
+                                            chave,
+
+                                        tipo:
+                                            "aprovado",
+
+                                        titulo:
+                                            "Relatório aprovado",
+
+                                        mensagem:
+                                            codigo +
+                                            " foi aprovado pelo supervisor.",
+
+                                        relatorioId:
+                                            idRelatorio,
+
+                                        data:
+                                            new Date()
+                                                .toLocaleDateString(
+                                                    "pt-BR"
+                                                ),
+
+                                        hora:
+                                            new Date()
+                                                .toLocaleTimeString(
+                                                    "pt-BR",
+                                                    {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit"
+                                                    }
+                                                ),
+
+                                        criadaEm:
+                                            new Date()
+                                                .toISOString(),
+
+                                        lida:
+                                            false
+
+                                    });
+
+
+                                    alterou =
+                                        true;
+
+                                }
+
+                            }
+
+
+                            /*
+                                DEVOLVIDO PARA EDIÇÃO
+                            */
+
+                            if (
+                                status.includes(
+                                    "devolv"
+                                ) ||
+                                status.includes(
+                                    "edição"
+                                ) ||
+                                status.includes(
+                                    "edicao"
+                                )
+                            ) {
+
+                                const comentario =
+                                    inspecao.comentarioSupervisor ||
+                                    inspecao.observacaoSupervisor ||
+                                    inspecao.motivoDevolucao ||
+                                    "";
+
+
+                                const chave =
+                                    "AUTO-DEVOLVIDO-" +
+                                    idRelatorio +
+                                    "-" +
+                                    comentario;
+
+
+                                const existe =
+                                    notificacoes.some(
+                                        function (
+                                            item
+                                        ) {
+
+                                            return (
+                                                item.chave ===
+                                                chave
+                                            );
+
+                                        }
+                                    );
+
+
+                                if (!existe) {
+
+                                    let mensagem =
+                                        codigo +
+                                        " foi devolvido para edição.";
+
+
+                                    if (
+                                        comentario
+                                    ) {
+
+                                        mensagem +=
+                                            " Supervisor: \"" +
+                                            comentario +
+                                            "\"";
+
+                                    }
+
+
+                                    notificacoes.unshift({
+
+                                        id:
+                                            "NOT-" +
+                                            Date.now() +
+                                            "-" +
+                                            Math.random(),
+
+                                        chave:
+                                            chave,
+
+                                        tipo:
+                                            "devolvido",
+
+                                        titulo:
+                                            "Correção solicitada",
+
+                                        mensagem:
+                                            mensagem,
+
+                                        relatorioId:
+                                            idRelatorio,
+
+                                        data:
+                                            new Date()
+                                                .toLocaleDateString(
+                                                    "pt-BR"
+                                                ),
+
+                                        hora:
+                                            new Date()
+                                                .toLocaleTimeString(
+                                                    "pt-BR",
+                                                    {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit"
+                                                    }
+                                                ),
+
+                                        criadaEm:
+                                            new Date()
+                                                .toISOString(),
+
+                                        lida:
+                                            false
+
+                                    });
+
+
+                                    alterou =
+                                        true;
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+
+                    if (
+                        alterou
+                    ) {
+
+                        salvarNotificacoes(
+                            notificacoes
+                        );
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   ABRIR / FECHAR SINO
+                ================================================= */
+
+                btnNotificacoes
+                    .addEventListener(
+                        "click",
+                        function (
+                            event
+                        ) {
+
+                            event.stopPropagation();
+
+
+                            menuPerfil
+                                .classList
+                                .remove(
+                                    "aberto"
+                                );
+
+
+                            painelNotificacoes
+                                .classList
+                                .toggle(
+                                    "aberto"
+                                );
+
+                        }
+                    );
+
+
+                /* =================================================
+                   ABRIR / FECHAR PERFIL
+                ================================================= */
+
+                btnPerfil
+                    .addEventListener(
+                        "click",
+                        function (
+                            event
+                        ) {
+
+                            event.stopPropagation();
+
+
+                            painelNotificacoes
+                                .classList
+                                .remove(
+                                    "aberto"
+                                );
+
+
+                            menuPerfil
+                                .classList
+                                .toggle(
+                                    "aberto"
+                                );
+
+                        }
+                    );
+
+
+                /* =================================================
+                   NÃO FECHAR AO CLICAR DENTRO
+                ================================================= */
+
+                painelNotificacoes
+                    .addEventListener(
+                        "click",
+                        function (
+                            event
+                        ) {
+
+                            event.stopPropagation();
+
+                        }
+                    );
+
+
+                menuPerfil
+                    .addEventListener(
+                        "click",
+                        function (
+                            event
+                        ) {
+
+                            event.stopPropagation();
+
+                        }
+                    );
+
+
+                /* =================================================
+                   FECHAR CLICANDO FORA
+                ================================================= */
+
+                document.addEventListener(
+                    "click",
+                    function () {
+
+                        painelNotificacoes
+                            .classList
+                            .remove(
+                                "aberto"
+                            );
+
+
+                        menuPerfil
+                            .classList
+                            .remove(
+                                "aberto"
+                            );
+
+                    }
+                );
+
+
+                /* =================================================
+                   MARCAR TODAS COMO LIDAS
+                ================================================= */
+
+                btnMarcarTodasLidas
+                    .addEventListener(
+                        "click",
+                        function (
+                            event
+                        ) {
+
+                            event.stopPropagation();
+
+
+                            marcarTodasComoLidas();
+
+                        }
+                    );
+
+
+                /* =================================================
+                   SAIR
+                ================================================= */
+
+                function sairDoSistema(
+                    event
+                ) {
+
+                    if (event) {
+
+                        event.preventDefault();
+
+                    }
+
+
+                    const confirmar =
+                        confirm(
+                            "Deseja realmente sair do sistema?"
+                        );
+
+
+                    if (!confirmar) {
+                        return;
+                    }
+
+
+                    /*
+                        Limpa somente informações
+                        de sessão.
+
+                        NÃO apaga:
+                        - inspeções
+                        - problemas
+                        - áreas
+                        - equipamentos
+                        - relatórios
+                        - notificações
                     */
 
                     sessionStorage.clear();
@@ -1749,30 +3515,572 @@
 
 
                     /*
-                       Voltar para o login.
-
-                       Como Dashboard está dentro
-                       da pasta page:
+                        Dashboard está dentro
+                        da pasta page.
                     */
 
                     window.location.href =
-                        "../pagina_inicial.html";
+                        "../index.html";
 
                 }
 
-            );
 
-        }
+                if (btnSair) {
+
+                    btnSair.addEventListener(
+                        "click",
+                        sairDoSistema
+                    );
+
+                }
 
 
-        /* =====================================================
-           INICIAR
-        ===================================================== */
+                if (btnSairPerfil) {
 
-        atualizarDashboard();
+                    btnSairPerfil
+                        .addEventListener(
+                            "click",
+                            sairDoSistema
+                        );
+
+                }
+
+
+                /* =================================================
+                   DADOS REAIS DO DASHBOARD
+                ================================================= */
+
+                function carregarDashboard() {
+
+                    const inspecoes =
+                        lerJSON(
+                            CHAVE_INSPECOES,
+                            []
+                        );
+
+
+                    const problemasSeparados =
+                        lerJSON(
+                            CHAVE_PROBLEMAS,
+                            []
+                        );
+
+
+                    const listaInspecoes =
+                        Array.isArray(
+                            inspecoes
+                        )
+                            ? inspecoes
+                            : [];
+
+
+                    /*
+                        CONTA PROBLEMAS DENTRO
+                        DAS INSPEÇÕES
+                    */
+
+                    let totalProblemas =
+                        0;
+
+
+                    listaInspecoes.forEach(
+                        function (
+                            inspecao
+                        ) {
+
+                            if (
+                                Array.isArray(
+                                    inspecao.itens
+                                )
+                            ) {
+
+                                totalProblemas +=
+                                    inspecao
+                                        .itens
+                                        .length;
+
+                            }
+                            else if (
+                                Array.isArray(
+                                    inspecao.problemas
+                                )
+                            ) {
+
+                                totalProblemas +=
+                                    inspecao
+                                        .problemas
+                                        .length;
+
+                            }
+
+                        }
+                    );
+
+
+                    /*
+                        Problemas registrados
+                        diretamente, sem inspeção.
+                    */
+
+                    if (
+                        Array.isArray(
+                            problemasSeparados
+                        )
+                    ) {
+
+                        totalProblemas +=
+                            problemasSeparados
+                                .length;
+
+                    }
+
+
+                    /*
+                        RELATÓRIOS
+                    */
+
+                    let pendentes =
+                        0;
+
+
+                    let aprovados =
+                        0;
+
+
+                    let devolvidos =
+                        0;
+
+
+                    listaInspecoes.forEach(
+                        function (
+                            inspecao
+                        ) {
+
+                            const status =
+                                normalizar(
+                                    inspecao.statusRelatorio ||
+                                    inspecao.statusAprovacao
+                                );
+
+
+                            if (
+                                status ===
+                                "aprovado"
+                            ) {
+
+                                aprovados++;
+
+                            }
+                            else if (
+                                status.includes(
+                                    "devolv"
+                                ) ||
+                                status.includes(
+                                    "edição"
+                                ) ||
+                                status.includes(
+                                    "edicao"
+                                )
+                            ) {
+
+                                devolvidos++;
+
+                            }
+                            else if (
+                                status.includes(
+                                    "pendente"
+                                )
+                            ) {
+
+                                pendentes++;
+
+                            }
+
+                        }
+                    );
+
+
+                    /*
+                        CARDS
+                    */
+
+                    document.getElementById(
+                        "cardInspecoes"
+                    ).textContent =
+                        listaInspecoes.length;
+
+
+                    document.getElementById(
+                        "cardProblemas"
+                    ).textContent =
+                        totalProblemas;
+
+
+                    document.getElementById(
+                        "cardPendentes"
+                    ).textContent =
+                        pendentes;
+
+
+                    document.getElementById(
+                        "cardAprovados"
+                    ).textContent =
+                        aprovados;
+
+
+                    /*
+                        RESUMO
+                    */
+
+                    document.getElementById(
+                        "resumoPendentes"
+                    ).textContent =
+                        pendentes;
+
+
+                    document.getElementById(
+                        "resumoAprovados"
+                    ).textContent =
+                        aprovados;
+
+
+                    document.getElementById(
+                        "resumoDevolvidos"
+                    ).textContent =
+                        devolvidos;
+
+
+                    /*
+                        INSPEÇÕES DE HOJE
+                    */
+
+                    const hoje =
+                        new Date()
+                            .toISOString()
+                            .split("T")[0];
+
+
+                    const quantidadeHoje =
+                        listaInspecoes.filter(
+                            function (
+                                inspecao
+                            ) {
+
+                                return (
+                                    inspecao.data ===
+                                    hoje
+                                );
+
+                            }
+                        ).length;
+
+
+                    document.getElementById(
+                        "inspecoesHoje"
+                    ).textContent =
+                        quantidadeHoje;
+
+
+                    renderizarUltimasInspecoes(
+                        listaInspecoes
+                    );
+
+                }
+
+
+                /* =================================================
+                   ÚLTIMAS INSPEÇÕES
+                ================================================= */
+
+                function renderizarUltimasInspecoes(
+                    inspecoes
+                ) {
+
+                    const tbody =
+                        document.getElementById(
+                            "tabelaInspecoes"
+                        );
+
+
+                    tbody.innerHTML =
+                        "";
+
+
+                    if (
+                        !Array.isArray(
+                            inspecoes
+                        ) ||
+                        inspecoes.length === 0
+                    ) {
+
+                        tbody.innerHTML = `
+
+                            <tr>
+
+                                <td
+                                    colspan="4"
+                                    class="sem-registros"
+                                >
+
+                                    Nenhuma inspeção registrada.
+
+                                </td>
+
+                            </tr>
+
+                        `;
+
+
+                        return;
+                    }
+
+
+                    /*
+                        Copia para não alterar
+                        a ordem original.
+                    */
+
+                    const ultimas =
+                        [...inspecoes]
+                            .sort(
+                                function (
+                                    a,
+                                    b
+                                ) {
+
+                                    const dataA =
+                                        new Date(
+                                            a.criadaEm ||
+                                            a.data ||
+                                            0
+                                        );
+
+
+                                    const dataB =
+                                        new Date(
+                                            b.criadaEm ||
+                                            b.data ||
+                                            0
+                                        );
+
+
+                                    return (
+                                        dataB -
+                                        dataA
+                                    );
+
+                                }
+                            )
+                            .slice(
+                                0,
+                                5
+                            );
+
+
+                    ultimas.forEach(
+                        function (
+                            inspecao
+                        ) {
+
+                            const itens =
+                                Array.isArray(
+                                    inspecao.itens
+                                )
+                                    ? inspecao.itens
+                                    : (
+                                        Array.isArray(
+                                            inspecao.problemas
+                                        )
+                                            ? inspecao.problemas
+                                            : []
+                                    );
+
+
+                            const temProblema =
+                                itens.length > 0;
+
+
+                            const linha =
+                                document.createElement(
+                                    "tr"
+                                );
+
+
+                            linha.innerHTML = `
+
+                                <td>
+
+                                    ${escaparHTML(
+                                        formatarData(
+                                            inspecao.data
+                                        )
+                                    )}
+
+                                </td>
+
+
+                                <td>
+
+                                    ${escaparHTML(
+                                        inspecao.area ||
+                                        "-"
+                                    )}
+
+                                </td>
+
+
+                                <td>
+
+                                    ${escaparHTML(
+                                        inspecao.equipamento ||
+                                        "-"
+                                    )}
+
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            status
+                                            ${
+                                                temProblema
+                                                    ? "status-problema"
+                                                    : "status-ok"
+                                            }
+                                        "
+                                    >
+
+                                        ${
+                                            temProblema
+                                                ? itens.length +
+                                                  (
+                                                    itens.length === 1
+                                                        ? " item"
+                                                        : " itens"
+                                                  )
+                                                : "Sem ocorrência"
+                                        }
+
+                                    </span>
+
+                                </td>
+
+                            `;
+
+
+                            tbody.appendChild(
+                                linha
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================================
+                   SINCRONIZAÇÃO ENTRE PÁGINAS
+                ================================================= */
+
+                window.addEventListener(
+                    "storage",
+                    function (
+                        event
+                    ) {
+
+                        if (
+                            event.key ===
+                            CHAVE_NOTIFICACOES
+                        ) {
+
+                            renderizarNotificacoes();
+
+                        }
+
+
+                        if (
+                            event.key ===
+                            CHAVE_PERFIL
+                        ) {
+
+                            carregarPerfil();
+
+                        }
+
+
+                        if (
+                            event.key ===
+                            CHAVE_INSPECOES ||
+                            event.key ===
+                            CHAVE_PROBLEMAS
+                        ) {
+
+                            sincronizarNotificacoesRelatorios();
+
+                            renderizarNotificacoes();
+
+                            carregarDashboard();
+
+                        }
+
+                    }
+                );
+
+
+                /* =================================================
+                   QUANDO VOLTAR PARA A ABA
+                ================================================= */
+
+                document.addEventListener(
+                    "visibilitychange",
+                    function () {
+
+                        if (
+                            document.visibilityState ===
+                            "visible"
+                        ) {
+
+                            carregarPerfil();
+
+                            sincronizarNotificacoesRelatorios();
+
+                            renderizarNotificacoes();
+
+                            carregarDashboard();
+
+                        }
+
+                    }
+                );
+
+
+                /* =================================================
+                   INICIAR
+                ================================================= */
+
+                function iniciar() {
+
+                    atualizarData();
+
+                    carregarPerfil();
+
+                    sincronizarNotificacoesRelatorios();
+
+                    renderizarNotificacoes();
+
+                    carregarDashboard();
+
+                }
+
+
+                iniciar();
+
+            }
+        );
 
     </script>
-
 
 </body>
 

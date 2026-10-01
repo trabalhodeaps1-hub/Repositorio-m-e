@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alterar Senha - AutoRelatório</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+        /* ==========================================
+           MENU LATERAL
+        ========================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100vh;
+            background: #0b132b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+            color: #3b82f6;
+            font-size: 8px;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        /* ==========================================
+           LINKS DO MENU
+        ========================================== */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+        .menu a {
+            height: 40px;
+            padding: 0 12px;
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #aeb8ca;
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* ==========================================
+           PERFIL NA PARTE INFERIOR
+        ========================================== */
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 20px 18px;
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 22px;
+            cursor: pointer;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            flex-shrink: 0;
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            color: #7f8ba0;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .logout {
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+        /* ==========================================
+           CONTEÚDO PRINCIPAL
+        ========================================== */
+
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            min-height: 100vh;
+        }
+
+        /* ==========================================
+           BARRA SUPERIOR
+        ========================================== */
+
+        .topbar {
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #dfe3e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+        .topbar-info {
+            font-size: 12px;
+            color: #7c8797;
+        }
+
+        .voltar {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .voltar:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================
+           CONTEÚDO
+        ========================================== */
+
+        .content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 32px 28px 50px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header small {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #2563eb;
+
+            font-size: 10px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        .page-header h1 {
+            color: #0d1c34;
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #778295;
+            font-size: 13px;
+        }
+
+        /* ==========================================
+           CARD
+        ========================================== */
+
+        .card {
+            background: white;
+
+            border: 1px solid #dfe3e9;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 22px 28px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            background: #fbfcfd;
+        }
+
+        .card-header h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .card-header p {
+            color: #7e8999;
+            font-size: 11px;
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        /* ==========================================
+           CAMPOS
+        ========================================== */
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+
+            color: #485467;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .senha-container {
+            position: relative;
+        }
+
+        .senha-container input {
+            width: 100%;
+            height: 44px;
+
+            border: 1px solid #d6dbe2;
+
+            border-radius: 5px;
+
+            padding: 0 50px 0 12px;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+        .senha-container input:focus {
+            border-color: #3479dc;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(52, 121, 220, 0.08);
+        }
+
+        /* ==========================================
+           MOSTRAR SENHA
+        ========================================== */
+
+        .mostrar-senha {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            color: #657186;
+
+            font-size: 16px;
+        }
+
+        .ajuda {
+            color: #8d97a6;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+        }
+
+        /* ==========================================
+           REQUISITOS DA SENHA
+        ========================================== */
+
+        .requisitos {
+            margin-top: 5px;
+            margin-bottom: 23px;
+
+            padding: 15px;
+
+            background: #f7f9fc;
+
+            border: 1px solid #e1e6ed;
+
+            border-radius: 6px;
+        }
+
+        .requisitos strong {
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 9px;
+        }
+
+        .requisito {
+            font-size: 10px;
+
+            color: #7c8796;
+
+            margin-top: 6px;
+        }
+
+        .requisito.ok {
+            color: #18864b;
+        }
+
+        /* ==========================================
+           MENSAGENS
+        ========================================== */
+
+        .mensagem {
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 13px 15px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        .mensagem.erro {
+            display: block;
+
+            background: #fff1f1;
+
+            border: 1px solid #f2cccc;
+
+            color: #b83d3d;
+        }
+
+        .mensagem.sucesso {
+            display: block;
+
+            background: #eaf8ef;
+
+            border: 1px solid #c7ead4;
+
+            color: #247346;
+        }
+
+        /* ==========================================
+           BOTÕES
+        ========================================== */
+
+        .acoes {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e7eaee;
+        }
+
+        .btn {
+            min-height: 40px;
+
+            padding: 0 18px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        .btn-cancelar {
+            background: white;
+
+            border: 1px solid #d4d9e0;
+
+            color: #566174;
+        }
+
+        .btn-cancelar:hover {
+            background: #f5f6f8;
+        }
+
+        .btn-salvar {
+            border: none;
+
+            background: #2d76dc;
+
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background: #1f63bd;
+        }
+
+        /* ==========================================
+           RESPONSIVO
+        ========================================== */
+
+        @media(max-width: 750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         MENU LATERAL
+    =========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="nova_inspecao.html">
+                <span class="menu-icon">✓</span>
+                Nova Inspeção
+            </a>
+
+            <a href="registrar_problema.html">
+                <span class="menu-icon">△</span>
+                Registrar Problema
+            </a>
+
+            <a href="historico.html">
+                <span class="menu-icon">♢</span>
+                Histórico
+            </a>
+
+            <a href="relatorios.html">
+                <span class="menu-icon">▧</span>
+                Relatórios
+            </a>
+
+            <a href="areas.html">
+                <span class="menu-icon">▦</span>
+                Áreas
+            </a>
+
+            <a href="equipamentos.html">
+                <span class="menu-icon">⌁</span>
+                Equipamentos
+            </a>
+
+        </nav>
+
+
+        <!-- ==========================================
+             PERFIL INFERIOR
+        =========================================== -->
+
+        <div class="sidebar-bottom">
+
+            <div
+                class="profile"
+                id="perfilSidebar"
+            >
+
+                <div class="profile-circle">
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+                    <img
+                        id="sidebarFoto"
+                        alt="Foto do usuário"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
+                        Técnico
+                    </div>
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+                ⇥ &nbsp; Sair
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ==========================================
+         CONTEÚDO PRINCIPAL
+    =========================================== -->
+
+    <main class="main">
+
+
+        <!-- ==========================================
+             TOPO
+        =========================================== -->
+
+        <header class="topbar">
+
+            <div class="topbar-info">
+                Planta Tubarão • Segurança da conta
+            </div>
+
+
+            <!-- ALTERADO PARA DASHBOARD -->
+
+            <a
+                href="dashboard.html"
+                class="voltar"
+            >
+                ← Voltar ao Dashboard
+            </a>
+
+        </header>
+
+
+        <!-- ==========================================
+             CONTEÚDO
+        =========================================== -->
+
+        <section class="content">
+
+
+            <div class="page-header">
+
+                <small>
+                    SEGURANÇA
+                </small>
+
+                <h1>
+                    Alterar senha
+                </h1>
+
+                <p>
+                    Atualize a senha utilizada para acessar sua conta.
+                </p>
+
+            </div>
+
+
+            <!-- MENSAGEM -->
+
+            <div
+                id="mensagem"
+                class="mensagem"
+            ></div>
+
+
+            <!-- CARD -->
+
+            <div class="card">
+
+
+                <div class="card-header">
+
+                    <h3>
+                        Segurança da conta
+                    </h3>
+
+                    <p>
+                        Para sua segurança, informe sua senha atual
+                        antes de cadastrar uma nova senha.
+                    </p>
+
+                </div>
+
+
+                <form
+                    class="card-body"
+                    id="formSenha"
+                >
+
+
+                    <!-- ==========================================
+                         SENHA ATUAL
+                    =========================================== -->
+
+                    <div class="campo">
+
+                        <label for="senhaAtual">
+                            Senha atual *
+                        </label>
+
+
+                        <div class="senha-container">
+
+                            <input
+                                type="password"
+                                id="senhaAtual"
+                                autocomplete="current-password"
+                                required
+                                placeholder="Digite sua senha atual"
+                            >
+
+                            <button
+                                type="button"
+                                class="mostrar-senha"
+                                data-campo="senhaAtual"
+                                title="Mostrar senha"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         NOVA SENHA
+                    =========================================== -->
+
+                    <div class="campo">
+
+                        <label for="novaSenha">
+                            Nova senha *
+                        </label>
+
+
+                        <div class="senha-container">
+
+                            <input
+                                type="password"
+                                id="novaSenha"
+                                autocomplete="new-password"
+                                required
+                                placeholder="Digite a nova senha"
+                            >
+
+                            <button
+                                type="button"
+                                class="mostrar-senha"
+                                data-campo="novaSenha"
+                                title="Mostrar senha"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+
+                        <div class="ajuda">
+                            Utilize pelo menos 8 caracteres.
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CONFIRMAR NOVA SENHA
+                    =========================================== -->
+
+                    <div class="campo">
+
+                        <label for="confirmarSenha">
+                            Confirmar nova senha *
+                        </label>
+
+
+                        <div class="senha-container">
+
+                            <input
+                                type="password"
+                                id="confirmarSenha"
+                                autocomplete="new-password"
+                                required
+                                placeholder="Digite novamente a nova senha"
+                            >
+
+                            <button
+                                type="button"
+                                class="mostrar-senha"
+                                data-campo="confirmarSenha"
+                                title="Mostrar senha"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         REQUISITOS
+                    =========================================== -->
+
+                    <div class="requisitos">
+
+                        <strong>
+                            Requisitos da senha
+                        </strong>
+
+
+                        <div
+                            class="requisito"
+                            id="reqTamanho"
+                        >
+                            ○ Pelo menos 8 caracteres
+                        </div>
+
+
+                        <div
+                            class="requisito"
+                            id="reqMaiuscula"
+                        >
+                            ○ Pelo menos uma letra maiúscula
+                        </div>
+
+
+                        <div
+                            class="requisito"
+                            id="reqNumero"
+                        >
+                            ○ Pelo menos um número
+                        </div>
+
+
+                        <div
+                            class="requisito"
+                            id="reqIguais"
+                        >
+                            ○ As duas novas senhas devem ser iguais
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         BOTÕES
+                    =========================================== -->
+
+                    <div class="acoes">
+
+                        <button
+                            type="button"
+                            class="btn btn-cancelar"
+                            onclick="location.href='dashboard.html'"
+                        >
+                            Cancelar
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-salvar"
+                        >
+                            Alterar senha
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                const senhaAtual =
+                    document.getElementById(
+                        "senhaAtual"
+                    );
+
+
+                const novaSenha =
+                    document.getElementById(
+                        "novaSenha"
+                    );
+
+
+                const confirmarSenha =
+                    document.getElementById(
+                        "confirmarSenha"
+                    );
+
+
+                const form =
+                    document.getElementById(
+                        "formSenha"
+                    );
+
+
+                const mensagem =
+                    document.getElementById(
+                        "mensagem"
+                    );
+
+
+                /* ==========================================
+                   LER JSON DO LOCALSTORAGE
+                =========================================== */
+
+                function lerJSON(
+                    chave,
+                    padrao = {}
+                ) {
+
+                    try {
+
+                        const valor =
+                            localStorage.getItem(
+                                chave
+                            );
+
+
+                        return valor
+                            ? JSON.parse(valor)
+                            : padrao;
+
+                    }
+
+                    catch (erro) {
+
+                        console.error(
+                            "Erro ao ler:",
+                            chave,
+                            erro
+                        );
+
+                        return padrao;
+
+                    }
+
+                }
+
+
+                /* ==========================================
+                   OBTER INICIAIS
+                =========================================== */
+
+                function obterIniciais(nome) {
+
+                    const partes =
+                        String(
+                            nome || "Técnico"
+                        )
+                        .trim()
+                        .split(/\s+/)
+                        .filter(Boolean);
+
+
+                    if (
+                        partes.length === 0
+                    ) {
+
+                        return "TC";
+
+                    }
+
+
+                    if (
+                        partes.length === 1
+                    ) {
+
+                        return partes[0]
+                            .substring(0, 2)
+                            .toUpperCase();
+
+                    }
+
+
+                    return (
+                        partes[0][0] +
+                        partes[
+                            partes.length - 1
+                        ][0]
+                    ).toUpperCase();
+
+                }
+
+
+                /* ==========================================
+                   CARREGAR PERFIL NA SIDEBAR
+                =========================================== */
+
+                function carregarPerfil() {
+
+                    const perfil =
+                        lerJSON(
+                            "perfilUsuario",
+                            {}
+                        );
+
+
+                    const sessao =
+                        lerJSON(
+                            "sessaoUsuario",
+                            {}
+                        );
+
+
+                    const dados = {
+
+                        nome:
+                            perfil.nome ||
+                            sessao.nome ||
+                            "Técnico",
+
+                        perfil:
+                            perfil.perfil ||
+                            sessao.perfil ||
+                            "Perfil Técnico",
+
+                        foto:
+                            perfil.foto ||
+                            sessao.foto ||
+                            ""
+
+                    };
+
+
+                    document.getElementById(
+                        "sidebarNome"
+                    ).textContent =
+                        dados.nome;
+
+
+                    document.getElementById(
+                        "sidebarPerfil"
+                    ).textContent =
+                        dados.perfil;
+
+
+                    const letras =
+                        obterIniciais(
+                            dados.nome
+                        );
+
+
+                    const foto =
+                        document.getElementById(
+                            "sidebarFoto"
+                        );
+
+
+                    const iniciais =
+                        document.getElementById(
+                            "sidebarIniciais"
+                        );
+
+
+                    if (
+                        dados.foto
+                    ) {
+
+                        foto.src =
+                            dados.foto;
+
+                        foto.style.display =
+                            "block";
+
+                        iniciais.style.display =
+                            "none";
+
+                    }
+
+                    else {
+
+                        foto.style.display =
+                            "none";
+
+                        iniciais.style.display =
+                            "inline";
+
+                        iniciais.textContent =
+                            letras;
+
+                    }
+
+                }
+
+
+                /* ==========================================
+                   CLICAR NO PERFIL
+                =========================================== */
+
+                document.getElementById(
+                    "perfilSidebar"
+                ).addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "meu_perfil.html";
+
+                    }
+                );
+
+
+                /* ==========================================
+                   MOSTRAR / OCULTAR SENHA
+                =========================================== */
+
+                document.querySelectorAll(
+                    ".mostrar-senha"
+                ).forEach(
+                    function (botao) {
+
+                        botao.addEventListener(
+                            "click",
+                            function () {
+
+
+                                const campo =
+                                    document.getElementById(
+                                        this.dataset.campo
+                                    );
+
+
+                                if (
+                                    campo.type ===
+                                    "password"
+                                ) {
+
+                                    campo.type =
+                                        "text";
+
+                                    this.textContent =
+                                        "◌";
+
+                                    this.title =
+                                        "Ocultar senha";
+
+                                }
+
+                                else {
+
+                                    campo.type =
+                                        "password";
+
+                                    this.textContent =
+                                        "◉";
+
+                                    this.title =
+                                        "Mostrar senha";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                /* ==========================================
+                   ALTERAR VISUAL DOS REQUISITOS
+                =========================================== */
+
+                function requisito(
+                    elemento,
+                    valido,
+                    texto
+                ) {
+
+                    elemento
+                        .classList
+                        .toggle(
+                            "ok",
+                            valido
+                        );
+
+
+                    elemento.textContent =
+                        (
+                            valido
+                                ? "✓ "
+                                : "○ "
+                        ) +
+                        texto;
+
+                }
+
+
+                /* ==========================================
+                   VALIDAR REQUISITOS
+                =========================================== */
+
+                function validarRequisitos() {
+
+                    const senha =
+                        novaSenha.value;
+
+
+                    requisito(
+
+                        document.getElementById(
+                            "reqTamanho"
+                        ),
+
+                        senha.length >= 8,
+
+                        "Pelo menos 8 caracteres"
+
+                    );
+
+
+                    requisito(
+
+                        document.getElementById(
+                            "reqMaiuscula"
+                        ),
+
+                        /[A-Z]/.test(
+                            senha
+                        ),
+
+                        "Pelo menos uma letra maiúscula"
+
+                    );
+
+
+                    requisito(
+
+                        document.getElementById(
+                            "reqNumero"
+                        ),
+
+                        /[0-9]/.test(
+                            senha
+                        ),
+
+                        "Pelo menos um número"
+
+                    );
+
+
+                    requisito(
+
+                        document.getElementById(
+                            "reqIguais"
+                        ),
+
+                        senha.length > 0 &&
+                        senha ===
+                        confirmarSenha.value,
+
+                        "As duas novas senhas devem ser iguais"
+
+                    );
+
+                }
+
+
+                novaSenha.addEventListener(
+                    "input",
+                    validarRequisitos
+                );
+
+
+                confirmarSenha.addEventListener(
+                    "input",
+                    validarRequisitos
+                );
+
+
+                /* ==========================================
+                   MOSTRAR MENSAGEM
+                =========================================== */
+
+                function mostrarMensagem(
+                    texto,
+                    tipo
+                ) {
+
+                    mensagem.textContent =
+                        texto;
+
+
+                    mensagem.className =
+                        "mensagem " +
+                        tipo;
+
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+
+                /* ==========================================
+                   ALTERAR SENHA
+                =========================================== */
+
+                form.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const atual =
+                            senhaAtual.value;
+
+
+                        const nova =
+                            novaSenha.value;
+
+
+                        const confirmar =
+                            confirmarSenha.value;
+
+
+                        /* ==================================
+                           BUSCAR SENHA ATUAL
+                        ================================== */
+
+                        const usuario =
+                            lerJSON(
+                                "usuarioLogado",
+                                {}
+                            );
+
+
+                        const sessao =
+                            lerJSON(
+                                "sessaoUsuario",
+                                {}
+                            );
+
+
+                        const senhaSalva =
+                            usuario.senha ||
+                            sessao.senha ||
+                            localStorage.getItem(
+                                "senhaUsuario"
+                            );
+
+
+                        /* ==================================
+                           VALIDAR SENHA ATUAL
+                        ================================== */
+
+                        if (
+                            senhaSalva &&
+                            atual !== senhaSalva
+                        ) {
+
+                            mostrarMensagem(
+                                "A senha atual está incorreta.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           TAMANHO
+                        ================================== */
+
+                        if (
+                            nova.length < 8
+                        ) {
+
+                            mostrarMensagem(
+                                "A nova senha precisa ter pelo menos 8 caracteres.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           LETRA MAIÚSCULA
+                        ================================== */
+
+                        if (
+                            !/[A-Z]/.test(
+                                nova
+                            )
+                        ) {
+
+                            mostrarMensagem(
+                                "A nova senha precisa possuir pelo menos uma letra maiúscula.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           NÚMERO
+                        ================================== */
+
+                        if (
+                            !/[0-9]/.test(
+                                nova
+                            )
+                        ) {
+
+                            mostrarMensagem(
+                                "A nova senha precisa possuir pelo menos um número.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           CONFIRMAÇÃO
+                        ================================== */
+
+                        if (
+                            nova !== confirmar
+                        ) {
+
+                            mostrarMensagem(
+                                "A confirmação da nova senha não corresponde.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           NOVA DIFERENTE DA ATUAL
+                        ================================== */
+
+                        if (
+                            nova === atual
+                        ) {
+
+                            mostrarMensagem(
+                                "A nova senha deve ser diferente da senha atual.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           SALVAR NOVA SENHA
+
+                           OBSERVAÇÃO:
+                           isto é apenas para o protótipo.
+
+                           Quando houver backend, a senha
+                           deve ser tratada no servidor.
+                        ================================== */
+
+                        try {
+
+                            localStorage.setItem(
+                                "senhaUsuario",
+                                nova
+                            );
+
+
+                            /* Atualiza usuário se existir */
+
+                            if (
+                                Object.keys(
+                                    usuario
+                                ).length > 0
+                            ) {
+
+                                usuario.senha =
+                                    nova;
+
+
+                                localStorage.setItem(
+                                    "usuarioLogado",
+                                    JSON.stringify(
+                                        usuario
+                                    )
+                                );
+
+                            }
+
+
+                            /* Atualiza sessão se existir */
+
+                            if (
+                                Object.keys(
+                                    sessao
+                                ).length > 0
+                            ) {
+
+                                sessao.senha =
+                                    nova;
+
+
+                                localStorage.setItem(
+                                    "sessaoUsuario",
+                                    JSON.stringify(
+                                        sessao
+                                    )
+                                );
+
+                            }
+
+                        }
+
+                        catch (erro) {
+
+                            console.error(
+                                erro
+                            );
+
+
+                            mostrarMensagem(
+                                "Não foi possível alterar a senha.",
+                                "erro"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* ==================================
+                           LIMPAR FORMULÁRIO
+                        ================================== */
+
+                        form.reset();
+
+
+                        validarRequisitos();
+
+
+                        /* ==================================
+                           SUCESSO
+                        ================================== */
+
+                        mostrarMensagem(
+                            "Senha alterada com sucesso.",
+                            "sucesso"
+                        );
+
+                    }
+                );
+
+
+                /* ==========================================
+                   BOTÃO SAIR
+                =========================================== */
+
+                document.getElementById(
+                    "btnSair"
+                ).addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const confirmar =
+                            confirm(
+                                "Deseja realmente sair do sistema?"
+                            );
+
+
+                        if (
+                            !confirmar
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        /* Limpa somente dados de sessão */
+
+                        sessionStorage.clear();
+
+
+                        localStorage.removeItem(
+                            "usuarioLogado"
+                        );
+
+
+                        localStorage.removeItem(
+                            "sessaoUsuario"
+                        );
+
+
+                        /* Volta para login */
+
+                        window.location.href =
+                            "../index.html";
+
+                    }
+                );
+
+
+                /* ==========================================
+                   INICIALIZAR
+                =========================================== */
+
+                carregarPerfil();
+
+                validarRequisitos();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

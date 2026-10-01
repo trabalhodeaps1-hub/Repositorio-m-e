@@ -2,23 +2,12 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Registrar Problema - AutoRelatório
-    </title>
+    <title>Adicionar Item - AutoRelatório</title>
 
     <style>
-
-        /* =========================================
-           CONFIGURAÇÕES GERAIS
-        ========================================= */
 
         * {
             margin: 0;
@@ -35,64 +24,43 @@
 
         body {
             min-height: 100vh;
-            background-color: #f4f6f9;
-            color: #0c1b33;
+            background: #f4f6f9;
+            color: #0d1b32;
         }
 
-
-        /* =========================================
-           MENU LATERAL
-        ========================================= */
+        /* SIDEBAR */
 
         .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
             width: 240px;
             height: 100vh;
-
-            position: fixed;
-            top: 0;
-            left: 0;
-
-            background-color: #0b132b;
+            background: #0b132b;
             color: white;
-
             display: flex;
             flex-direction: column;
-
             z-index: 100;
         }
 
-
-        /* =========================================
-           LOGO
-        ========================================= */
-
         .logo {
             height: 65px;
-
             display: flex;
             align-items: center;
-
             gap: 10px;
-
             padding: 10px 16px;
-
             border-bottom: 1px solid #1b243b;
         }
 
         .logo-icon {
             width: 32px;
             height: 32px;
-
+            background: #2563eb;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            background-color: #2563eb;
-
-            border-radius: 4px;
-
             color: white;
-
             font-size: 16px;
         }
 
@@ -103,20 +71,11 @@
 
         .logo-text span {
             display: block;
-
-            margin-top: 2px;
-
             color: #3b82f6;
-
             font-size: 8px;
-
             letter-spacing: 1.2px;
+            margin-top: 2px;
         }
-
-
-        /* =========================================
-           MENU
-        ========================================= */
 
         .menu {
             padding: 17px 9px;
@@ -124,37 +83,26 @@
 
         .menu a {
             height: 40px;
-
             padding: 0 12px;
-
             margin-bottom: 3px;
-
             display: flex;
             align-items: center;
-
             gap: 10px;
-
-            border-radius: 5px;
-
             color: #aeb8ca;
-
             text-decoration: none;
-
             font-size: 13px;
-
+            border-radius: 5px;
             transition: 0.2s;
         }
 
         .menu a:hover {
-            background-color: #151f3a;
+            background: #151f3a;
             color: white;
         }
 
         .menu a.active {
-            background-color: #12315c;
-
+            background: #12315c;
             color: #3b82f6;
-
             border-left: 2px solid #3b82f6;
         }
 
@@ -163,42 +111,28 @@
             text-align: center;
         }
 
-
-        /* =========================================
-           PARTE INFERIOR DO MENU
-        ========================================= */
-
         .sidebar-bottom {
             margin-top: auto;
-
             padding: 20px 18px;
-
             border-top: 1px solid #1b243b;
         }
 
         .profile {
             display: flex;
             align-items: center;
-
             gap: 11px;
-
             margin-bottom: 22px;
         }
 
         .profile-circle {
             width: 32px;
             height: 32px;
-
             border-radius: 50%;
-
-            background-color: #2867b5;
-
+            background: #2867b5;
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-size: 11px;
-
             font-weight: bold;
         }
 
@@ -208,23 +142,17 @@
         }
 
         .profile-info {
-            margin-top: 3px;
-
             color: #7f8ba0;
-
             font-size: 9px;
+            margin-top: 3px;
         }
 
         .logout {
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 12px;
             display: inline-flex;
             align-items: center;
-
-            color: #aeb8ca;
-
-            text-decoration: none;
-
-            font-size: 12px;
-
             cursor: pointer;
         }
 
@@ -232,158 +160,226 @@
             color: white;
         }
 
-
-        /* =========================================
-           CONTEÚDO PRINCIPAL
-        ========================================= */
+        /* CONTEÚDO PRINCIPAL */
 
         .main {
             margin-left: 240px;
-
             width: calc(100% - 240px);
-
             min-height: 100vh;
         }
 
-
-        /* =========================================
-           TOPO
-        ========================================= */
-
         .topbar {
             height: 65px;
-
             padding: 0 25px;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            background-color: white;
-
+            background: white;
             border-bottom: 1px solid #e1e5eb;
         }
 
         .page-title h1 {
-            margin-bottom: 4px;
-
             font-size: 18px;
+            margin-bottom: 4px;
         }
 
         .page-title p {
             color: #7a8494;
-
             font-size: 12px;
         }
 
         .top-right {
             display: flex;
             align-items: center;
-
             gap: 17px;
         }
 
         .notification {
             color: #506075;
-
-            cursor: pointer;
         }
 
         .user {
             width: 32px;
             height: 32px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 50%;
-
-            background-color: #2867b5;
-
+            background: #2867b5;
             color: white;
-
             font-size: 11px;
-
             font-weight: bold;
         }
-
-
-        /* =========================================
-           ÁREA DE CONTEÚDO
-        ========================================= */
 
         .content {
             padding: 30px;
         }
 
-
-        /* =========================================
-           CARD
-        ========================================= */
+        /* CARD */
 
         .form-card {
             width: 100%;
-
-            max-width: 850px;
-
+            max-width: 900px;
             margin: 0 auto;
-
-            background-color: white;
-
+            background: white;
             border: 1px solid #dde2e9;
-
             border-radius: 10px;
-
             overflow: hidden;
-
-            box-shadow:
-                0 1px 3px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 1px 3px rgba(0,0,0,.03);
         }
 
         .form-header {
             padding: 25px 30px;
-
             border-bottom: 1px solid #e5e8ed;
         }
 
         .inspection-code {
-            margin-bottom: 10px;
-
+            margin-bottom: 9px;
             color: #2975dc;
-
             font-size: 12px;
-
             font-weight: 600;
         }
 
         .form-header h2 {
             font-size: 19px;
+            margin-bottom: 5px;
         }
 
+        .form-header p {
+            font-size: 12px;
+            color: #7a8494;
+        }
 
-        /* =========================================
-           FORMULÁRIO
-        ========================================= */
+        /* ETAPAS */
+
+        .steps {
+            display: flex;
+            padding: 18px 30px;
+            border-bottom: 1px solid #e5e8ed;
+            background: #fafbfc;
+            gap: 10px;
+        }
+
+        .step {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 11px;
+            color: #8792a2;
+        }
+
+        .step-number {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #e8edf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step.done {
+            color: #208044;
+        }
+
+        .step.done .step-number {
+            background: #dcf5e5;
+            color: #208044;
+        }
+
+        .step.active {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .step.active .step-number {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* RESUMO DA INSPEÇÃO */
+
+        .inspection-summary {
+            margin: 25px 30px 0;
+            padding: 17px;
+            border: 1px solid #cfe0f8;
+            background: #f4f8fe;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .inspection-summary-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1e5eae;
+            margin-bottom: 12px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .summary-label {
+            font-size: 9px;
+            color: #7b8798;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 3px;
+        }
+
+        .summary-value {
+            font-size: 12px;
+            color: #1c2940;
+            font-weight: 600;
+        }
+
+        /* REGISTRO AVULSO */
+
+        .standalone-box {
+            margin: 25px 30px 0;
+            padding: 17px;
+            border: 1px solid #e0e4ea;
+            background: #fafbfd;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .standalone-box h3 {
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        /* FORM */
 
         .form-body {
             padding: 30px;
         }
 
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row .field {
+            flex: 1;
+        }
+
         .field {
             display: flex;
             flex-direction: column;
-
-            margin-bottom: 23px;
+            margin-bottom: 22px;
         }
 
-        .field label {
+        .field label,
+        .option-title,
+        .photo-title {
             margin-bottom: 8px;
-
             color: #162238;
-
             font-size: 13px;
-
             font-weight: 600;
         }
 
@@ -392,47 +388,35 @@
         }
 
         .field input,
-        .field textarea,
-        .field select {
+        .field select,
+        .field textarea {
             width: 100%;
-
             border: 1px solid #d7dce4;
-
             border-radius: 6px;
-
-            background-color: white;
-
+            background: white;
             color: #162238;
-
             font-size: 14px;
-
             outline: none;
-
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .field input,
         .field select {
             height: 44px;
-
             padding: 0 13px;
         }
 
         .field textarea {
-            min-height: 120px;
-
+            min-height: 115px;
             padding: 13px;
-
             resize: vertical;
         }
 
         .field input:focus,
-        .field textarea:focus,
-        .field select:focus {
+        .field select:focus,
+        .field textarea:focus {
             border-color: #2e7de1;
-
-            box-shadow:
-                0 0 0 3px rgba(46, 125, 225, 0.10);
+            box-shadow: 0 0 0 3px rgba(46,125,225,.10);
         }
 
         .field input::placeholder,
@@ -440,124 +424,26 @@
             color: #a0a8b7;
         }
 
-
-        /* =========================================
-           NOVO - ORIGEM DO PROBLEMA
-        ========================================= */
-
-        .origem-box {
-            margin-bottom: 25px;
-
-            padding: 18px;
-
-            background-color: #f8fafc;
-
-            border: 1px solid #dce3ec;
-
-            border-radius: 8px;
+        .field input[readonly] {
+            background: #f5f7fa;
         }
 
-        .origem-titulo {
-            display: block;
+        /* ITEM */
 
-            margin-bottom: 12px;
-
-            color: #162238;
-
-            font-size: 13px;
-
-            font-weight: 600;
-        }
-
-        .origem-opcoes {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .origem-opcao {
-            min-width: 220px;
-
-            padding: 13px 15px;
-
-            display: flex;
+        .item-number {
+            display: inline-flex;
             align-items: center;
-
-            gap: 9px;
-
-            border: 1px solid #d7dce4;
-
-            border-radius: 6px;
-
-            background-color: white;
-
-            color: #3b4657;
-
-            font-size: 13px;
-
-            cursor: pointer;
-
-            transition: 0.2s;
+            gap: 7px;
+            margin-bottom: 22px;
+            padding: 7px 11px;
+            background: #edf5ff;
+            color: #246bc6;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
-        .origem-opcao:hover {
-            border-color: #2e7de1;
-
-            background-color: #f7faff;
-        }
-
-        .origem-opcao:has(input:checked) {
-            border-color: #2e7de1;
-
-            background-color: #f0f6ff;
-        }
-
-        .origem-opcao input {
-            accent-color: #2d76dc;
-        }
-
-
-        /* =========================================
-           DADOS DO PROBLEMA AVULSO
-        ========================================= */
-
-        #dadosProblemaAvulso {
-            display: none;
-
-            margin-bottom: 25px;
-
-            padding: 20px;
-
-            border: 1px solid #dce3ec;
-
-            border-radius: 8px;
-
-            background-color: #fafbfd;
-        }
-
-        .avulso-titulo {
-            margin-bottom: 18px;
-
-            color: #162238;
-
-            font-size: 14px;
-
-            font-weight: 700;
-        }
-
-        .linha-campos {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 15px;
-        }
-
-
-        /* =========================================
-           OPÇÕES
-        ========================================= */
+        /* OPÇÕES */
 
         .option-group {
             margin-bottom: 25px;
@@ -565,118 +451,67 @@
 
         .option-title {
             display: block;
-
             margin-bottom: 12px;
-
-            color: #162238;
-
-            font-size: 13px;
-
-            font-weight: 600;
         }
 
         .options {
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 12px;
         }
 
         .option {
             min-width: 125px;
-
             padding: 12px 15px;
-
             display: flex;
             align-items: center;
-
             gap: 8px;
-
             border: 1px solid #d7dce4;
-
             border-radius: 6px;
-
-            background-color: white;
-
+            background: white;
             color: #3b4657;
-
             font-size: 13px;
-
             cursor: pointer;
-
-            transition: 0.2s;
         }
 
         .option:hover {
             border-color: #2e7de1;
-
-            background-color: #f7faff;
+            background: #f7faff;
         }
 
         .option:has(input:checked) {
             border-color: #2e7de1;
-
-            background-color: #f0f6ff;
+            background: #f0f6ff;
         }
 
         .option input {
             accent-color: #2d76dc;
-
-            cursor: pointer;
         }
 
-
-        /* =========================================
-           FOTOGRAFIAS
-        ========================================= */
+        /* FOTOS */
 
         .photos {
-            margin-top: 10px;
-
             margin-bottom: 28px;
         }
 
-        .photo-title {
-            margin-bottom: 10px;
-
-            color: #162238;
-
-            font-size: 13px;
-
-            font-weight: 600;
-        }
-
         .photo-box {
-            width: 145px;
-            height: 100px;
-
+            width: 155px;
+            height: 105px;
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
             justify-content: center;
-
             gap: 7px;
-
             border: 1px dashed #9aa6b6;
-
             border-radius: 7px;
-
-            background-color: #fafbfc;
-
+            background: #fafbfc;
             color: #657286;
-
             cursor: pointer;
-
-            transition: 0.2s;
         }
 
         .photo-box:hover {
             border-color: #2e7de1;
-
-            background-color: #f3f8ff;
+            background: #f3f8ff;
         }
 
         .photo-box input {
@@ -685,7 +520,6 @@
 
         .photo-icon {
             color: #2d76dc;
-
             font-size: 21px;
         }
 
@@ -695,115 +529,111 @@
 
         .foto-info {
             margin-top: 8px;
-
             color: #6e7989;
-
             font-size: 12px;
         }
 
+        .preview-fotos {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
 
-        /* =========================================
-           BOTÕES
-        ========================================= */
+        .preview-item {
+            position: relative;
+            border: 1px solid #e1e5eb;
+            border-radius: 7px;
+            overflow: hidden;
+            background: #f7f8fa;
+        }
+
+        .preview-item img {
+            display: block;
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .preview-item button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0,0,0,.7);
+            color: white;
+            cursor: pointer;
+        }
+
+        /* BOTÕES */
 
         .buttons {
             display: flex;
-
             justify-content: flex-end;
-
             gap: 12px;
-
             padding-top: 10px;
-
             flex-wrap: wrap;
         }
 
         .btn {
-            min-width: 135px;
-
-            height: 43px;
-
-            padding: 0 20px;
-
+            min-height: 43px;
+            padding: 0 18px;
             border-radius: 6px;
-
             font-size: 13px;
-
             font-weight: 600;
-
             cursor: pointer;
-
-            transition: 0.2s;
         }
 
         .btn-cancel {
             border: 1px solid #d5dae2;
-
-            background-color: white;
-
+            background: white;
             color: #536074;
         }
 
-        .btn-cancel:hover {
-            background-color: #f2f4f7;
+        .btn-secondary {
+            border: 1px solid #2d76dc;
+            background: white;
+            color: #2d76dc;
         }
 
         .btn-primary {
             border: none;
-
-            background-color: #2d76dc;
-
+            background: #2d76dc;
             color: white;
         }
 
-        .btn-primary:hover {
-            background-color: #1e63bd;
-
+        .btn:hover {
             transform: translateY(-1px);
         }
 
+        /* RESPONSIVO */
 
-        /* =========================================
-           RESPONSIVIDADE
-        ========================================= */
-
-        @media (max-width: 900px) {
-
+        @media(max-width:900px) {
             .sidebar {
                 width: 200px;
             }
 
             .main {
                 margin-left: 200px;
-
                 width: calc(100% - 200px);
             }
 
-            .content {
-                padding: 20px;
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
             }
-
         }
 
-
-        @media (max-width: 650px) {
-
+        @media(max-width:650px) {
             .sidebar {
                 display: none;
             }
 
             .main {
                 margin-left: 0;
-
                 width: 100%;
-            }
-
-            .topbar {
-                height: auto;
-
-                min-height: 65px;
-
-                padding: 15px 20px;
             }
 
             .content {
@@ -814,17 +644,12 @@
                 padding: 20px;
             }
 
-            .origem-opcoes {
+            .row,
+            .steps {
                 flex-direction: column;
             }
 
-            .origem-opcao {
-                width: 100%;
-
-                min-width: 0;
-            }
-
-            .linha-campos {
+            .summary-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -843,134 +668,62 @@
             .btn {
                 width: 100%;
             }
-
         }
 
     </style>
-
 </head>
-
 
 <body>
 
-
-    <!-- =========================================
-         MENU LATERAL
-    ========================================== -->
-
     <aside class="sidebar">
 
-
-        <!-- LOGO -->
-
         <div class="logo">
-
-            <div class="logo-icon">
-                ▰
-            </div>
+            <div class="logo-icon">▰</div>
 
             <div class="logo-text">
-
                 AutoRelatório
-
-                <span>
-                    INDUSTRIAL
-                </span>
-
+                <span>INDUSTRIAL</span>
             </div>
-
         </div>
-
-
-        <!-- MENU -->
 
         <nav class="menu">
 
             <a href="dashboard.html">
-
-                <span class="menu-icon">
-                    ⌂
-                </span>
-
+                <span class="menu-icon">⌂</span>
                 Dashboard
-
             </a>
-
 
             <a href="nova_inspecao.html">
-
-                <span class="menu-icon">
-                    ✓
-                </span>
-
+                <span class="menu-icon">✓</span>
                 Nova Inspeção
-
             </a>
 
-
-            <a
-                href="registrar_problema.html"
-                class="active"
-            >
-
-                <span class="menu-icon">
-                    △
-                </span>
-
+            <a href="registrar_problema.html" class="active">
+                <span class="menu-icon">△</span>
                 Registrar Problema
-
             </a>
-
 
             <a href="historico.html">
-
-                <span class="menu-icon">
-                    ♢
-                </span>
-
+                <span class="menu-icon">♢</span>
                 Histórico
-
             </a>
-
 
             <a href="relatorios.html">
-
-                <span class="menu-icon">
-                    ▧
-                </span>
-
+                <span class="menu-icon">▧</span>
                 Relatórios
-
             </a>
-
 
             <a href="areas.html">
-
-                <span class="menu-icon">
-                    ▦
-                </span>
-
+                <span class="menu-icon">▦</span>
                 Áreas
-
             </a>
 
-
             <a href="equipamentos.html">
-
-                <span class="menu-icon">
-                    ⌁
-                </span>
-
+                <span class="menu-icon">⌁</span>
                 Equipamentos
-
             </a>
 
         </nav>
-
-
-        <!-- =========================================
-             PERFIL / SAIR
-        ========================================== -->
 
         <div class="sidebar-bottom">
 
@@ -981,7 +734,6 @@
                 </div>
 
                 <div>
-
                     <div class="profile-name">
                         Técnico
                     </div>
@@ -989,20 +741,12 @@
                     <div class="profile-info">
                         Perfil Técnico
                     </div>
-
                 </div>
 
             </div>
 
-
-            <a
-                href="#"
-                class="logout"
-                id="btnSair"
-            >
-
+            <a href="#" class="logout" id="btnSair">
                 ⇥ &nbsp; Sair
-
             </a>
 
         </div>
@@ -1010,53 +754,31 @@
     </aside>
 
 
-    <!-- =========================================
-         CONTEÚDO PRINCIPAL
-    ========================================== -->
-
     <main class="main">
-
-
-        <!-- TOPO -->
 
         <header class="topbar">
 
             <div class="page-title">
-
-                <h1>
-                    Registrar Problema
+                <h1 id="tituloPagina">
+                    Adicionar Item ao Relatório
                 </h1>
 
-                <p id="codigoTopo">
-                    Registro de ocorrência
+                <p id="subtituloPagina">
+                    Registre a condição encontrada durante a inspeção
                 </p>
-
             </div>
 
-
             <div class="top-right">
-
-                <div class="notification">
-                    ♢
-                </div>
-
-                <div class="user">
-                    TC
-                </div>
-
+                <div class="notification">♢</div>
+                <div class="user">TC</div>
             </div>
 
         </header>
 
 
-        <!-- FORMULÁRIO -->
-
         <section class="content">
 
             <div class="form-card">
-
-
-                <!-- CABEÇALHO -->
 
                 <div class="form-header">
 
@@ -1064,137 +786,197 @@
                         class="inspection-code"
                         id="dadosInspecao"
                     >
-                        Selecione como deseja registrar o problema
+                        Carregando inspeção...
                     </div>
 
-                    <h2>
-                        Registrar Problema
+                    <h2 id="tituloFormulario">
+                        Adicionar Item ao Relatório
                     </h2>
+
+                    <p id="descricaoFormulario">
+                        Registre a anomalia, condição ou observação encontrada.
+                    </p>
 
                 </div>
 
 
-                <!-- FORMULÁRIO -->
+                <div class="steps" id="etapasRelatorio">
 
-                <form
-                    class="form-body"
-                    id="formProblema"
+                    <div class="step done">
+                        <div class="step-number">✓</div>
+                        Dados da inspeção
+                    </div>
+
+                    <div class="step active">
+                        <div class="step-number">2</div>
+                        Itens encontrados
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        Relatório técnico
+                    </div>
+
+                </div>
+
+
+                <!-- RESUMO DA INSPEÇÃO -->
+
+                <div
+                    class="inspection-summary"
+                    id="resumoInspecao"
                 >
 
+                    <div class="inspection-summary-title">
+                        Relatório em elaboração
+                    </div>
 
-                    <!-- =====================================
-                         ORIGEM DO PROBLEMA
-                    ====================================== -->
+                    <div class="summary-grid">
 
-                    <div class="origem-box">
+                        <div>
+                            <div class="summary-label">
+                                Relatório
+                            </div>
 
-                        <span class="origem-titulo">
-                            Como este problema foi identificado?
-                        </span>
+                            <div
+                                class="summary-value"
+                                id="resumoRelatorio"
+                            >
+                                -
+                            </div>
+                        </div>
 
-                        <div class="origem-opcoes">
+                        <div>
+                            <div class="summary-label">
+                                Inspeção
+                            </div>
 
-                            <label class="origem-opcao">
+                            <div
+                                class="summary-value"
+                                id="resumoCodigo"
+                            >
+                                -
+                            </div>
+                        </div>
 
-                                <input
-                                    type="radio"
-                                    name="origemProblema"
-                                    value="inspecao"
-                                    id="origemInspecao"
-                                >
+                        <div>
+                            <div class="summary-label">
+                                Data
+                            </div>
 
-                                Vincular à inspeção atual
+                            <div
+                                class="summary-value"
+                                id="resumoData"
+                            >
+                                -
+                            </div>
+                        </div>
 
+                        <div>
+                            <div class="summary-label">
+                                Área
+                            </div>
+
+                            <div
+                                class="summary-value"
+                                id="resumoArea"
+                            >
+                                -
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="summary-label">
+                                Equipamento
+                            </div>
+
+                            <div
+                                class="summary-value"
+                                id="resumoEquipamento"
+                            >
+                                -
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="summary-label">
+                                Patrimônio
+                            </div>
+
+                            <div
+                                class="summary-value"
+                                id="resumoPatrimonio"
+                            >
+                                -
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--
+                    QUANDO O USUÁRIO ENTRA DIRETAMENTE PELO MENU,
+                    NÃO EXISTE UMA INSPEÇÃO ATIVA.
+
+                    NESSE CASO CONTINUAMOS PERMITINDO
+                    UM REGISTRO INDEPENDENTE.
+                -->
+
+                <div
+                    class="standalone-box"
+                    id="dadosAvulsos"
+                >
+
+                    <h3>
+                        Localização do registro
+                    </h3>
+
+                    <div class="row">
+
+                        <div class="field">
+
+                            <label for="areaProblema">
+                                Área Industrial
+                                <span class="required">*</span>
                             </label>
 
+                            <select id="areaProblema">
 
-                            <label class="origem-opcao">
+                                <option value="">
+                                    Selecione a área
+                                </option>
 
-                                <input
-                                    type="radio"
-                                    name="origemProblema"
-                                    value="avulso"
-                                    id="origemAvulso"
-                                >
+                            </select>
 
-                                Registrar sem inspeção
+                        </div>
 
+
+                        <div class="field">
+
+                            <label for="equipamentoProblema">
+                                Equipamento
+                                <span class="required">*</span>
                             </label>
+
+                            <select
+                                id="equipamentoProblema"
+                                disabled
+                            >
+
+                                <option value="">
+                                    Primeiro selecione a área
+                                </option>
+
+                            </select>
 
                         </div>
 
                     </div>
 
 
-                    <!-- =====================================
-                         DADOS PARA PROBLEMA SEM INSPEÇÃO
-                    ====================================== -->
-
-                    <div id="dadosProblemaAvulso">
-
-                        <div class="avulso-titulo">
-                            Localização do problema
-                        </div>
-
-
-                        <div class="linha-campos">
-
-
-                            <!-- ÁREA -->
-
-                            <div class="field">
-
-                                <label for="areaProblema">
-
-                                    Área Industrial
-
-                                    <span class="required">
-                                        *
-                                    </span>
-
-                                </label>
-
-
-                                <select id="areaProblema">
-
-                                    <option value="">
-                                        Selecione a área
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <!-- EQUIPAMENTO -->
-
-                            <div class="field">
-
-                                <label for="equipamentoProblema">
-
-                                    Equipamento
-
-                                    <span class="required">
-                                        *
-                                    </span>
-
-                                </label>
-
-
-                                <select id="equipamentoProblema">
-
-                                    <option value="">
-                                        Selecione o equipamento
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- PATRIMÔNIO -->
+                    <div class="row">
 
                         <div class="field">
 
@@ -1205,11 +987,43 @@
                             <input
                                 type="text"
                                 id="patrimonioProblema"
-                                placeholder="Ex: AF-003"
+                                readonly
+                                placeholder="Preenchido automaticamente"
                             >
 
                         </div>
 
+
+                        <div class="field">
+
+                            <label for="localizacaoProblema">
+                                Localização
+                            </label>
+
+                            <input
+                                type="text"
+                                id="localizacaoProblema"
+                                readonly
+                                placeholder="Preenchida automaticamente"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    class="form-body"
+                    id="formProblema"
+                >
+
+                    <div
+                        class="item-number"
+                        id="numeroItem"
+                    >
+                        Item 01
                     </div>
 
 
@@ -1218,22 +1032,32 @@
                     <div class="field">
 
                         <label for="tituloProblema">
-
-                            Título do problema
-
-                            <span class="required">
-                                *
-                            </span>
-
+                            Título do item
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="text"
                             id="tituloProblema"
-                            name="tituloProblema"
-                            placeholder="Ex: Vazamento no circuito de resfriamento"
                             required
+                            placeholder="Ex.: Vazamento no circuito de resfriamento"
+                        >
+
+                    </div>
+
+
+                    <!-- LOCAL EXATO -->
+
+                    <div class="field">
+
+                        <label for="localItem">
+                            Local exato / componente
+                        </label>
+
+                        <input
+                            type="text"
+                            id="localItem"
+                            placeholder="Ex.: Linha de retorno, lado norte, conexão da válvula..."
                         >
 
                     </div>
@@ -1244,21 +1068,14 @@
                     <div class="field">
 
                         <label for="descricaoProblema">
-
                             Descrição técnica
-
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <textarea
                             id="descricaoProblema"
-                            name="descricaoProblema"
-                            placeholder="Descreva detalhadamente o problema encontrado, sintomas, medições, localização exata..."
                             required
+                            placeholder="Descreva detalhadamente a condição encontrada, sintomas, medições, danos observados e demais informações técnicas..."
                         ></textarea>
 
                     </div>
@@ -1269,68 +1086,47 @@
                     <div class="option-group">
 
                         <span class="option-title">
-
                             Criticidade
-
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </span>
-
 
                         <div class="options">
 
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Crítica"
                                     required
                                 >
-
                                 Crítica
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Alta"
                                 >
-
                                 Alta
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Média"
                                 >
-
                                 Média
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Baixa"
                                 >
-
                                 Baixa
-
                             </label>
 
                         </div>
@@ -1340,71 +1136,50 @@
 
                     <!-- PRIORIDADE -->
 
-                    <div class="option-group priority">
+                    <div class="option-group">
 
                         <span class="option-title">
-
                             Prioridade
-
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </span>
-
 
                         <div class="options">
 
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Urgente"
                                     required
                                 >
-
                                 Urgente
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Alta"
                                 >
-
                                 Alta
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Normal"
                                 >
-
                                 Normal
-
                             </label>
 
-
                             <label class="option">
-
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Baixa"
                                 >
-
                                 Baixa
-
                             </label>
 
                         </div>
@@ -1412,7 +1187,23 @@
                     </div>
 
 
-                    <!-- FOTOGRAFIAS -->
+                    <!-- RECOMENDAÇÃO -->
+
+                    <div class="field">
+
+                        <label for="recomendacao">
+                            Recomendação / ação necessária
+                        </label>
+
+                        <textarea
+                            id="recomendacao"
+                            placeholder="Descreva a recomendação técnica, ação corretiva, acompanhamento ou serviço necessário..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- FOTOS -->
 
                     <div class="photos">
 
@@ -1420,13 +1211,11 @@
                             Fotografias
                         </div>
 
-
                         <label class="photo-box">
 
                             <input
                                 type="file"
                                 id="fotografias"
-                                name="fotografias"
                                 accept="image/*"
                                 multiple
                             >
@@ -1441,13 +1230,17 @@
 
                         </label>
 
-
                         <div
                             class="foto-info"
                             id="fotoInfo"
                         >
                             Nenhuma foto selecionada
                         </div>
+
+                        <div
+                            class="preview-fotos"
+                            id="previewFotos"
+                        ></div>
 
                     </div>
 
@@ -1467,9 +1260,23 @@
 
                         <button
                             type="submit"
-                            class="btn btn-primary"
+                            class="btn btn-secondary"
+                            name="acao"
+                            value="outro"
+                            id="btnOutro"
                         >
-                            ▧ &nbsp; Salvar e Gerar Relatório
+                            + Salvar item e adicionar outro
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            name="acao"
+                            value="finalizar"
+                            id="btnFinalizar"
+                        >
+                            ✓ Salvar item e finalizar relatório
                         </button>
 
                     </div>
@@ -1483,50 +1290,90 @@
     </main>
 
 
-    <!--
-        CONTINUA NA PARTE 2.
-
-        NÃO COLOQUE </body> OU </html> AQUI.
-
-        A PARTE 2 COMEÇARÁ COM O <script>
-        RESPONSÁVEL POR:
-
-        - detectar a inspeção atual;
-        - permitir problema sem inspeção;
-        - carregar áreas reais;
-        - carregar equipamentos reais;
-        - filtrar equipamentos pela área;
-        - salvar problema avulso;
-        - salvar problema vinculado à inspeção;
-        - atualizar os dados no localStorage;
-        - manter o botão Sair funcionando.
-    --><script>
-/* =========================================================
-   REGISTRAR PROBLEMA
-   - COM INSPEÇÃO
-   - SEM INSPEÇÃO
-========================================================= */
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
-       ELEMENTOS DA PÁGINA
+       CHAVES DO SISTEMA
+    ===================================================== */
+
+    const CHAVE_INSPECOES = "inspecoes";
+    const CHAVE_INSPECAO_ATUAL = "inspecaoAtual";
+
+    const CHAVE_AREAS = "autoRelatorio_areas";
+    const CHAVE_EQUIPAMENTOS = "autoRelatorio_equipamentos";
+
+    const CHAVE_PROBLEMAS = "problemas";
+    const CHAVE_PROBLEMAS_AVULSOS = "problemasAvulsos";
+
+
+    /* =====================================================
+       ELEMENTOS
     ===================================================== */
 
     const formProblema =
         document.getElementById("formProblema");
 
-    const origemInspecao =
-        document.getElementById("origemInspecao");
+    const tituloPagina =
+        document.getElementById("tituloPagina");
 
-    const origemAvulso =
-        document.getElementById("origemAvulso");
+    const subtituloPagina =
+        document.getElementById("subtituloPagina");
 
-    const dadosProblemaAvulso =
-        document.getElementById("dadosProblemaAvulso");
+    const tituloFormulario =
+        document.getElementById("tituloFormulario");
+
+    const descricaoFormulario =
+        document.getElementById("descricaoFormulario");
 
     const dadosInspecao =
         document.getElementById("dadosInspecao");
+
+    const resumoInspecao =
+        document.getElementById("resumoInspecao");
+
+    const dadosAvulsos =
+        document.getElementById("dadosAvulsos");
+
+    const etapasRelatorio =
+        document.getElementById("etapasRelatorio");
+
+    const numeroItem =
+        document.getElementById("numeroItem");
+
+    const tituloProblema =
+        document.getElementById("tituloProblema");
+
+    const localItem =
+        document.getElementById("localItem");
+
+    const descricaoProblema =
+        document.getElementById("descricaoProblema");
+
+    const recomendacao =
+        document.getElementById("recomendacao");
+
+    const fotografias =
+        document.getElementById("fotografias");
+
+    const fotoInfo =
+        document.getElementById("fotoInfo");
+
+    const previewFotos =
+        document.getElementById("previewFotos");
+
+    const btnCancelar =
+        document.getElementById("btnCancelar");
+
+    const btnOutro =
+        document.getElementById("btnOutro");
+
+    const btnFinalizar =
+        document.getElementById("btnFinalizar");
+
+    const btnSair =
+        document.getElementById("btnSair");
 
     const areaProblema =
         document.getElementById("areaProblema");
@@ -1537,67 +1384,179 @@ document.addEventListener("DOMContentLoaded", function () {
     const patrimonioProblema =
         document.getElementById("patrimonioProblema");
 
-    const tituloProblema =
-        document.getElementById("tituloProblema");
-
-    const descricaoProblema =
-        document.getElementById("descricaoProblema");
-
-    const fotografias =
-        document.getElementById("fotografias");
-
-    const fotoInfo =
-        document.getElementById("fotoInfo");
-
-    const btnCancelar =
-        document.getElementById("btnCancelar");
-
-    const btnSair =
-        document.getElementById("btnSair");
+    const localizacaoProblema =
+        document.getElementById("localizacaoProblema");
 
 
     /* =====================================================
-       FUNÇÕES AUXILIARES
+       FUNÇÕES DO LOCALSTORAGE
     ===================================================== */
 
-    function lerLocalStorage(chave) {
+    function lerJSON(chave, padrao) {
 
         try {
 
-            const dados =
-                JSON.parse(localStorage.getItem(chave));
+            const valor =
+                localStorage.getItem(chave);
 
-            return dados;
+            if (!valor) {
+                return padrao;
+            }
 
-        } catch (erro) {
+            return JSON.parse(valor);
+
+        }
+        catch (erro) {
 
             console.error(
-                "Erro ao ler:",
-                chave,
+                "Erro ao ler " + chave,
                 erro
             );
 
-            return null;
+            return padrao;
         }
     }
 
 
-    function gerarId(prefixo) {
+    function salvarJSON(chave, valor) {
 
-        return (
-            prefixo +
-            "-" +
-            Date.now() +
-            "-" +
-            Math.floor(Math.random() * 10000)
-        );
+        try {
+
+            localStorage.setItem(
+                chave,
+                JSON.stringify(valor)
+            );
+
+            return true;
+
+        }
+        catch (erro) {
+
+            console.error(
+                "Erro ao salvar " + chave,
+                erro
+            );
+
+            alert(
+                "Não foi possível salvar os dados. " +
+                "As fotografias podem estar ocupando muito espaço."
+            );
+
+            return false;
+        }
     }
 
+
+    /* =====================================================
+       DADOS PRINCIPAIS
+    ===================================================== */
+
+    let inspecoes =
+        lerJSON(CHAVE_INSPECOES, []);
+
+    if (!Array.isArray(inspecoes)) {
+        inspecoes = [];
+    }
+
+
+    let inspecaoAtual = null;
+
+    let modoInspecao = false;
+
+    let fotosBase64 = [];
+
+
+    /* =====================================================
+       LOCALIZAR INSPEÇÃO ATUAL
+    ===================================================== */
+
+    function localizarInspecaoAtual() {
+
+        const valorAtual =
+            localStorage.getItem(
+                CHAVE_INSPECAO_ATUAL
+            );
+
+
+        if (!valorAtual) {
+            return null;
+        }
+
+
+        /* NOVO FORMATO: ID */
+
+        const encontradaPorId =
+            inspecoes.find(function (inspecao) {
+
+                return (
+                    String(inspecao.id) ===
+                    String(valorAtual)
+                );
+
+            });
+
+
+        if (encontradaPorId) {
+            return encontradaPorId;
+        }
+
+
+        /* COMPATIBILIDADE COM FORMATO ANTIGO */
+
+        try {
+
+            const objeto =
+                JSON.parse(valorAtual);
+
+
+            if (
+                objeto &&
+                typeof objeto === "object"
+            ) {
+
+                const encontrada =
+                    inspecoes.find(
+                        function (inspecao) {
+
+                            return (
+                                String(inspecao.id) ===
+                                String(objeto.id)
+                            );
+
+                        }
+                    );
+
+
+                return encontrada || objeto;
+            }
+
+        }
+        catch (erro) {
+            /* formato novo usa somente ID */
+        }
+
+
+        return null;
+    }
+
+
+    inspecaoAtual =
+        localizarInspecaoAtual();
+
+
+    if (inspecaoAtual) {
+        modoInspecao = true;
+    }
+
+
+    /* =====================================================
+       FORMATAR DATA
+    ===================================================== */
 
     function formatarData(data) {
 
         if (!data) {
-            return "";
+            return "-";
         }
 
         const partes =
@@ -1650,287 +1609,230 @@ document.addEventListener("DOMContentLoaded", function () {
         const agora =
             new Date();
 
-        const horas =
+        return (
             String(
                 agora.getHours()
-            ).padStart(2, "0");
-
-        const minutos =
+            ).padStart(2, "0")
+            +
+            ":" +
             String(
                 agora.getMinutes()
-            ).padStart(2, "0");
+            ).padStart(2, "0")
+        );
+    }
+
+
+    function gerarId(prefixo) {
 
         return (
-            horas +
-            ":" +
-            minutos
+            prefixo +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.floor(
+                Math.random() * 10000
+            )
         );
     }
 
 
     /* =====================================================
-       INSPEÇÕES
+       CONFIGURAR TELA
     ===================================================== */
 
-    let inspecoes =
-        lerLocalStorage("inspecoes") || [];
+    function configurarTela() {
 
+        if (modoInspecao) {
 
-    /*
-       Vamos tentar descobrir se existe uma inspeção
-       selecionada anteriormente.
-    */
-
-    let inspecaoAtual = null;
-
-
-    const idInspecaoAtual =
-        localStorage.getItem("inspecaoAtualId");
-
-
-    if (idInspecaoAtual) {
-
-        inspecaoAtual =
-            inspecoes.find(function (inspecao) {
-
-                return (
-                    String(inspecao.id) ===
-                    String(idInspecaoAtual)
-                );
-
-            });
-
-    }
-
-
-    /*
-       Compatibilidade caso seu sistema tenha salvo
-       a inspeção inteira em outra chave.
-    */
-
-    if (!inspecaoAtual) {
-
-        const inspecaoSalva =
-            lerLocalStorage("inspecaoAtual");
-
-        if (inspecaoSalva) {
-
-            inspecaoAtual =
-                inspecaoSalva;
+            configurarModoInspecao();
 
         }
+        else {
 
-    }
-
-
-    /*
-       Outra chave possível usada durante o fluxo
-       Nova Inspeção -> Registrar Problema.
-    */
-
-    if (!inspecaoAtual) {
-
-        const inspecaoSelecionada =
-            lerLocalStorage("inspecaoSelecionada");
-
-        if (inspecaoSelecionada) {
-
-            inspecaoAtual =
-                inspecaoSelecionada;
+            configurarModoAvulso();
 
         }
-
     }
 
 
     /* =====================================================
-       CONFIGURA A ORIGEM INICIAL
+       MODO INSPEÇÃO
     ===================================================== */
 
-    if (inspecaoAtual) {
+    function configurarModoInspecao() {
 
-        origemInspecao.checked = true;
+        tituloPagina.textContent =
+            "Adicionar Item ao Relatório";
 
-        origemAvulso.checked = false;
+        subtituloPagina.textContent =
+            "Registre as condições encontradas durante a inspeção";
 
-        dadosProblemaAvulso.style.display =
+        tituloFormulario.textContent =
+            "Adicionar Item ao Relatório";
+
+        descricaoFormulario.textContent =
+            "Você pode registrar vários itens dentro do mesmo relatório.";
+
+        dadosAvulsos.style.display =
             "none";
 
+        resumoInspecao.style.display =
+            "block";
 
-        const codigo =
+        etapasRelatorio.style.display =
+            "flex";
+
+
+        const codigoRelatorio =
+            inspecaoAtual.codigoRelatorio ||
+            "Relatório em elaboração";
+
+
+        const codigoInspecao =
             inspecaoAtual.codigo ||
-            inspecaoAtual.numero ||
-            inspecaoAtual.id ||
             "Inspeção";
 
 
-        const equipamento =
-            inspecaoAtual.equipamento ||
-            inspecaoAtual.nomeEquipamento ||
-            "";
-
-
         dadosInspecao.textContent =
-            codigo +
-            (
-                equipamento
-                    ? " • " + equipamento
-                    : ""
+            codigoRelatorio +
+            " • " +
+            codigoInspecao;
+
+
+        document.getElementById(
+            "resumoRelatorio"
+        ).textContent =
+            codigoRelatorio;
+
+
+        document.getElementById(
+            "resumoCodigo"
+        ).textContent =
+            codigoInspecao;
+
+
+        document.getElementById(
+            "resumoData"
+        ).textContent =
+            formatarData(
+                inspecaoAtual.data
             );
 
-    } else {
 
-        /*
-           Se não existe inspeção atual,
-           automaticamente permite registrar
-           um problema avulso.
-        */
+        document.getElementById(
+            "resumoArea"
+        ).textContent =
+            inspecaoAtual.area || "-";
 
-        origemAvulso.checked = true;
 
-        origemInspecao.checked = false;
+        document.getElementById(
+            "resumoEquipamento"
+        ).textContent =
+            inspecaoAtual.equipamento || "-";
 
-        origemInspecao.disabled = true;
 
-        dadosProblemaAvulso.style.display =
-            "block";
+        document.getElementById(
+            "resumoPatrimonio"
+        ).textContent =
+            inspecaoAtual.patrimonio || "-";
 
-        dadosInspecao.textContent =
-            "Registro independente de inspeção";
 
+        atualizarNumeroItem();
     }
 
 
     /* =====================================================
-       TROCA ENTRE INSPEÇÃO E REGISTRO AVULSO
+       MODO PROBLEMA AVULSO
     ===================================================== */
 
-    origemInspecao.addEventListener(
-        "change",
-        function () {
+    function configurarModoAvulso() {
 
-            if (!origemInspecao.checked) {
-                return;
-            }
+        tituloPagina.textContent =
+            "Registrar Problema";
 
+        subtituloPagina.textContent =
+            "Registro independente de inspeção";
 
-            if (!inspecaoAtual) {
+        tituloFormulario.textContent =
+            "Registrar Problema";
 
-                alert(
-                    "Não existe uma inspeção ativa para vincular este problema."
-                );
+        descricaoFormulario.textContent =
+            "Registre uma ocorrência sem iniciar uma inspeção.";
 
-                origemAvulso.checked = true;
+        dadosInspecao.textContent =
+            "Registro independente";
 
-                origemInspecao.checked = false;
+        resumoInspecao.style.display =
+            "none";
 
-                dadosProblemaAvulso.style.display =
-                    "block";
+        dadosAvulsos.style.display =
+            "block";
 
-                return;
-            }
+        etapasRelatorio.style.display =
+            "none";
 
+        numeroItem.textContent =
+            "Registro independente";
 
-            dadosProblemaAvulso.style.display =
-                "none";
+        btnOutro.style.display =
+            "none";
 
+        btnFinalizar.textContent =
+            "✓ Salvar problema";
 
-            const codigo =
-                inspecaoAtual.codigo ||
-                inspecaoAtual.numero ||
-                inspecaoAtual.id ||
-                "Inspeção";
-
-
-            dadosInspecao.textContent =
-                "Problema vinculado à " +
-                codigo;
-
-        }
-    );
-
-
-    origemAvulso.addEventListener(
-        "change",
-        function () {
-
-            if (!origemAvulso.checked) {
-                return;
-            }
-
-
-            dadosProblemaAvulso.style.display =
-                "block";
-
-
-            dadosInspecao.textContent =
-                "Registro independente de inspeção";
-
-        }
-    );
+        carregarAreas();
+    }
 
 
     /* =====================================================
-       ÁREAS REAIS CADASTRADAS
+       NÚMERO DO ITEM
+    ===================================================== */
+
+    function atualizarNumeroItem() {
+
+        if (!inspecaoAtual) {
+            return;
+        }
+
+
+        if (
+            !Array.isArray(
+                inspecaoAtual.itens
+            )
+        ) {
+
+            inspecaoAtual.itens = [];
+        }
+
+
+        const proximo =
+            inspecaoAtual.itens.length + 1;
+
+
+        numeroItem.textContent =
+            "Item " +
+            String(proximo).padStart(
+                2,
+                "0"
+            );
+    }
+
+
+    /* =====================================================
+       ÁREAS
     ===================================================== */
 
     function obterAreas() {
 
-        /*
-           Tentamos as chaves utilizadas normalmente
-           pelo sistema.
-        */
-
-        let areas =
-            lerLocalStorage("areas") || [];
-
-
-        if (
-            !Array.isArray(areas) ||
-            areas.length === 0
-        ) {
-
-            areas =
-                lerLocalStorage("areasIndustriais") || [];
-
-        }
-
+        const areas =
+            lerJSON(
+                CHAVE_AREAS,
+                []
+            );
 
         return Array.isArray(areas)
             ? areas
             : [];
-    }
-
-
-    function nomeDaArea(area) {
-
-        if (typeof area === "string") {
-            return area;
-        }
-
-
-        return (
-            area.nome ||
-            area.area ||
-            area.titulo ||
-            ""
-        );
-    }
-
-
-    function idDaArea(area) {
-
-        if (typeof area === "string") {
-            return area;
-        }
-
-
-        return (
-            area.id ||
-            area.nome ||
-            area.area ||
-            ""
-        );
     }
 
 
@@ -1944,210 +1846,8 @@ document.addEventListener("DOMContentLoaded", function () {
             '<option value="">Selecione a área</option>';
 
 
-        areas.forEach(function (area) {
-
-            const nome =
-                nomeDaArea(area);
-
-            const id =
-                idDaArea(area);
-
-
-            if (!nome) {
-                return;
-            }
-
-
-            const option =
-                document.createElement("option");
-
-
-            option.value =
-                id;
-
-
-            option.textContent =
-                nome;
-
-
-            option.dataset.nome =
-                nome;
-
-
-            areaProblema.appendChild(option);
-
-        });
-
-    }
-
-
-    /* =====================================================
-       EQUIPAMENTOS REAIS
-    ===================================================== */
-
-    function obterEquipamentos() {
-
-        let equipamentos =
-            lerLocalStorage("equipamentos") || [];
-
-
-        if (
-            !Array.isArray(equipamentos) ||
-            equipamentos.length === 0
-        ) {
-
-            equipamentos =
-                lerLocalStorage(
-                    "equipamentosIndustriais"
-                ) || [];
-
-        }
-
-
-        return Array.isArray(equipamentos)
-            ? equipamentos
-            : [];
-    }
-
-
-    function nomeDoEquipamento(equipamento) {
-
-        if (typeof equipamento === "string") {
-            return equipamento;
-        }
-
-
-        return (
-            equipamento.nome ||
-            equipamento.equipamento ||
-            equipamento.titulo ||
-            ""
-        );
-    }
-
-
-    function idDoEquipamento(equipamento) {
-
-        if (typeof equipamento === "string") {
-            return equipamento;
-        }
-
-
-        return (
-            equipamento.id ||
-            equipamento.nome ||
-            equipamento.equipamento ||
-            ""
-        );
-    }
-
-
-    function areaDoEquipamento(equipamento) {
-
-        if (typeof equipamento === "string") {
-            return "";
-        }
-
-
-        return (
-            equipamento.areaId ||
-            equipamento.idArea ||
-            equipamento.area ||
-            equipamento.areaNome ||
-            ""
-        );
-    }
-
-
-    function patrimonioDoEquipamento(equipamento) {
-
-        if (typeof equipamento === "string") {
-            return "";
-        }
-
-
-        return (
-            equipamento.patrimonio ||
-            equipamento.numeroPatrimonio ||
-            equipamento.tag ||
-            equipamento.codigo ||
-            ""
-        );
-    }
-
-
-    /* =====================================================
-       CARREGA EQUIPAMENTOS CONFORME A ÁREA
-    ===================================================== */
-
-    function carregarEquipamentos() {
-
-        const areaSelecionada =
-            areaProblema.value;
-
-
-        const optionArea =
-            areaProblema.options[
-                areaProblema.selectedIndex
-            ];
-
-
-        const nomeAreaSelecionada =
-            optionArea
-                ? optionArea.dataset.nome
-                : "";
-
-
-        equipamentoProblema.innerHTML =
-            '<option value="">Selecione o equipamento</option>';
-
-
-        patrimonioProblema.value = "";
-
-
-        if (!areaSelecionada) {
-            return;
-        }
-
-
-        const equipamentos =
-            obterEquipamentos();
-
-
-        equipamentos.forEach(
-            function (equipamento) {
-
-                const areaEquipamento =
-                    String(
-                        areaDoEquipamento(equipamento)
-                    ).trim();
-
-
-                const corresponde =
-                    areaEquipamento ===
-                        String(areaSelecionada).trim() ||
-
-                    areaEquipamento.toLowerCase() ===
-                        String(
-                            nomeAreaSelecionada
-                        ).trim().toLowerCase();
-
-
-                if (!corresponde) {
-                    return;
-                }
-
-
-                const nome =
-                    nomeDoEquipamento(
-                        equipamento
-                    );
-
-
-                if (!nome) {
-                    return;
-                }
-
+        areas.forEach(
+            function (area) {
 
                 const option =
                     document.createElement(
@@ -2156,32 +1856,116 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 option.value =
-                    idDoEquipamento(
-                        equipamento
-                    );
+                    area.nome || "";
 
 
                 option.textContent =
-                    nome;
+                    area.nome || "";
 
 
-                option.dataset.nome =
-                    nome;
+                areaProblema.appendChild(
+                    option
+                );
+            }
+        );
+    }
+
+
+    /* =====================================================
+       EQUIPAMENTOS
+    ===================================================== */
+
+    function obterEquipamentos() {
+
+        const equipamentos =
+            lerJSON(
+                CHAVE_EQUIPAMENTOS,
+                []
+            );
+
+        return Array.isArray(equipamentos)
+            ? equipamentos
+            : [];
+    }
+
+
+    function carregarEquipamentos() {
+
+        equipamentoProblema.innerHTML =
+            '<option value="">Selecione o equipamento</option>';
+
+
+        patrimonioProblema.value =
+            "";
+
+        localizacaoProblema.value =
+            "";
+
+
+        if (!areaProblema.value) {
+
+            equipamentoProblema.disabled =
+                true;
+
+            return;
+        }
+
+
+        const equipamentos =
+            obterEquipamentos();
+
+
+        const filtrados =
+            equipamentos.filter(
+                function (equipamento) {
+
+                    return (
+                        equipamento.area ===
+                        areaProblema.value
+                    );
+
+                }
+            );
+
+
+        filtrados.forEach(
+            function (equipamento) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    equipamento.nome;
+
+
+                option.textContent =
+                    equipamento.nome;
+
+
+                option.dataset.id =
+                    equipamento.id || "";
 
 
                 option.dataset.patrimonio =
-                    patrimonioDoEquipamento(
-                        equipamento
-                    );
+                    equipamento.patrimonio || "";
+
+
+                option.dataset.localizacao =
+                    equipamento.localizacao || "";
 
 
                 equipamentoProblema.appendChild(
                     option
                 );
-
             }
         );
 
+
+        equipamentoProblema.disabled =
+            filtrados.length === 0;
     }
 
 
@@ -2190,10 +1974,6 @@ document.addEventListener("DOMContentLoaded", function () {
         carregarEquipamentos
     );
 
-
-    /* =====================================================
-       PATRIMÔNIO AUTOMÁTICO
-    ===================================================== */
 
     equipamentoProblema.addEventListener(
         "change",
@@ -2206,89 +1986,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             if (!option) {
-
-                patrimonioProblema.value = "";
-
                 return;
             }
 
 
             patrimonioProblema.value =
-                option.dataset.patrimonio || "";
+                option.dataset.patrimonio ||
+                "";
 
+
+            localizacaoProblema.value =
+                option.dataset.localizacao ||
+                "";
         }
     );
-
-
-    carregarAreas();
 
 
     /* =====================================================
        FOTOGRAFIAS
     ===================================================== */
-
-    let fotosBase64 = [];
-
-
-    fotografias.addEventListener(
-        "change",
-        async function () {
-
-            const arquivos =
-                Array.from(
-                    fotografias.files
-                );
-
-
-            if (arquivos.length === 0) {
-
-                fotosBase64 = [];
-
-                fotoInfo.textContent =
-                    "Nenhuma foto selecionada";
-
-                return;
-            }
-
-
-            fotoInfo.textContent =
-                arquivos.length === 1
-                    ? "1 foto selecionada"
-                    : arquivos.length +
-                      " fotos selecionadas";
-
-
-            fotosBase64 = [];
-
-
-            for (
-                const arquivo of arquivos
-            ) {
-
-                try {
-
-                    const base64 =
-                        await converterImagemBase64(
-                            arquivo
-                        );
-
-
-                    fotosBase64.push(base64);
-
-                } catch (erro) {
-
-                    console.error(
-                        "Erro ao carregar foto:",
-                        erro
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
 
     function converterImagemBase64(arquivo) {
 
@@ -2305,7 +2021,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         resolve(
                             reader.result
                         );
-
                     };
 
 
@@ -2314,321 +2029,367 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         reject(
                             new Error(
-                                "Erro ao ler imagem."
+                                "Erro ao ler a imagem."
                             )
                         );
-
                     };
 
 
                 reader.readAsDataURL(
                     arquivo
                 );
-
             }
         );
-
     }
 
 
-    /* =====================================================
-       CANCELAR
-    ===================================================== */
+    fotografias.addEventListener(
+        "change",
+        async function () {
 
-    btnCancelar.addEventListener(
-        "click",
-        function () {
-
-            const confirmar =
-                confirm(
-                    "Deseja cancelar o registro deste problema?"
+            const arquivos =
+                Array.from(
+                    fotografias.files
                 );
 
 
-            if (!confirmar) {
-                return;
+            for (const arquivo of arquivos) {
+
+                if (
+                    !arquivo.type.startsWith(
+                        "image/"
+                    )
+                ) {
+                    continue;
+                }
+
+
+                try {
+
+                    const base64 =
+                        await converterImagemBase64(
+                            arquivo
+                        );
+
+
+                    fotosBase64.push(
+                        base64
+                    );
+
+                }
+                catch (erro) {
+
+                    console.error(
+                        erro
+                    );
+                }
             }
 
 
-            if (inspecaoAtual) {
+            fotografias.value = "";
 
-                window.location.href =
-                    "nova_inspecao.html";
-
-            } else {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }
-
+            atualizarFotos();
         }
     );
 
 
-    /* =====================================================
-       BOTÃO SAIR
-    ===================================================== */
+    function atualizarFotos() {
 
-    btnSair.addEventListener(
-        "click",
-        function (event) {
+        previewFotos.innerHTML = "";
 
-            event.preventDefault();
 
+        if (
+            fotosBase64.length === 0
+        ) {
 
-            const confirmar =
-                confirm(
-                    "Deseja realmente sair do sistema?"
-                );
-
-
-            if (!confirmar) {
-                return;
-            }
-
-
-            /*
-               Não apagamos os registros do sistema.
-               Apenas dados relacionados à sessão.
-            */
-
-            localStorage.removeItem(
-                "usuarioLogado"
-            );
-
-            localStorage.removeItem(
-                "sessaoUsuario"
-            );
-
-            localStorage.removeItem(
-                "inspecaoAtualId"
-            );
-
-            localStorage.removeItem(
-                "inspecaoAtual"
-            );
-
-            localStorage.removeItem(
-                "inspecaoSelecionada"
-            );
-
-
-            /*
-               Como as páginas ficam dentro da pasta /page/,
-               ../pagina_inicial.html volta para o login.
-            */
-
-            window.location.href =
-                "../pagina_inicial.html";
-
-        }
-    );
-
-
-    /* =====================================================
-       SALVAR PROBLEMA
-    ===================================================== */
-
-    formProblema.addEventListener(
-        "submit",
-        function (event) {
-
-            event.preventDefault();
-
-
-            /* ---------------------------------------------
-               TÍTULO
-            --------------------------------------------- */
-
-            const titulo =
-                tituloProblema.value.trim();
-
-
-            if (!titulo) {
-
-                alert(
-                    "Informe o título do problema."
-                );
-
-                tituloProblema.focus();
-
-                return;
-            }
-
-
-            /* ---------------------------------------------
-               DESCRIÇÃO
-            --------------------------------------------- */
-
-            const descricao =
-                descricaoProblema.value.trim();
-
-
-            if (!descricao) {
-
-                alert(
-                    "Informe a descrição técnica do problema."
-                );
-
-                descricaoProblema.focus();
-
-                return;
-            }
-
-
-            /* ---------------------------------------------
-               CRITICIDADE
-            --------------------------------------------- */
-
-            const criticidadeSelecionada =
-                document.querySelector(
-                    'input[name="criticidade"]:checked'
-                );
-
-
-            if (!criticidadeSelecionada) {
-
-                alert(
-                    "Selecione a criticidade."
-                );
-
-                return;
-            }
-
-
-            /* ---------------------------------------------
-               PRIORIDADE
-            --------------------------------------------- */
-
-            const prioridadeSelecionada =
-                document.querySelector(
-                    'input[name="prioridade"]:checked'
-                );
-
-
-            if (!prioridadeSelecionada) {
-
-                alert(
-                    "Selecione a prioridade."
-                );
-
-                return;
-            }
-
-
-            const criticidade =
-                criticidadeSelecionada.value;
-
-
-            const prioridade =
-                prioridadeSelecionada.value;
-
-
-            /* =================================================
-               PROBLEMA VINCULADO À INSPEÇÃO
-            ================================================= */
-
-            if (
-                origemInspecao.checked &&
-                inspecaoAtual
-            ) {
-
-                salvarProblemaNaInspecao(
-                    titulo,
-                    descricao,
-                    criticidade,
-                    prioridade
-                );
-
-                return;
-            }
-
-
-            /* =================================================
-               PROBLEMA SEM INSPEÇÃO
-            ================================================= */
-
-            if (origemAvulso.checked) {
-
-                salvarProblemaAvulso(
-                    titulo,
-                    descricao,
-                    criticidade,
-                    prioridade
-                );
-
-                return;
-            }
-
-
-            alert(
-                "Selecione como deseja registrar o problema."
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       SALVAR DENTRO DE UMA INSPEÇÃO
-    ===================================================== */
-
-    function salvarProblemaNaInspecao(
-        titulo,
-        descricao,
-        criticidade,
-        prioridade
-    ) {
-
-        if (!inspecaoAtual) {
-
-            alert(
-                "Nenhuma inspeção foi encontrada."
-            );
+            fotoInfo.textContent =
+                "Nenhuma foto selecionada";
 
             return;
         }
 
 
-        const problema = {
+        fotoInfo.textContent =
+            fotosBase64.length === 1
+                ? "1 foto adicionada"
+                : fotosBase64.length +
+                  " fotos adicionadas";
 
-            id:
-                gerarId("PROB"),
 
-            origem:
-                "inspecao",
+        fotosBase64.forEach(
+            function (foto, indice) {
 
-            inspecaoId:
-                inspecaoAtual.id ||
-                null,
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "preview-item";
+
+
+                const imagem =
+                    document.createElement(
+                        "img"
+                    );
+
+                imagem.src =
+                    foto;
+
+
+                const remover =
+                    document.createElement(
+                        "button"
+                    );
+
+                remover.type =
+                    "button";
+
+                remover.textContent =
+                    "×";
+
+
+                remover.addEventListener(
+                    "click",
+                    function () {
+
+                        fotosBase64.splice(
+                            indice,
+                            1
+                        );
+
+                        atualizarFotos();
+                    }
+                );
+
+
+                item.appendChild(
+                    imagem
+                );
+
+                item.appendChild(
+                    remover
+                );
+
+                previewFotos.appendChild(
+                    item
+                );
+            }
+        );
+    }
+
+
+    /* =====================================================
+       LIMPAR PARA PRÓXIMO ITEM
+    ===================================================== */
+
+    function limparFormularioItem() {
+
+        tituloProblema.value = "";
+
+        localItem.value = "";
+
+        descricaoProblema.value = "";
+
+        recomendacao.value = "";
+
+
+        document
+            .querySelectorAll(
+                'input[name="criticidade"]'
+            )
+            .forEach(
+                function (radio) {
+
+                    radio.checked = false;
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                'input[name="prioridade"]'
+            )
+            .forEach(
+                function (radio) {
+
+                    radio.checked = false;
+
+                }
+            );
+
+
+        fotosBase64 = [];
+
+        atualizarFotos();
+
+        atualizarNumeroItem();
+
+        tituloProblema.focus();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =====================================================
+       OBTER DADOS DO FORMULÁRIO
+    ===================================================== */
+
+    function obterDadosFormulario() {
+
+        const criticidade =
+            document.querySelector(
+                'input[name="criticidade"]:checked'
+            );
+
+
+        const prioridade =
+            document.querySelector(
+                'input[name="prioridade"]:checked'
+            );
+
+
+        if (
+            !tituloProblema.value.trim()
+        ) {
+
+            alert(
+                "Informe o título do item."
+            );
+
+            tituloProblema.focus();
+
+            return null;
+        }
+
+
+        if (
+            !descricaoProblema.value.trim()
+        ) {
+
+            alert(
+                "Informe a descrição técnica."
+            );
+
+            descricaoProblema.focus();
+
+            return null;
+        }
+
+
+        if (!criticidade) {
+
+            alert(
+                "Selecione a criticidade."
+            );
+
+            return null;
+        }
+
+
+        if (!prioridade) {
+
+            alert(
+                "Selecione a prioridade."
+            );
+
+            return null;
+        }
+
+
+        return {
 
             titulo:
-                titulo,
+                tituloProblema.value.trim(),
+
+            local:
+                localItem.value.trim(),
 
             descricao:
-                descricao,
+                descricaoProblema.value.trim(),
 
             criticidade:
-                criticidade,
+                criticidade.value,
 
             prioridade:
-                prioridade,
+                prioridade.value,
+
+            recomendacao:
+                recomendacao.value.trim(),
+
+            fotos:
+                [...fotosBase64]
+
+        };
+    }
+
+
+    /* =====================================================
+       SALVAR ITEM NA INSPEÇÃO
+    ===================================================== */
+
+    function salvarItemNaInspecao(dados) {
+
+        if (!inspecaoAtual) {
+
+            alert(
+                "A inspeção não foi encontrada."
+            );
+
+            return false;
+        }
+
+
+        if (
+            !Array.isArray(
+                inspecaoAtual.itens
+            )
+        ) {
+
+            inspecaoAtual.itens = [];
+        }
+
+
+        const numero =
+            inspecaoAtual.itens.length + 1;
+
+
+        const item = {
+
+            id:
+                gerarId("ITEM"),
+
+            numero:
+                numero,
+
+            titulo:
+                dados.titulo,
+
+            local:
+                dados.local,
+
+            descricao:
+                dados.descricao,
+
+            criticidade:
+                dados.criticidade,
+
+            prioridade:
+                dados.prioridade,
+
+            recomendacao:
+                dados.recomendacao,
+
+            fotos:
+                dados.fotos,
 
             status:
                 "Aberto",
-
-            statusRelatorio:
-                "Em elaboração",
-
-            fotos:
-                fotosBase64,
-
-            data:
-                dataHoje(),
-
-            hora:
-                horaAtual(),
 
             criadoEm:
                 new Date().toISOString()
@@ -2636,9 +2397,14 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        /*
-           Garante que exista o array problemas.
-        */
+        inspecaoAtual.itens.push(
+            item
+        );
+
+
+        /* =================================================
+           COMPATIBILIDADE COM O SISTEMA ANTIGO
+        ================================================= */
 
         if (
             !Array.isArray(
@@ -2647,20 +2413,66 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             inspecaoAtual.problemas = [];
-
         }
 
 
+        const problemaCompatibilidade = {
+
+            id:
+                item.id,
+
+            origem:
+                "inspecao",
+
+            inspecaoId:
+                inspecaoAtual.id,
+
+            titulo:
+                item.titulo,
+
+            local:
+                item.local,
+
+            descricao:
+                item.descricao,
+
+            criticidade:
+                item.criticidade,
+
+            prioridade:
+                item.prioridade,
+
+            recomendacao:
+                item.recomendacao,
+
+            fotos:
+                item.fotos,
+
+            status:
+                "Aberto",
+
+            data:
+                inspecaoAtual.data,
+
+            hora:
+                inspecaoAtual.hora,
+
+            criadoEm:
+                item.criadoEm
+
+        };
+
+
         inspecaoAtual.problemas.push(
-            problema
+            problemaCompatibilidade
         );
 
 
-        /*
-           Atualiza a inspeção dentro do array.
-        */
+        inspecaoAtual.atualizadaEm =
+            new Date().toISOString();
 
-        let indice =
+
+        const indice =
             inspecoes.findIndex(
                 function (inspecao) {
 
@@ -2678,57 +2490,119 @@ document.addEventListener("DOMContentLoaded", function () {
             inspecoes[indice] =
                 inspecaoAtual;
 
-        } else {
-
-            /*
-               Caso a inspeção atual tenha vindo
-               de uma chave temporária.
-            */
+        }
+        else {
 
             inspecoes.push(
                 inspecaoAtual
             );
+        }
 
+
+        if (
+            !salvarJSON(
+                CHAVE_INSPECOES,
+                inspecoes
+            )
+        ) {
+
+            return false;
         }
 
 
         localStorage.setItem(
-            "inspecoes",
-            JSON.stringify(inspecoes)
+            CHAVE_INSPECAO_ATUAL,
+            String(inspecaoAtual.id)
         );
 
 
+        return true;
+    }
+
+
+    /* =====================================================
+       FINALIZAR RELATÓRIO
+    ===================================================== */
+
+    function finalizarRelatorio() {
+
+        inspecaoAtual.statusRelatorio =
+            "Pendente de aprovação";
+
+        inspecaoAtual.statusAprovacao =
+            "Pendente";
+
+        inspecaoAtual.situacao =
+            "Concluída";
+
+        inspecaoAtual.finalizadaEm =
+            new Date().toISOString();
+
+        inspecaoAtual.atualizadaEm =
+            new Date().toISOString();
+
+
+        const indice =
+            inspecoes.findIndex(
+                function (inspecao) {
+
+                    return (
+                        String(inspecao.id) ===
+                        String(inspecaoAtual.id)
+                    );
+
+                }
+            );
+
+
+        if (indice >= 0) {
+
+            inspecoes[indice] =
+                inspecaoAtual;
+
+        }
+
+
+        if (
+            !salvarJSON(
+                CHAVE_INSPECOES,
+                inspecoes
+            )
+        ) {
+
+            return;
+        }
+
+
+        /* Guarda qual relatório deverá ser aberto */
+
         localStorage.setItem(
-            "inspecaoAtual",
-            JSON.stringify(inspecaoAtual)
+            "relatorioAtualId",
+            String(inspecaoAtual.id)
         );
 
 
         /*
-           Guarda o problema para que Relatórios
-           consiga abrir o último relatório criado.
+           A inspeção deixou de estar em edição.
         */
 
-        localStorage.setItem(
-            "problemaAtual",
-            JSON.stringify(problema)
-        );
-
-
-        criarRelatorio(
-            problema,
-            inspecaoAtual
+        localStorage.removeItem(
+            CHAVE_INSPECAO_ATUAL
         );
 
 
         alert(
-            "Problema registrado com sucesso!"
+            "Relatório " +
+            (
+                inspecaoAtual.codigoRelatorio ||
+                ""
+            ) +
+            " finalizado com sucesso!"
         );
 
 
         window.location.href =
             "relatorios.html";
-
     }
 
 
@@ -2736,16 +2610,7 @@ document.addEventListener("DOMContentLoaded", function () {
        SALVAR PROBLEMA AVULSO
     ===================================================== */
 
-    function salvarProblemaAvulso(
-        titulo,
-        descricao,
-        criticidade,
-        prioridade
-    ) {
-
-        /* ---------------------------------------------
-           ÁREA
-        --------------------------------------------- */
+    function salvarProblemaAvulso(dados) {
 
         if (!areaProblema.value) {
 
@@ -2755,13 +2620,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             areaProblema.focus();
 
-            return;
+            return false;
         }
 
-
-        /* ---------------------------------------------
-           EQUIPAMENTO
-        --------------------------------------------- */
 
         if (!equipamentoProblema.value) {
 
@@ -2771,30 +2632,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             equipamentoProblema.focus();
 
-            return;
+            return false;
         }
-
-
-        const optionArea =
-            areaProblema.options[
-                areaProblema.selectedIndex
-            ];
-
-
-        const optionEquipamento =
-            equipamentoProblema.options[
-                equipamentoProblema.selectedIndex
-            ];
-
-
-        const nomeArea =
-            optionArea.dataset.nome ||
-            optionArea.textContent;
-
-
-        const nomeEquipamento =
-            optionEquipamento.dataset.nome ||
-            optionEquipamento.textContent;
 
 
         const problema = {
@@ -2809,40 +2648,40 @@ document.addEventListener("DOMContentLoaded", function () {
                 null,
 
             titulo:
-                titulo,
+                dados.titulo,
+
+            local:
+                dados.local,
 
             descricao:
-                descricao,
+                dados.descricao,
 
             criticidade:
-                criticidade,
+                dados.criticidade,
 
             prioridade:
-                prioridade,
+                dados.prioridade,
 
-            areaId:
-                areaProblema.value,
+            recomendacao:
+                dados.recomendacao,
+
+            fotos:
+                dados.fotos,
 
             area:
-                nomeArea,
-
-            equipamentoId:
-                equipamentoProblema.value,
+                areaProblema.value,
 
             equipamento:
-                nomeEquipamento,
+                equipamentoProblema.value,
 
             patrimonio:
-                patrimonioProblema.value.trim(),
+                patrimonioProblema.value,
+
+            localizacao:
+                localizacaoProblema.value,
 
             status:
                 "Aberto",
-
-            statusRelatorio:
-                "Em elaboração",
-
-            fotos:
-                fotosBase64,
 
             data:
                 dataHoje(),
@@ -2857,9 +2696,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         let problemasAvulsos =
-            lerLocalStorage(
-                "problemasAvulsos"
-            ) || [];
+            lerJSON(
+                CHAVE_PROBLEMAS_AVULSOS,
+                []
+            );
 
 
         if (
@@ -2869,7 +2709,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             problemasAvulsos = [];
-
         }
 
 
@@ -2878,48 +2717,45 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        localStorage.setItem(
-            "problemasAvulsos",
-            JSON.stringify(
-                problemasAvulsos
-            )
-        );
-
-
-        /*
-           Também criamos uma coleção geral de problemas.
-
-           Isso ajuda Dashboard, Histórico e Relatórios
-           a trabalharem futuramente com todos os registros.
-        */
-
-        let todosProblemas =
-            lerLocalStorage(
-                "problemas"
-            ) || [];
-
-
         if (
-            !Array.isArray(
-                todosProblemas
+            !salvarJSON(
+                CHAVE_PROBLEMAS_AVULSOS,
+                problemasAvulsos
             )
         ) {
 
-            todosProblemas = [];
-
+            return false;
         }
 
 
-        todosProblemas.push(
+        /*
+           Mantém também na chave "problemas"
+           para compatibilidade com páginas antigas.
+        */
+
+        let problemas =
+            lerJSON(
+                CHAVE_PROBLEMAS,
+                []
+            );
+
+
+        if (
+            !Array.isArray(problemas)
+        ) {
+
+            problemas = [];
+        }
+
+
+        problemas.push(
             problema
         );
 
 
-        localStorage.setItem(
-            "problemas",
-            JSON.stringify(
-                todosProblemas
-            )
+        salvarJSON(
+            CHAVE_PROBLEMAS,
+            problemas
         );
 
 
@@ -2929,443 +2765,197 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        criarRelatorio(
-            problema,
-            null
-        );
-
-
-        alert(
-            "Problema registrado com sucesso!"
-        );
-
-
-        window.location.href =
-            "relatorios.html";
-
+        return true;
     }
 
 
     /* =====================================================
-       CRIAR RELATÓRIO
+       ENVIO DO FORMULÁRIO
     ===================================================== */
 
-    function criarRelatorio(
-        problema,
-        inspecao
-    ) {
+    formProblema.addEventListener(
+        "submit",
+        function (event) {
 
-        let relatorios =
-            lerLocalStorage(
-                "relatorios"
-            ) || [];
+            event.preventDefault();
 
 
-        if (
-            !Array.isArray(
-                relatorios
-            )
-        ) {
+            const dados =
+                obterDadosFormulario();
 
-            relatorios = [];
 
-        }
+            if (!dados) {
+                return;
+            }
 
 
-        /*
-           Número sequencial do relatório.
-        */
+            const botao =
+                event.submitter;
 
-        const numero =
-            relatorios.length + 1;
 
+            const acao =
+                botao
+                    ? botao.value
+                    : "finalizar";
 
-        const codigoRelatorio =
-            "REL-" +
-            new Date().getFullYear() +
-            "-" +
-            String(numero).padStart(
-                3,
-                "0"
-            );
 
+            /* =================================================
+               ITEM VINCULADO A UMA INSPEÇÃO
+            ================================================= */
 
-        let area = "";
+            if (modoInspecao) {
 
-        let equipamento = "";
+                const salvou =
+                    salvarItemNaInspecao(
+                        dados
+                    );
 
-        let patrimonio = "";
 
-        let codigoInspecao = "";
+                if (!salvou) {
+                    return;
+                }
 
 
-        /*
-           Se veio de uma inspeção.
-        */
+                /* SALVAR E ADICIONAR OUTRO */
 
-        if (inspecao) {
+                if (acao === "outro") {
 
-            area =
-                inspecao.area ||
-                inspecao.nomeArea ||
-                "";
+                    alert(
+                        "Item salvo com sucesso!\n\n" +
+                        "Agora você pode registrar o próximo item."
+                    );
 
 
-            equipamento =
-                inspecao.equipamento ||
-                inspecao.nomeEquipamento ||
-                "";
-
-
-            patrimonio =
-                inspecao.patrimonio ||
-                inspecao.numeroPatrimonio ||
-                "";
-
-
-            codigoInspecao =
-                inspecao.codigo ||
-                inspecao.numero ||
-                inspecao.id ||
-                "";
-
-        }
-
-
-        /*
-           Se é problema avulso.
-        */
-
-        if (!inspecao) {
-
-            area =
-                problema.area ||
-                "";
-
-
-            equipamento =
-                problema.equipamento ||
-                "";
-
-
-            patrimonio =
-                problema.patrimonio ||
-                "";
-
-
-            codigoInspecao =
-                "Sem inspeção";
-
-        }
-
-
-        const relatorio = {
-
-            id:
-                gerarId("REL"),
-
-            codigo:
-                codigoRelatorio,
-
-            problemaId:
-                problema.id,
-
-            inspecaoId:
-                problema.inspecaoId,
-
-            inspecao:
-                codigoInspecao,
-
-            origem:
-                problema.origem,
-
-            titulo:
-                problema.titulo,
-
-            descricao:
-                problema.descricao,
-
-            criticidade:
-                problema.criticidade,
-
-            prioridade:
-                problema.prioridade,
-
-            area:
-                area,
-
-            equipamento:
-                equipamento,
-
-            patrimonio:
-                patrimonio,
-
-            fotos:
-                problema.fotos || [],
-
-            status:
-                "Em elaboração",
-
-            aprovacao:
-                "Pendente",
-
-            data:
-                problema.data,
-
-            hora:
-                problema.hora,
-
-            criadoEm:
-                new Date().toISOString()
-
-        };
-
-
-        relatorios.push(
-            relatorio
-        );
-
-
-        localStorage.setItem(
-            "relatorios",
-            JSON.stringify(
-                relatorios
-            )
-        );
-
-
-        localStorage.setItem(
-            "relatorioAtual",
-            JSON.stringify(
-                relatorio
-            )
-        );
-
-    }
-
-
-    /* =====================================================
-       GARANTE COLEÇÃO GERAL DOS PROBLEMAS
-       VINCULADOS À INSPEÇÃO
-    ===================================================== */
-
-    function sincronizarProblemasInspecoes() {
-
-        let problemasGerais =
-            lerLocalStorage(
-                "problemas"
-            ) || [];
-
-
-        if (
-            !Array.isArray(
-                problemasGerais
-            )
-        ) {
-
-            problemasGerais = [];
-
-        }
-
-
-        let alterou = false;
-
-
-        inspecoes.forEach(
-            function (inspecao) {
-
-                if (
-                    !Array.isArray(
-                        inspecao.problemas
-                    )
-                ) {
+                    limparFormularioItem();
 
                     return;
                 }
 
 
-                inspecao.problemas.forEach(
-                    function (problema) {
+                /* SALVAR E FINALIZAR */
 
-                        const existe =
-                            problemasGerais.some(
-                                function (p) {
+                finalizarRelatorio();
 
-                                    return (
-                                        String(p.id) ===
-                                        String(problema.id)
-                                    );
-
-                                }
-                            );
+                return;
+            }
 
 
-                        if (!existe) {
+            /* =================================================
+               PROBLEMA AVULSO
+            ================================================= */
 
-                            problemasGerais.push({
-                                ...problema,
-
-                                origem:
-                                    problema.origem ||
-                                    "inspecao",
-
-                                inspecaoId:
-                                    problema.inspecaoId ||
-                                    inspecao.id,
-
-                                area:
-                                    problema.area ||
-                                    inspecao.area ||
-                                    inspecao.nomeArea ||
-                                    "",
-
-                                equipamento:
-                                    problema.equipamento ||
-                                    inspecao.equipamento ||
-                                    inspecao.nomeEquipamento ||
-                                    "",
-
-                                patrimonio:
-                                    problema.patrimonio ||
-                                    inspecao.patrimonio ||
-                                    inspecao.numeroPatrimonio ||
-                                    ""
-                            });
-
-
-                            alterou = true;
-
-                        }
-
-                    }
+            const salvou =
+                salvarProblemaAvulso(
+                    dados
                 );
+
+
+            if (!salvou) {
+                return;
+            }
+
+
+            alert(
+                "Problema registrado com sucesso!"
+            );
+
+
+            window.location.href =
+                "historico.html";
+
+        }
+    );
+
+
+    /* =====================================================
+       CANCELAR
+    ===================================================== */
+
+    btnCancelar.addEventListener(
+        "click",
+        function () {
+
+            if (modoInspecao) {
+
+                const confirmar =
+                    confirm(
+                        "Deseja sair desta tela?\n\n" +
+                        "Os itens que já foram salvos continuarão registrados."
+                    );
+
+
+                if (!confirmar) {
+                    return;
+                }
+
+
+                window.location.href =
+                    "historico.html";
+
+                return;
+            }
+
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+    );
+
+
+    /* =====================================================
+       SAIR DO SISTEMA
+    ===================================================== */
+
+    if (btnSair) {
+
+        btnSair.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const confirmar =
+                    confirm(
+                        "Deseja realmente sair do sistema?"
+                    );
+
+
+                if (!confirmar) {
+                    return;
+                }
+
+
+                sessionStorage.clear();
+
+
+                localStorage.removeItem(
+                    "usuarioLogado"
+                );
+
+
+                localStorage.removeItem(
+                    "sessaoUsuario"
+                );
+
+
+                window.location.href =
+                    "../pagina_inicial.html";
 
             }
         );
 
-
-        if (alterou) {
-
-            localStorage.setItem(
-                "problemas",
-                JSON.stringify(
-                    problemasGerais
-                )
-            );
-
-        }
-
     }
-
-
-    sincronizarProblemasInspecoes();
 
 
     /* =====================================================
-       PERFIL DO USUÁRIO
+       INICIALIZAÇÃO
     ===================================================== */
 
-    function carregarUsuario() {
-
-        const usuario =
-            lerLocalStorage(
-                "usuarioLogado"
-            );
-
-
-        if (!usuario) {
-            return;
-        }
-
-
-        const nome =
-            usuario.nome ||
-            usuario.nomeCompleto ||
-            "Técnico";
-
-
-        const perfil =
-            usuario.perfil ||
-            usuario.cargo ||
-            "Técnico";
-
-
-        const iniciais =
-            nome
-                .split(" ")
-                .filter(Boolean)
-                .slice(0, 2)
-                .map(function (parte) {
-
-                    return parte[0];
-
-                })
-                .join("")
-                .toUpperCase();
-
-
-        const profileCircle =
-            document.querySelector(
-                ".profile-circle"
-            );
-
-
-        const profileName =
-            document.querySelector(
-                ".profile-name"
-            );
-
-
-        const profileInfo =
-            document.querySelector(
-                ".profile-info"
-            );
-
-
-        const userTop =
-            document.querySelector(
-                ".user"
-            );
-
-
-        if (profileCircle) {
-
-            profileCircle.textContent =
-                iniciais || "TC";
-
-        }
-
-
-        if (userTop) {
-
-            userTop.textContent =
-                iniciais || "TC";
-
-        }
-
-
-        if (profileName) {
-
-            profileName.textContent =
-                nome;
-
-        }
-
-
-        if (profileInfo) {
-
-            profileInfo.textContent =
-                "Perfil " + perfil;
-
-        }
-
-    }
-
-
-    carregarUsuario();
+    configurarTela();
 
 });
-
 
 </script>
 

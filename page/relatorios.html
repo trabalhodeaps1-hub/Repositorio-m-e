@@ -51,14 +51,8 @@
             z-index: 1000;
         }
 
-
-        /* =========================================================
-           LOGO
-        ========================================================= */
-
         .logo {
             height: 65px;
-
             padding: 10px 16px;
 
             display: flex;
@@ -105,11 +99,6 @@
             margin-top: 2px;
         }
 
-
-        /* =========================================================
-           MENU
-        ========================================================= */
-
         .menu {
             padding: 17px 9px;
         }
@@ -134,7 +123,7 @@
 
             border-radius: 5px;
 
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .menu a:hover {
@@ -152,14 +141,8 @@
 
         .menu-icon {
             width: 16px;
-
             text-align: center;
         }
-
-
-        /* =========================================================
-           PERFIL
-        ========================================================= */
 
         .sidebar-bottom {
             margin-top: auto;
@@ -194,8 +177,6 @@
 
             font-size: 11px;
             font-weight: bold;
-
-            flex-shrink: 0;
         }
 
         .profile-name {
@@ -245,11 +226,6 @@
 
             width: calc(100% - 240px);
         }
-
-
-        /* =========================================================
-           TOPO
-        ========================================================= */
 
         .topbar {
             min-height: 65px;
@@ -339,7 +315,7 @@
 
 
         /* =========================================================
-           RESUMO
+           INDICADORES
         ========================================================= */
 
         .resumo-grid {
@@ -394,7 +370,7 @@
 
 
         /* =========================================================
-           CABEÇALHO DA LISTA
+           LISTA DE RELATÓRIOS
         ========================================================= */
 
         .lista-header {
@@ -420,11 +396,6 @@
             margin-top: 4px;
         }
 
-
-        /* =========================================================
-           FILTROS
-        ========================================================= */
-
         .filtros {
             display: flex;
 
@@ -449,13 +420,6 @@
             cursor: pointer;
 
             font-size: 10px;
-
-            transition: 0.2s;
-        }
-
-        .filtro:hover {
-            border-color: #2d76dc;
-            color: #2d76dc;
         }
 
         .filtro.ativo {
@@ -468,7 +432,7 @@
 
 
         /* =========================================================
-           CARDS DOS RELATÓRIOS
+           CARDS
         ========================================================= */
 
         .relatorios-grid {
@@ -492,23 +456,17 @@
 
             cursor: pointer;
 
-            transition: 0.2s;
-
-            position: relative;
+            transition: .2s;
         }
 
         .relatorio-card:hover {
             border-color: #72a5e7;
 
-            box-shadow: 0 5px 15px rgba(26, 74, 133, 0.09);
+            box-shadow:
+                0 5px 15px
+                rgba(26, 74, 133, .09);
 
             transform: translateY(-2px);
-        }
-
-        .relatorio-card.selecionado {
-            border: 2px solid #2874d0;
-
-            box-shadow: 0 0 0 3px rgba(40, 116, 208, 0.08);
         }
 
         .card-top {
@@ -519,7 +477,7 @@
 
             gap: 10px;
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         .codigo-relatorio {
@@ -542,8 +500,6 @@
             font-size: 9px;
 
             font-weight: bold;
-
-            white-space: nowrap;
         }
 
         .status-elaboracao {
@@ -568,7 +524,7 @@
 
             font-weight: bold;
 
-            margin-bottom: 13px;
+            margin-bottom: 14px;
         }
 
         .card-dados {
@@ -578,7 +534,7 @@
 
             gap: 10px;
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         .card-dado small {
@@ -614,26 +570,12 @@
             gap: 10px;
         }
 
-        .criticidade-card {
+        .quantidade-itens {
             font-size: 10px;
 
+            color: #5d697b;
+
             font-weight: bold;
-        }
-
-        .critica {
-            color: #dc2626;
-        }
-
-        .alta {
-            color: #ea580c;
-        }
-
-        .media {
-            color: #c58a00;
-        }
-
-        .baixa {
-            color: #168447;
         }
 
         .btn-visualizar {
@@ -653,11 +595,6 @@
 
             cursor: pointer;
         }
-
-
-        /* =========================================================
-           SEM RELATÓRIOS
-        ========================================================= */
 
         .sem-relatorios {
             grid-column: 1 / -1;
@@ -693,21 +630,18 @@
 
 
         /* =========================================================
-           ÁREA DO RELATÓRIO COMPLETO
+           ÁREA DO RELATÓRIO
         ========================================================= */
 
         #areaRelatorio {
             display: none;
-
-            scroll-margin-top: 20px;
         }
 
         .report-toolbar {
-            width: 100%;
-
             display: flex;
-            align-items: center;
+
             justify-content: space-between;
+            align-items: center;
 
             gap: 10px;
 
@@ -742,8 +676,6 @@
             font-weight: bold;
 
             cursor: pointer;
-
-            transition: 0.2s;
         }
 
         .btn-voltar {
@@ -754,18 +686,10 @@
             color: #58677c;
         }
 
-        .btn-voltar:hover {
-            background: #f4f6f8;
-        }
-
         .export-button {
             background: #2166b1;
 
             color: white;
-        }
-
-        .export-button:hover {
-            background: #19599d;
         }
 
 
@@ -784,27 +708,34 @@
 
             overflow: hidden;
 
-            box-shadow: 0 2px 6px rgba(0,0,0,.10);
+            box-shadow:
+                0 2px 6px
+                rgba(0,0,0,.10);
         }
 
 
         /* =========================================================
-           CABEÇALHO DO RELATÓRIO
+           CABEÇALHO PROFISSIONAL
         ========================================================= */
 
         .report-header {
-            min-height: 155px;
-
-            background: #162d50;
+            background: #16345c;
 
             color: white;
 
-            padding: 24px 30px;
-
-            position: relative;
+            padding: 22px 28px;
         }
 
-        .company {
+        .cabecalho-superior {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .empresa {
             display: flex;
 
             align-items: center;
@@ -812,303 +743,398 @@
             gap: 12px;
         }
 
-        .company-icon {
-            width: 38px;
-            height: 38px;
+        .empresa-logo {
+            width: 42px;
+            height: 42px;
 
             border-radius: 5px;
 
-            background: #1765b4;
+            background: #2374c9;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 18px;
+            font-size: 20px;
+
+            font-weight: bold;
         }
 
-        .company-name {
+        .empresa-nome {
             font-size: 16px;
 
             font-weight: bold;
-
-            margin-bottom: 4px;
         }
 
-        .company-subtitle {
-            color: #4a9bf8;
+        .empresa-setor {
+            color: #9bc7f8;
 
-            font-size: 10px;
+            font-size: 9px;
 
-            font-weight: bold;
+            margin-top: 4px;
         }
 
-        .report-number {
-            position: absolute;
-
-            right: 30px;
-            top: 25px;
-
+        .numero-relatorio {
             text-align: right;
         }
 
-        .report-number small {
+        .numero-relatorio small {
             display: block;
+
+            color: #b7c7db;
 
             font-size: 8px;
 
             letter-spacing: 1px;
 
-            color: #a9b6ca;
-
             margin-bottom: 4px;
         }
 
-        .report-number strong {
+        .numero-relatorio strong {
             font-family: monospace;
 
-            font-size: 18px;
-
-            color: white;
+            font-size: 17px;
         }
 
-        .report-divider {
+        .linha-header {
             height: 1px;
 
-            background: rgba(255,255,255,.15);
+            background:
+                rgba(255,255,255,.16);
 
-            margin: 25px 0 17px;
+            margin: 20px 0 15px;
         }
 
-        .problem-title {
-            font-size: 16px;
-
-            font-weight: bold;
-
-            margin-bottom: 10px;
-        }
-
-        .header-bottom {
-            display: flex;
-
-            align-items: center;
-
-            gap: 14px;
-
-            flex-wrap: wrap;
-        }
-
-        .criticality {
-            padding: 5px 9px;
-
-            border-radius: 12px;
-
-            font-size: 9px;
+        .titulo-relatorio {
+            font-size: 18px;
 
             font-weight: bold;
         }
 
-        .criticality.critica {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        .criticality.alta {
-            background: #ffedd5;
-            color: #c2410c;
-        }
-
-        .criticality.media {
-            background: #fef3c7;
-            color: #a16207;
-        }
-
-        .criticality.baixa {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .generated {
-            font-family: monospace;
+        .subtitulo-relatorio {
+            color: #bdcadd;
 
             font-size: 9px;
 
-            color: #9cacbf;
+            margin-top: 5px;
         }
 
 
         /* =========================================================
-           CORPO
+           CORPO DO DOCUMENTO
         ========================================================= */
 
         .report-body {
-            padding: 30px;
+            padding: 28px;
         }
 
 
         /* =========================================================
-           TABELA DE INFORMAÇÕES
+           IDENTIFICAÇÃO
         ========================================================= */
 
-        .info-table {
-            width: 100%;
+        .titulo-secao-documento {
+            font-size: 11px;
 
-            border: 1px solid #dce1e7;
+            color: #173a67;
 
-            border-radius: 6px;
+            text-transform: uppercase;
 
-            overflow: hidden;
+            letter-spacing: .8px;
 
+            font-weight: bold;
+
+            border-bottom: 2px solid #2d6faf;
+
+            padding-bottom: 7px;
+
+            margin-bottom: 12px;
+        }
+
+        .identificacao-grid {
             display: grid;
 
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns:
+                repeat(4, 1fr);
 
-            margin-bottom: 30px;
+            border: 1px solid #d8dee7;
+
+            margin-bottom: 26px;
         }
 
-        .info-cell {
-            min-height: 65px;
+        .identificacao-campo {
+            padding: 11px 12px;
 
-            padding: 13px 15px;
+            min-height: 58px;
 
-            border-right: 1px solid #dce1e7;
-            border-bottom: 1px solid #dce1e7;
+            border-right:
+                1px solid #d8dee7;
+
+            border-bottom:
+                1px solid #d8dee7;
         }
 
-        .info-cell:nth-child(4),
-        .info-cell:nth-child(8) {
+        .identificacao-campo:nth-child(4n) {
             border-right: none;
         }
 
-        .info-cell:nth-child(n+5) {
+        .identificacao-campo:nth-last-child(-n+4) {
             border-bottom: none;
         }
 
-        .info-label {
+        .identificacao-campo small {
             display: block;
+
+            color: #8995a7;
 
             font-size: 7px;
 
-            color: #9aa5b5;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 8px;
-
             text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            margin-bottom: 6px;
         }
 
-        .info-value {
-            font-family: monospace;
+        .identificacao-campo strong {
+            color: #25344b;
 
-            font-size: 11px;
+            font-size: 10px;
 
-            color: #172033;
+            font-weight: 600;
         }
 
 
         /* =========================================================
-           SEÇÕES
+           RESUMO DA INSPEÇÃO
         ========================================================= */
 
-        .section {
-            margin-bottom: 25px;
+        .resumo-inspecao {
+            background: #f7f9fc;
+
+            border-left: 3px solid #286bb5;
+
+            padding: 14px 17px;
+
+            margin-bottom: 27px;
+
+            font-size: 10px;
+
+            color: #4c5b70;
+
+            line-height: 17px;
+
+            white-space: pre-wrap;
         }
 
-        .section-title {
+
+        /* =========================================================
+           ITENS DO RELATÓRIO
+        ========================================================= */
+
+        .itens-relatorio {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 26px;
+        }
+
+        .item-relatorio {
+            border: 1px solid #d9dfe7;
+
+            border-radius: 5px;
+
+            overflow: hidden;
+
+            page-break-inside: avoid;
+        }
+
+        .item-header {
+            background: #edf3f9;
+
+            border-bottom: 1px solid #d9dfe7;
+
+            padding: 12px 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .item-identificacao {
             display: flex;
 
             align-items: center;
 
-            gap: 9px;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-            color: #111827;
-
-            margin-bottom: 10px;
+            gap: 10px;
         }
 
-        .section-number {
-            width: 20px;
-            height: 20px;
+        .item-numero {
+            width: 30px;
+            height: 30px;
 
-            background: #2166b1;
+            background: #1d609f;
 
             color: white;
 
-            border-radius: 3px;
+            border-radius: 4px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
             font-size: 10px;
+
+            font-weight: bold;
         }
 
-        .section-number.red {
-            background: #dc2626;
+        .item-titulo {
+            color: #172c48;
+
+            font-size: 12px;
+
+            font-weight: bold;
         }
 
-        .section-content {
-            min-height: 55px;
+        .item-local {
+            color: #78869a;
 
-            background: #f8f9fb;
+            font-size: 8px;
 
-            border-left: 3px solid #2563eb;
+            margin-top: 3px;
+        }
 
-            border-radius: 5px;
+        .item-tags {
+            display: flex;
 
-            padding: 15px 20px;
+            gap: 6px;
 
-            color: #4d5c70;
+            flex-wrap: wrap;
+        }
 
-            font-size: 11px;
+        .tag {
+            padding: 5px 8px;
 
-            line-height: 18px;
+            border-radius: 12px;
+
+            font-size: 8px;
+
+            font-weight: bold;
+        }
+
+        .tag-critica {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .tag-alta {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .tag-media {
+            background: #fef3c7;
+            color: #a16207;
+        }
+
+        .tag-baixa {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .tag-prioridade {
+            background: #e8eef8;
+            color: #405b7c;
+        }
+
+        .item-body {
+            padding: 16px;
+        }
+
+        .bloco-item {
+            margin-bottom: 16px;
+        }
+
+        .bloco-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bloco-item h4 {
+            color: #173a67;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            margin-bottom: 7px;
+        }
+
+        .texto-item {
+            background: #fafbfc;
+
+            border-left: 3px solid #3478bb;
+
+            padding: 11px 13px;
+
+            color: #4c596b;
+
+            font-size: 10px;
+
+            line-height: 16px;
 
             white-space: pre-wrap;
         }
 
-        .section-content[contenteditable="true"] {
-            background: white;
+        .recomendacao-item {
+            background: #fff8f1;
 
-            border: 1px solid #9bc2f5;
-            border-left: 3px solid #2563eb;
+            border-left:
+                3px solid #e77817;
 
-            outline: none;
+            padding: 11px 13px;
 
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+            color: #6b4a2d;
+
+            font-size: 10px;
+
+            line-height: 16px;
+
+            white-space: pre-wrap;
         }
 
 
         /* =========================================================
-           FOTOS
+           FOTOS DE CADA ITEM
         ========================================================= */
 
-        .photos {
+        .fotos-item {
             display: grid;
 
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
 
-            gap: 12px;
+            gap: 10px;
+
+            margin-top: 8px;
         }
 
-        .photo {
-            min-height: 150px;
+        .foto-item {
+            border: 1px solid #dfe4ea;
 
-            border-radius: 5px;
+            border-radius: 4px;
 
             overflow: hidden;
 
-            border: 1px solid #e1e5ea;
-
-            background: #eef0f2;
+            background: #f4f5f7;
         }
 
-        .photo img {
+        .foto-item img {
             width: 100%;
             height: 150px;
 
@@ -1117,125 +1143,83 @@
             object-fit: cover;
         }
 
-        .photo-code {
-            min-height: 25px;
+        .foto-legenda {
+            padding: 6px 8px;
 
-            background: #fafafa;
+            background: white;
 
-            color: #9aa5b5;
-
-            font-family: monospace;
+            color: #8490a0;
 
             font-size: 8px;
 
-            padding: 7px 9px;
+            font-family: monospace;
         }
 
-        .sem-fotos {
-            grid-column: 1 / -1;
+        .sem-foto-item {
+            color: #9aa4b2;
 
-            padding: 25px;
+            font-size: 9px;
 
-            background: #f8f9fb;
-
-            border: 1px dashed #d5dbe4;
-
-            border-radius: 5px;
-
-            color: #8a95a6;
-
-            text-align: center;
-
-            font-size: 10px;
+            font-style: italic;
         }
 
 
         /* =========================================================
-           AÇÃO
-        ========================================================= */
-
-        .action-box {
-            background: #fff1f1;
-
-            border: 1px solid #fecaca;
-            border-left: 3px solid #ef4444;
-
-            border-radius: 5px;
-
-            padding: 16px 18px;
-
-            color: #b91c1c;
-
-            font-size: 10px;
-
-            line-height: 17px;
-
-            white-space: pre-wrap;
-        }
-
-        .action-box[contenteditable="true"] {
-            background: white;
-
-            outline: none;
-
-            box-shadow: 0 0 0 3px rgba(239,68,68,.08);
-        }
-
-
-        /* =========================================================
-           RODAPÉ DO RELATÓRIO
+           RODAPÉ DO DOCUMENTO
         ========================================================= */
 
         .report-footer {
-            border-top: 1px solid #e1e5ea;
+            margin-top: 30px;
 
-            padding-top: 20px;
+            border-top:
+                1px solid #dce2e9;
 
-            margin-top: 35px;
+            padding-top: 18px;
 
             display: flex;
 
             justify-content: space-between;
-
-            align-items: center;
+            align-items: flex-end;
 
             gap: 20px;
         }
 
-        .inspector {
-            font-size: 11px;
-
-            color: #26354a;
-        }
-
-        .inspector small {
+        .responsavel strong {
             display: block;
 
-            color: #8b95a5;
+            color: #26364c;
 
-            font-family: monospace;
+            font-size: 10px;
+        }
+
+        .responsavel small {
+            display: block;
+
+            color: #8c97a6;
 
             font-size: 8px;
 
             margin-top: 4px;
         }
 
-        .current-status {
+        .status-relatorio {
             text-align: right;
         }
 
-        .current-status small {
+        .status-relatorio small {
             display: block;
 
-            color: #9aa5b5;
+            color: #8d98a7;
 
             font-size: 8px;
 
             margin-bottom: 5px;
         }
 
-        .status {
-            padding: 6px 11px;
+        .status-badge {
+            display: inline-block;
+
+            padding: 6px 10px;
 
             border-radius: 12px;
 
@@ -1246,26 +1230,27 @@
 
 
         /* =========================================================
-           ÁREA DE AÇÕES DO TÉCNICO
+           AÇÕES DO TÉCNICO
         ========================================================= */
 
         .acoes-tecnico {
-            margin-top: 25px;
+            margin-top: 22px;
 
-            padding: 18px 0 0;
+            padding-top: 17px;
 
-            border-top: 1px solid #e3e7ed;
+            border-top:
+                1px solid #e2e6ec;
 
             display: flex;
 
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
 
             gap: 15px;
         }
 
         .aviso-aprovacao {
-            color: #7b8797;
+            color: #778396;
 
             font-size: 10px;
 
@@ -1306,20 +1291,12 @@
             color: white;
         }
 
-        .btn-editar:hover {
-            background: #19599d;
-        }
-
         .btn-salvar {
             border: none;
 
             background: #168447;
 
             color: white;
-        }
-
-        .btn-salvar:hover {
-            background: #116b39;
         }
 
         .btn-cancelar {
@@ -1330,12 +1307,19 @@
             color: #687386;
         }
 
-        .btn-cancelar:hover {
-            background: #f4f6f8;
-        }
-
         .oculto {
             display: none !important;
+        }
+
+
+        /* =========================================================
+           EDIÇÃO
+        ========================================================= */
+
+        [contenteditable="true"] {
+            outline: 2px solid #82b7ee;
+
+            background: white !important;
         }
 
 
@@ -1346,48 +1330,24 @@
         @media (max-width: 1050px) {
 
             .resumo-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
             .relatorios-grid {
                 grid-template-columns: 1fr;
             }
 
-            .info-table {
-                grid-template-columns: repeat(2, 1fr);
+            .identificacao-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
-            .info-cell {
-                border-right: 1px solid #dce1e7 !important;
-                border-bottom: 1px solid #dce1e7 !important;
-            }
-
-            .info-cell:nth-child(even) {
-                border-right: none !important;
-            }
-
-            .info-cell:nth-last-child(-n+2) {
-                border-bottom: none !important;
+            .fotos-item {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
         }
-
-
-        @media (max-width: 800px) {
-
-            .sidebar {
-                width: 200px;
-            }
-
-            .main {
-                margin-left: 200px;
-                width: calc(100% - 200px);
-            }
-
-            .content {
-                padding: 20px;
-            }
-        }
-
 
         @media (max-width: 650px) {
 
@@ -1397,11 +1357,8 @@
 
             .main {
                 margin-left: 0;
-                width: 100%;
-            }
 
-            .topbar {
-                padding: 15px 18px;
+                width: 100%;
             }
 
             .content {
@@ -1409,73 +1366,108 @@
             }
 
             .resumo-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
-            .report-header {
-                padding: 20px;
-            }
-
-            .report-number {
-                position: static;
-
-                text-align: left;
-
-                margin-top: 15px;
-            }
-
-            .report-body {
-                padding: 20px;
-            }
-
-            .info-table {
+            .identificacao-grid {
                 grid-template-columns: 1fr;
             }
 
-            .info-cell {
-                border-right: none !important;
-                border-bottom: 1px solid #dce1e7 !important;
-            }
-
-            .info-cell:last-child {
-                border-bottom: none !important;
-            }
-
-            .photos {
+            .fotos-item {
                 grid-template-columns: 1fr;
             }
 
-            .report-footer,
+            .report-toolbar,
             .acoes-tecnico,
-            .report-toolbar {
-                align-items: flex-start;
+            .report-footer {
                 flex-direction: column;
+
+                align-items: flex-start;
+            }
+        }
+
+
+        /* =========================================================
+           IMPRESSÃO / PDF
+        ========================================================= */
+
+        @media print {
+
+            @page {
+                size: A4;
+                margin: 10mm;
             }
 
-            .current-status {
-                text-align: left;
+            body {
+                background: white;
             }
 
-            .botoes-edicao {
+            .sidebar,
+            .topbar,
+            .resumo-grid,
+            #areaLista,
+            .report-toolbar,
+            .acoes-tecnico {
+                display: none !important;
+            }
+
+            .main {
+                margin: 0;
+
                 width: 100%;
             }
 
-            .btn-editar,
-            .btn-salvar,
-            .btn-cancelar {
-                flex: 1;
+            .content {
+                padding: 0;
+            }
+
+            #areaRelatorio {
+                display: block !important;
+            }
+
+            .report {
+                border: none;
+
+                box-shadow: none;
+
+                border-radius: 0;
+            }
+
+            .report-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .item-header,
+            .item-numero,
+            .tag,
+            .texto-item,
+            .recomendacao-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .item-relatorio {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .foto-item img {
+                height: 125px;
             }
         }
 
     </style>
-</head>
 
+</head>
 
 <body>
 
-    <!-- =====================================================
+
+    <!-- =========================================================
          MENU LATERAL
-    ====================================================== -->
+    ========================================================== -->
 
     <aside class="sidebar">
 
@@ -1486,11 +1478,13 @@
             </div>
 
             <div class="logo-text">
+
                 AutoRelatório
 
                 <span>
                     INDUSTRIAL
                 </span>
+
             </div>
 
         </div>
@@ -1518,7 +1512,10 @@
                 Histórico
             </a>
 
-            <a href="relatorios.html" class="active">
+            <a
+                href="relatorios.html"
+                class="active"
+            >
                 <span class="menu-icon">▧</span>
                 Relatórios
             </a>
@@ -1559,7 +1556,11 @@
             </div>
 
 
-            <a href="#" class="logout" id="btnSair">
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
                 <span>⇥</span>
                 Sair
             </a>
@@ -1569,9 +1570,9 @@
     </aside>
 
 
-    <!-- =====================================================
-         ÁREA PRINCIPAL
-    ====================================================== -->
+    <!-- =========================================================
+         PRINCIPAL
+    ========================================================== -->
 
     <main class="main">
 
@@ -1587,7 +1588,7 @@
                 </h1>
 
                 <p>
-                    Visualize, confira e edite os relatórios das inspeções registradas
+                    Relatórios consolidados das inspeções industriais
                 </p>
 
             </div>
@@ -1608,15 +1609,15 @@
         </header>
 
 
-        <!-- =================================================
+        <!-- =====================================================
              CONTEÚDO
-        ================================================== -->
+        ====================================================== -->
 
         <section class="content">
 
 
             <!-- =================================================
-                 INDICADORES REAIS
+                 INDICADORES
             ================================================== -->
 
             <div class="resumo-grid">
@@ -1669,7 +1670,7 @@
                 <div class="resumo-card">
 
                     <span>
-                        Problemas em aberto
+                        Itens em aberto
                     </span>
 
                     <strong
@@ -1685,11 +1686,10 @@
 
 
             <!-- =================================================
-                 LISTA DE RELATÓRIOS
+                 LISTA
             ================================================== -->
 
             <div id="areaLista">
-
 
                 <div class="lista-header">
 
@@ -1700,7 +1700,7 @@
                         </h2>
 
                         <p>
-                            Selecione um relatório para visualizar o documento completo.
+                            Cada inspeção gera um relatório único contendo todos os itens registrados.
                         </p>
 
                     </div>
@@ -1708,11 +1708,10 @@
                 </div>
 
 
-                <!-- FILTROS -->
-
                 <div class="filtros">
 
                     <button
+                        type="button"
                         class="filtro ativo"
                         data-filtro="Todos"
                     >
@@ -1720,6 +1719,7 @@
                     </button>
 
                     <button
+                        type="button"
                         class="filtro"
                         data-filtro="Em elaboração"
                     >
@@ -1727,6 +1727,7 @@
                     </button>
 
                     <button
+                        type="button"
                         class="filtro"
                         data-filtro="Pendente de aprovação"
                     >
@@ -1734,6 +1735,7 @@
                     </button>
 
                     <button
+                        type="button"
                         class="filtro"
                         data-filtro="Aprovado"
                     >
@@ -1742,8 +1744,6 @@
 
                 </div>
 
-
-                <!-- CARDS -->
 
                 <div
                     class="relatorios-grid"
@@ -1761,7 +1761,7 @@
             <div id="areaRelatorio">
 
 
-                <!-- BARRA SUPERIOR -->
+                <!-- BARRA DE AÇÕES -->
 
                 <div class="report-toolbar">
 
@@ -1786,7 +1786,7 @@
                             class="toolbar-button export-button"
                             id="btnExportar"
                         >
-                            ⇩ &nbsp; Imprimir / Salvar PDF
+                            ⇩ Imprimir / Salvar PDF
                         </button>
 
                     </div>
@@ -1794,83 +1794,77 @@
                 </div>
 
 
-                <!-- DOCUMENTO -->
+                <!-- =================================================
+                     DOCUMENTO
+                ================================================== -->
 
-                <article class="report" id="documentoRelatorio">
+                <article
+                    class="report"
+                    id="documentoRelatorio"
+                >
 
 
                     <!-- CABEÇALHO -->
 
-                    <div class="report-header">
+                    <header class="report-header">
 
+                        <div class="cabecalho-superior">
 
-                        <div class="company">
+                            <div class="empresa">
 
-                            <div class="company-icon">
-                                ▤
+                                <div class="empresa-logo">
+                                    A
+                                </div>
+
+                                <div>
+
+                                    <div class="empresa-nome">
+                                        ArcelorMittal Brasil
+                                    </div>
+
+                                    <div class="empresa-setor">
+                                        Engenharia de Manutenção • Planta Tubarão
+                                    </div>
+
+                                </div>
+
                             </div>
 
 
-                            <div>
+                            <div class="numero-relatorio">
 
-                                <div class="company-name">
-                                    ArcelorMittal Brasil
-                                </div>
+                                <small>
+                                    RELATÓRIO TÉCNICO
+                                </small>
 
-                                <div class="company-subtitle">
-                                    Engenharia de Manutenção - Planta Tubarão
-                                </div>
+                                <strong id="relCodigo">
+                                    -
+                                </strong>
 
                             </div>
 
                         </div>
 
 
-                        <div class="report-number">
-
-                            <small>
-                                RELATÓRIO TÉCNICO
-                            </small>
-
-                            <strong id="relCodigo">
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="report-divider"></div>
+                        <div class="linha-header"></div>
 
 
                         <div
-                            class="problem-title"
+                            class="titulo-relatorio"
                             id="relTitulo"
                         >
-                            -
+                            Relatório de Inspeção Industrial
                         </div>
 
 
-                        <div class="header-bottom">
-
-                            <span
-                                class="criticality"
-                                id="relCriticidade"
-                            >
-                                -
-                            </span>
-
-
-                            <span
-                                class="generated"
-                                id="relGerado"
-                            >
-                                -
-                            </span>
-
+                        <div
+                            class="subtitulo-relatorio"
+                            id="relSubtitulo"
+                        >
+                            Registro técnico das condições identificadas durante a inspeção.
                         </div>
 
-
-                    </div>
+                    </header>
 
 
                     <!-- =================================================
@@ -1880,277 +1874,176 @@
                     <div class="report-body">
 
 
-                        <!-- DADOS -->
+                        <!-- IDENTIFICAÇÃO -->
 
-                        <div class="info-table">
+                        <div class="titulo-secao-documento">
+                            1. Identificação da Inspeção
+                        </div>
 
 
-                            <div class="info-cell">
+                        <div class="identificacao-grid">
 
-                                <span class="info-label">
-                                    Inspeção
-                                </span>
 
-                                <span
-                                    class="info-value"
-                                    id="relInspecao"
-                                >
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Nº da inspeção
+                                </small>
+
+                                <strong id="relInspecao">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                            <div class="info-cell">
+                            <div class="identificacao-campo">
 
-                                <span class="info-label">
+                                <small>
                                     Data
-                                </span>
+                                </small>
 
-                                <span
-                                    class="info-value"
-                                    id="relData"
-                                >
+                                <strong id="relData">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                            <div class="info-cell">
+                            <div class="identificacao-campo">
 
-                                <span class="info-label">
+                                <small>
                                     Hora
-                                </span>
+                                </small>
 
-                                <span
-                                    class="info-value"
-                                    id="relHora"
-                                >
+                                <strong id="relHora">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                            <div class="info-cell">
+                            <div class="identificacao-campo">
 
-                                <span class="info-label">
+                                <small>
                                     Inspetor
-                                </span>
+                                </small>
 
-                                <span
-                                    class="info-value"
-                                    id="relInspetor"
-                                >
+                                <strong id="relInspetor">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                            <div class="info-cell">
+                            <div class="identificacao-campo">
 
-                                <span class="info-label">
-                                    Equipamento
-                                </span>
-
-                                <span
-                                    class="info-value"
-                                    id="relEquipamento"
-                                >
-                                    -
-                                </span>
-
-                            </div>
-
-
-                            <div class="info-cell">
-
-                                <span class="info-label">
-                                    Patrimônio
-                                </span>
-
-                                <span
-                                    class="info-value"
-                                    id="relPatrimonio"
-                                >
-                                    -
-                                </span>
-
-                            </div>
-
-
-                            <div class="info-cell">
-
-                                <span class="info-label">
+                                <small>
                                     Área
-                                </span>
+                                </small>
 
-                                <span
-                                    class="info-value"
-                                    id="relArea"
-                                >
+                                <strong id="relArea">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                            <div class="info-cell">
+                            <div class="identificacao-campo">
 
-                                <span class="info-label">
-                                    Prioridade
-                                </span>
+                                <small>
+                                    Equipamento
+                                </small>
 
-                                <span
-                                    class="info-value"
-                                    id="relPrioridade"
-                                >
+                                <strong id="relEquipamento">
                                     -
-                                </span>
+                                </strong>
 
                             </div>
 
 
-                        </div>
+                            <div class="identificacao-campo">
 
+                                <small>
+                                    Patrimônio / TAG
+                                </small>
 
-                        <!-- =================================================
-                             DESCRIÇÃO
-                        ================================================== -->
-
-                        <div class="section">
-
-                            <div class="section-title">
-
-                                <span class="section-number">
-                                    1
-                                </span>
-
-                                Descrição do Problema
+                                <strong id="relPatrimonio">
+                                    -
+                                </strong>
 
                             </div>
 
 
-                            <div
-                                class="section-content campo-editavel"
-                                id="relDescricao"
-                            >
-                                -
-                            </div>
+                            <div class="identificacao-campo">
 
-                        </div>
+                                <small>
+                                    Quantidade de itens
+                                </small>
 
+                                <strong id="relQuantidade">
+                                    0
+                                </strong>
 
-                        <!-- =================================================
-                             OBSERVAÇÕES
-                        ================================================== -->
-
-                        <div class="section">
-
-                            <div class="section-title">
-
-                                <span class="section-number">
-                                    2
-                                </span>
-
-                                Observações de Campo
-
-                            </div>
-
-
-                            <div
-                                class="section-content campo-editavel"
-                                id="relObservacoes"
-                            >
-                                -
                             </div>
 
                         </div>
 
 
-                        <!-- =================================================
-                             FOTOS
-                        ================================================== -->
+                        <!-- RESUMO -->
 
-                        <div class="section">
-
-                            <div class="section-title">
-
-                                <span class="section-number">
-                                    3
-                                </span>
-
-                                Registro Fotográfico
-
-                            </div>
-
-
-                            <div
-                                class="photos"
-                                id="relFotos"
-                            >
-                            </div>
-
+                        <div class="titulo-secao-documento">
+                            2. Resumo da Inspeção
                         </div>
 
 
-                        <!-- =================================================
-                             AÇÃO RECOMENDADA
-                        ================================================== -->
-
-                        <div class="section">
-
-                            <div class="section-title">
-
-                                <span class="section-number red">
-                                    4
-                                </span>
-
-                                Ação Recomendada
-
-                            </div>
-
-
-                            <div
-                                class="action-box campo-editavel"
-                                id="relAcao"
-                            >
-                                -
-                            </div>
-
+                        <div
+                            class="resumo-inspecao campo-editavel"
+                            id="relResumo"
+                        >
+                            -
                         </div>
 
 
-                        <!-- =================================================
-                             RODAPÉ
-                        ================================================== -->
+                        <!-- ITENS -->
+
+                        <div class="titulo-secao-documento">
+                            3. Itens Identificados
+                        </div>
+
+
+                        <div
+                            class="itens-relatorio"
+                            id="relItens"
+                        >
+                        </div>
+
+
+                        <!-- RODAPÉ -->
 
                         <div class="report-footer">
 
+                            <div class="responsavel">
 
-                            <div class="inspector">
-
-                                <span id="relAssinatura">
+                                <strong id="relResponsavel">
                                     -
-                                </span>
+                                </strong>
 
-                                <small id="relDadosInspetor">
-                                    Técnico responsável
+                                <small>
+                                    Responsável pela inspeção
                                 </small>
 
                             </div>
 
 
-                            <div class="current-status">
+                            <div class="status-relatorio">
 
                                 <small>
-                                    Status atual
+                                    STATUS DO RELATÓRIO
                                 </small>
 
                                 <span
-                                    class="status"
+                                    class="status-badge"
                                     id="relStatus"
                                 >
                                     -
@@ -2158,16 +2051,12 @@
 
                             </div>
 
-
                         </div>
 
 
-                        <!-- =================================================
-                             AÇÕES DO TÉCNICO
-                        ================================================== -->
+                        <!-- AÇÕES DO TÉCNICO -->
 
                         <div class="acoes-tecnico">
-
 
                             <div class="aviso-aprovacao">
 
@@ -2178,14 +2067,13 @@
                                 <br>
 
                                 <span id="descricaoStatus">
-                                    Confira os dados antes de salvar.
+                                    Confira os dados antes de enviar para aprovação.
                                 </span>
 
                             </div>
 
 
                             <div class="botoes-edicao">
-
 
                                 <button
                                     type="button"
@@ -2210,15 +2098,12 @@
                                     class="btn-salvar oculto"
                                     id="btnSalvar"
                                 >
-                                    Salvar alterações
+                                    Salvar relatório
                                 </button>
-
 
                             </div>
 
-
                         </div>
-
 
                     </div>
 
@@ -2226,939 +2111,631 @@
 
             </div>
 
-
         </section>
 
     </main>
 
 
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
+<script>
 
-    <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-        /* =========================================================
-           VARIÁVEIS
-        ========================================================= */
+    /* =========================================================
+       CONFIGURAÇÕES / CHAVES
+    ========================================================= */
 
-        let inspecoes = carregarInspecoes();
+    const CHAVE_INSPECOES = "inspecoes";
+    const CHAVE_RELATORIO_ATUAL = "relatorioAtualId";
 
-        let relatorios = [];
+    let inspecoes = [];
+    let relatorios = [];
+    let relatorioSelecionado = null;
+    let filtroAtual = "Todos";
 
-        let relatorioSelecionado = null;
-
-        let filtroAtual = "Todos";
-
-        let dadosAntesEdicao = null;
+    let dadosAntesEdicao = null;
 
 
-        /* =========================================================
-           ELEMENTOS
-        ========================================================= */
+    /* =========================================================
+       ELEMENTOS
+    ========================================================= */
 
-        const listaRelatorios =
-            document.getElementById("listaRelatorios");
+    const listaRelatorios =
+        document.getElementById("listaRelatorios");
 
-        const areaLista =
-            document.getElementById("areaLista");
+    const areaLista =
+        document.getElementById("areaLista");
 
-        const areaRelatorio =
-            document.getElementById("areaRelatorio");
+    const areaRelatorio =
+        document.getElementById("areaRelatorio");
 
-        const btnEditar =
-            document.getElementById("btnEditar");
+    const btnVoltar =
+        document.getElementById("btnVoltar");
 
-        const btnSalvar =
-            document.getElementById("btnSalvar");
+    const btnExportar =
+        document.getElementById("btnExportar");
 
-        const btnCancelar =
-            document.getElementById("btnCancelar");
+    const btnEditar =
+        document.getElementById("btnEditar");
 
-        const btnVoltar =
-            document.getElementById("btnVoltar");
+    const btnSalvar =
+        document.getElementById("btnSalvar");
 
-        const btnExportar =
-            document.getElementById("btnExportar");
+    const btnCancelar =
+        document.getElementById("btnCancelar");
 
 
-                /* =========================================================
-           CARREGAR LOCALSTORAGE
-        ========================================================= */
+    /* =========================================================
+       FUNÇÕES AUXILIARES
+    ========================================================= */
 
-        function carregarInspecoes() {
+    function lerJSON(chave, padrao) {
 
-            try {
+        try {
 
-                const dados =
-                    localStorage.getItem("inspecoes");
+            const valor =
+                localStorage.getItem(chave);
 
-                if (!dados) {
-                    return [];
-                }
-
-                const lista =
-                    JSON.parse(dados);
-
-                return Array.isArray(lista)
-                    ? lista
-                    : [];
-
+            if (!valor) {
+                return padrao;
             }
 
-            catch (erro) {
-
-                console.error(
-                    "Erro ao carregar inspeções:",
-                    erro
-                );
-
-                return [];
-
-            }
+            return JSON.parse(valor);
 
         }
+        catch (erro) {
 
-
-        /* =========================================================
-           SALVAR INSPEÇÕES
-        ========================================================= */
-
-        function salvarInspecoes() {
-
-            try {
-
-                localStorage.setItem(
-                    "inspecoes",
-                    JSON.stringify(inspecoes)
-                );
-
-                return true;
-
-            }
-
-            catch (erro) {
-
-                console.error(
-                    "Erro ao salvar inspeções:",
-                    erro
-                );
-
-                alert(
-                    "Não foi possível salvar as alterações."
-                );
-
-                return false;
-
-            }
-
-        }
-
-
-        /* =========================================================
-           ESCAPAR HTML
-        ========================================================= */
-
-        function escaparHTML(valor) {
-
-            const elemento =
-                document.createElement("div");
-
-            elemento.textContent =
-                String(valor ?? "");
-
-            return elemento.innerHTML;
-
-        }
-
-
-        /* =========================================================
-           FORMATAR DATA
-        ========================================================= */
-
-        function formatarData(data) {
-
-            if (!data) {
-                return "-";
-            }
-
-            const partes =
-                String(data).split("-");
-
-            if (partes.length !== 3) {
-                return data;
-            }
-
-            return (
-                partes[2] +
-                "/" +
-                partes[1] +
-                "/" +
-                partes[0]
+            console.error(
+                "Erro ao ler " + chave,
+                erro
             );
 
+            return padrao;
         }
+    }
 
 
-        /* =========================================================
-           FORMATAR DATA E HORA DE GERAÇÃO
-        ========================================================= */
+    function salvarJSON(chave, valor) {
 
-        function formatarDataHora(dataISO) {
+        try {
 
-            if (!dataISO) {
-                return "-";
-            }
-
-            const data =
-                new Date(dataISO);
-
-            if (
-                Number.isNaN(
-                    data.getTime()
-                )
-            ) {
-
-                return dataISO;
-
-            }
-
-            return data.toLocaleString(
-                "pt-BR"
+            localStorage.setItem(
+                chave,
+                JSON.stringify(valor)
             );
 
+            return true;
+
+        }
+        catch (erro) {
+
+            console.error(
+                "Erro ao salvar " + chave,
+                erro
+            );
+
+            alert(
+                "Não foi possível salvar as alterações."
+            );
+
+            return false;
+        }
+    }
+
+
+    function escaparHTML(valor) {
+
+        if (
+            valor === null ||
+            valor === undefined
+        ) {
+            return "";
+        }
+
+        return String(valor)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "-";
+        }
+
+        if (
+            String(data).includes("/")
+        ) {
+            return data;
+        }
+
+        const partes =
+            String(data).split("-");
+
+        if (partes.length !== 3) {
+            return data;
+        }
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+    }
+
+
+    function normalizarTexto(valor) {
+
+        return String(valor || "")
+            .trim()
+            .toLowerCase();
+    }
+
+
+    /* =========================================================
+       CARREGAR INSPEÇÕES
+    ========================================================= */
+
+    function carregarInspecoes() {
+
+        const dados =
+            lerJSON(
+                CHAVE_INSPECOES,
+                []
+            );
+
+        return Array.isArray(dados)
+            ? dados
+            : [];
+    }
+
+
+    /* =========================================================
+       COMPATIBILIDADE COM ITENS ANTIGOS
+    ========================================================= */
+
+    function obterItensInspecao(inspecao) {
+
+        /*
+            NOVO MODELO:
+
+            inspecao.itens = [
+                Item 01,
+                Item 02,
+                Item 03...
+            ]
+        */
+
+        if (
+            Array.isArray(inspecao.itens) &&
+            inspecao.itens.length > 0
+        ) {
+
+            return inspecao.itens;
         }
 
 
-        /* =========================================================
-           NORMALIZAR CRITICIDADE
-        ========================================================= */
+        /*
+            COMPATIBILIDADE:
 
-        function classeCriticidade(valor) {
+            Caso existam inspeções antigas,
+            tenta usar "problemas".
+        */
 
-            const texto =
-                String(valor || "")
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(
-                        /[\u0300-\u036f]/g,
-                        ""
+        if (
+            Array.isArray(inspecao.problemas) &&
+            inspecao.problemas.length > 0
+        ) {
+
+            return inspecao.problemas;
+        }
+
+
+        return [];
+    }
+
+
+    /* =========================================================
+       GERAR CÓDIGO DO RELATÓRIO
+    ========================================================= */
+
+    function gerarCodigoRelatorio(
+        inspecao,
+        indice
+    ) {
+
+        if (
+            inspecao.codigoRelatorio
+        ) {
+
+            return inspecao.codigoRelatorio;
+        }
+
+
+        const ano =
+            inspecao.data
+                ? String(
+                    inspecao.data
+                ).substring(0, 4)
+                : new Date().getFullYear();
+
+
+        return (
+            "RT-" +
+            ano +
+            "-" +
+            String(
+                indice + 1
+            ).padStart(4, "0")
+        );
+    }
+
+
+    /* =========================================================
+       DEFINIR STATUS DO RELATÓRIO
+    ========================================================= */
+
+    function obterStatusRelatorio(
+        inspecao
+    ) {
+
+        if (
+            inspecao.statusRelatorio
+        ) {
+
+            return inspecao.statusRelatorio;
+        }
+
+
+        if (
+            inspecao.statusAprovacao ===
+            "Aprovado"
+        ) {
+
+            return "Aprovado";
+        }
+
+
+        if (
+            inspecao.situacao ===
+            "Concluída"
+        ) {
+
+            return "Pendente de aprovação";
+        }
+
+
+        return "Em elaboração";
+    }
+
+
+    /* =========================================================
+       CRITICIDADE MAIS ALTA
+    ========================================================= */
+
+    function obterMaiorCriticidade(
+        itens
+    ) {
+
+        const pesos = {
+            "crítica": 4,
+            "critica": 4,
+            "alta": 3,
+            "média": 2,
+            "media": 2,
+            "baixa": 1
+        };
+
+
+        let maior = null;
+        let maiorPeso = 0;
+
+
+        itens.forEach(
+            function (item) {
+
+                const criticidade =
+                    normalizarTexto(
+                        item.criticidade
                     );
 
-            if (
-                texto.includes("crit")
-            ) {
-                return "critica";
-            }
 
-            if (
-                texto.includes("alta")
-            ) {
-                return "alta";
-            }
+                const peso =
+                    pesos[criticidade] || 0;
 
-            if (
-                texto.includes("media")
-            ) {
-                return "media";
-            }
 
-            return "baixa";
+                if (peso > maiorPeso) {
 
-        }
+                    maiorPeso = peso;
 
-
-        /* =========================================================
-           CLASSE DO STATUS
-        ========================================================= */
-
-        function classeStatus(status) {
-
-            if (
-                status ===
-                "Pendente de aprovação"
-            ) {
-
-                return "status-pendente";
-
-            }
-
-            if (
-                status ===
-                "Aprovado"
-            ) {
-
-                return "status-aprovado";
-
-            }
-
-            return "status-elaboracao";
-
-        }
-
-
-        /* =========================================================
-           GERAR RELATÓRIOS REAIS
-        ========================================================= */
-
-        function gerarRelatorios() {
-
-            relatorios = [];
-
-            inspecoes.forEach(
-                function (inspecao) {
-
-                    const problemas =
-                        Array.isArray(
-                            inspecao.problemas
-                        )
-                            ? inspecao.problemas
-                            : [];
-
-                    problemas.forEach(
-                        function (
-                            problema,
-                            indice
-                        ) {
-
-                            /*
-                                Cada problema registrado
-                                gera um relatório técnico.
-
-                                O relatório continua ligado
-                                à inspeção original.
-                            */
-
-                            const codigoInspecao =
-                                inspecao.codigo ||
-                                "INS-" +
-                                String(
-                                    inspecao.id || ""
-                                );
-
-                            const codigoRelatorio =
-                                problema.codigoRelatorio ||
-                                problema.relatorioCodigo ||
-                                (
-                                    "REL-" +
-                                    String(
-                                        codigoInspecao
-                                    )
-                                        .replace(
-                                            "INS-",
-                                            ""
-                                        ) +
-                                    "-" +
-                                    String(
-                                        indice + 1
-                                    )
-                                        .padStart(
-                                            2,
-                                            "0"
-                                        )
-                                );
-
-
-                            /*
-                                STATUS
-
-                                O técnico NÃO aprova.
-
-                                Ele pode:
-                                - elaborar;
-                                - editar;
-                                - salvar;
-                                - enviar para aprovação.
-
-                                A aprovação é feita pelo
-                                supervisor em outra tela.
-                            */
-
-                            let status =
-                                problema.statusRelatorio ||
-                                problema.relatorioStatus ||
-                                "Em elaboração";
-
-
-                            /*
-                                Compatibilidade com dados
-                                eventualmente salvos usando
-                                nomes anteriores.
-                            */
-
-                            if (
-                                status ===
-                                "Pendente"
-                            ) {
-
-                                status =
-                                    "Pendente de aprovação";
-
-                            }
-
-
-                            const relatorio = {
-
-                                id:
-                                    problema.id ||
-                                    (
-                                        String(
-                                            inspecao.id
-                                        ) +
-                                        "-" +
-                                        indice
-                                    ),
-
-                                inspecaoId:
-                                    inspecao.id,
-
-                                problemaId:
-                                    problema.id,
-
-                                problemaIndice:
-                                    indice,
-
-                                codigo:
-                                    codigoRelatorio,
-
-                                codigoInspecao:
-                                    codigoInspecao,
-
-                                titulo:
-                                    problema.titulo ||
-                                    "Problema registrado",
-
-                                descricao:
-                                    problema.relatorioDescricao ??
-                                    problema.descricao ??
-                                    "",
-
-                                observacoes:
-                                    problema.relatorioObservacoes ??
-                                    inspecao.observacoes ??
-                                    "",
-
-                                acao:
-                                    problema.relatorioAcao ??
-                                    problema.acaoRecomendada ??
-                                    problema.acao ??
-                                    "",
-
-                                criticidade:
-                                    problema.criticidade ||
-                                    "Baixa",
-
-                                prioridade:
-                                    problema.prioridade ||
-                                    "Normal",
-
-                                status:
-                                    status,
-
-                                statusProblema:
-                                    problema.status ||
-                                    "Aberto",
-
-                                data:
-                                    inspecao.data ||
-                                    "",
-
-                                hora:
-                                    inspecao.hora ||
-                                    "",
-
-                                equipamento:
-                                    inspecao.equipamento ||
-                                    "-",
-
-                                patrimonio:
-                                    inspecao.patrimonio ||
-                                    "-",
-
-                                area:
-                                    inspecao.area ||
-                                    "-",
-
-                                inspetor:
-                                    inspecao.inspetor ||
-                                    inspecao.usuario ||
-                                    inspecao.nomeInspetor ||
-                                    "Técnico",
-
-                                dataGeracao:
-                                    problema.dataGeracaoRelatorio ||
-                                    problema.dataRegistro ||
-                                    inspecao.dataRegistro ||
-                                    "",
-
-                                fotos:
-                                    Array.isArray(
-                                        problema.fotos
-                                    )
-                                        ? problema.fotos
-                                        : (
-                                            Array.isArray(
-                                                problema.imagens
-                                            )
-                                                ? problema.imagens
-                                                : []
-                                        )
-
-                            };
-
-
-                            relatorios.push(
-                                relatorio
-                            );
-
-                        }
-
-                    );
-
+                    maior =
+                        item.criticidade;
                 }
 
+            }
+        );
+
+
+        return maior || "Não definida";
+    }
+
+
+    /* =========================================================
+       GERAR RELATÓRIOS
+    ========================================================= */
+
+    function gerarRelatorios() {
+
+        relatorios = [];
+
+
+        inspecoes.forEach(
+            function (inspecao, indice) {
+
+                const itens =
+                    obterItensInspecao(
+                        inspecao
+                    );
+
+
+                /*
+                    Não cria relatório vazio.
+                */
+
+                if (
+                    itens.length === 0
+                ) {
+                    return;
+                }
+
+
+                const codigo =
+                    gerarCodigoRelatorio(
+                        inspecao,
+                        indice
+                    );
+
+
+                /*
+                    Mantém o código salvo
+                    dentro da própria inspeção.
+                */
+
+                if (
+                    !inspecao.codigoRelatorio
+                ) {
+
+                    inspecao.codigoRelatorio =
+                        codigo;
+                }
+
+
+                const relatorio = {
+
+                    id:
+                        inspecao.id,
+
+                    inspecaoId:
+                        inspecao.id,
+
+                    codigo:
+                        codigo,
+
+                    codigoInspecao:
+                        inspecao.codigo ||
+                        "INS-" +
+                        String(
+                            indice + 1
+                        ).padStart(4, "0"),
+
+                    titulo:
+                        inspecao.tituloRelatorio ||
+                        "Relatório de Inspeção Industrial",
+
+                    area:
+                        inspecao.area ||
+                        "-",
+
+                    equipamento:
+                        inspecao.equipamento ||
+                        "-",
+
+                    patrimonio:
+                        inspecao.patrimonio ||
+                        "-",
+
+                    localizacao:
+                        inspecao.localizacao ||
+                        "-",
+
+                    data:
+                        inspecao.data ||
+                        "",
+
+                    hora:
+                        inspecao.hora ||
+                        "-",
+
+                    inspetor:
+                        inspecao.inspetor ||
+                        inspecao.responsavel ||
+                        "Técnico responsável",
+
+                    resumo:
+                        inspecao.resumoRelatorio ||
+                        inspecao.observacoes ||
+                        "Durante a inspeção foram identificadas as condições técnicas descritas nos itens abaixo.",
+
+                    status:
+                        obterStatusRelatorio(
+                            inspecao
+                        ),
+
+                    criticidade:
+                        obterMaiorCriticidade(
+                            itens
+                        ),
+
+                    itens:
+                        itens,
+
+                    quantidadeItens:
+                        itens.length,
+
+                    atualizadaEm:
+                        inspecao.atualizadaEm ||
+                        null
+
+                };
+
+
+                relatorios.push(
+                    relatorio
+                );
+
+            }
+        );
+
+
+        /*
+            Persiste códigos eventualmente
+            criados nesta página.
+        */
+
+        salvarJSON(
+            CHAVE_INSPECOES,
+            inspecoes
+        );
+    }
+
+
+    /* =========================================================
+       CLASSES DE STATUS
+    ========================================================= */
+
+    function classeStatus(status) {
+
+        if (
+            status === "Aprovado"
+        ) {
+            return "status-aprovado";
+        }
+
+
+        if (
+            status ===
+            "Pendente de aprovação"
+        ) {
+            return "status-pendente";
+        }
+
+
+        return "status-elaboracao";
+    }
+
+
+    function classeCriticidade(
+        criticidade
+    ) {
+
+        const valor =
+            normalizarTexto(
+                criticidade
             );
 
 
-            /*
-                MAIS RECENTES PRIMEIRO
-            */
-
-            relatorios.sort(
-                function (a, b) {
-
-                    const dataA =
-                        new Date(
-                            (
-                                a.data ||
-                                "1970-01-01"
-                            ) +
-                            "T" +
-                            (
-                                a.hora ||
-                                "00:00"
-                            )
-                        );
-
-
-                    const dataB =
-                        new Date(
-                            (
-                                b.data ||
-                                "1970-01-01"
-                            ) +
-                            "T" +
-                            (
-                                b.hora ||
-                                "00:00"
-                            )
-                        );
-
-
-                    return (
-                        dataB -
-                        dataA
-                    );
-
-                }
-
-            );
-
+        if (
+            valor === "crítica" ||
+            valor === "critica"
+        ) {
+            return "tag-critica";
         }
 
 
-        /* =========================================================
-           ATUALIZAR INDICADORES
-        ========================================================= */
-
-        function atualizarIndicadores() {
-
-            const total =
-                relatorios.length;
-
-
-            const pendentes =
-                relatorios.filter(
-                    function (relatorio) {
-
-                        return (
-                            relatorio.status ===
-                            "Pendente de aprovação"
-                        );
-
-                    }
-                ).length;
-
-
-            const aprovados =
-                relatorios.filter(
-                    function (relatorio) {
-
-                        return (
-                            relatorio.status ===
-                            "Aprovado"
-                        );
-
-                    }
-                ).length;
-
-
-            /*
-                PROBLEMAS EM ABERTO
-
-                Conta somente os problemas
-                realmente existentes e que
-                ainda não foram encerrados.
-            */
-
-            let problemasAbertos = 0;
-
-
-            inspecoes.forEach(
-                function (inspecao) {
-
-                    const problemas =
-                        Array.isArray(
-                            inspecao.problemas
-                        )
-                            ? inspecao.problemas
-                            : [];
-
-
-                    problemas.forEach(
-                        function (problema) {
-
-                            const status =
-                                String(
-                                    problema.status ||
-                                    "Aberto"
-                                )
-                                    .toLowerCase();
-
-
-                            if (
-                                status !== "fechado" &&
-                                status !== "encerrado" &&
-                                status !== "resolvido"
-                            ) {
-
-                                problemasAbertos++;
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-
-            document
-                .getElementById(
-                    "totalRelatorios"
-                )
-                .textContent =
-                    total;
-
-
-            document
-                .getElementById(
-                    "totalPendentes"
-                )
-                .textContent =
-                    pendentes;
-
-
-            document
-                .getElementById(
-                    "totalAprovados"
-                )
-                .textContent =
-                    aprovados;
-
-
-            document
-                .getElementById(
-                    "totalAbertos"
-                )
-                .textContent =
-                    problemasAbertos;
-
+        if (
+            valor === "alta"
+        ) {
+            return "tag-alta";
         }
 
 
-        /* =========================================================
-           FILTRAR RELATÓRIOS
-        ========================================================= */
-
-        function obterRelatoriosFiltrados() {
-
-            if (
-                filtroAtual === "Todos"
-            ) {
-
-                return relatorios;
-
-            }
+        if (
+            valor === "média" ||
+            valor === "media"
+        ) {
+            return "tag-media";
+        }
 
 
-            return relatorios.filter(
+        return "tag-baixa";
+    }
+
+
+    /* =========================================================
+       INDICADORES
+    ========================================================= */
+
+    function atualizarIndicadores() {
+
+        const total =
+            relatorios.length;
+
+
+        const pendentes =
+            relatorios.filter(
                 function (relatorio) {
 
                     return (
                         relatorio.status ===
-                        filtroAtual
+                        "Pendente de aprovação"
                     );
 
                 }
-            );
-
-        }
+            ).length;
 
 
-        /* =========================================================
-           RENDERIZAR CARDS
-        ========================================================= */
-
-        function renderizarRelatorios() {
-
-            listaRelatorios.innerHTML =
-                "";
-
-
-            const listaFiltrada =
-                obterRelatoriosFiltrados();
-
-
-            if (
-                listaFiltrada.length === 0
-            ) {
-
-                listaRelatorios.innerHTML = `
-
-                    <div class="sem-relatorios">
-
-                        <strong>
-                            Nenhum relatório encontrado
-                        </strong>
-
-                        <p>
-                            Os relatórios serão exibidos
-                            automaticamente quando houver
-                            problemas registrados nas inspeções.
-                        </p>
-
-                    </div>
-
-                `;
-
-
-                return;
-
-            }
-
-
-            listaFiltrada.forEach(
+        const aprovados =
+            relatorios.filter(
                 function (relatorio) {
 
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    card.className =
-                        "relatorio-card";
-
-
-                    if (
-                        relatorioSelecionado &&
-                        String(
-                            relatorioSelecionado.id
-                        ) ===
-                        String(
-                            relatorio.id
-                        )
-                    ) {
-
-                        card.classList.add(
-                            "selecionado"
-                        );
-
-                    }
-
-
-                    const criticidade =
-                        classeCriticidade(
-                            relatorio.criticidade
-                        );
-
-
-                    card.innerHTML = `
-
-                        <div class="card-top">
-
-                            <span class="codigo-relatorio">
-                                ${escaparHTML(relatorio.codigo)}
-                            </span>
-
-                            <span
-                                class="
-                                    card-status
-                                    ${classeStatus(relatorio.status)}
-                                "
-                            >
-                                ${escaparHTML(relatorio.status)}
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-titulo">
-                            ${escaparHTML(relatorio.titulo)}
-                        </div>
-
-
-                        <div class="card-dados">
-
-                            <div class="card-dado">
-
-                                <small>
-                                    Equipamento
-                                </small>
-
-                                <span>
-                                    ${escaparHTML(relatorio.equipamento)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="card-dado">
-
-                                <small>
-                                    Área
-                                </small>
-
-                                <span>
-                                    ${escaparHTML(relatorio.area)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="card-dado">
-
-                                <small>
-                                    Inspeção
-                                </small>
-
-                                <span>
-                                    ${escaparHTML(relatorio.codigoInspecao)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="card-dado">
-
-                                <small>
-                                    Data
-                                </small>
-
-                                <span>
-                                    ${escaparHTML(formatarData(relatorio.data))}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="card-footer">
-
-                            <span
-                                class="
-                                    criticidade-card
-                                    ${criticidade}
-                                "
-                            >
-                                ${escaparHTML(relatorio.criticidade)}
-                            </span>
-
-
-                            <button
-                                type="button"
-                                class="btn-visualizar"
-                            >
-                                Ver relatório
-                            </button>
-
-                        </div>
-
-                    `;
-
-
-                    card.addEventListener(
-                        "click",
-                        function () {
-
-                            abrirRelatorio(
-                                relatorio.id
-                            );
-
-                        }
-                    );
-
-
-                    listaRelatorios.appendChild(
-                        card
+                    return (
+                        relatorio.status ===
+                        "Aprovado"
                     );
 
                 }
-            );
-
-        }
+            ).length;
 
 
-        /* =========================================================
-           FILTROS
-        ========================================================= */
-
-        const botoesFiltro =
-            document.querySelectorAll(
-                ".filtro"
-            );
+        let abertos = 0;
 
 
-        botoesFiltro.forEach(
-            function (botao) {
+        relatorios.forEach(
+            function (relatorio) {
 
-                botao.addEventListener(
-                    "click",
-                    function () {
+                relatorio.itens.forEach(
+                    function (item) {
 
-                        botoesFiltro.forEach(
-                            function (item) {
-
-                                item.classList.remove(
-                                    "ativo"
-                                );
-
-                            }
-                        );
+                        const status =
+                            normalizarTexto(
+                                item.status
+                            );
 
 
-                        botao.classList.add(
-                            "ativo"
-                        );
+                        if (
+                            status !== "resolvido" &&
+                            status !== "concluído" &&
+                            status !== "concluido" &&
+                            status !== "fechado"
+                        ) {
 
-
-                        filtroAtual =
-                            botao.dataset.filtro;
-
-
-                        renderizarRelatorios();
+                            abertos++;
+                        }
 
                     }
                 );
@@ -3167,676 +2744,808 @@
         );
 
 
-        /* =========================================================
-           PREENCHER FOTOS
-        ========================================================= */
+        document.getElementById(
+            "totalRelatorios"
+        ).textContent =
+            total;
 
-        function preencherFotos(
-            relatorio
+
+        document.getElementById(
+            "totalPendentes"
+        ).textContent =
+            pendentes;
+
+
+        document.getElementById(
+            "totalAprovados"
+        ).textContent =
+            aprovados;
+
+
+        document.getElementById(
+            "totalAbertos"
+        ).textContent =
+            abertos;
+    }
+
+
+    /* =========================================================
+       FILTRAR RELATÓRIOS
+    ========================================================= */
+
+    function obterRelatoriosFiltrados() {
+
+        if (
+            filtroAtual === "Todos"
         ) {
 
-            const areaFotos =
-                document.getElementById(
-                    "relFotos"
+            return relatorios;
+        }
+
+
+        return relatorios.filter(
+            function (relatorio) {
+
+                return (
+                    relatorio.status ===
+                    filtroAtual
                 );
 
-
-            areaFotos.innerHTML =
-                "";
-
-
-            const fotos =
-                Array.isArray(
-                    relatorio.fotos
-                )
-                    ? relatorio.fotos
-                    : [];
+            }
+        );
+    }
 
 
-            if (
-                fotos.length === 0
-            ) {
+    /* =========================================================
+       RENDERIZAR CARDS
+    ========================================================= */
 
-                areaFotos.innerHTML = `
+    function renderizarRelatorios() {
 
-                    <div class="sem-fotos">
+        listaRelatorios.innerHTML =
+            "";
 
-                        Nenhuma fotografia foi
-                        anexada a este registro.
+
+        const lista =
+            obterRelatoriosFiltrados();
+
+
+        if (
+            lista.length === 0
+        ) {
+
+            listaRelatorios.innerHTML = `
+
+                <div class="sem-relatorios">
+
+                    <strong>
+                        Nenhum relatório encontrado
+                    </strong>
+
+                    <p>
+                        Finalize uma inspeção e registre pelo menos
+                        um item para gerar um relatório técnico.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        lista.forEach(
+            function (relatorio) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "relatorio-card";
+
+
+                card.innerHTML = `
+
+                    <div class="card-top">
+
+                        <span class="codigo-relatorio">
+                            ${escaparHTML(relatorio.codigo)}
+                        </span>
+
+                        <span
+                            class="
+                                card-status
+                                ${classeStatus(relatorio.status)}
+                            "
+                        >
+                            ${escaparHTML(relatorio.status)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-titulo">
+                        ${escaparHTML(relatorio.titulo)}
+                    </div>
+
+
+                    <div class="card-dados">
+
+                        <div class="card-dado">
+
+                            <small>
+                                Equipamento
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.equipamento)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Área
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.area)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Inspeção
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.codigoInspecao)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Data
+                            </small>
+
+                            <span>
+                                ${escaparHTML(formatarData(relatorio.data))}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <span class="quantidade-itens">
+
+                            ${relatorio.quantidadeItens}
+                            ${
+                                relatorio.quantidadeItens === 1
+                                    ? " item registrado"
+                                    : " itens registrados"
+                            }
+
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="btn-visualizar"
+                        >
+                            Ver relatório
+                        </button>
 
                     </div>
 
                 `;
 
 
-                return;
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        abrirRelatorio(
+                            relatorio.id
+                        );
+
+                    }
+                );
+
+
+                listaRelatorios.appendChild(
+                    card
+                );
 
             }
+        );
+    }
 
 
-            fotos.forEach(
-                function (foto, indice) {
+    /* =========================================================
+       FILTROS
+    ========================================================= */
 
-                    const item =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    item.className =
-                        "photo";
+    const botoesFiltro =
+        document.querySelectorAll(
+            ".filtro"
+        );
 
 
-                    /*
-                        Aceita tanto uma string
-                        quanto um objeto contendo
-                        URL/base64.
-                    */
+    botoesFiltro.forEach(
+        function (botao) {
 
-                    let origem = "";
+            botao.addEventListener(
+                "click",
+                function () {
 
+                    botoesFiltro.forEach(
+                        function (item) {
 
-                    if (
-                        typeof foto === "string"
-                    ) {
-
-                        origem =
-                            foto;
-
-                    }
-
-                    else if (
-                        foto &&
-                        typeof foto === "object"
-                    ) {
-
-                        origem =
-                            foto.url ||
-                            foto.src ||
-                            foto.base64 ||
-                            foto.dados ||
-                            "";
-
-                    }
-
-
-                    if (origem) {
-
-                        const imagem =
-                            document.createElement(
-                                "img"
+                            item.classList.remove(
+                                "ativo"
                             );
 
-
-                        imagem.src =
-                            origem;
-
-
-                        imagem.alt =
-                            "Foto " +
-                            (indice + 1);
-
-
-                        item.appendChild(
-                            imagem
-                        );
-
-                    }
-
-
-                    const codigo =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    codigo.className =
-                        "photo-code";
-
-
-                    codigo.textContent =
-                        "FOTO-" +
-                        String(
-                            indice + 1
-                        )
-                            .padStart(
-                                2,
-                                "0"
-                            );
-
-
-                    item.appendChild(
-                        codigo
+                        }
                     );
 
 
-                    areaFotos.appendChild(
-                        item
+                    botao.classList.add(
+                        "ativo"
                     );
+
+
+                    filtroAtual =
+                        botao.dataset.filtro;
+
+
+                    renderizarRelatorios();
 
                 }
             );
 
         }
+    );
 
 
-        /* =========================================================
-           ABRIR RELATÓRIO COMPLETO
-        ========================================================= */
+    /* =========================================================
+       CRIAR FOTOS DO ITEM
+    ========================================================= */
 
-        function abrirRelatorio(id) {
+    function criarGaleriaFotos(
+        item,
+        numeroItem
+    ) {
 
-            const encontrado =
-                relatorios.find(
-                    function (relatorio) {
+        const fotos =
+            Array.isArray(item.fotos)
+                ? item.fotos
+                : [];
 
-                        return (
-                            String(
-                                relatorio.id
-                            ) ===
-                            String(id)
-                        );
 
-                    }
-                );
+        if (
+            fotos.length === 0
+        ) {
 
+            return `
 
-            if (!encontrado) {
+                <div class="sem-foto-item">
+                    Nenhuma fotografia anexada a este item.
+                </div>
 
-                alert(
-                    "Relatório não encontrado."
-                );
-
-                return;
-
-            }
-
-
-            relatorioSelecionado =
-                encontrado;
-
-
-            /*
-                ESCONDE A LISTA E MOSTRA
-                O RELATÓRIO COMPLETO.
-            */
-
-            areaLista.style.display =
-                "none";
-
-
-            areaRelatorio.style.display =
-                "block";
-
-
-            /* CABEÇALHO */
-
-            document
-                .getElementById(
-                    "relCodigo"
-                )
-                .textContent =
-                    encontrado.codigo;
-
-
-            document
-                .getElementById(
-                    "relTitulo"
-                )
-                .textContent =
-                    encontrado.titulo;
-
-
-            const campoCriticidade =
-                document.getElementById(
-                    "relCriticidade"
-                );
-
-
-            campoCriticidade.textContent =
-                encontrado.criticidade;
-
-
-            campoCriticidade.className =
-                "criticality " +
-                classeCriticidade(
-                    encontrado.criticidade
-                );
-
-
-            document
-                .getElementById(
-                    "relGerado"
-                )
-                .textContent =
-                    "Gerado em " +
-                    (
-                        encontrado.dataGeracao
-                            ? formatarDataHora(
-                                encontrado.dataGeracao
-                            )
-                            : (
-                                formatarData(
-                                    encontrado.data
-                                ) +
-                                " às " +
-                                (
-                                    encontrado.hora ||
-                                    "--:--"
-                                )
-                            )
-                    );
-
-
-            /* INFORMAÇÕES */
-
-            document
-                .getElementById(
-                    "relInspecao"
-                )
-                .textContent =
-                    encontrado.codigoInspecao;
-
-
-            document
-                .getElementById(
-                    "relData"
-                )
-                .textContent =
-                    formatarData(
-                        encontrado.data
-                    );
-
-
-            document
-                .getElementById(
-                    "relHora"
-                )
-                .textContent =
-                    encontrado.hora ||
-                    "-";
-
-
-            document
-                .getElementById(
-                    "relInspetor"
-                )
-                .textContent =
-                    encontrado.inspetor;
-
-
-            document
-                .getElementById(
-                    "relEquipamento"
-                )
-                .textContent =
-                    encontrado.equipamento;
-
-
-            document
-                .getElementById(
-                    "relPatrimonio"
-                )
-                .textContent =
-                    encontrado.patrimonio;
-
-
-            document
-                .getElementById(
-                    "relArea"
-                )
-                .textContent =
-                    encontrado.area;
-
-
-            document
-                .getElementById(
-                    "relPrioridade"
-                )
-                .textContent =
-                    encontrado.prioridade;
-
-
-            /* CONTEÚDO */
-
-            document
-                .getElementById(
-                    "relDescricao"
-                )
-                .textContent =
-                    encontrado.descricao ||
-                    "Não informado.";
-
-
-            document
-                .getElementById(
-                    "relObservacoes"
-                )
-                .textContent =
-                    encontrado.observacoes ||
-                    "Nenhuma observação registrada.";
-
-
-            document
-                .getElementById(
-                    "relAcao"
-                )
-                .textContent =
-                    encontrado.acao ||
-                    "Ação recomendada ainda não informada.";
-
-
-            /* FOTOS */
-
-            preencherFotos(
-                encontrado
-            );
-
-
-            /* ASSINATURA */
-
-            document
-                .getElementById(
-                    "relAssinatura"
-                )
-                .textContent =
-                    encontrado.inspetor;
-
-
-            document
-                .getElementById(
-                    "relDadosInspetor"
-                )
-                .textContent =
-                    "Técnico responsável · " +
-                    encontrado.codigoInspecao;
-
-
-            /* STATUS */
-
-            atualizarStatusRelatorio();
-
-
-            /* DESATIVA EDIÇÃO */
-
-            desativarEdicao();
-
-
-            /*
-                SOBE PARA O INÍCIO
-                DO RELATÓRIO.
-            */
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
+            `;
         }
 
 
-        /* =========================================================
-           ATUALIZAR STATUS NA TELA
-        ========================================================= */
-
-        function atualizarStatusRelatorio() {
-
-            if (!relatorioSelecionado) {
-                return;
-            }
+        let html = `
+            <div class="fotos-item">
+        `;
 
 
-            const campoStatus =
-                document.getElementById(
-                    "relStatus"
-                );
+        fotos.forEach(
+            function (foto, indice) {
+
+                let origem = "";
 
 
-            const mensagem =
-                document.getElementById(
-                    "mensagemStatus"
-                );
+                if (
+                    typeof foto === "string"
+                ) {
+
+                    origem = foto;
+
+                }
+
+                else if (
+                    foto &&
+                    typeof foto === "object"
+                ) {
+
+                    origem =
+                        foto.url ||
+                        foto.src ||
+                        foto.base64 ||
+                        foto.dados ||
+                        "";
+
+                }
 
 
-            const descricao =
-                document.getElementById(
-                    "descricaoStatus"
-                );
+                if (!origem) {
+                    return;
+                }
 
 
-            campoStatus.textContent =
-                relatorioSelecionado.status;
+                html += `
 
+                    <div class="foto-item">
 
-            campoStatus.className =
-                "status " +
-                classeStatus(
-                    relatorioSelecionado.status
-                );
+                        <img
+                            src="${escaparHTML(origem)}"
+                            alt="Fotografia do item ${numeroItem}"
+                        >
 
+                        <div class="foto-legenda">
 
-            /*
-                RELATÓRIO APROVADO:
+                            ITEM-${String(numeroItem).padStart(2, "0")}
+                            /
+                            FOTO-${String(indice + 1).padStart(2, "0")}
 
-                O técnico apenas visualiza.
-                Não pode mais editar.
-            */
+                        </div>
 
-            if (
-                relatorioSelecionado.status ===
-                "Aprovado"
-            ) {
+                    </div>
 
-                mensagem.textContent =
-                    "Relatório aprovado pelo supervisor.";
-
-
-                descricao.textContent =
-                    "Este relatório está bloqueado para edição.";
-
-
-                btnEditar.classList.add(
-                    "oculto"
-                );
-
-
-                btnSalvar.classList.add(
-                    "oculto"
-                );
-
-
-                btnCancelar.classList.add(
-                    "oculto"
-                );
-
-
-                return;
+                `;
 
             }
+        );
 
 
-            /*
-                PENDENTE
-            */
-
-            if (
-                relatorioSelecionado.status ===
-                "Pendente de aprovação"
-            ) {
-
-                mensagem.textContent =
-                    "Relatório pendente de aprovação.";
+        html += `
+            </div>
+        `;
 
 
-                descricao.textContent =
-                    "O supervisor realizará a aprovação. Enquanto não for aprovado, o técnico ainda pode editar e salvar novamente.";
+        return html;
+    }
 
 
-                btnEditar.classList.remove(
-                    "oculto"
+    /* =========================================================
+       RENDERIZAR ITENS
+    ========================================================= */
+
+    function renderizarItens(
+        relatorio
+    ) {
+
+        const container =
+            document.getElementById(
+                "relItens"
+            );
+
+
+        container.innerHTML =
+            "";
+
+
+        if (
+            !Array.isArray(
+                relatorio.itens
+            ) ||
+            relatorio.itens.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="sem-relatorios">
+
+                    Nenhum item registrado.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        relatorio.itens.forEach(
+            function (item, indice) {
+
+                const numero =
+                    item.numero ||
+                    indice + 1;
+
+
+                const titulo =
+                    item.titulo ||
+                    "Item sem título";
+
+
+                const local =
+                    item.local ||
+                    item.localizacao ||
+                    "Local não informado";
+
+
+                const descricao =
+                    item.relatorioDescricao ||
+                    item.descricao ||
+                    "Descrição não informada.";
+
+
+                const recomendacao =
+                    item.relatorioAcao ||
+                    item.recomendacao ||
+                    item.acao ||
+                    "Nenhuma recomendação registrada.";
+
+
+                const criticidade =
+                    item.criticidade ||
+                    "Não definida";
+
+
+                const prioridade =
+                    item.prioridade ||
+                    "Não definida";
+
+
+                const bloco =
+                    document.createElement(
+                        "section"
+                    );
+
+
+                bloco.className =
+                    "item-relatorio";
+
+
+                bloco.dataset.itemId =
+                    item.id || indice;
+
+
+                bloco.innerHTML = `
+
+                    <div class="item-header">
+
+                        <div class="item-identificacao">
+
+                            <div class="item-numero">
+
+                                ${String(numero).padStart(2, "0")}
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="item-titulo">
+
+                                    ${escaparHTML(titulo)}
+
+                                </div>
+
+
+                                <div class="item-local">
+
+                                    Local:
+                                    ${escaparHTML(local)}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-tags">
+
+                            <span
+                                class="
+                                    tag
+                                    ${classeCriticidade(criticidade)}
+                                "
+                            >
+                                ${escaparHTML(criticidade)}
+                            </span>
+
+
+                            <span class="tag tag-prioridade">
+
+                                Prioridade:
+                                ${escaparHTML(prioridade)}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-body">
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Descrição técnica
+                            </h4>
+
+                            <div
+                                class="
+                                    texto-item
+                                    campo-editavel
+                                    descricao-item
+                                "
+                                data-indice="${indice}"
+                            >
+                                ${escaparHTML(descricao)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Recomendação / Ação sugerida
+                            </h4>
+
+                            <div
+                                class="
+                                    recomendacao-item
+                                    campo-editavel
+                                    recomendacao-editavel
+                                "
+                                data-indice="${indice}"
+                            >
+                                ${escaparHTML(recomendacao)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Registro fotográfico
+                            </h4>
+
+                            ${criarGaleriaFotos(item, numero)}
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    bloco
                 );
 
-
-                return;
-
             }
+        );
+    }
 
 
-            /*
-                EM ELABORAÇÃO
-            */
+    /* =========================================================
+       ABRIR RELATÓRIO
+    ========================================================= */
+
+    function abrirRelatorio(id) {
+
+        const encontrado =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(id)
+                    );
+
+                }
+            );
+
+
+        if (!encontrado) {
+
+            alert(
+                "Relatório não encontrado."
+            );
+
+            return;
+        }
+
+
+        relatorioSelecionado =
+            encontrado;
+
+
+        areaLista.style.display =
+            "none";
+
+
+        areaRelatorio.style.display =
+            "block";
+
+
+        document.getElementById(
+            "relCodigo"
+        ).textContent =
+            encontrado.codigo;
+
+
+        document.getElementById(
+            "relTitulo"
+        ).textContent =
+            encontrado.titulo;
+
+
+        document.getElementById(
+            "relInspecao"
+        ).textContent =
+            encontrado.codigoInspecao;
+
+
+        document.getElementById(
+            "relData"
+        ).textContent =
+            formatarData(
+                encontrado.data
+            );
+
+
+        document.getElementById(
+            "relHora"
+        ).textContent =
+            encontrado.hora ||
+            "-";
+
+
+        document.getElementById(
+            "relInspetor"
+        ).textContent =
+            encontrado.inspetor;
+
+
+        document.getElementById(
+            "relArea"
+        ).textContent =
+            encontrado.area;
+
+
+        document.getElementById(
+            "relEquipamento"
+        ).textContent =
+            encontrado.equipamento;
+
+
+        document.getElementById(
+            "relPatrimonio"
+        ).textContent =
+            encontrado.patrimonio;
+
+
+        document.getElementById(
+            "relQuantidade"
+        ).textContent =
+            encontrado.quantidadeItens;
+
+
+        document.getElementById(
+            "relResumo"
+        ).textContent =
+            encontrado.resumo;
+
+
+        document.getElementById(
+            "relResponsavel"
+        ).textContent =
+            encontrado.inspetor;
+
+
+        renderizarItens(
+            encontrado
+        );
+
+
+        atualizarStatusRelatorio();
+
+
+        desativarEdicao();
+
+
+        /*
+            Guarda qual relatório
+            está sendo visualizado.
+        */
+
+        localStorage.setItem(
+            CHAVE_RELATORIO_ATUAL,
+            String(encontrado.id)
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    function atualizarStatusRelatorio() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+
+        const campoStatus =
+            document.getElementById(
+                "relStatus"
+            );
+
+
+        const mensagem =
+            document.getElementById(
+                "mensagemStatus"
+            );
+
+
+        const descricao =
+            document.getElementById(
+                "descricaoStatus"
+            );
+
+
+        campoStatus.textContent =
+            relatorioSelecionado.status;
+
+
+        campoStatus.className =
+            "status-badge " +
+            classeStatus(
+                relatorioSelecionado.status
+            );
+
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
+        ) {
 
             mensagem.textContent =
-                "Relatório em elaboração.";
+                "Relatório aprovado pelo supervisor.";
 
 
             descricao.textContent =
-                "Confira o documento completo. Caso seja necessário alterar alguma informação, clique em Editar relatório.";
-
-
-            btnEditar.classList.remove(
-                "oculto"
-            );
-
-        }
-
-
-        /* =========================================================
-           CAMPOS EDITÁVEIS
-        ========================================================= */
-
-        function obterCamposEditaveis() {
-
-            return document.querySelectorAll(
-                ".campo-editavel"
-            );
-
-        }
-
-
-        /* =========================================================
-           ATIVAR EDIÇÃO
-        ========================================================= */
-
-        function ativarEdicao() {
-
-            if (!relatorioSelecionado) {
-                return;
-            }
-
-
-            /*
-                RELATÓRIO APROVADO NÃO
-                PODE SER EDITADO PELO TÉCNICO.
-            */
-
-            if (
-                relatorioSelecionado.status ===
-                "Aprovado"
-            ) {
-
-                alert(
-                    "Este relatório já foi aprovado e não pode mais ser editado pelo técnico."
-                );
-
-                return;
-
-            }
-
-
-            /*
-                GUARDA OS VALORES ATUAIS
-                PARA O BOTÃO CANCELAR.
-            */
-
-            dadosAntesEdicao = {
-
-                descricao:
-                    document
-                        .getElementById(
-                            "relDescricao"
-                        )
-                        .textContent,
-
-                observacoes:
-                    document
-                        .getElementById(
-                            "relObservacoes"
-                        )
-                        .textContent,
-
-                acao:
-                    document
-                        .getElementById(
-                            "relAcao"
-                        )
-                        .textContent
-
-            };
-
-
-            obterCamposEditaveis()
-                .forEach(
-                    function (campo) {
-
-                        campo.setAttribute(
-                            "contenteditable",
-                            "true"
-                        );
-
-                    }
-                );
+                "Este documento está bloqueado para edição.";
 
 
             btnEditar.classList.add(
                 "oculto"
             );
-
-
-            btnSalvar.classList.remove(
-                "oculto"
-            );
-
-
-            btnCancelar.classList.remove(
-                "oculto"
-            );
-
-
-            document
-                .getElementById(
-                    "mensagemStatus"
-                )
-                .textContent =
-                    "Modo de edição ativo.";
-
-
-            document
-                .getElementById(
-                    "descricaoStatus"
-                )
-                .textContent =
-                    "Edite os campos necessários e clique em Salvar alterações.";
-
-        }
-
-
-        /* =========================================================
-           DESATIVAR EDIÇÃO
-        ========================================================= */
-
-        function desativarEdicao() {
-
-            obterCamposEditaveis()
-                .forEach(
-                    function (campo) {
-
-                        campo.removeAttribute(
-                            "contenteditable"
-                        );
-
-                    }
-                );
 
 
             btnSalvar.classList.add(
@@ -3849,711 +3558,953 @@
             );
 
 
-            if (
-                relatorioSelecionado &&
-                relatorioSelecionado.status !==
-                "Aprovado"
-            ) {
-
-                btnEditar.classList.remove(
-                    "oculto"
-                );
-
-            }
-
-            else {
-
-                btnEditar.classList.add(
-                    "oculto"
-                );
-
-            }
-
+            return;
         }
 
 
-        /* =========================================================
-           CANCELAR EDIÇÃO
-        ========================================================= */
+        if (
+            relatorioSelecionado.status ===
+            "Pendente de aprovação"
+        ) {
 
-        function cancelarEdicao() {
-
-            if (
-                !relatorioSelecionado ||
-                !dadosAntesEdicao
-            ) {
-
-                desativarEdicao();
-
-                atualizarStatusRelatorio();
-
-                return;
-
-            }
+            mensagem.textContent =
+                "Relatório pendente de aprovação.";
 
 
-            document
-                .getElementById(
-                    "relDescricao"
-                )
-                .textContent =
-                    dadosAntesEdicao.descricao;
+            descricao.textContent =
+                "O técnico ainda pode realizar correções enquanto o supervisor não aprovar o documento.";
 
 
-            document
-                .getElementById(
-                    "relObservacoes"
-                )
-                .textContent =
-                    dadosAntesEdicao.observacoes;
+            btnEditar.classList.remove(
+                "oculto"
+            );
 
 
-            document
-                .getElementById(
-                    "relAcao"
-                )
-                .textContent =
-                    dadosAntesEdicao.acao;
+            return;
+        }
 
 
-            dadosAntesEdicao =
-                null;
+        mensagem.textContent =
+            "Relatório em elaboração.";
 
+
+        descricao.textContent =
+            "Confira os dados e os itens registrados antes de finalizar o documento.";
+
+
+        btnEditar.classList.remove(
+            "oculto"
+        );
+    }
+
+
+    /* =========================================================
+       CAMPOS EDITÁVEIS
+    ========================================================= */
+
+    function obterCamposEditaveis() {
+
+        return document.querySelectorAll(
+            "#documentoRelatorio .campo-editavel"
+        );
+    }
+
+
+    /* =========================================================
+       ATIVAR EDIÇÃO
+    ========================================================= */
+
+    function ativarEdicao() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
+        ) {
+
+            alert(
+                "Este relatório já foi aprovado e não pode ser alterado pelo técnico."
+            );
+
+            return;
+        }
+
+
+        /*
+            Guarda o conteúdo antes
+            da edição.
+        */
+
+        dadosAntesEdicao = {
+
+            resumo:
+                document.getElementById(
+                    "relResumo"
+                ).textContent,
+
+            descricoes: [],
+
+            recomendacoes: []
+
+        };
+
+
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo) {
+
+                    dadosAntesEdicao
+                        .descricoes
+                        .push(
+                            campo.textContent
+                        );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo) {
+
+                    dadosAntesEdicao
+                        .recomendacoes
+                        .push(
+                            campo.textContent
+                        );
+
+                }
+            );
+
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.setAttribute(
+                        "contenteditable",
+                        "true"
+                    );
+
+                }
+            );
+
+
+        btnEditar.classList.add(
+            "oculto"
+        );
+
+
+        btnSalvar.classList.remove(
+            "oculto"
+        );
+
+
+        btnCancelar.classList.remove(
+            "oculto"
+        );
+
+
+        document.getElementById(
+            "mensagemStatus"
+        ).textContent =
+            "Modo de edição ativo.";
+
+
+        document.getElementById(
+            "descricaoStatus"
+        ).textContent =
+            "Você pode editar o resumo, as descrições técnicas e as recomendações dos itens.";
+    }
+
+
+    /* =========================================================
+       DESATIVAR EDIÇÃO
+    ========================================================= */
+
+    function desativarEdicao() {
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.removeAttribute(
+                        "contenteditable"
+                    );
+
+                }
+            );
+
+
+        btnSalvar.classList.add(
+            "oculto"
+        );
+
+
+        btnCancelar.classList.add(
+            "oculto"
+        );
+
+
+        if (
+            relatorioSelecionado &&
+            relatorioSelecionado.status !==
+            "Aprovado"
+        ) {
+
+            btnEditar.classList.remove(
+                "oculto"
+            );
+
+        }
+        else {
+
+            btnEditar.classList.add(
+                "oculto"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       CANCELAR EDIÇÃO
+    ========================================================= */
+
+    function cancelarEdicao() {
+
+        if (!dadosAntesEdicao) {
 
             desativarEdicao();
 
             atualizarStatusRelatorio();
 
+            return;
         }
 
 
-        /* =========================================================
-           ENCONTRAR PROBLEMA ORIGINAL
-        ========================================================= */
+        document.getElementById(
+            "relResumo"
+        ).textContent =
+            dadosAntesEdicao.resumo;
 
-        function encontrarProblemaOriginal(
-            relatorio
+
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo, indice) {
+
+                    campo.textContent =
+                        dadosAntesEdicao
+                            .descricoes[
+                                indice
+                            ] || "";
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo, indice) {
+
+                    campo.textContent =
+                        dadosAntesEdicao
+                            .recomendacoes[
+                                indice
+                            ] || "";
+
+                }
+            );
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        desativarEdicao();
+
+        atualizarStatusRelatorio();
+    }
+
+
+    /* =========================================================
+       ENCONTRAR INSPEÇÃO ORIGINAL
+    ========================================================= */
+
+    function encontrarInspecaoOriginal() {
+
+        if (!relatorioSelecionado) {
+            return null;
+        }
+
+
+        return inspecoes.find(
+            function (inspecao) {
+
+                return (
+                    String(inspecao.id) ===
+                    String(
+                        relatorioSelecionado.inspecaoId
+                    )
+                );
+
+            }
+        ) || null;
+    }
+
+
+    /* =========================================================
+       SALVAR ALTERAÇÕES
+    ========================================================= */
+
+    function salvarAlteracoes() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
         ) {
 
-            const inspecao =
-                inspecoes.find(
-                    function (item) {
+            alert(
+                "Relatórios aprovados não podem ser alterados pelo técnico."
+            );
 
-                        return (
-                            String(item.id) ===
-                            String(
-                                relatorio.inspecaoId
-                            )
-                        );
-
-                    }
-                );
-
-
-            if (!inspecao) {
-
-                return null;
-
-            }
-
-
-            if (
-                !Array.isArray(
-                    inspecao.problemas
-                )
-            ) {
-
-                return null;
-
-            }
-
-
-            let problema =
-                null;
-
-
-            /*
-                PRIMEIRO TENTA PELO ID.
-            */
-
-            if (
-                relatorio.problemaId !==
-                undefined &&
-                relatorio.problemaId !==
-                null
-            ) {
-
-                problema =
-                    inspecao.problemas.find(
-                        function (item) {
-
-                            return (
-                                String(item.id) ===
-                                String(
-                                    relatorio.problemaId
-                                )
-                            );
-
-                        }
-                    ) || null;
-
-            }
-
-
-            /*
-                CASO NÃO ENCONTRE,
-                USA O ÍNDICE ORIGINAL.
-            */
-
-            if (
-                !problema &&
-                Number.isInteger(
-                    relatorio.problemaIndice
-                )
-            ) {
-
-                problema =
-                    inspecao.problemas[
-                        relatorio.problemaIndice
-                    ] || null;
-
-            }
-
-
-            if (!problema) {
-
-                return null;
-
-            }
-
-
-            return {
-                inspecao:
-                    inspecao,
-
-                problema:
-                    problema
-            };
-
+            return;
         }
 
 
-        /* =========================================================
-           SALVAR ALTERAÇÕES
-        ========================================================= */
+        const inspecao =
+            encontrarInspecaoOriginal();
 
-        function salvarAlteracoes() {
 
-            if (!relatorioSelecionado) {
-                return;
-            }
-
-
-            if (
-                relatorioSelecionado.status ===
-                "Aprovado"
-            ) {
-
-                alert(
-                    "Relatórios aprovados não podem ser alterados pelo técnico."
-                );
-
-                return;
-
-            }
-
-
-            const descricao =
-                document
-                    .getElementById(
-                        "relDescricao"
-                    )
-                    .textContent
-                    .trim();
-
-
-            const observacoes =
-                document
-                    .getElementById(
-                        "relObservacoes"
-                    )
-                    .textContent
-                    .trim();
-
-
-            const acao =
-                document
-                    .getElementById(
-                        "relAcao"
-                    )
-                    .textContent
-                    .trim();
-
-
-            const original =
-                encontrarProblemaOriginal(
-                    relatorioSelecionado
-                );
-
-
-            if (!original) {
-
-                alert(
-                    "Não foi possível localizar o problema original deste relatório."
-                );
-
-                return;
-
-            }
-
-
-            /*
-                SALVA O TEXTO EDITADO
-                DENTRO DO PROBLEMA ORIGINAL.
-            */
-
-            original.problema
-                .relatorioDescricao =
-                    descricao;
-
-
-            original.problema
-                .relatorioObservacoes =
-                    observacoes;
-
-
-            original.problema
-                .relatorioAcao =
-                    acao;
-
-
-            /*
-                DEPOIS QUE O TÉCNICO SALVA,
-                O RELATÓRIO FICA PENDENTE
-                DE APROVAÇÃO DO SUPERVISOR.
-
-                O TÉCNICO NÃO APROVA.
-            */
-
-            original.problema
-                .statusRelatorio =
-                    "Pendente de aprovação";
-
-
-            original.problema
-                .relatorioStatus =
-                    "Pendente de aprovação";
-
-
-            original.problema
-                .dataUltimaEdicaoRelatorio =
-                    new Date()
-                        .toISOString();
-
-
-            /*
-                GARANTE QUE O CÓDIGO DO
-                RELATÓRIO PERMANEÇA O MESMO.
-            */
-
-            original.problema
-                .codigoRelatorio =
-                    relatorioSelecionado.codigo;
-
-
-            /*
-                SALVAR LOCALSTORAGE
-            */
-
-            const salvou =
-                salvarInspecoes();
-
-
-            if (!salvou) {
-                return;
-            }
-
-
-            /*
-                REGERAR A LISTA COM OS
-                DADOS ATUALIZADOS.
-            */
-
-            const idAtual =
-                relatorioSelecionado.id;
-
-
-            gerarRelatorios();
-
-            atualizarIndicadores();
-
-            renderizarRelatorios();
-
-
-            /*
-                RECUPERA O MESMO RELATÓRIO
-                DEPOIS DA REGERAÇÃO.
-            */
-
-            relatorioSelecionado =
-                relatorios.find(
-                    function (relatorio) {
-
-                        return (
-                            String(relatorio.id) ===
-                            String(idAtual)
-                        );
-
-                    }
-                ) || null;
-
-
-            dadosAntesEdicao =
-                null;
-
-
-            desativarEdicao();
-
-
-            if (
-                relatorioSelecionado
-            ) {
-
-                abrirRelatorio(
-                    relatorioSelecionado.id
-                );
-
-            }
-
+        if (!inspecao) {
 
             alert(
-                "Relatório salvo com sucesso e enviado para aprovação do supervisor."
+                "Não foi possível localizar a inspeção original."
             );
 
+            return;
         }
 
 
-        /* =========================================================
-           VOLTAR PARA LISTA
-        ========================================================= */
+        /*
+            SALVA O RESUMO
+        */
 
-        function voltarParaRelatorios() {
-
-            /*
-                FECHA O RELATÓRIO ATUAL
-                E VOLTA PARA OS CARDS.
-            */
-
-            desativarEdicao();
-
-
-            dadosAntesEdicao =
-                null;
-
-
-            relatorioSelecionado =
-                null;
-
-
-            areaRelatorio.style.display =
-                "none";
-
-
-            areaLista.style.display =
-                "block";
-
-
-            renderizarRelatorios();
-
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-
-
-        /* =========================================================
-           IMPRIMIR / SALVAR PDF
-        ========================================================= */
-
-        function imprimirRelatorio() {
-
-            if (!relatorioSelecionado) {
-
-                alert(
-                    "Selecione um relatório primeiro."
-                );
-
-                return;
-
-            }
-
-
-            /*
-                O navegador abrirá a janela
-                de impressão.
-
-                Nela o usuário pode escolher:
-                "Salvar como PDF".
-            */
-
-            window.print();
-
-        }
-
-
-        /* =========================================================
-           EVENTOS DOS BOTÕES
-        ========================================================= */
-
-        btnEditar.addEventListener(
-            "click",
-            ativarEdicao
-        );
-
-
-        btnSalvar.addEventListener(
-            "click",
-            salvarAlteracoes
-        );
-
-
-        btnCancelar.addEventListener(
-            "click",
-            cancelarEdicao
-        );
-
-
-        btnVoltar.addEventListener(
-            "click",
-            voltarParaRelatorios
-        );
-
-
-        btnExportar.addEventListener(
-            "click",
-            imprimirRelatorio
-        );
-
-
-        /* =========================================================
-           BOTÃO SAIR
-        ========================================================= */
-
-        const btnSair =
+        inspecao.resumoRelatorio =
             document.getElementById(
-                "btnSair"
-            );
+                "relResumo"
+            ).textContent.trim();
 
 
-        if (btnSair) {
+        /*
+            GARANTE QUE EXISTA ARRAY DE ITENS
+        */
 
-            btnSair.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
+        let itensOriginais;
 
 
-                    /*
-                        LIMPA APENAS OS DADOS
-                        RELACIONADOS À SESSÃO.
+        if (
+            Array.isArray(inspecao.itens) &&
+            inspecao.itens.length > 0
+        ) {
 
-                        NÃO APAGA:
-                        - inspeções
-                        - problemas
-                        - relatórios
-                        - áreas
-                        - equipamentos
-                    */
+            itensOriginais =
+                inspecao.itens;
 
-                    sessionStorage.clear();
+        }
+        else if (
+            Array.isArray(
+                inspecao.problemas
+            )
+        ) {
 
+            itensOriginais =
+                inspecao.problemas;
 
-                    localStorage.removeItem(
-                        "usuarioLogado"
-                    );
+        }
+        else {
 
-
-                    localStorage.removeItem(
-                        "sessaoUsuario"
-                    );
-
-
-                    /*
-                        VOLTA PARA A TELA
-                        DE LOGIN.
-                    */
-
-                    window.location.href =
-                        "../pagina_inicial.html";
-
-                }
-            );
-
+            itensOriginais = [];
         }
 
 
-        /* =========================================================
-           ATUALIZAÇÃO ENTRE ABAS
-        ========================================================= */
+        /*
+            SALVA DESCRIÇÕES
+        */
 
-        window.addEventListener(
-            "storage",
-            function (event) {
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo) {
 
-                if (
-                    event.key ===
-                    "inspecoes"
-                ) {
+                    const indice =
+                        Number(
+                            campo.dataset.indice
+                        );
 
-                    inspecoes =
-                        carregarInspecoes();
-
-
-                    gerarRelatorios();
-
-                    atualizarIndicadores();
-
-                    renderizarRelatorios();
-
-
-                    /*
-                        Se algum relatório estiver
-                        aberto, tenta atualizá-lo.
-                    */
 
                     if (
-                        relatorioSelecionado
+                        itensOriginais[indice]
                     ) {
 
-                        const atualizado =
-                            relatorios.find(
-                                function (item) {
-
-                                    return (
-                                        String(item.id) ===
-                                        String(
-                                            relatorioSelecionado.id
-                                        )
-                                    );
-
-                                }
-                            );
-
-
-                        if (atualizado) {
-
-                            abrirRelatorio(
-                                atualizado.id
-                            );
-
-                        }
-
-                        else {
-
-                            voltarParaRelatorios();
-
-                        }
-
+                        itensOriginais[
+                            indice
+                        ].relatorioDescricao =
+                            campo.textContent.trim();
                     }
 
                 }
-
-            }
-        );
+            );
 
 
-        /* =========================================================
-           ATUALIZAR QUANDO A PÁGINA VOLTAR A FICAR VISÍVEL
-        ========================================================= */
+        /*
+            SALVA RECOMENDAÇÕES
+        */
 
-        document.addEventListener(
-            "visibilitychange",
-            function () {
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo) {
 
-                if (
-                    document.visibilityState ===
-                    "visible"
-                ) {
-
-                    inspecoes =
-                        carregarInspecoes();
+                    const indice =
+                        Number(
+                            campo.dataset.indice
+                        );
 
 
-                    gerarRelatorios();
+                    if (
+                        itensOriginais[indice]
+                    ) {
 
-                    atualizarIndicadores();
-
-                    renderizarRelatorios();
+                        itensOriginais[
+                            indice
+                        ].relatorioAcao =
+                            campo.textContent.trim();
+                    }
 
                 }
-
-            }
-        );
+            );
 
 
-        /* =========================================================
-           INICIAR
-        ========================================================= */
+        /*
+            AO SALVAR, O RELATÓRIO
+            VAI PARA APROVAÇÃO.
+        */
 
-        function iniciar() {
-
-            /*
-                Sempre busca novamente os
-                dados reais salvos.
-            */
-
-            inspecoes =
-                carregarInspecoes();
+        inspecao.statusRelatorio =
+            "Pendente de aprovação";
 
 
-            /*
-                Cria os relatórios somente
-                com base nos problemas
-                realmente registrados.
-            */
-
-            gerarRelatorios();
+        inspecao.statusAprovacao =
+            "Pendente";
 
 
-            /*
-                Atualiza os quatro números
-                superiores.
-            */
-
-            atualizarIndicadores();
+        inspecao.situacao =
+            "Concluída";
 
 
-            /*
-                Mostra os cards.
-            */
-
-            renderizarRelatorios();
+        inspecao.codigoRelatorio =
+            relatorioSelecionado.codigo;
 
 
-            /*
-                Começa mostrando a lista.
-            */
-
-            areaLista.style.display =
-                "block";
+        inspecao.atualizadaEm =
+            new Date().toISOString();
 
 
-            areaRelatorio.style.display =
-                "none";
-
+        if (
+            !salvarJSON(
+                CHAVE_INSPECOES,
+                inspecoes
+            )
+        ) {
+            return;
         }
 
 
-        iniciar();
+        const idAtual =
+            relatorioSelecionado.id;
 
 
-    </script>
+        inspecoes =
+            carregarInspecoes();
 
+
+        gerarRelatorios();
+
+        atualizarIndicadores();
+
+        renderizarRelatorios();
+
+
+        relatorioSelecionado =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(idAtual)
+                    );
+
+                }
+            ) || null;
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        if (
+            relatorioSelecionado
+        ) {
+
+            abrirRelatorio(
+                relatorioSelecionado.id
+            );
+        }
+
+
+        alert(
+            "Relatório salvo com sucesso e enviado para aprovação do supervisor."
+        );
+    }
+
+
+    /* =========================================================
+       VOLTAR AOS RELATÓRIOS
+    ========================================================= */
+
+    function voltarParaRelatorios() {
+
+        desativarEdicao();
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        relatorioSelecionado =
+            null;
+
+
+        localStorage.removeItem(
+            CHAVE_RELATORIO_ATUAL
+        );
+
+
+        areaRelatorio.style.display =
+            "none";
+
+
+        areaLista.style.display =
+            "block";
+
+
+        renderizarRelatorios();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       PDF / IMPRESSÃO
+    ========================================================= */
+
+    function imprimirRelatorio() {
+
+        if (!relatorioSelecionado) {
+
+            alert(
+                "Abra um relatório antes de gerar o PDF."
+            );
+
+            return;
+        }
+
+
+        /*
+            Caso esteja editando,
+            remove temporariamente
+            o modo de edição.
+        */
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.removeAttribute(
+                        "contenteditable"
+                    );
+
+                }
+            );
+
+
+        /*
+            Abre a impressão do navegador.
+
+            No Chrome:
+            Destino -> Salvar como PDF
+        */
+
+        window.print();
+    }
+
+
+    /* =========================================================
+       BOTÕES
+    ========================================================= */
+
+    btnEditar.addEventListener(
+        "click",
+        ativarEdicao
+    );
+
+
+    btnSalvar.addEventListener(
+        "click",
+        salvarAlteracoes
+    );
+
+
+    btnCancelar.addEventListener(
+        "click",
+        cancelarEdicao
+    );
+
+
+    btnVoltar.addEventListener(
+        "click",
+        voltarParaRelatorios
+    );
+
+
+    btnExportar.addEventListener(
+        "click",
+        imprimirRelatorio
+    );
+
+
+    /* =========================================================
+       SAIR
+    ========================================================= */
+
+    const btnSair =
+        document.getElementById(
+            "btnSair"
+        );
+
+
+    if (btnSair) {
+
+        btnSair.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const confirmar =
+                    confirm(
+                        "Deseja realmente sair do sistema?"
+                    );
+
+
+                if (!confirmar) {
+                    return;
+                }
+
+
+                sessionStorage.clear();
+
+
+                localStorage.removeItem(
+                    "usuarioLogado"
+                );
+
+
+                localStorage.removeItem(
+                    "sessaoUsuario"
+                );
+
+
+                window.location.href =
+                    "../pagina_inicial.html";
+
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ATUALIZAÇÃO ENTRE ABAS
+    ========================================================= */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (
+                event.key ===
+                CHAVE_INSPECOES
+            ) {
+
+                const idAberto =
+                    relatorioSelecionado
+                        ? relatorioSelecionado.id
+                        : null;
+
+
+                inspecoes =
+                    carregarInspecoes();
+
+
+                gerarRelatorios();
+
+                atualizarIndicadores();
+
+                renderizarRelatorios();
+
+
+                if (idAberto) {
+
+                    const atualizado =
+                        relatorios.find(
+                            function (relatorio) {
+
+                                return (
+                                    String(
+                                        relatorio.id
+                                    ) ===
+                                    String(
+                                        idAberto
+                                    )
+                                );
+
+                            }
+                        );
+
+
+                    if (atualizado) {
+
+                        abrirRelatorio(
+                            atualizado.id
+                        );
+
+                    }
+                    else {
+
+                        voltarParaRelatorios();
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* =========================================================
+       ATUALIZAÇÃO QUANDO VOLTAR À PÁGINA
+    ========================================================= */
+
+    document.addEventListener(
+        "visibilitychange",
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                const idAberto =
+                    relatorioSelecionado
+                        ? relatorioSelecionado.id
+                        : null;
+
+
+                inspecoes =
+                    carregarInspecoes();
+
+
+                gerarRelatorios();
+
+                atualizarIndicadores();
+
+                renderizarRelatorios();
+
+
+                if (idAberto) {
+
+                    const atualizado =
+                        relatorios.find(
+                            function (relatorio) {
+
+                                return (
+                                    String(
+                                        relatorio.id
+                                    ) ===
+                                    String(
+                                        idAberto
+                                    )
+                                );
+
+                            }
+                        );
+
+
+                    if (atualizado) {
+
+                        abrirRelatorio(
+                            atualizado.id
+                        );
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* =========================================================
+       ABRIR AUTOMATICAMENTE O RELATÓRIO
+       RECÉM-FINALIZADO
+    ========================================================= */
+
+    function abrirRelatorioAtual() {
+
+        const id =
+            localStorage.getItem(
+                CHAVE_RELATORIO_ATUAL
+            );
+
+
+        if (!id) {
+            return false;
+        }
+
+
+        const existe =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(id)
+                    );
+
+                }
+            );
+
+
+        if (!existe) {
+
+            localStorage.removeItem(
+                CHAVE_RELATORIO_ATUAL
+            );
+
+            return false;
+        }
+
+
+        abrirRelatorio(
+            existe.id
+        );
+
+
+        return true;
+    }
+
+
+    /* =========================================================
+       INICIAR
+    ========================================================= */
+
+    function iniciar() {
+
+        /*
+            1. Busca as inspeções reais.
+        */
+
+        inspecoes =
+            carregarInspecoes();
+
+
+        /*
+            2. Cada inspeção com itens
+               vira UM relatório.
+        */
+
+        gerarRelatorios();
+
+
+        /*
+            3. Atualiza indicadores.
+        */
+
+        atualizarIndicadores();
+
+
+        /*
+            4. Monta os cards.
+        */
+
+        renderizarRelatorios();
+
+
+        /*
+            5. Inicialmente mostra
+               a lista.
+        */
+
+        areaLista.style.display =
+            "block";
+
+
+        areaRelatorio.style.display =
+            "none";
+
+
+        /*
+            6. Se o usuário acabou de
+               finalizar uma inspeção,
+               abre o relatório dela
+               automaticamente.
+        */
+
+        abrirRelatorioAtual();
+    }
+
+
+    iniciar();
+
+});
+
+</script>
 
 </body>
-
 </html>

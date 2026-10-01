@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Editar Perfil - AutoRelatório</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+        .logo {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           PERFIL INFERIOR
+        ===================================================== */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            flex-shrink: 0;
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+        .logout {
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+        /* =====================================================
+           PRINCIPAL
+        ===================================================== */
+
+        .main {
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #dfe3e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+        .topbar-info {
+            font-size: 12px;
+            color: #7c8797;
+        }
+
+        .voltar-dashboard {
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .voltar-dashboard:hover {
+            text-decoration: underline;
+        }
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .content {
+            max-width: 1050px;
+
+            margin: 0 auto;
+
+            padding: 30px 28px 50px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header small {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #2563eb;
+
+            font-size: 10px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        .page-header h1 {
+            color: #0d1c34;
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #778295;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           MENSAGEM
+        ===================================================== */
+
+        .mensagem {
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 13px 15px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        .mensagem.sucesso {
+            display: block;
+
+            background: #eaf8ef;
+
+            border: 1px solid #c7ead4;
+
+            color: #247346;
+        }
+
+        .mensagem.erro {
+            display: block;
+
+            background: #fff1f1;
+
+            border: 1px solid #f2cccc;
+
+            color: #b83d3d;
+        }
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .perfil-card {
+            background: white;
+
+            border: 1px solid #dfe3e9;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+        }
+
+        /* =====================================================
+           FOTO
+        ===================================================== */
+
+        .foto-area {
+            min-height: 190px;
+
+            padding: 28px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 24px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            background: #fbfcfd;
+        }
+
+        .foto-container {
+            width: 110px;
+            height: 110px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 30px;
+            font-weight: bold;
+
+            border: 4px solid white;
+
+            box-shadow:
+                0 2px 10px
+                rgba(0, 0, 0, 0.12);
+        }
+
+        .foto-container img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+        .foto-info h3 {
+            color: #172033;
+
+            font-size: 15px;
+
+            margin-bottom: 7px;
+        }
+
+        .foto-info p {
+            max-width: 470px;
+
+            color: #7a8595;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            margin-bottom: 14px;
+        }
+
+        .foto-botoes {
+            display: flex;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn-foto {
+            min-height: 36px;
+
+            padding: 0 14px;
+
+            border: 1px solid #d4d9e0;
+
+            border-radius: 5px;
+
+            background: white;
+
+            color: #465266;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .btn-foto:hover {
+            background: #f4f6f9;
+        }
+
+        .btn-remover {
+            color: #c23a3a;
+        }
+
+        #inputFoto {
+            display: none;
+        }
+
+        /* =====================================================
+           FORMULÁRIO
+        ===================================================== */
+
+        .form-area {
+            padding: 28px;
+        }
+
+        .secao-titulo {
+            margin-bottom: 20px;
+        }
+
+        .secao-titulo h3 {
+            color: #172033;
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+        .secao-titulo p {
+            color: #8791a0;
+
+            font-size: 11px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 19px;
+        }
+
+        .campo {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+        .campo.full {
+            grid-column: 1 / -1;
+        }
+
+        .campo label {
+            color: #485467;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            height: 42px;
+
+            padding: 0 12px;
+
+            border: 1px solid #d6dbe2;
+
+            border-radius: 5px;
+
+            outline: none;
+
+            background: white;
+
+            color: #263348;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+        .campo input:focus {
+            border-color: #3479dc;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(52, 121, 220, 0.08);
+        }
+
+        .campo input:disabled {
+            background: #f3f5f7;
+
+            color: #8c95a3;
+
+            cursor: not-allowed;
+        }
+
+        .campo small {
+            color: #929baa;
+
+            font-size: 9px;
+
+            line-height: 1.4;
+        }
+
+        /* =====================================================
+           AVISO
+        ===================================================== */
+
+        .aviso {
+            margin-top: 20px;
+
+            padding: 13px 15px;
+
+            background: #f3f7ff;
+
+            border: 1px solid #d9e7ff;
+
+            border-radius: 6px;
+
+            color: #52627a;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+        .aviso strong {
+            color: #2563eb;
+        }
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        .acoes {
+            margin-top: 28px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e7eaee;
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            gap: 10px;
+        }
+
+        .btn {
+            min-height: 40px;
+
+            padding: 0 18px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .btn-cancelar {
+            border: 1px solid #d4d9e0;
+
+            background: white;
+
+            color: #566174;
+        }
+
+        .btn-cancelar:hover {
+            background: #f4f6f9;
+        }
+
+        .btn-salvar {
+            border: none;
+
+            background: #2d76dc;
+
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background: #1f63bd;
+        }
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .foto-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .campo.full {
+                grid-column: auto;
+            }
+
+            .acoes {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- =====================================================
+         MENU LATERAL
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▰
+            </div>
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="dashboard.html">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="nova_inspecao.html">
+                <span class="menu-icon">✓</span>
+                Nova Inspeção
+            </a>
+
+            <a href="registrar_problema.html">
+                <span class="menu-icon">△</span>
+                Registrar Problema
+            </a>
+
+            <a href="historico.html">
+                <span class="menu-icon">♢</span>
+                Histórico
+            </a>
+
+            <a href="relatorios.html">
+                <span class="menu-icon">▧</span>
+                Relatórios
+            </a>
+
+            <a href="areas.html">
+                <span class="menu-icon">▦</span>
+                Áreas
+            </a>
+
+            <a href="equipamentos.html">
+                <span class="menu-icon">⌁</span>
+                Equipamentos
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="profile">
+
+                <div class="profile-circle">
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+                    <img
+                        id="sidebarFoto"
+                        alt="Foto do usuário"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
+                        Técnico
+                    </div>
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+                ⇥ &nbsp; Sair
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <header class="topbar">
+
+            <div class="topbar-info">
+                Planta Tubarão • Configurações da conta
+            </div>
+
+
+            <a
+                href="dashboard.html"
+                class="voltar-dashboard"
+            >
+                ← Voltar ao Dashboard
+            </a>
+
+        </header>
+
+
+        <section class="content">
+
+
+            <div class="page-header">
+
+                <small>
+                    MINHA CONTA
+                </small>
+
+                <h1>
+                    Editar perfil
+                </h1>
+
+                <p>
+                    Atualize seus dados pessoais e sua foto de perfil.
+                </p>
+
+            </div>
+
+
+            <div
+                class="mensagem"
+                id="mensagem"
+            ></div>
+
+
+            <div class="perfil-card">
+
+
+                <!-- =================================================
+                     FOTO
+                ================================================== -->
+
+                <div class="foto-area">
+
+
+                    <div class="foto-container">
+
+                        <span id="fotoIniciais">
+                            TC
+                        </span>
+
+                        <img
+                            id="previewFoto"
+                            alt="Foto de perfil"
+                        >
+
+                    </div>
+
+
+                    <div class="foto-info">
+
+                        <h3>
+                            Foto de perfil
+                        </h3>
+
+                        <p>
+                            A foto aparecerá no sistema junto às
+                            informações da sua conta.
+                        </p>
+
+
+                        <div class="foto-botoes">
+
+                            <button
+                                type="button"
+                                class="btn-foto"
+                                id="btnEscolherFoto"
+                            >
+                                📷 Escolher foto
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="btn-foto btn-remover"
+                                id="btnRemoverFoto"
+                            >
+                                Remover foto
+                            </button>
+
+                        </div>
+
+
+                        <input
+                            type="file"
+                            id="inputFoto"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DADOS PESSOAIS
+                ================================================== -->
+
+                <form
+                    class="form-area"
+                    id="formPerfil"
+                >
+
+
+                    <div class="secao-titulo">
+
+                        <h3>
+                            Informações pessoais
+                        </h3>
+
+                        <p>
+                            Mantenha seus dados atualizados.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NOME -->
+
+                        <div class="campo full">
+
+                            <label for="nome">
+                                Nome completo *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nome"
+                                required
+                                placeholder="Digite seu nome completo"
+                            >
+
+                        </div>
+
+
+                        <!-- MATRÍCULA -->
+
+                        <div class="campo">
+
+                            <label for="matricula">
+                                Matrícula
+                            </label>
+
+                            <input
+                                type="text"
+                                id="matricula"
+                                placeholder="AM-00000"
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="campo">
+
+                            <label for="email">
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="nome@empresa.com"
+                            >
+
+                        </div>
+
+
+                        <!-- TELEFONE -->
+
+                        <div class="campo">
+
+                            <label for="telefone">
+                                Telefone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefone"
+                                placeholder="(27) 99999-9999"
+                            >
+
+                        </div>
+
+
+                        <!-- PERFIL -->
+
+                        <div class="campo">
+
+                            <label for="perfil">
+                                Perfil de acesso
+                            </label>
+
+                            <input
+                                type="text"
+                                id="perfil"
+                                disabled
+                            >
+
+                            <small>
+                                O perfil de acesso não pode ser alterado
+                                pelo próprio usuário.
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         AVISO
+                    ================================================== -->
+
+                    <div class="aviso">
+
+                        <strong>
+                            Segurança:
+                        </strong>
+
+                        alterar seus dados pessoais ou sua foto
+                        não modifica suas permissões no sistema.
+                        O perfil de acesso é controlado separadamente.
+
+                    </div>
+
+
+                    <!-- =================================================
+                         BOTÕES
+                    ================================================== -->
+
+                    <div class="acoes">
+
+                        <button
+                            type="button"
+                            class="btn btn-cancelar"
+                            id="btnCancelar"
+                        >
+                            Cancelar
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-salvar"
+                        >
+                            Salvar alterações
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                /* =================================================
+                   CONFIGURAÇÃO
+                ================================================= */
+
+                const CHAVE_PERFIL =
+                    "perfilUsuario";
+
+
+                let fotoAtual =
+                    "";
+
+
+                let fotoNova =
+                    "";
+
+
+                /* =================================================
+                   ELEMENTOS
+                ================================================= */
+
+                const form =
+                    document.getElementById(
+                        "formPerfil"
+                    );
+
+
+                const nome =
+                    document.getElementById(
+                        "nome"
+                    );
+
+
+                const matricula =
+                    document.getElementById(
+                        "matricula"
+                    );
+
+
+                const email =
+                    document.getElementById(
+                        "email"
+                    );
+
+
+                const telefone =
+                    document.getElementById(
+                        "telefone"
+                    );
+
+
+                const perfil =
+                    document.getElementById(
+                        "perfil"
+                    );
+
+
+                const inputFoto =
+                    document.getElementById(
+                        "inputFoto"
+                    );
+
+
+                const previewFoto =
+                    document.getElementById(
+                        "previewFoto"
+                    );
+
+
+                const fotoIniciais =
+                    document.getElementById(
+                        "fotoIniciais"
+                    );
+
+
+                const mensagem =
+                    document.getElementById(
+                        "mensagem"
+                    );
+
+
+                /* =================================================
+                   LER JSON
+                ================================================= */
+
+                function lerJSON(
+                    chave,
+                    padrao
+                ) {
+
+                    try {
+
+                        const valor =
+                            localStorage.getItem(
+                                chave
+                            );
+
+
+                        if (!valor) {
+
+                            return padrao;
+
+                        }
+
+
+                        return JSON.parse(
+                            valor
+                        );
+
+                    }
+
+                    catch (erro) {
+
+                        console.error(
+                            erro
+                        );
+
+
+                        return padrao;
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   SALVAR JSON
+                ================================================= */
+
+                function salvarJSON(
+                    chave,
+                    valor
+                ) {
+
+                    try {
+
+                        localStorage.setItem(
+                            chave,
+                            JSON.stringify(
+                                valor
+                            )
+                        );
+
+
+                        return true;
+
+                    }
+
+                    catch (erro) {
+
+                        console.error(
+                            erro
+                        );
+
+
+                        return false;
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   INICIAIS
+                ================================================= */
+
+                function obterIniciais(
+                    nomeCompleto
+                ) {
+
+                    const partes =
+                        String(
+                            nomeCompleto ||
+                            "Técnico"
+                        )
+                            .trim()
+                            .split(/\s+/)
+                            .filter(Boolean);
+
+
+                    if (
+                        partes.length === 0
+                    ) {
+
+                        return "TC";
+
+                    }
+
+
+                    if (
+                        partes.length === 1
+                    ) {
+
+                        return partes[0]
+                            .substring(
+                                0,
+                                2
+                            )
+                            .toUpperCase();
+
+                    }
+
+
+                    return (
+                        partes[0][0] +
+                        partes[
+                            partes.length - 1
+                        ][0]
+                    ).toUpperCase();
+
+                }
+
+
+                /* =================================================
+                   MOSTRAR FOTO
+                ================================================= */
+
+                function mostrarFoto(
+                    foto
+                ) {
+
+                    if (
+                        foto &&
+                        String(foto).trim() !== ""
+                    ) {
+
+                        previewFoto.src =
+                            foto;
+
+
+                        previewFoto.style.display =
+                            "block";
+
+
+                        fotoIniciais.style.display =
+                            "none";
+
+                    }
+
+                    else {
+
+                        previewFoto.removeAttribute(
+                            "src"
+                        );
+
+
+                        previewFoto.style.display =
+                            "none";
+
+
+                        fotoIniciais.style.display =
+                            "inline";
+
+
+                        fotoIniciais.textContent =
+                            obterIniciais(
+                                nome.value
+                            );
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   ATUALIZAR SIDEBAR
+                ================================================= */
+
+                function atualizarSidebar(
+                    dados
+                ) {
+
+                    const iniciais =
+                        obterIniciais(
+                            dados.nome
+                        );
+
+
+                    document.getElementById(
+                        "sidebarNome"
+                    ).textContent =
+                        dados.nome ||
+                        "Técnico";
+
+
+                    document.getElementById(
+                        "sidebarPerfil"
+                    ).textContent =
+                        dados.perfil ||
+                        "Perfil Técnico";
+
+
+                    const img =
+                        document.getElementById(
+                            "sidebarFoto"
+                        );
+
+
+                    const letras =
+                        document.getElementById(
+                            "sidebarIniciais"
+                        );
+
+
+                    if (
+                        dados.foto
+                    ) {
+
+                        img.src =
+                            dados.foto;
+
+
+                        img.style.display =
+                            "block";
+
+
+                        letras.style.display =
+                            "none";
+
+                    }
+
+                    else {
+
+                        img.removeAttribute(
+                            "src"
+                        );
+
+
+                        img.style.display =
+                            "none";
+
+
+                        letras.style.display =
+                            "inline";
+
+
+                        letras.textContent =
+                            iniciais;
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   CARREGAR PERFIL
+                ================================================= */
+
+                function carregarPerfil() {
+
+                    let dados =
+                        lerJSON(
+                            CHAVE_PERFIL,
+                            null
+                        );
+
+
+                    /*
+                       Se ainda não existir perfilUsuario,
+                       procura os dados da sessão.
+                    */
+
+                    if (!dados) {
+
+                        const sessao =
+                            lerJSON(
+                                "sessaoUsuario",
+                                {}
+                            );
+
+
+                        dados = {
+
+                            nome:
+                                sessao.nome ||
+                                "Técnico",
+
+                            matricula:
+                                sessao.matricula ||
+                                "",
+
+                            email:
+                                sessao.email ||
+                                "",
+
+                            telefone:
+                                sessao.telefone ||
+                                "",
+
+                            perfil:
+                                sessao.perfil ||
+                                "Perfil Técnico",
+
+                            foto:
+                                sessao.foto ||
+                                ""
+
+                        };
+
+                    }
+
+
+                    nome.value =
+                        dados.nome ||
+                        "Técnico";
+
+
+                    matricula.value =
+                        dados.matricula ||
+                        "";
+
+
+                    email.value =
+                        dados.email ||
+                        "";
+
+
+                    telefone.value =
+                        dados.telefone ||
+                        "";
+
+
+                    perfil.value =
+                        dados.perfil ||
+                        "Perfil Técnico";
+
+
+                    fotoAtual =
+                        dados.foto ||
+                        "";
+
+
+                    fotoNova =
+                        fotoAtual;
+
+
+                    mostrarFoto(
+                        fotoAtual
+                    );
+
+
+                    atualizarSidebar(
+                        dados
+                    );
+
+                }
+
+
+                /* =================================================
+                   COMPRIMIR FOTO
+
+                   A foto é reduzida antes de ir para o localStorage.
+                   Isso evita ocupar espaço desnecessário.
+                ================================================= */
+
+                function comprimirFoto(
+                    arquivo
+                ) {
+
+                    return new Promise(
+                        function (
+                            resolve,
+                            reject
+                        ) {
+
+
+                            const reader =
+                                new FileReader();
+
+
+                            reader.onload =
+                                function (
+                                    evento
+                                ) {
+
+
+                                    const imagem =
+                                        new Image();
+
+
+                                    imagem.onload =
+                                        function () {
+
+
+                                            const tamanhoMaximo =
+                                                500;
+
+
+                                            let largura =
+                                                imagem.width;
+
+
+                                            let altura =
+                                                imagem.height;
+
+
+                                            if (
+                                                largura >
+                                                tamanhoMaximo ||
+                                                altura >
+                                                tamanhoMaximo
+                                            ) {
+
+                                                const escala =
+                                                    Math.min(
+
+                                                        tamanhoMaximo /
+                                                        largura,
+
+                                                        tamanhoMaximo /
+                                                        altura
+
+                                                    );
+
+
+                                                largura =
+                                                    Math.round(
+                                                        largura *
+                                                        escala
+                                                    );
+
+
+                                                altura =
+                                                    Math.round(
+                                                        altura *
+                                                        escala
+                                                    );
+
+                                            }
+
+
+                                            const canvas =
+                                                document.createElement(
+                                                    "canvas"
+                                                );
+
+
+                                            canvas.width =
+                                                largura;
+
+
+                                            canvas.height =
+                                                altura;
+
+
+                                            const contexto =
+                                                canvas.getContext(
+                                                    "2d"
+                                                );
+
+
+                                            contexto.drawImage(
+                                                imagem,
+                                                0,
+                                                0,
+                                                largura,
+                                                altura
+                                            );
+
+
+                                            const resultado =
+                                                canvas.toDataURL(
+                                                    "image/jpeg",
+                                                    0.72
+                                                );
+
+
+                                            resolve(
+                                                resultado
+                                            );
+
+                                        };
+
+
+                                    imagem.onerror =
+                                        function () {
+
+                                            reject(
+                                                new Error(
+                                                    "Imagem inválida."
+                                                )
+                                            );
+
+                                        };
+
+
+                                    imagem.src =
+                                        evento.target.result;
+
+                                };
+
+
+                            reader.onerror =
+                                function () {
+
+                                    reject(
+                                        new Error(
+                                            "Erro ao ler imagem."
+                                        )
+                                    );
+
+                                };
+
+
+                            reader.readAsDataURL(
+                                arquivo
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================================
+                   ESCOLHER FOTO
+                ================================================= */
+
+                document.getElementById(
+                    "btnEscolherFoto"
+                ).addEventListener(
+                    "click",
+                    function () {
+
+                        inputFoto.click();
+
+                    }
+                );
+
+
+                inputFoto.addEventListener(
+                    "change",
+                    async function () {
+
+
+                        const arquivo =
+                            this.files[0];
+
+
+                        if (!arquivo) {
+
+                            return;
+
+                        }
+
+
+                        if (
+                            !arquivo.type
+                                .startsWith(
+                                    "image/"
+                                )
+                        ) {
+
+                            alert(
+                                "Selecione uma imagem válida."
+                            );
+
+
+                            this.value =
+                                "";
+
+
+                            return;
+
+                        }
+
+
+                        try {
+
+                            fotoNova =
+                                await comprimirFoto(
+                                    arquivo
+                                );
+
+
+                            mostrarFoto(
+                                fotoNova
+                            );
+
+                        }
+
+                        catch (erro) {
+
+                            console.error(
+                                erro
+                            );
+
+
+                            alert(
+                                "Não foi possível processar a foto."
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* =================================================
+                   REMOVER FOTO
+                ================================================= */
+
+                document.getElementById(
+                    "btnRemoverFoto"
+                ).addEventListener(
+                    "click",
+                    function () {
+
+                        fotoNova =
+                            "";
+
+
+                        inputFoto.value =
+                            "";
+
+
+                        mostrarFoto(
+                            ""
+                        );
+
+                    }
+                );
+
+
+                /* =================================================
+                   ATUALIZAR INICIAIS
+                ================================================= */
+
+                nome.addEventListener(
+                    "input",
+                    function () {
+
+                        if (!fotoNova) {
+
+                            fotoIniciais.textContent =
+                                obterIniciais(
+                                    nome.value
+                                );
+
+                        }
+
+                    }
+                );
+
+
+                /* =================================================
+                   MENSAGEM
+                ================================================= */
+
+                function mostrarMensagem(
+                    texto,
+                    tipo
+                ) {
+
+                    mensagem.textContent =
+                        texto;
+
+
+                    mensagem.className =
+                        "mensagem " +
+                        tipo;
+
+
+                    window.scrollTo({
+
+                        top: 0,
+
+                        behavior: "smooth"
+
+                    });
+
+                }
+
+
+                /* =================================================
+                   SALVAR ALTERAÇÕES
+                ================================================= */
+
+                form.addEventListener(
+                    "submit",
+                    function (
+                        event
+                    ) {
+
+                        event.preventDefault();
+
+
+                        const nomeLimpo =
+                            nome.value.trim();
+
+
+                        if (!nomeLimpo) {
+
+                            mostrarMensagem(
+                                "Informe o nome do usuário.",
+                                "erro"
+                            );
+
+
+                            return;
+
+                        }
+
+
+                        const perfilAnterior =
+                            lerJSON(
+                                CHAVE_PERFIL,
+                                {}
+                            );
+
+
+                        /*
+                           Mantemos o perfil de acesso existente.
+
+                           Isso impede que o usuário transforme
+                           sozinho sua conta em Supervisor ou
+                           Administrador.
+                        */
+
+                        const perfilAcesso =
+                            perfilAnterior.perfil ||
+                            perfil.value ||
+                            "Perfil Técnico";
+
+
+                        const dados = {
+
+                            nome:
+                                nomeLimpo,
+
+                            matricula:
+                                matricula.value.trim(),
+
+                            email:
+                                email.value.trim(),
+
+                            telefone:
+                                telefone.value.trim(),
+
+                            perfil:
+                                perfilAcesso,
+
+                            foto:
+                                fotoNova,
+
+                            atualizadoEm:
+                                new Date()
+                                    .toISOString()
+
+                        };
+
+
+                        const salvou =
+                            salvarJSON(
+                                CHAVE_PERFIL,
+                                dados
+                            );
+
+
+                        if (!salvou) {
+
+                            mostrarMensagem(
+                                "Não foi possível salvar o perfil. O armazenamento do navegador pode estar cheio.",
+                                "erro"
+                            );
+
+
+                            return;
+
+                        }
+
+
+                        /* =========================================
+                           ATUALIZAR SESSÃO
+                        ========================================== */
+
+                        const sessao =
+                            lerJSON(
+                                "sessaoUsuario",
+                                {}
+                            );
+
+
+                        const novaSessao = {
+
+                            ...sessao,
+
+                            nome:
+                                dados.nome,
+
+                            matricula:
+                                dados.matricula,
+
+                            email:
+                                dados.email,
+
+                            telefone:
+                                dados.telefone,
+
+                            perfil:
+                                dados.perfil,
+
+                            foto:
+                                dados.foto
+
+                        };
+
+
+                        salvarJSON(
+                            "sessaoUsuario",
+                            novaSessao
+                        );
+
+
+                        fotoAtual =
+                            fotoNova;
+
+
+                        atualizarSidebar(
+                            dados
+                        );
+
+
+                        mostrarMensagem(
+                            "Perfil atualizado com sucesso.",
+                            "sucesso"
+                        );
+
+                    }
+                );
+
+
+                /* =================================================
+                   CANCELAR
+                ================================================= */
+
+                document.getElementById(
+                    "btnCancelar"
+                ).addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    }
+                );
+
+
+                /* =================================================
+                   SAIR
+                ================================================= */
+
+                document.getElementById(
+                    "btnSair"
+                ).addEventListener(
+                    "click",
+                    function (
+                        event
+                    ) {
+
+                        event.preventDefault();
+
+
+                        const confirmar =
+                            confirm(
+                                "Deseja realmente sair do sistema?"
+                            );
+
+
+                        if (!confirmar) {
+
+                            return;
+
+                        }
+
+
+                        /*
+                           Apaga apenas informações da sessão.
+
+                           NÃO apagamos perfil, inspeções,
+                           relatórios, equipamentos etc.
+                        */
+
+                        sessionStorage.clear();
+
+
+                        localStorage.removeItem(
+                            "usuarioLogado"
+                        );
+
+
+                        localStorage.removeItem(
+                            "sessaoUsuario"
+                        );
+
+
+                        window.location.href =
+                            "../index.html";
+
+                    }
+                );
+
+
+                /* =================================================
+                   INICIAR
+                ================================================= */
+
+                carregarPerfil();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

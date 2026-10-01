@@ -2,13 +2,10 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nova Inspeção - AutoRelatório</title>
-
 
     <style>
 
@@ -38,13 +35,10 @@
 
         /* =====================================================
            SIDEBAR
-           MESMO PADRÃO DO DASHBOARD / ÁREAS
         ===================================================== */
 
         .sidebar {
-
             position: fixed;
-
             left: 0;
             top: 0;
 
@@ -52,7 +46,6 @@
             height: 100vh;
 
             background: #0b132b;
-
             color: white;
 
             display: flex;
@@ -67,11 +60,9 @@
         ===================================================== */
 
         .logo {
-
             height: 65px;
 
             display: flex;
-
             align-items: center;
 
             gap: 10px;
@@ -81,9 +72,7 @@
             border-bottom: 1px solid #1b243b;
         }
 
-
         .logo-icon {
-
             width: 32px;
             height: 32px;
 
@@ -92,26 +81,19 @@
             border-radius: 4px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
             color: white;
-
             font-size: 16px;
         }
 
-
         .logo-text {
-
             font-size: 14px;
-
             font-weight: bold;
         }
 
-
         .logo-text span {
-
             display: block;
 
             color: #3b82f6;
@@ -129,13 +111,10 @@
         ===================================================== */
 
         .menu {
-
             padding: 17px 9px;
         }
 
-
         .menu a {
-
             height: 40px;
 
             padding: 0 12px;
@@ -143,7 +122,6 @@
             margin-bottom: 3px;
 
             display: flex;
-
             align-items: center;
 
             gap: 10px;
@@ -159,17 +137,12 @@
             transition: 0.2s;
         }
 
-
         .menu a:hover {
-
             background: #151f3a;
-
             color: white;
         }
 
-
         .menu a.active {
-
             background: #12315c;
 
             color: #3b82f6;
@@ -177,11 +150,8 @@
             border-left: 2px solid #3b82f6;
         }
 
-
         .menu-icon {
-
             width: 16px;
-
             text-align: center;
         }
 
@@ -191,7 +161,6 @@
         ===================================================== */
 
         .sidebar-bottom {
-
             margin-top: auto;
 
             padding: 20px 18px;
@@ -199,11 +168,8 @@
             border-top: 1px solid #1b243b;
         }
 
-
         .profile {
-
             display: flex;
-
             align-items: center;
 
             gap: 11px;
@@ -211,9 +177,7 @@
             margin-bottom: 22px;
         }
 
-
         .profile-circle {
-
             width: 32px;
             height: 32px;
 
@@ -222,26 +186,19 @@
             background: #2867b5;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
             font-size: 11px;
-
             font-weight: bold;
         }
-
 
         .profile-name {
-
             font-size: 12px;
-
             font-weight: bold;
         }
 
-
         .profile-info {
-
             color: #7f8ba0;
 
             font-size: 9px;
@@ -249,9 +206,7 @@
             margin-top: 3px;
         }
 
-
         .logout {
-
             color: #aeb8ca;
 
             text-decoration: none;
@@ -259,15 +214,12 @@
             font-size: 12px;
 
             display: inline-flex;
-
             align-items: center;
 
             cursor: pointer;
         }
 
-
         .logout:hover {
-
             color: white;
         }
 
@@ -277,7 +229,6 @@
         ===================================================== */
 
         .main {
-
             margin-left: 240px;
 
             width: calc(100% - 240px);
@@ -291,15 +242,12 @@
         ===================================================== */
 
         .topbar {
-
             height: 65px;
 
             padding: 0 25px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             background: white;
@@ -307,48 +255,35 @@
             border-bottom: 1px solid #e1e5eb;
         }
 
-
         .page-title h1 {
-
             font-size: 18px;
 
             margin-bottom: 4px;
         }
 
-
         .page-title p {
-
             color: #7a8494;
 
             font-size: 12px;
         }
 
-
         .top-right {
-
             display: flex;
-
             align-items: center;
 
             gap: 17px;
         }
 
-
         .notification {
-
             color: #506075;
-
             cursor: pointer;
         }
 
-
         .user {
-
             width: 32px;
             height: 32px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
@@ -359,7 +294,6 @@
             color: white;
 
             font-size: 11px;
-
             font-weight: bold;
         }
 
@@ -369,7 +303,6 @@
         ===================================================== */
 
         .content {
-
             padding: 30px;
         }
 
@@ -379,9 +312,7 @@
         ===================================================== */
 
         .form-card {
-
             width: 100%;
-
             max-width: 850px;
 
             margin: 0 auto;
@@ -397,28 +328,80 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
         }
 
-
         .form-header {
-
             padding: 25px 30px;
 
             border-bottom: 1px solid #e5e8ed;
         }
 
-
         .form-header h2 {
-
             font-size: 19px;
 
             margin-bottom: 7px;
         }
 
-
         .form-header p {
-
             color: #778292;
 
             font-size: 13px;
+        }
+
+
+        /* =====================================================
+           ETAPAS DO RELATÓRIO
+        ===================================================== */
+
+        .steps {
+            display: flex;
+
+            padding: 18px 30px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            background: #fafbfc;
+
+            gap: 10px;
+        }
+
+        .step {
+            flex: 1;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            font-size: 11px;
+
+            color: #8792a2;
+        }
+
+        .step-number {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: #e8edf4;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .step.active {
+            color: #2563eb;
+
+            font-weight: bold;
+        }
+
+        .step.active .step-number {
+            background: #2563eb;
+
+            color: white;
         }
 
 
@@ -427,57 +410,42 @@
         ===================================================== */
 
         .form-body {
-
             padding: 30px;
         }
 
-
         .row {
-
             display: flex;
 
             gap: 20px;
         }
 
-
         .row .field {
-
             flex: 1;
         }
 
-
         .field {
-
             display: flex;
-
             flex-direction: column;
 
             margin-bottom: 22px;
         }
 
-
         .field label {
-
             margin-bottom: 8px;
 
             color: #162238;
 
             font-size: 13px;
-
             font-weight: 600;
         }
 
-
         .required {
-
             color: #e52e3d;
         }
-
 
         .field input,
         .field select,
         .field textarea {
-
             width: 100%;
 
             border: 1px solid #d7dce4;
@@ -495,18 +463,14 @@
             transition: 0.2s;
         }
 
-
         .field input,
         .field select {
-
             height: 44px;
 
             padding: 0 13px;
         }
 
-
         .field textarea {
-
             min-height: 115px;
 
             padding: 13px;
@@ -514,27 +478,21 @@
             resize: vertical;
         }
 
-
         .field input:focus,
         .field select:focus,
         .field textarea:focus {
-
             border-color: #2e7de1;
 
             box-shadow:
                 0 0 0 3px rgba(46, 125, 225, 0.10);
         }
 
-
         .field input::placeholder,
         .field textarea::placeholder {
-
             color: #a0a8b7;
         }
 
-
         .field input[readonly] {
-
             background: #f5f7fa;
 
             color: #667085;
@@ -542,9 +500,7 @@
             cursor: not-allowed;
         }
 
-
         .field select:disabled {
-
             background: #f5f7fa;
 
             color: #8b95a5;
@@ -554,11 +510,37 @@
 
 
         /* =====================================================
+           INFORMAÇÃO
+        ===================================================== */
+
+        .info-box {
+            padding: 15px 17px;
+
+            margin-bottom: 23px;
+
+            border: 1px solid #cfe0f8;
+
+            background: #f4f8fe;
+
+            border-radius: 7px;
+
+            color: #43536a;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #1e5eae;
+        }
+
+
+        /* =====================================================
            BOTÕES
         ===================================================== */
 
         .buttons {
-
             display: flex;
 
             justify-content: flex-end;
@@ -570,9 +552,7 @@
             flex-wrap: wrap;
         }
 
-
         .btn {
-
             min-width: 130px;
 
             height: 43px;
@@ -582,7 +562,6 @@
             border-radius: 6px;
 
             font-size: 13px;
-
             font-weight: 600;
 
             cursor: pointer;
@@ -590,9 +569,7 @@
             transition: 0.2s;
         }
 
-
         .btn-cancel {
-
             border: 1px solid #d5dae2;
 
             background: white;
@@ -600,15 +577,23 @@
             color: #536074;
         }
 
-
         .btn-cancel:hover {
-
             background: #f2f4f7;
         }
 
+        .btn-secondary {
+            border: 1px solid #2d76dc;
+
+            background: white;
+
+            color: #2d76dc;
+        }
+
+        .btn-secondary:hover {
+            background: #eef5ff;
+        }
 
         .btn-primary {
-
             border: none;
 
             background: #2d76dc;
@@ -616,9 +601,7 @@
             color: white;
         }
 
-
         .btn-primary:hover {
-
             background: #1e63bd;
 
             transform: translateY(-1px);
@@ -632,21 +615,16 @@
         @media (max-width: 900px) {
 
             .sidebar {
-
                 width: 200px;
             }
 
-
             .main {
-
                 margin-left: 200px;
 
                 width: calc(100% - 200px);
             }
 
-
             .content {
-
                 padding: 20px;
             }
 
@@ -656,53 +634,42 @@
         @media (max-width: 650px) {
 
             .sidebar {
-
                 display: none;
             }
 
-
             .main {
-
                 margin-left: 0;
 
                 width: 100%;
             }
 
-
             .topbar {
-
                 padding: 0 20px;
             }
 
-
             .content {
-
                 padding: 15px;
             }
 
-
             .form-body {
-
                 padding: 20px;
             }
 
-
             .row {
-
                 flex-direction: column;
 
                 gap: 0;
             }
 
+            .steps {
+                flex-direction: column;
+            }
 
             .buttons {
-
                 flex-direction: column-reverse;
             }
 
-
             .btn {
-
                 width: 100%;
             }
 
@@ -723,14 +690,11 @@
     <aside class="sidebar">
 
 
-        <!-- LOGO -->
-
         <div class="logo">
 
             <div class="logo-icon">
                 ▰
             </div>
-
 
             <div class="logo-text">
 
@@ -745,10 +709,7 @@
         </div>
 
 
-        <!-- MENU -->
-
         <nav class="menu">
-
 
             <a href="dashboard.html">
 
@@ -829,24 +790,16 @@
 
             </a>
 
-
         </nav>
 
 
-        <!-- =================================================
-             PERFIL
-        ================================================== -->
-
         <div class="sidebar-bottom">
 
-
             <div class="profile">
-
 
                 <div class="profile-circle">
                     TC
                 </div>
-
 
                 <div>
 
@@ -860,7 +813,6 @@
 
                 </div>
 
-
             </div>
 
 
@@ -869,11 +821,8 @@
                 class="logout"
                 id="btnSair"
             >
-
                 ⇥ &nbsp; Sair
-
             </a>
-
 
         </div>
 
@@ -888,10 +837,7 @@
     <main class="main">
 
 
-        <!-- TOPO -->
-
         <header class="topbar">
-
 
             <div class="page-title">
 
@@ -900,7 +846,7 @@
                 </h1>
 
                 <p>
-                    Registrar inspeção de campo
+                    Inicie um novo relatório de inspeção de campo
                 </p>
 
             </div>
@@ -917,7 +863,6 @@
                 </div>
 
             </div>
-
 
         </header>
 
@@ -939,8 +884,48 @@
                     </h2>
 
                     <p>
-                        Preencha os dados da inspeção de campo
+                        Preencha os dados gerais que identificarão
+                        o relatório técnico.
                     </p>
+
+                </div>
+
+
+                <!-- ETAPAS -->
+
+                <div class="steps">
+
+                    <div class="step active">
+
+                        <div class="step-number">
+                            1
+                        </div>
+
+                        Dados da inspeção
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            2
+                        </div>
+
+                        Itens encontrados
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            3
+                        </div>
+
+                        Relatório técnico
+
+                    </div>
 
                 </div>
 
@@ -951,7 +936,22 @@
                 >
 
 
-                    <!-- DATA E HORA -->
+                    <div class="info-box">
+
+                        <strong>
+                            Etapa 1 de 3:
+                        </strong>
+
+                        registre os dados gerais da inspeção.
+
+                        Depois você poderá adicionar um ou vários
+                        itens encontrados, incluir fotografias e
+                        gerar um único relatório técnico.
+
+                    </div>
+
+
+                    <!-- DATA / HORA -->
 
                     <div class="row">
 
@@ -1070,22 +1070,64 @@
                     </div>
 
 
-                    <!-- PATRIMÔNIO -->
+                    <!-- PATRIMÔNIO / LOCALIZAÇÃO -->
+
+                    <div class="row">
+
+
+                        <div class="field">
+
+                            <label for="patrimonio">
+                                Nº Patrimônio
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="patrimonio"
+                                name="patrimonio"
+                                placeholder="Preenchido automaticamente"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="localizacao">
+                                Localização
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="localizacao"
+                                name="localizacao"
+                                placeholder="Preenchida automaticamente"
+                                readonly
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- OBJETIVO -->
 
                     <div class="field">
 
-                        <label for="patrimonio">
-                            Nº Patrimônio
+                        <label for="objetivo">
+                            Objetivo da inspeção
                         </label>
 
 
-                        <input
-                            type="text"
-                            id="patrimonio"
-                            name="patrimonio"
-                            placeholder="Preenchido automaticamente"
-                            readonly
-                        >
+                        <textarea
+                            id="objetivo"
+                            name="objetivo"
+                            placeholder="Ex.: Verificar as condições gerais do equipamento, identificar anomalias e registrar evidências encontradas em campo."
+                        ></textarea>
 
                     </div>
 
@@ -1102,7 +1144,7 @@
                         <textarea
                             id="observacoes"
                             name="observacoes"
-                            placeholder="Condições gerais do equipamento, contexto da inspeção..."
+                            placeholder="Condições gerais do equipamento, contexto da inspeção, informações complementares..."
                         ></textarea>
 
                     </div>
@@ -1124,11 +1166,11 @@
 
                         <button
                             type="submit"
-                            class="btn btn-primary"
+                            class="btn btn-secondary"
                             name="acao"
                             value="salvar"
                         >
-                            Registrar Inspeção
+                            Salvar inspeção
                         </button>
 
 
@@ -1136,9 +1178,9 @@
                             type="submit"
                             class="btn btn-primary"
                             name="acao"
-                            value="problema"
+                            value="adicionarItem"
                         >
-                            Registrar e Adicionar Problema
+                            Salvar e Adicionar Item →
                         </button>
 
 
@@ -1157,7 +1199,9 @@
     </main>
 
 
+
     <script>
+
 
         /* =====================================================
            CHAVES DO SISTEMA
@@ -1166,9 +1210,14 @@
         const CHAVE_AREAS =
             "autoRelatorio_areas";
 
-
         const CHAVE_EQUIPAMENTOS =
             "autoRelatorio_equipamentos";
+
+        const CHAVE_INSPECOES =
+            "inspecoes";
+
+        const CHAVE_INSPECAO_ATUAL =
+            "inspecaoAtual";
 
 
         /* =====================================================
@@ -1178,17 +1227,18 @@
         const campoArea =
             document.getElementById("area");
 
-
         const campoEquipamento =
             document.getElementById("equipamento");
-
 
         const campoPatrimonio =
             document.getElementById("patrimonio");
 
+        const campoLocalizacao =
+            document.getElementById("localizacao");
+
 
         /* =====================================================
-           BUSCAR ÁREAS CADASTRADAS
+           BUSCAR ÁREAS
         ===================================================== */
 
         function buscarAreas() {
@@ -1201,7 +1251,6 @@
                             CHAVE_AREAS
                         ) || "[]"
                     );
-
 
                 return Array.isArray(dados)
                     ? dados
@@ -1223,7 +1272,7 @@
 
 
         /* =====================================================
-           BUSCAR EQUIPAMENTOS CADASTRADOS
+           BUSCAR EQUIPAMENTOS
         ===================================================== */
 
         function buscarEquipamentos() {
@@ -1236,7 +1285,6 @@
                             CHAVE_EQUIPAMENTOS
                         ) || "[]"
                     );
-
 
                 return Array.isArray(dados)
                     ? dados
@@ -1258,7 +1306,41 @@
 
 
         /* =====================================================
-           CARREGAR ÁREAS REAIS
+           BUSCAR INSPEÇÕES
+        ===================================================== */
+
+        function buscarInspecoes() {
+
+            try {
+
+                const dados =
+                    JSON.parse(
+                        localStorage.getItem(
+                            CHAVE_INSPECOES
+                        ) || "[]"
+                    );
+
+                return Array.isArray(dados)
+                    ? dados
+                    : [];
+
+            }
+            catch (erro) {
+
+                console.error(
+                    "Erro ao carregar inspeções:",
+                    erro
+                );
+
+                return [];
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CARREGAR ÁREAS
         ===================================================== */
 
         function carregarAreasCadastradas() {
@@ -1287,7 +1369,6 @@
                         "option"
                     );
 
-
                 option.value = "";
 
                 option.disabled = true;
@@ -1295,11 +1376,9 @@
                 option.textContent =
                     "Nenhuma área cadastrada";
 
-
                 campoArea.appendChild(
                     option
                 );
-
 
                 return;
 
@@ -1315,14 +1394,11 @@
                             "option"
                         );
 
-
                     option.value =
                         area.nome;
 
-
                     option.textContent =
                         area.nome;
-
 
                     campoArea.appendChild(
                         option
@@ -1348,8 +1424,10 @@
             campoEquipamento.innerHTML =
                 "";
 
-
             campoPatrimonio.value =
+                "";
+
+            campoLocalizacao.value =
                 "";
 
 
@@ -1358,7 +1436,6 @@
                 campoEquipamento.disabled =
                     true;
 
-
                 campoEquipamento.innerHTML = `
 
                     <option value="">
@@ -1366,7 +1443,6 @@
                     </option>
 
                 `;
-
 
                 return;
 
@@ -1399,7 +1475,6 @@
                 campoEquipamento.disabled =
                     true;
 
-
                 campoEquipamento.innerHTML = `
 
                     <option value="">
@@ -1407,7 +1482,6 @@
                     </option>
 
                 `;
-
 
                 return;
 
@@ -1427,14 +1501,11 @@
             primeiraOpcao.value =
                 "";
 
-
             primeiraOpcao.disabled =
                 true;
 
-
             primeiraOpcao.selected =
                 true;
-
 
             primeiraOpcao.textContent =
                 "Selecione o equipamento";
@@ -1480,14 +1551,11 @@
                     option.dataset.id =
                         equipamento.id || "";
 
-
                     option.dataset.patrimonio =
                         equipamento.patrimonio || "";
 
-
                     option.dataset.localizacao =
                         equipamento.localizacao || "";
-
 
                     option.dataset.status =
                         equipamento.status || "";
@@ -1506,7 +1574,7 @@
 
 
         /* =====================================================
-           AO ALTERAR ÁREA
+           ALTERAR ÁREA
         ===================================================== */
 
         campoArea.addEventListener(
@@ -1523,7 +1591,7 @@
 
 
         /* =====================================================
-           AO ALTERAR EQUIPAMENTO
+           ALTERAR EQUIPAMENTO
         ===================================================== */
 
         campoEquipamento.addEventListener(
@@ -1543,6 +1611,9 @@
                     campoPatrimonio.value =
                         "";
 
+                    campoLocalizacao.value =
+                        "";
+
                     return;
 
                 }
@@ -1553,6 +1624,12 @@
                         .dataset
                         .patrimonio || "";
 
+
+                campoLocalizacao.value =
+                    opcaoSelecionada
+                        .dataset
+                        .localizacao || "";
+
             }
 
         );
@@ -1562,105 +1639,72 @@
            DATA E HORA AUTOMÁTICAS
         ===================================================== */
 
-        document.addEventListener(
+        function preencherDataHora() {
 
-            "DOMContentLoaded",
-
-            function () {
-
-                const agora =
-                    new Date();
+            const agora =
+                new Date();
 
 
-                const ano =
-                    agora.getFullYear();
+            const ano =
+                agora.getFullYear();
 
 
-                const mes =
-                    String(
-                        agora.getMonth() + 1
-                    ).padStart(
-                        2,
-                        "0"
-                    );
+            const mes =
+                String(
+                    agora.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
 
 
-                const dia =
-                    String(
-                        agora.getDate()
-                    ).padStart(
-                        2,
-                        "0"
-                    );
+            const dia =
+                String(
+                    agora.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
 
 
-                const horas =
-                    String(
-                        agora.getHours()
-                    ).padStart(
-                        2,
-                        "0"
-                    );
+            const horas =
+                String(
+                    agora.getHours()
+                ).padStart(
+                    2,
+                    "0"
+                );
 
 
-                const minutos =
-                    String(
-                        agora.getMinutes()
-                    ).padStart(
-                        2,
-                        "0"
-                    );
+            const minutos =
+                String(
+                    agora.getMinutes()
+                ).padStart(
+                    2,
+                    "0"
+                );
 
 
-                document
-                    .getElementById(
-                        "data"
-                    )
-                    .value =
-                    `${ano}-${mes}-${dia}`;
+            document
+                .getElementById(
+                    "data"
+                )
+                .value =
+                `${ano}-${mes}-${dia}`;
 
 
-                document
-                    .getElementById(
-                        "hora"
-                    )
-                    .value =
-                    `${horas}:${minutos}`;
+            document
+                .getElementById(
+                    "hora"
+                )
+                .value =
+                `${horas}:${minutos}`;
 
-
-                carregarAreasCadastradas();
-
-                carregarEquipamentosDaArea();
-
-            }
-
-        );
+        }
 
 
         /* =====================================================
-           BOTÃO CANCELAR
-        ===================================================== */
-
-        document
-            .getElementById(
-                "btnCancelar"
-            )
-            .addEventListener(
-
-                "click",
-
-                function () {
-
-                    window.location.href =
-                        "dashboard.html";
-
-                }
-
-            );
-
-
-        /* =====================================================
-           GERAR PRÓXIMO CÓDIGO
+           GERAR CÓDIGO DA INSPEÇÃO
         ===================================================== */
 
         function gerarCodigo(
@@ -1744,7 +1788,92 @@
 
 
         /* =====================================================
-           SALVAR NOVA INSPEÇÃO
+           GERAR CÓDIGO DO RELATÓRIO
+        ===================================================== */
+
+        function gerarCodigoRelatorio(
+            inspecoes
+        ) {
+
+            const anoAtual =
+                new Date()
+                    .getFullYear();
+
+
+            let maiorNumero =
+                0;
+
+
+            inspecoes.forEach(
+
+                function (inspecao) {
+
+                    if (
+                        !inspecao.codigoRelatorio
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const partes =
+                        inspecao
+                            .codigoRelatorio
+                            .split("-");
+
+
+                    if (
+                        partes.length === 3 &&
+                        Number(partes[1]) ===
+                        anoAtual
+                    ) {
+
+                        const numero =
+                            Number(
+                                partes[2]
+                            );
+
+
+                        if (
+                            !isNaN(numero) &&
+                            numero >
+                            maiorNumero
+                        ) {
+
+                            maiorNumero =
+                                numero;
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+            const numero =
+                String(
+                    maiorNumero + 1
+                ).padStart(
+                    3,
+                    "0"
+                );
+
+
+            return (
+                "REL-" +
+                anoAtual +
+                "-" +
+                numero
+            );
+
+        }
+
+
+        /* =====================================================
+           SALVAR INSPEÇÃO
         ===================================================== */
 
         document
@@ -1757,10 +1886,13 @@
 
                 function (event) {
 
+
                     event.preventDefault();
 
 
-                    /* QUAL BOTÃO FOI CLICADO */
+                    /* =========================================
+                       DESCOBRIR BOTÃO CLICADO
+                    ========================================== */
 
                     const botaoClicado =
                         event.submitter;
@@ -1772,7 +1904,9 @@
                             : "salvar";
 
 
-                    /* PEGAR CAMPOS */
+                    /* =========================================
+                       PEGAR DADOS
+                    ========================================== */
 
                     const data =
                         document
@@ -1804,6 +1938,21 @@
                             .trim();
 
 
+                    const localizacao =
+                        campoLocalizacao
+                            .value
+                            .trim();
+
+
+                    const objetivo =
+                        document
+                            .getElementById(
+                                "objetivo"
+                            )
+                            .value
+                            .trim();
+
+
                     const observacoes =
                         document
                             .getElementById(
@@ -1813,9 +1962,9 @@
                             .trim();
 
 
-                    /* =================================================
-                       VALIDAÇÃO
-                    ================================================= */
+                    /* =========================================
+                       VALIDAR
+                    ========================================== */
 
                     if (
                         !data ||
@@ -1833,17 +1982,16 @@
                     }
 
 
-                    /*
-                       Garante que o equipamento
-                       pertence realmente à área.
-                    */
+                    /* =========================================
+                       VALIDAR EQUIPAMENTO
+                    ========================================== */
 
-                    const equipamentosCadastrados =
+                    const equipamentos =
                         buscarEquipamentos();
 
 
                     const equipamentoValido =
-                        equipamentosCadastrados.find(
+                        equipamentos.find(
 
                             function (item) {
 
@@ -1871,61 +2019,17 @@
                     }
 
 
-                    /* =================================================
+                    /* =========================================
                        BUSCAR INSPEÇÕES
-                    ================================================= */
+                    ========================================== */
 
-                    let inspecoes =
-                        [];
-
-
-                    try {
-
-                        const dadosSalvos =
-                            localStorage.getItem(
-                                "inspecoes"
-                            );
+                    const inspecoes =
+                        buscarInspecoes();
 
 
-                        if (dadosSalvos) {
-
-                            const dadosConvertidos =
-                                JSON.parse(
-                                    dadosSalvos
-                                );
-
-
-                            if (
-                                Array.isArray(
-                                    dadosConvertidos
-                                )
-                            ) {
-
-                                inspecoes =
-                                    dadosConvertidos;
-
-                            }
-
-                        }
-
-                    }
-                    catch (erro) {
-
-                        console.error(
-                            "Erro ao carregar inspeções:",
-                            erro
-                        );
-
-
-                        inspecoes =
-                            [];
-
-                    }
-
-
-                    /* =================================================
-                       GERAR CÓDIGO
-                    ================================================= */
+                    /* =========================================
+                       GERAR CÓDIGOS
+                    ========================================== */
 
                     const codigo =
                         gerarCodigo(
@@ -1933,25 +2037,39 @@
                         );
 
 
-                    /* =================================================
-                       CRIAR ID
-                    ================================================= */
+                    const codigoRelatorio =
+                        gerarCodigoRelatorio(
+                            inspecoes
+                        );
+
 
                     const id =
                         Date.now();
 
 
-                    /* =================================================
-                       CRIAR INSPEÇÃO
-                    ================================================= */
+                    /* =========================================
+                       CRIAR NOVA INSPEÇÃO
+
+                       A PARTIR DE AGORA A INSPEÇÃO TAMBÉM
+                       FUNCIONA COMO BASE DO RELATÓRIO.
+                    ========================================== */
 
                     const novaInspecao = {
+
+
+                        /* IDENTIFICAÇÃO */
 
                         id:
                             id,
 
                         codigo:
                             codigo,
+
+                        codigoRelatorio:
+                            codigoRelatorio,
+
+
+                        /* DADOS DA INSPEÇÃO */
 
                         data:
                             data,
@@ -1972,42 +2090,95 @@
                             patrimonio,
 
                         localizacao:
-                            equipamentoValido.localizacao || "",
+                            localizacao,
+
+                        objetivo:
+                            objetivo,
 
                         observacoes:
                             observacoes,
 
-                        situacao:
-                            "OK",
+
+                        /* =====================================
+                           NOVA ESTRUTURA DO RELATÓRIO
+                        ====================================== */
+
+                        itens:
+                            [],
+
+
+                        /* =====================================
+                           COMPATIBILIDADE COM O SISTEMA ANTIGO
+
+                           Mantemos problemas para não quebrar
+                           Dashboard / Histórico enquanto
+                           fazemos a migração.
+                        ====================================== */
 
                         problemas:
                             [],
 
+
+                        /* RELATÓRIO */
+
+                        statusRelatorio:
+                            "Em elaboração",
+
+                        statusAprovacao:
+                            "Pendente",
+
+                        conclusao:
+                            "",
+
+                        recomendacoesGerais:
+                            "",
+
+
+                        /* SITUAÇÃO DA INSPEÇÃO */
+
+                        situacao:
+                            "Em andamento",
+
+
+                        /* RESPONSÁVEIS */
+
+                        inspetor:
+                            "Técnico",
+
+                        aprovadoPor:
+                            "",
+
+                        dataAprovacao:
+                            "",
+
+
+                        /* CONTROLE */
+
                         criadaEm:
+                            new Date()
+                                .toISOString(),
+
+                        atualizadaEm:
                             new Date()
                                 .toISOString()
 
                     };
 
 
-                    /* =================================================
-                       ADICIONAR
-                    ================================================= */
+                    /* =========================================
+                       SALVAR
+                    ========================================== */
 
                     inspecoes.push(
                         novaInspecao
                     );
 
 
-                    /* =================================================
-                       SALVAR
-                    ================================================= */
-
                     try {
 
                         localStorage.setItem(
 
-                            "inspecoes",
+                            CHAVE_INSPECOES,
 
                             JSON.stringify(
                                 inspecoes
@@ -2028,63 +2199,91 @@
                             "Não foi possível salvar a inspeção."
                         );
 
+                        return;
+
+                    }
+
+
+                    /* =========================================
+                       GUARDAR INSPEÇÃO ATUAL
+
+                       Isso permite que a próxima página saiba
+                       em qual relatório adicionar os itens.
+                    ========================================== */
+
+                    localStorage.setItem(
+
+                        CHAVE_INSPECAO_ATUAL,
+
+                        String(id)
+
+                    );
+
+
+                    /* =========================================
+                       SALVAR E ADICIONAR ITEM
+                    ========================================== */
+
+                    if (
+                        acao ===
+                        "adicionarItem"
+                    ) {
+
+                        window.location.href =
+                            "registrar_problema.html";
 
                         return;
 
                     }
 
 
-                    /* =================================================
-                       REGISTRAR E ADICIONAR PROBLEMA
-                    ================================================= */
+                    /* =========================================
+                       SOMENTE SALVAR
+                    ========================================== */
 
-                    if (
-                        acao ===
-                        "problema"
-                    ) {
+                    alert(
 
-                        /*
-                           Guarda a inspeção criada
-                           para vincular o problema.
-                        */
+                        "Inspeção " +
+                        codigo +
+                        " criada com sucesso!\n\n" +
 
-                        localStorage.setItem(
+                        "Relatório " +
+                        codigoRelatorio +
+                        " iniciado."
 
-                            "inspecaoAtual",
+                    );
 
-                            String(id)
 
+                    window.location.href =
+                        "historico.html";
+
+
+                }
+
+            );
+
+
+        /* =====================================================
+           CANCELAR
+        ===================================================== */
+
+        document
+            .getElementById(
+                "btnCancelar"
+            )
+            .addEventListener(
+
+                "click",
+
+                function () {
+
+                    const confirmar =
+                        confirm(
+                            "Deseja cancelar esta nova inspeção?"
                         );
 
 
-                        window.location.href =
-                            "registrar_problema.html";
-
-                    }
-
-
-                    /* =================================================
-                       SOMENTE REGISTRAR INSPEÇÃO
-                    ================================================= */
-
-                    else {
-
-                        /*
-                           Nenhum problema será
-                           registrado nesse momento.
-                        */
-
-                        localStorage.removeItem(
-                            "inspecaoAtual"
-                        );
-
-
-                        alert(
-                            "Inspeção " +
-                            codigo +
-                            " registrada com sucesso!"
-                        );
-
+                    if (confirmar) {
 
                         window.location.href =
                             "dashboard.html";
@@ -2097,7 +2296,7 @@
 
 
         /* =====================================================
-           SAIR DO SISTEMA
+           SAIR
         ===================================================== */
 
         const btnSair =
@@ -2118,14 +2317,15 @@
 
 
                     /*
-                       Limpa somente a sessão.
+                        LIMPA SOMENTE A SESSÃO.
 
-                       NÃO apaga:
-                       - áreas
-                       - equipamentos
-                       - inspeções
-                       - problemas
-                       - relatórios
+                        NÃO APAGA:
+                        - áreas
+                        - equipamentos
+                        - inspeções
+                        - itens
+                        - problemas
+                        - relatórios
                     */
 
                     sessionStorage.clear();
@@ -2141,10 +2341,6 @@
                     );
 
 
-                    /*
-                       Voltar para a tela de login.
-                    */
-
                     window.location.href =
                         "../pagina_inicial.html";
 
@@ -2153,6 +2349,28 @@
             );
 
         }
+
+
+        /* =====================================================
+           INICIALIZAÇÃO
+        ===================================================== */
+
+        document.addEventListener(
+
+            "DOMContentLoaded",
+
+            function () {
+
+                preencherDataHora();
+
+                carregarAreasCadastradas();
+
+                carregarEquipamentosDaArea();
+
+            }
+
+        );
+
 
     </script>
 
