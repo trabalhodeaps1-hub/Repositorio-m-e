@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Adicionar Item - AutoRelatório</title>
+    <title>Registrar Problema - AutoRelatório</title>
 
     <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
 
         * {
             margin: 0;
@@ -28,612 +32,1431 @@
             color: #0d1b32;
         }
 
-        /* SIDEBAR */
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
 
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
+
             width: 240px;
             height: 100vh;
+
             background: #0b132b;
             color: white;
+
             display: flex;
             flex-direction: column;
+
             z-index: 100;
         }
 
+
         .logo {
             height: 65px;
+
             display: flex;
             align-items: center;
+
             gap: 10px;
+
             padding: 10px 16px;
+
             border-bottom: 1px solid #1b243b;
         }
+
 
         .logo-icon {
             width: 32px;
             height: 32px;
+
             background: #2563eb;
+
             border-radius: 4px;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             color: white;
             font-size: 16px;
         }
+
 
         .logo-text {
             font-size: 14px;
             font-weight: bold;
         }
 
+
         .logo-text span {
             display: block;
+
             color: #3b82f6;
+
             font-size: 8px;
+
             letter-spacing: 1.2px;
+
             margin-top: 2px;
         }
+
+
+        /* =====================================================
+           MENU LATERAL
+        ===================================================== */
 
         .menu {
             padding: 17px 9px;
         }
 
+
         .menu a {
             height: 40px;
+
             padding: 0 12px;
             margin-bottom: 3px;
+
             display: flex;
             align-items: center;
+
             gap: 10px;
+
             color: #aeb8ca;
+
             text-decoration: none;
+
             font-size: 13px;
+
             border-radius: 5px;
+
             transition: 0.2s;
         }
+
 
         .menu a:hover {
             background: #151f3a;
             color: white;
         }
 
+
         .menu a.active {
             background: #12315c;
             color: #3b82f6;
+
             border-left: 2px solid #3b82f6;
         }
+
 
         .menu-icon {
             width: 16px;
             text-align: center;
         }
 
+
+        /* =====================================================
+           PERFIL DA SIDEBAR
+        ===================================================== */
+
         .sidebar-bottom {
             margin-top: auto;
+
             padding: 20px 18px;
+
             border-top: 1px solid #1b243b;
         }
+
 
         .profile {
             display: flex;
             align-items: center;
+
             gap: 11px;
+
             margin-bottom: 22px;
         }
+
 
         .profile-circle {
             width: 32px;
             height: 32px;
+
             border-radius: 50%;
+
             background: #2867b5;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
+
+            flex-shrink: 0;
         }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
 
         .profile-name {
             font-size: 12px;
             font-weight: bold;
         }
 
+
         .profile-info {
             color: #7f8ba0;
+
             font-size: 9px;
+
             margin-top: 3px;
         }
 
+
         .logout {
             color: #aeb8ca;
+
             text-decoration: none;
+
             font-size: 12px;
+
             display: inline-flex;
             align-items: center;
+
             cursor: pointer;
         }
+
 
         .logout:hover {
             color: white;
         }
 
-        /* CONTEÚDO PRINCIPAL */
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
 
         .main {
             margin-left: 240px;
+
             width: calc(100% - 240px);
+
             min-height: 100vh;
         }
 
+
+        /* =====================================================
+           TOPO
+        ===================================================== */
+
         .topbar {
             height: 65px;
+
             padding: 0 25px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             background: white;
+
             border-bottom: 1px solid #e1e5eb;
+
+            position: relative;
+
+            z-index: 50;
         }
+
 
         .page-title h1 {
             font-size: 18px;
+
             margin-bottom: 4px;
         }
 
+
         .page-title p {
             color: #7a8494;
+
             font-size: 12px;
         }
 
-        .top-right {
+
+        .topbar-actions {
             display: flex;
             align-items: center;
-            gap: 17px;
+
+            gap: 15px;
+
+            position: relative;
         }
 
-        .notification {
-            color: #506075;
+
+        /* =====================================================
+           SINO / NOTIFICAÇÕES
+        ===================================================== */
+
+        .notification-wrapper {
+            position: relative;
         }
 
-        .user {
-            width: 32px;
-            height: 32px;
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: transparent;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background: #2867b5;
+
+            cursor: pointer;
+
+            position: relative;
+
+            color: #5f6b7c;
+
+            font-size: 19px;
+
+            transition: 0.2s;
+        }
+
+
+        .notification-button:hover {
+            background: #f1f4f8;
+            color: #2563eb;
+        }
+
+
+        .notification-count {
+            position: absolute;
+
+            top: 1px;
+            right: 0;
+
+            min-width: 17px;
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 10px;
+
+            background: #e53935;
             color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+
+        /* =====================================================
+           PAINEL DE NOTIFICAÇÕES
+        ===================================================== */
+
+        .notification-panel {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 360px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, 0.15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 500;
+        }
+
+
+        .notification-panel.aberto {
+            display: block;
+        }
+
+
+        .notification-header {
+            min-height: 60px;
+
+            padding: 15px 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .notification-header h3 {
+            color: #172033;
+
+            font-size: 14px;
+        }
+
+
+        .notification-header button {
+            border: none;
+
+            background: transparent;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .notification-header button:hover {
+            text-decoration: underline;
+        }
+
+
+        .notification-list {
+            max-height: 380px;
+
+            overflow-y: auto;
+        }
+
+
+        .notification-item {
+            padding: 14px 16px;
+
+            display: flex;
+
+            gap: 12px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+
+        .notification-item.nao-lida {
+            background: #f4f8ff;
+        }
+
+
+        .notification-item.nao-lida:hover {
+            background: #edf4ff;
+        }
+
+
+        .notification-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+        }
+
+
+        .notification-icon.aprovado {
+            background: #e8f7ee;
+            color: #218447;
+        }
+
+
+        .notification-icon.devolvido {
+            background: #fff4e5;
+            color: #d97706;
+        }
+
+
+        .notification-icon.comentario {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+
+        .notification-icon.alerta {
+            background: #fff0f0;
+            color: #d63b3b;
+        }
+
+
+        .notification-content {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .notification-title {
+            margin-bottom: 4px;
+
+            color: #263348;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .notification-text {
+            color: #6f7b8c;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        .notification-time {
+            margin-top: 6px;
+
+            color: #9aa4b2;
+
+            font-size: 9px;
+        }
+
+
+        .notification-empty {
+            padding: 35px 20px;
+
+            color: #8b95a5;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           PERFIL DO TOPO
+        ===================================================== */
+
+        .user-wrapper {
+            position: relative;
+        }
+
+
+        .user-button {
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+
+            padding: 3px;
+
+            border-radius: 20px;
+
+            transition: 0.2s;
+        }
+
+
+        .user-button:hover {
+            background: #f1f4f8;
+        }
+
+
+        .user {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
         }
+
+
+        .user img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .user-arrow {
+            color: #8993a2;
+
+            font-size: 9px;
+
+            margin-right: 4px;
+        }
+
+
+        /* =====================================================
+           MENU DO PERFIL
+        ===================================================== */
+
+        .profile-menu {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 245px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, 0.15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 500;
+        }
+
+
+        .profile-menu.aberto {
+            display: block;
+        }
+
+
+        .profile-menu-header {
+            padding: 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .profile-menu-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-menu-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-menu-name {
+            color: #172033;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-menu-role {
+            color: #7f8ba0;
+
+            font-size: 10px;
+        }
+
+
+        .profile-menu-links {
+            padding: 7px;
+        }
+
+
+        .profile-menu-links a,
+        .profile-menu-links button {
+            width: 100%;
+
+            min-height: 38px;
+
+            padding: 0 11px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #465266;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .profile-menu-links a:hover,
+        .profile-menu-links button:hover {
+            background: #f4f6f9;
+
+            color: #2563eb;
+        }
+
+
+        .profile-menu-links .menu-sair {
+            color: #c83e3e;
+
+            border-top: 1px solid #edf0f3;
+
+            margin-top: 6px;
+
+            padding-top: 7px;
+
+            border-radius: 0;
+        }
+
+
+        .profile-menu-links .menu-sair:hover {
+            color: #b52e2e;
+
+            background: #fff5f5;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
 
         .content {
             padding: 30px;
         }
 
-        /* CARD */
+
+        /* =====================================================
+           CARD
+        ===================================================== */
 
         .form-card {
             width: 100%;
             max-width: 900px;
+
             margin: 0 auto;
+
             background: white;
+
             border: 1px solid #dde2e9;
+
             border-radius: 10px;
+
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,.03);
+
+            box-shadow:
+                0 1px 3px
+                rgba(0, 0, 0, .03);
         }
+
 
         .form-header {
             padding: 25px 30px;
+
             border-bottom: 1px solid #e5e8ed;
         }
 
+
         .inspection-code {
             margin-bottom: 9px;
+
             color: #2975dc;
+
             font-size: 12px;
             font-weight: 600;
         }
 
+
         .form-header h2 {
             font-size: 19px;
+
             margin-bottom: 5px;
         }
 
+
         .form-header p {
             font-size: 12px;
+
             color: #7a8494;
         }
 
-        /* ETAPAS */
+
+        /* =====================================================
+           ETAPAS
+        ===================================================== */
 
         .steps {
             display: flex;
+
             padding: 18px 30px;
+
             border-bottom: 1px solid #e5e8ed;
+
             background: #fafbfc;
+
             gap: 10px;
         }
 
+
         .step {
             flex: 1;
+
             display: flex;
             align-items: center;
+
             gap: 9px;
+
             font-size: 11px;
+
             color: #8792a2;
         }
+
 
         .step-number {
             width: 25px;
             height: 25px;
+
             border-radius: 50%;
+
             background: #e8edf4;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-weight: bold;
         }
+
 
         .step.done {
             color: #208044;
         }
 
+
         .step.done .step-number {
             background: #dcf5e5;
+
             color: #208044;
         }
 
+
         .step.active {
             color: #2563eb;
+
             font-weight: bold;
         }
 
+
         .step.active .step-number {
             background: #2563eb;
+
             color: white;
         }
 
-        /* RESUMO DA INSPEÇÃO */
+
+        /* =====================================================
+           RESUMO DA INSPEÇÃO
+        ===================================================== */
 
         .inspection-summary {
             margin: 25px 30px 0;
+
             padding: 17px;
+
             border: 1px solid #cfe0f8;
+
             background: #f4f8fe;
+
             border-radius: 8px;
+
             display: none;
         }
+
 
         .inspection-summary-title {
             font-size: 12px;
             font-weight: bold;
+
             color: #1e5eae;
+
             margin-bottom: 12px;
         }
 
+
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 12px;
         }
 
+
         .summary-label {
             font-size: 9px;
+
             color: #7b8798;
+
             text-transform: uppercase;
+
             letter-spacing: .5px;
+
             margin-bottom: 3px;
         }
 
+
         .summary-value {
             font-size: 12px;
+
             color: #1c2940;
+
             font-weight: 600;
         }
 
-        /* REGISTRO AVULSO */
+
+        /* =====================================================
+           REGISTRO AVULSO
+        ===================================================== */
 
         .standalone-box {
             margin: 25px 30px 0;
+
             padding: 17px;
+
             border: 1px solid #e0e4ea;
+
             background: #fafbfd;
+
             border-radius: 8px;
+
             display: none;
         }
 
+
         .standalone-box h3 {
             font-size: 13px;
+
             margin-bottom: 15px;
         }
 
-        /* FORM */
+
+        /* =====================================================
+           FORMULÁRIO
+        ===================================================== */
 
         .form-body {
             padding: 30px;
         }
 
+
         .row {
             display: flex;
+
             gap: 20px;
         }
+
 
         .row .field {
             flex: 1;
         }
 
+
         .field {
             display: flex;
             flex-direction: column;
+
             margin-bottom: 22px;
         }
+
 
         .field label,
         .option-title,
         .photo-title {
             margin-bottom: 8px;
+
             color: #162238;
+
             font-size: 13px;
             font-weight: 600;
         }
+
 
         .required {
             color: #e52e3d;
         }
 
+
         .field input,
         .field select,
         .field textarea {
             width: 100%;
+
             border: 1px solid #d7dce4;
+
             border-radius: 6px;
+
             background: white;
+
             color: #162238;
+
             font-size: 14px;
+
             outline: none;
+
             transition: .2s;
         }
+
 
         .field input,
         .field select {
             height: 44px;
+
             padding: 0 13px;
         }
 
+
         .field textarea {
             min-height: 115px;
+
             padding: 13px;
+
             resize: vertical;
         }
+
 
         .field input:focus,
         .field select:focus,
         .field textarea:focus {
             border-color: #2e7de1;
-            box-shadow: 0 0 0 3px rgba(46,125,225,.10);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(46, 125, 225, .10);
         }
+
 
         .field input::placeholder,
         .field textarea::placeholder {
             color: #a0a8b7;
         }
 
+
         .field input[readonly] {
             background: #f5f7fa;
         }
 
-        /* ITEM */
+
+        /* =====================================================
+           ITEM
+        ===================================================== */
 
         .item-number {
             display: inline-flex;
             align-items: center;
+
             gap: 7px;
+
             margin-bottom: 22px;
+
             padding: 7px 11px;
+
             background: #edf5ff;
+
             color: #246bc6;
+
             border-radius: 5px;
+
             font-size: 12px;
             font-weight: bold;
         }
 
-        /* OPÇÕES */
+
+        /* =====================================================
+           OPÇÕES
+        ===================================================== */
 
         .option-group {
             margin-bottom: 25px;
         }
 
+
         .option-title {
             display: block;
+
             margin-bottom: 12px;
         }
 
+
         .options {
             display: flex;
+
             flex-wrap: wrap;
+
             gap: 12px;
         }
 
+
         .option {
             min-width: 125px;
+
             padding: 12px 15px;
+
             display: flex;
             align-items: center;
+
             gap: 8px;
+
             border: 1px solid #d7dce4;
+
             border-radius: 6px;
+
             background: white;
+
             color: #3b4657;
+
             font-size: 13px;
+
             cursor: pointer;
         }
 
+
         .option:hover {
             border-color: #2e7de1;
+
             background: #f7faff;
         }
 
+
         .option:has(input:checked) {
             border-color: #2e7de1;
+
             background: #f0f6ff;
         }
+
 
         .option input {
             accent-color: #2d76dc;
         }
 
-        /* FOTOS */
+
+        /* =====================================================
+           FOTOS
+        ===================================================== */
 
         .photos {
             margin-bottom: 28px;
         }
 
+
         .photo-box {
             width: 155px;
             height: 105px;
+
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
             gap: 7px;
+
             border: 1px dashed #9aa6b6;
+
             border-radius: 7px;
+
             background: #fafbfc;
+
             color: #657286;
+
             cursor: pointer;
         }
 
+
         .photo-box:hover {
             border-color: #2e7de1;
+
             background: #f3f8ff;
         }
+
 
         .photo-box input {
             display: none;
         }
 
+
         .photo-icon {
             color: #2d76dc;
+
             font-size: 21px;
         }
+
 
         .photo-box span {
             font-size: 12px;
         }
 
+
         .foto-info {
             margin-top: 8px;
+
             color: #6e7989;
+
             font-size: 12px;
         }
 
+
         .preview-fotos {
             margin-top: 14px;
+
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(120px, 1fr)
+                );
+
             gap: 10px;
         }
 
+
         .preview-item {
             position: relative;
+
             border: 1px solid #e1e5eb;
+
             border-radius: 7px;
+
             overflow: hidden;
+
             background: #f7f8fa;
         }
 
+
         .preview-item img {
             display: block;
+
             width: 100%;
             height: 100px;
+
             object-fit: cover;
         }
 
+
         .preview-item button {
             position: absolute;
+
             top: 5px;
             right: 5px;
+
             width: 25px;
             height: 25px;
+
             border: 0;
+
             border-radius: 50%;
-            background: rgba(0,0,0,.7);
+
+            background: rgba(0, 0, 0, .7);
+
             color: white;
+
             cursor: pointer;
         }
 
-        /* BOTÕES */
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
 
         .buttons {
             display: flex;
+
             justify-content: flex-end;
+
             gap: 12px;
+
             padding-top: 10px;
+
             flex-wrap: wrap;
         }
 
+
         .btn {
             min-height: 43px;
+
             padding: 0 18px;
+
             border-radius: 6px;
+
             font-size: 13px;
             font-weight: 600;
+
             cursor: pointer;
         }
 
+
         .btn-cancel {
             border: 1px solid #d5dae2;
+
             background: white;
+
             color: #536074;
         }
 
+
         .btn-secondary {
             border: 1px solid #2d76dc;
+
             background: white;
+
             color: #2d76dc;
         }
 
+
         .btn-primary {
             border: none;
+
             background: #2d76dc;
+
             color: white;
         }
+
 
         .btn:hover {
             transform: translateY(-1px);
         }
 
-        /* RESPONSIVO */
 
-        @media(max-width:900px) {
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media(max-width: 900px) {
+
             .sidebar {
                 width: 200px;
             }
 
             .main {
                 margin-left: 200px;
+
                 width: calc(100% - 200px);
             }
 
             .summary-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
         }
 
-        @media(max-width:650px) {
+
+        @media(max-width: 650px) {
+
             .sidebar {
                 display: none;
             }
 
             .main {
                 margin-left: 0;
+
                 width: 100%;
+            }
+
+            .topbar {
+                padding: 0 20px;
             }
 
             .content {
@@ -668,84 +1491,190 @@
             .btn {
                 width: 100%;
             }
+
+            .notification-panel {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+                left: 10px;
+
+                width: auto;
+            }
+
+            .profile-menu {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+
+                width: 245px;
+            }
+
         }
 
     </style>
+
 </head>
 
+
 <body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
     <aside class="sidebar">
 
         <div class="logo">
-            <div class="logo-icon">▰</div>
+
+            <div class="logo-icon">
+                ▰
+            </div>
 
             <div class="logo-text">
+
                 AutoRelatório
-                <span>INDUSTRIAL</span>
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
             </div>
+
         </div>
+
 
         <nav class="menu">
 
             <a href="dashboard.html">
-                <span class="menu-icon">⌂</span>
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
                 Dashboard
+
             </a>
+
 
             <a href="nova_inspecao.html">
-                <span class="menu-icon">✓</span>
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
                 Nova Inspeção
+
             </a>
 
-            <a href="registrar_problema.html" class="active">
-                <span class="menu-icon">△</span>
+
+            <a
+                href="registrar_problema.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    △
+                </span>
+
                 Registrar Problema
+
             </a>
+
 
             <a href="historico.html">
-                <span class="menu-icon">♢</span>
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
                 Histórico
+
             </a>
+
 
             <a href="relatorios.html">
-                <span class="menu-icon">▧</span>
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
                 Relatórios
+
             </a>
+
 
             <a href="areas.html">
-                <span class="menu-icon">▦</span>
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
                 Áreas
+
             </a>
 
+
             <a href="equipamentos.html">
-                <span class="menu-icon">⌁</span>
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
                 Equipamentos
+
             </a>
 
         </nav>
+
 
         <div class="sidebar-bottom">
 
             <div class="profile">
 
                 <div class="profile-circle">
-                    TC
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+                    <img
+                        id="sidebarFoto"
+                        src=""
+                        alt="Foto do usuário"
+                    >
+
                 </div>
 
+
                 <div>
-                    <div class="profile-name">
+
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
                         Técnico
                     </div>
 
-                    <div class="profile-info">
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
                         Perfil Técnico
                     </div>
+
                 </div>
 
             </div>
 
-            <a href="#" class="logout" id="btnSair">
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
                 ⇥ &nbsp; Sair
             </a>
 
@@ -754,11 +1683,21 @@
     </aside>
 
 
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
     <main class="main">
+
+
+        <!-- =================================================
+             TOPO
+        ================================================== -->
 
         <header class="topbar">
 
             <div class="page-title">
+
                 <h1 id="tituloPagina">
                     Adicionar Item ao Relatório
                 </h1>
@@ -766,19 +1705,236 @@
                 <p id="subtituloPagina">
                     Registre a condição encontrada durante a inspeção
                 </p>
+
             </div>
 
-            <div class="top-right">
-                <div class="notification">♢</div>
-                <div class="user">TC</div>
+
+            <div class="topbar-actions">
+
+
+                <!-- =========================================
+                     NOTIFICAÇÕES
+                ========================================== -->
+
+                <div class="notification-wrapper">
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="btnNotificacoes"
+                        title="Notificações"
+                        aria-label="Abrir notificações"
+                    >
+
+                        🔔
+
+                        <span
+                            class="notification-count vazio"
+                            id="contadorNotificacoes"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="notification-panel"
+                        id="painelNotificacoes"
+                    >
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notificações
+                            </h3>
+
+                            <button
+                                type="button"
+                                id="btnMarcarTodasLidas"
+                            >
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="notification-list"
+                            id="listaNotificacoes"
+                        >
+
+                            <div class="notification-empty">
+                                Nenhuma notificação no momento.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     PERFIL
+                ========================================== -->
+
+                <div class="user-wrapper">
+
+                    <button
+                        type="button"
+                        class="user-button"
+                        id="btnPerfil"
+                        title="Meu perfil"
+                        aria-label="Abrir menu do perfil"
+                    >
+
+                        <div class="user">
+
+                            <span id="topIniciais">
+                                TC
+                            </span>
+
+                            <img
+                                id="topFoto"
+                                src=""
+                                alt="Foto do usuário"
+                            >
+
+                        </div>
+
+
+                        <span class="user-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="profile-menu"
+                        id="menuPerfil"
+                    >
+
+                        <div class="profile-menu-header">
+
+                            <div class="profile-menu-avatar">
+
+                                <span id="menuIniciais">
+                                    TC
+                                </span>
+
+                                <img
+                                    id="menuFoto"
+                                    src=""
+                                    alt="Foto do usuário"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="profile-menu-name"
+                                    id="menuNome"
+                                >
+                                    Técnico
+                                </div>
+
+                                <div
+                                    class="profile-menu-role"
+                                    id="menuFuncao"
+                                >
+                                    Perfil Técnico
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-menu-links">
+
+                            <a href="perfil.html">
+
+                                👤
+
+                                <span>
+                                    Meu Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="editar_perfil.html">
+
+                                ✎
+
+                                <span>
+                                    Editar Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="alterar_senha.html">
+
+                                🔒
+
+                                <span>
+                                    Alterar Senha
+                                </span>
+
+                            </a>
+
+
+                            <a href="preferencias.html">
+
+                                ⚙
+
+                                <span>
+                                    Preferências
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="menu-sair"
+                                id="btnSairPerfil"
+                            >
+
+                                ⇥
+
+                                <span>
+                                    Sair
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </header>
 
 
+        <!-- =================================================
+             CONTEÚDO
+        ================================================== -->
+
         <section class="content">
 
             <div class="form-card">
+
+
+                <!-- CABEÇALHO DO FORMULÁRIO -->
 
                 <div class="form-header">
 
@@ -789,9 +1945,11 @@
                         Carregando inspeção...
                     </div>
 
+
                     <h2 id="tituloFormulario">
                         Adicionar Item ao Relatório
                     </h2>
+
 
                     <p id="descricaoFormulario">
                         Registre a anomalia, condição ou observação encontrada.
@@ -800,27 +1958,53 @@
                 </div>
 
 
-                <div class="steps" id="etapasRelatorio">
+                <!-- =================================================
+                     ETAPAS
+                ================================================== -->
+
+                <div
+                    class="steps"
+                    id="etapasRelatorio"
+                >
 
                     <div class="step done">
-                        <div class="step-number">✓</div>
+
+                        <div class="step-number">
+                            ✓
+                        </div>
+
                         Dados da inspeção
+
                     </div>
+
 
                     <div class="step active">
-                        <div class="step-number">2</div>
+
+                        <div class="step-number">
+                            2
+                        </div>
+
                         Itens encontrados
+
                     </div>
 
+
                     <div class="step">
-                        <div class="step-number">3</div>
+
+                        <div class="step-number">
+                            3
+                        </div>
+
                         Relatório técnico
+
                     </div>
 
                 </div>
 
 
-                <!-- RESUMO DA INSPEÇÃO -->
+                <!-- =================================================
+                     RESUMO DA INSPEÇÃO
+                ================================================== -->
 
                 <div
                     class="inspection-summary"
@@ -831,9 +2015,12 @@
                         Relatório em elaboração
                     </div>
 
+
                     <div class="summary-grid">
 
+
                         <div>
+
                             <div class="summary-label">
                                 Relatório
                             </div>
@@ -844,9 +2031,12 @@
                             >
                                 -
                             </div>
+
                         </div>
 
+
                         <div>
+
                             <div class="summary-label">
                                 Inspeção
                             </div>
@@ -857,9 +2047,12 @@
                             >
                                 -
                             </div>
+
                         </div>
 
+
                         <div>
+
                             <div class="summary-label">
                                 Data
                             </div>
@@ -870,9 +2063,12 @@
                             >
                                 -
                             </div>
+
                         </div>
 
+
                         <div>
+
                             <div class="summary-label">
                                 Área
                             </div>
@@ -883,9 +2079,12 @@
                             >
                                 -
                             </div>
+
                         </div>
 
+
                         <div>
+
                             <div class="summary-label">
                                 Equipamento
                             </div>
@@ -896,9 +2095,12 @@
                             >
                                 -
                             </div>
+
                         </div>
 
+
                         <div>
+
                             <div class="summary-label">
                                 Patrimônio
                             </div>
@@ -909,6 +2111,7 @@
                             >
                                 -
                             </div>
+
                         </div>
 
                     </div>
@@ -916,13 +2119,12 @@
                 </div>
 
 
-                <!--
-                    QUANDO O USUÁRIO ENTRA DIRETAMENTE PELO MENU,
-                    NÃO EXISTE UMA INSPEÇÃO ATIVA.
+                <!-- =================================================
+                     REGISTRO AVULSO
 
-                    NESSE CASO CONTINUAMOS PERMITINDO
-                    UM REGISTRO INDEPENDENTE.
-                -->
+                     Essa área aparece quando Registrar Problema
+                     é aberto diretamente pelo menu.
+                ================================================== -->
 
                 <div
                     class="standalone-box"
@@ -933,14 +2135,22 @@
                         Localização do registro
                     </h3>
 
+
                     <div class="row">
+
 
                         <div class="field">
 
                             <label for="areaProblema">
+
                                 Área Industrial
-                                <span class="required">*</span>
+
+                                <span class="required">
+                                    *
+                                </span>
+
                             </label>
+
 
                             <select id="areaProblema">
 
@@ -956,9 +2166,15 @@
                         <div class="field">
 
                             <label for="equipamentoProblema">
+
                                 Equipamento
-                                <span class="required">*</span>
+
+                                <span class="required">
+                                    *
+                                </span>
+
                             </label>
+
 
                             <select
                                 id="equipamentoProblema"
@@ -977,6 +2193,7 @@
 
 
                     <div class="row">
+
 
                         <div class="field">
 
@@ -1014,10 +2231,15 @@
                 </div>
 
 
+                <!-- =================================================
+                     FORMULÁRIO DO ITEM
+                ================================================== -->
+
                 <form
                     class="form-body"
                     id="formProblema"
                 >
+
 
                     <div
                         class="item-number"
@@ -1032,9 +2254,15 @@
                     <div class="field">
 
                         <label for="tituloProblema">
+
                             Título do item
-                            <span class="required">*</span>
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="text"
@@ -1054,6 +2282,7 @@
                             Local exato / componente
                         </label>
 
+
                         <input
                             type="text"
                             id="localItem"
@@ -1068,9 +2297,15 @@
                     <div class="field">
 
                         <label for="descricaoProblema">
+
                             Descrição técnica
-                            <span class="required">*</span>
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <textarea
                             id="descricaoProblema"
@@ -1081,52 +2316,76 @@
                     </div>
 
 
-                    <!-- CRITICIDADE -->
+                    <!-- =================================================
+                         CRITICIDADE
+                    ================================================== -->
 
                     <div class="option-group">
 
                         <span class="option-title">
+
                             Criticidade
-                            <span class="required">*</span>
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </span>
+
 
                         <div class="options">
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Crítica"
                                     required
                                 >
+
                                 Crítica
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Alta"
                                 >
+
                                 Alta
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Média"
                                 >
+
                                 Média
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="criticidade"
                                     value="Baixa"
                                 >
+
                                 Baixa
+
                             </label>
 
                         </div>
@@ -1134,52 +2393,76 @@
                     </div>
 
 
-                    <!-- PRIORIDADE -->
+                    <!-- =================================================
+                         PRIORIDADE
+                    ================================================== -->
 
                     <div class="option-group">
 
                         <span class="option-title">
+
                             Prioridade
-                            <span class="required">*</span>
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </span>
+
 
                         <div class="options">
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Urgente"
                                     required
                                 >
+
                                 Urgente
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Alta"
                                 >
+
                                 Alta
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Normal"
                                 >
+
                                 Normal
+
                             </label>
 
+
                             <label class="option">
+
                                 <input
                                     type="radio"
                                     name="prioridade"
                                     value="Baixa"
                                 >
+
                                 Baixa
+
                             </label>
 
                         </div>
@@ -1187,13 +2470,16 @@
                     </div>
 
 
-                    <!-- RECOMENDAÇÃO -->
+                    <!-- =================================================
+                         RECOMENDAÇÃO
+                    ================================================== -->
 
                     <div class="field">
 
                         <label for="recomendacao">
                             Recomendação / ação necessária
                         </label>
+
 
                         <textarea
                             id="recomendacao"
@@ -1203,13 +2489,16 @@
                     </div>
 
 
-                    <!-- FOTOS -->
+                    <!-- =================================================
+                         FOTOGRAFIAS
+                    ================================================== -->
 
                     <div class="photos">
 
                         <div class="photo-title">
                             Fotografias
                         </div>
+
 
                         <label class="photo-box">
 
@@ -1220,9 +2509,11 @@
                                 multiple
                             >
 
+
                             <div class="photo-icon">
                                 ▧
                             </div>
+
 
                             <span>
                                 Adicionar fotos
@@ -1230,12 +2521,14 @@
 
                         </label>
 
+
                         <div
                             class="foto-info"
                             id="fotoInfo"
                         >
                             Nenhuma foto selecionada
                         </div>
+
 
                         <div
                             class="preview-fotos"
@@ -1245,9 +2538,12 @@
                     </div>
 
 
-                    <!-- BOTÕES -->
+                    <!-- =================================================
+                         BOTÕES
+                    ================================================== -->
 
                     <div class="buttons">
+
 
                         <button
                             type="button"
@@ -1288,9 +2584,7 @@
         </section>
 
     </main>
-
-
-<script>
+    <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1307,9 +2601,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const CHAVE_PROBLEMAS = "problemas";
     const CHAVE_PROBLEMAS_AVULSOS = "problemasAvulsos";
 
+    const CHAVE_NOTIFICACOES = "notificacoes";
+    const CHAVE_PERFIL = "perfilUsuario";
+
 
     /* =====================================================
-       ELEMENTOS
+       ELEMENTOS DO FORMULÁRIO
     ===================================================== */
 
     const formProblema =
@@ -1363,18 +2660,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewFotos =
         document.getElementById("previewFotos");
 
-    const btnCancelar =
-        document.getElementById("btnCancelar");
-
-    const btnOutro =
-        document.getElementById("btnOutro");
-
-    const btnFinalizar =
-        document.getElementById("btnFinalizar");
-
-    const btnSair =
-        document.getElementById("btnSair");
-
     const areaProblema =
         document.getElementById("areaProblema");
 
@@ -1387,9 +2672,72 @@ document.addEventListener("DOMContentLoaded", function () {
     const localizacaoProblema =
         document.getElementById("localizacaoProblema");
 
+    const btnOutro =
+        document.getElementById("btnOutro");
+
+    const btnFinalizar =
+        document.getElementById("btnFinalizar");
+
+    const btnCancelar =
+        document.getElementById("btnCancelar");
+
+    const btnSair =
+        document.getElementById("btnSair");
+
 
     /* =====================================================
-       FUNÇÕES DO LOCALSTORAGE
+       ELEMENTOS DO TOPO
+    ===================================================== */
+
+    const btnNotificacoes =
+        document.getElementById("btnNotificacoes");
+
+    const contadorNotificacoes =
+        document.getElementById("contadorNotificacoes");
+
+    const painelNotificacoes =
+        document.getElementById("painelNotificacoes");
+
+    const listaNotificacoes =
+        document.getElementById("listaNotificacoes");
+
+    const btnMarcarTodasLidas =
+        document.getElementById("btnMarcarTodasLidas");
+
+    const btnPerfil =
+        document.getElementById("btnPerfil");
+
+    const menuPerfil =
+        document.getElementById("menuPerfil");
+
+    const btnSairPerfil =
+        document.getElementById("btnSairPerfil");
+
+
+    /* =====================================================
+       VARIÁVEIS
+    ===================================================== */
+
+    let fotosBase64 = [];
+
+    let inspecoes =
+        lerJSON(
+            CHAVE_INSPECOES,
+            []
+        );
+
+    if (!Array.isArray(inspecoes)) {
+        inspecoes = [];
+    }
+
+
+    let inspecaoAtual = null;
+
+    let modoInspecao = false;
+
+
+    /* =====================================================
+       FUNÇÕES DE ARMAZENAMENTO
     ===================================================== */
 
     function lerJSON(chave, padrao) {
@@ -1439,7 +2787,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alert(
                 "Não foi possível salvar os dados. " +
-                "As fotografias podem estar ocupando muito espaço."
+                "Verifique o espaço disponível no navegador."
             );
 
             return false;
@@ -1448,110 +2796,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       DADOS PRINCIPAIS
+       FUNÇÕES AUXILIARES
     ===================================================== */
 
-    let inspecoes =
-        lerJSON(CHAVE_INSPECOES, []);
+    function gerarId(prefixo) {
 
-    if (!Array.isArray(inspecoes)) {
-        inspecoes = [];
+        return (
+            prefixo +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .substring(2, 8)
+                .toUpperCase()
+        );
     }
 
 
-    let inspecaoAtual = null;
+    function dataHoje() {
 
-    let modoInspecao = false;
+        const hoje = new Date();
 
-    let fotosBase64 = [];
+        const ano =
+            hoje.getFullYear();
 
+        const mes =
+            String(
+                hoje.getMonth() + 1
+            ).padStart(2, "0");
 
-    /* =====================================================
-       LOCALIZAR INSPEÇÃO ATUAL
-    ===================================================== */
+        const dia =
+            String(
+                hoje.getDate()
+            ).padStart(2, "0");
 
-    function localizarInspecaoAtual() {
-
-        const valorAtual =
-            localStorage.getItem(
-                CHAVE_INSPECAO_ATUAL
-            );
-
-
-        if (!valorAtual) {
-            return null;
-        }
-
-
-        /* NOVO FORMATO: ID */
-
-        const encontradaPorId =
-            inspecoes.find(function (inspecao) {
-
-                return (
-                    String(inspecao.id) ===
-                    String(valorAtual)
-                );
-
-            });
-
-
-        if (encontradaPorId) {
-            return encontradaPorId;
-        }
-
-
-        /* COMPATIBILIDADE COM FORMATO ANTIGO */
-
-        try {
-
-            const objeto =
-                JSON.parse(valorAtual);
-
-
-            if (
-                objeto &&
-                typeof objeto === "object"
-            ) {
-
-                const encontrada =
-                    inspecoes.find(
-                        function (inspecao) {
-
-                            return (
-                                String(inspecao.id) ===
-                                String(objeto.id)
-                            );
-
-                        }
-                    );
-
-
-                return encontrada || objeto;
-            }
-
-        }
-        catch (erro) {
-            /* formato novo usa somente ID */
-        }
-
-
-        return null;
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
     }
 
 
-    inspecaoAtual =
-        localizarInspecaoAtual();
+    function horaAtual() {
 
+        const agora = new Date();
 
-    if (inspecaoAtual) {
-        modoInspecao = true;
+        const hora =
+            String(
+                agora.getHours()
+            ).padStart(2, "0");
+
+        const minuto =
+            String(
+                agora.getMinutes()
+            ).padStart(2, "0");
+
+        return (
+            hora +
+            ":" +
+            minuto
+        );
     }
 
-
-    /* =====================================================
-       FORMATAR DATA
-    ===================================================== */
 
     function formatarData(data) {
 
@@ -1560,7 +2870,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const partes =
-            data.split("-");
+            String(data).split("-");
 
         if (partes.length !== 3) {
             return data;
@@ -1576,63 +2886,782 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function dataHoje() {
+    function escaparHTML(texto) {
 
-        const agora =
-            new Date();
+        return String(
+            texto ?? ""
+        )
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-        const ano =
-            agora.getFullYear();
 
-        const mes =
-            String(
-                agora.getMonth() + 1
-            ).padStart(2, "0");
+    /* =====================================================
+       PERFIL DO USUÁRIO
+    ===================================================== */
 
-        const dia =
-            String(
-                agora.getDate()
-            ).padStart(2, "0");
+    function obterPerfil() {
+
+        let perfil =
+            lerJSON(
+                CHAVE_PERFIL,
+                null
+            );
+
+        if (!perfil) {
+
+            perfil =
+                lerJSON(
+                    "sessaoUsuario",
+                    null
+                );
+        }
+
+
+        if (!perfil) {
+
+            perfil = {
+                nome: "Técnico",
+                funcao: "Perfil Técnico",
+                perfil: "Técnico",
+                matricula: "",
+                email: "",
+                foto: ""
+            };
+        }
+
+
+        return perfil;
+    }
+
+
+    function obterIniciais(nome) {
+
+        if (!nome) {
+            return "TC";
+        }
+
+
+        const partes =
+            nome
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        if (partes.length === 0) {
+            return "TC";
+        }
+
+
+        if (partes.length === 1) {
+
+            return partes[0]
+                .substring(0, 2)
+                .toUpperCase();
+        }
+
 
         return (
-            ano +
-            "-" +
-            mes +
-            "-" +
-            dia
+            partes[0][0] +
+            partes[partes.length - 1][0]
+        ).toUpperCase();
+    }
+
+
+    function aplicarAvatar(
+        elementoIniciais,
+        elementoFoto,
+        perfil
+    ) {
+
+        if (
+            !elementoIniciais ||
+            !elementoFoto
+        ) {
+            return;
+        }
+
+
+        const iniciais =
+            obterIniciais(
+                perfil.nome
+            );
+
+
+        elementoIniciais.textContent =
+            iniciais;
+
+
+        if (perfil.foto) {
+
+            elementoFoto.src =
+                perfil.foto;
+
+            elementoFoto.style.display =
+                "block";
+
+            elementoIniciais.style.display =
+                "none";
+
+        }
+        else {
+
+            elementoFoto.removeAttribute(
+                "src"
+            );
+
+            elementoFoto.style.display =
+                "none";
+
+            elementoIniciais.style.display =
+                "inline";
+        }
+    }
+
+
+    function carregarPerfil() {
+
+        const perfil =
+            obterPerfil();
+
+
+        const sidebarNome =
+            document.getElementById(
+                "sidebarNome"
+            );
+
+        const sidebarPerfil =
+            document.getElementById(
+                "sidebarPerfil"
+            );
+
+        const menuNome =
+            document.getElementById(
+                "menuNome"
+            );
+
+        const menuFuncao =
+            document.getElementById(
+                "menuFuncao"
+            );
+
+
+        if (sidebarNome) {
+
+            sidebarNome.textContent =
+                perfil.nome ||
+                "Técnico";
+        }
+
+
+        const funcao =
+            perfil.funcao ||
+            perfil.perfil ||
+            "Perfil Técnico";
+
+
+        if (sidebarPerfil) {
+
+            sidebarPerfil.textContent =
+                funcao;
+        }
+
+
+        if (menuNome) {
+
+            menuNome.textContent =
+                perfil.nome ||
+                "Técnico";
+        }
+
+
+        if (menuFuncao) {
+
+            menuFuncao.textContent =
+                funcao;
+        }
+
+
+        aplicarAvatar(
+            document.getElementById(
+                "sidebarIniciais"
+            ),
+            document.getElementById(
+                "sidebarFoto"
+            ),
+            perfil
+        );
+
+
+        aplicarAvatar(
+            document.getElementById(
+                "topIniciais"
+            ),
+            document.getElementById(
+                "topFoto"
+            ),
+            perfil
+        );
+
+
+        aplicarAvatar(
+            document.getElementById(
+                "menuIniciais"
+            ),
+            document.getElementById(
+                "menuFoto"
+            ),
+            perfil
         );
     }
 
 
-    function horaAtual() {
+    /* =====================================================
+       NOTIFICAÇÕES
+    ===================================================== */
 
-        const agora =
-            new Date();
+    function carregarNotificacoes() {
 
-        return (
-            String(
-                agora.getHours()
-            ).padStart(2, "0")
-            +
-            ":" +
-            String(
-                agora.getMinutes()
-            ).padStart(2, "0")
+        const notificacoes =
+            lerJSON(
+                CHAVE_NOTIFICACOES,
+                []
+            );
+
+
+        return Array.isArray(
+            notificacoes
+        )
+            ? notificacoes
+            : [];
+    }
+
+
+    function salvarNotificacoes(
+        notificacoes
+    ) {
+
+        salvarJSON(
+            CHAVE_NOTIFICACOES,
+            notificacoes
         );
     }
 
 
-    function gerarId(prefixo) {
+    function dadosTipoNotificacao(tipo) {
 
-        return (
-            prefixo +
-            "-" +
-            Date.now() +
-            "-" +
-            Math.floor(
-                Math.random() * 10000
+        switch (tipo) {
+
+            case "aprovado":
+
+                return {
+                    icone: "✓",
+                    classe: "aprovado"
+                };
+
+
+            case "devolvido":
+
+                return {
+                    icone: "↩",
+                    classe: "devolvido"
+                };
+
+
+            case "comentario":
+
+                return {
+                    icone: "✎",
+                    classe: "comentario"
+                };
+
+
+            case "critico":
+
+                return {
+                    icone: "!",
+                    classe: "alerta"
+                };
+
+
+            default:
+
+                return {
+                    icone: "•",
+                    classe: "comentario"
+                };
+        }
+    }
+
+
+    function formatarTempoNotificacao(
+        notificacao
+    ) {
+
+        const data =
+            notificacao.criadoEm ||
+            notificacao.dataHora ||
+            notificacao.data;
+
+
+        if (!data) {
+            return "";
+        }
+
+
+        const momento =
+            new Date(data);
+
+
+        if (
+            Number.isNaN(
+                momento.getTime()
             )
+        ) {
+
+            return "";
+        }
+
+
+        const agora =
+            new Date();
+
+
+        const diferenca =
+            agora.getTime() -
+            momento.getTime();
+
+
+        const minutos =
+            Math.floor(
+                diferenca / 60000
+            );
+
+
+        if (minutos < 1) {
+            return "Agora";
+        }
+
+
+        if (minutos < 60) {
+
+            return (
+                "Há " +
+                minutos +
+                " min"
+            );
+        }
+
+
+        const horas =
+            Math.floor(
+                minutos / 60
+            );
+
+
+        if (horas < 24) {
+
+            return (
+                "Há " +
+                horas +
+                (
+                    horas === 1
+                        ? " hora"
+                        : " horas"
+                )
+            );
+        }
+
+
+        return momento
+            .toLocaleDateString(
+                "pt-BR"
+            );
+    }
+
+
+    function abrirNotificacao(
+        notificacao,
+        indice
+    ) {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        if (notificacoes[indice]) {
+
+            notificacoes[indice].lida =
+                true;
+
+            salvarNotificacoes(
+                notificacoes
+            );
+
+            renderizarNotificacoes();
+        }
+
+
+        if (
+            notificacao.relatorioId
+        ) {
+
+            localStorage.setItem(
+                "relatorioAtualId",
+                String(
+                    notificacao.relatorioId
+                )
+            );
+
+            window.location.href =
+                "relatorios.html";
+
+            return;
+        }
+
+
+        if (notificacao.destino) {
+
+            window.location.href =
+                notificacao.destino;
+        }
+    }
+
+
+    function renderizarNotificacoes() {
+
+        if (
+            !listaNotificacoes ||
+            !contadorNotificacoes
+        ) {
+            return;
+        }
+
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        const naoLidas =
+            notificacoes.filter(
+                function (item) {
+
+                    return !item.lida;
+                }
+            ).length;
+
+
+        if (naoLidas > 0) {
+
+            contadorNotificacoes.textContent =
+                naoLidas > 99
+                    ? "99+"
+                    : naoLidas;
+
+            contadorNotificacoes.classList.remove(
+                "vazio"
+            );
+
+        }
+        else {
+
+            contadorNotificacoes.textContent =
+                "0";
+
+            contadorNotificacoes.classList.add(
+                "vazio"
+            );
+        }
+
+
+        if (
+            notificacoes.length === 0
+        ) {
+
+            listaNotificacoes.innerHTML =
+                `
+                <div class="notification-empty">
+                    Nenhuma notificação no momento.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        listaNotificacoes.innerHTML =
+            "";
+
+
+        notificacoes
+            .slice()
+            .reverse()
+            .forEach(
+                function (
+                    notificacao,
+                    indiceReverso
+                ) {
+
+                    const indiceReal =
+                        notificacoes.length -
+                        1 -
+                        indiceReverso;
+
+
+                    const dados =
+                        dadosTipoNotificacao(
+                            notificacao.tipo
+                        );
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "notification-item" +
+                        (
+                            notificacao.lida
+                                ? ""
+                                : " nao-lida"
+                        );
+
+
+                    item.innerHTML =
+                        `
+                        <div
+                            class="notification-icon ${dados.classe}"
+                        >
+                            ${dados.icone}
+                        </div>
+
+                        <div class="notification-content">
+
+                            <div class="notification-title">
+                                ${escaparHTML(
+                                    notificacao.titulo ||
+                                    "Notificação"
+                                )}
+                            </div>
+
+                            <div class="notification-text">
+                                ${escaparHTML(
+                                    notificacao.mensagem ||
+                                    notificacao.texto ||
+                                    ""
+                                )}
+                            </div>
+
+                            <div class="notification-time">
+                                ${escaparHTML(
+                                    formatarTempoNotificacao(
+                                        notificacao
+                                    )
+                                )}
+                            </div>
+
+                        </div>
+                        `;
+
+
+                    item.addEventListener(
+                        "click",
+                        function () {
+
+                            abrirNotificacao(
+                                notificacao,
+                                indiceReal
+                            );
+                        }
+                    );
+
+
+                    listaNotificacoes.appendChild(
+                        item
+                    );
+                }
+            );
+    }
+
+
+    function marcarTodasComoLidas() {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        notificacoes.forEach(
+            function (item) {
+
+                item.lida = true;
+            }
         );
+
+
+        salvarNotificacoes(
+            notificacoes
+        );
+
+
+        renderizarNotificacoes();
+    }
+
+
+    /* =====================================================
+       ABRIR / FECHAR MENUS DO TOPO
+    ===================================================== */
+
+    if (btnNotificacoes) {
+
+        btnNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (menuPerfil) {
+
+                    menuPerfil.classList.remove(
+                        "aberto"
+                    );
+                }
+
+
+                painelNotificacoes.classList.toggle(
+                    "aberto"
+                );
+            }
+        );
+    }
+
+
+    if (btnPerfil) {
+
+        btnPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (painelNotificacoes) {
+
+                    painelNotificacoes.classList.remove(
+                        "aberto"
+                    );
+                }
+
+
+                menuPerfil.classList.toggle(
+                    "aberto"
+                );
+            }
+        );
+    }
+
+
+    if (painelNotificacoes) {
+
+        painelNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    if (menuPerfil) {
+
+        menuPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            if (painelNotificacoes) {
+
+                painelNotificacoes.classList.remove(
+                    "aberto"
+                );
+            }
+
+
+            if (menuPerfil) {
+
+                menuPerfil.classList.remove(
+                    "aberto"
+                );
+            }
+        }
+    );
+
+
+    if (btnMarcarTodasLidas) {
+
+        btnMarcarTodasLidas.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                marcarTodasComoLidas();
+            }
+        );
+    }
+
+
+    /* =====================================================
+       LOCALIZAR INSPEÇÃO ATUAL
+    ===================================================== */
+
+    function localizarInspecaoAtual() {
+
+        const idAtual =
+            localStorage.getItem(
+                CHAVE_INSPECAO_ATUAL
+            );
+
+
+        if (!idAtual) {
+
+            inspecaoAtual = null;
+            modoInspecao = false;
+
+            return;
+        }
+
+
+        inspecaoAtual =
+            inspecoes.find(
+                function (inspecao) {
+
+                    return (
+                        String(inspecao.id) ===
+                        String(idAtual)
+                    );
+                }
+            ) || null;
+
+
+        modoInspecao =
+            !!inspecaoAtual;
     }
 
 
@@ -1642,15 +3671,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function configurarTela() {
 
+        localizarInspecaoAtual();
+
+
         if (modoInspecao) {
 
             configurarModoInspecao();
-
         }
         else {
 
             configurarModoAvulso();
-
         }
     }
 
@@ -1664,20 +3694,26 @@ document.addEventListener("DOMContentLoaded", function () {
         tituloPagina.textContent =
             "Adicionar Item ao Relatório";
 
+
         subtituloPagina.textContent =
             "Registre as condições encontradas durante a inspeção";
+
 
         tituloFormulario.textContent =
             "Adicionar Item ao Relatório";
 
+
         descricaoFormulario.textContent =
             "Você pode registrar vários itens dentro do mesmo relatório.";
+
 
         dadosAvulsos.style.display =
             "none";
 
+
         resumoInspecao.style.display =
             "block";
+
 
         etapasRelatorio.style.display =
             "flex";
@@ -1722,19 +3758,22 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById(
             "resumoArea"
         ).textContent =
-            inspecaoAtual.area || "-";
+            inspecaoAtual.area ||
+            "-";
 
 
         document.getElementById(
             "resumoEquipamento"
         ).textContent =
-            inspecaoAtual.equipamento || "-";
+            inspecaoAtual.equipamento ||
+            "-";
 
 
         document.getElementById(
             "resumoPatrimonio"
         ).textContent =
-            inspecaoAtual.patrimonio || "-";
+            inspecaoAtual.patrimonio ||
+            "-";
 
 
         atualizarNumeroItem();
@@ -1750,35 +3789,46 @@ document.addEventListener("DOMContentLoaded", function () {
         tituloPagina.textContent =
             "Registrar Problema";
 
+
         subtituloPagina.textContent =
             "Registro independente de inspeção";
+
 
         tituloFormulario.textContent =
             "Registrar Problema";
 
+
         descricaoFormulario.textContent =
             "Registre uma ocorrência sem iniciar uma inspeção.";
+
 
         dadosInspecao.textContent =
             "Registro independente";
 
+
         resumoInspecao.style.display =
             "none";
+
 
         dadosAvulsos.style.display =
             "block";
 
+
         etapasRelatorio.style.display =
             "none";
+
 
         numeroItem.textContent =
             "Registro independente";
 
+
         btnOutro.style.display =
             "none";
 
+
         btnFinalizar.textContent =
             "✓ Salvar problema";
+
 
         carregarAreas();
     }
@@ -1811,10 +3861,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         numeroItem.textContent =
             "Item " +
-            String(proximo).padStart(
-                2,
-                "0"
-            );
+            String(proximo)
+                .padStart(
+                    2,
+                    "0"
+                );
     }
 
 
@@ -1829,6 +3880,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 CHAVE_AREAS,
                 []
             );
+
 
         return Array.isArray(areas)
             ? areas
@@ -1883,6 +3935,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 []
             );
 
+
         return Array.isArray(equipamentos)
             ? equipamentos
             : [];
@@ -1897,6 +3950,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         patrimonioProblema.value =
             "";
+
 
         localizacaoProblema.value =
             "";
@@ -1923,7 +3977,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         equipamento.area ===
                         areaProblema.value
                     );
-
                 }
             );
 
@@ -1946,15 +3999,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 option.dataset.id =
-                    equipamento.id || "";
+                    equipamento.id ||
+                    "";
 
 
                 option.dataset.patrimonio =
-                    equipamento.patrimonio || "";
+                    equipamento.patrimonio ||
+                    "";
 
 
                 option.dataset.localizacao =
-                    equipamento.localizacao || "";
+                    equipamento.localizacao ||
+                    "";
 
 
                 equipamentoProblema.appendChild(
@@ -1965,7 +4021,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         equipamentoProblema.disabled =
-            filtrados.length === 0;
+            false;
     }
 
 
@@ -1985,122 +4041,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 ];
 
 
-            if (!option) {
-                return;
-            }
-
-
             patrimonioProblema.value =
-                option.dataset.patrimonio ||
-                "";
+                option
+                    ? option.dataset.patrimonio || ""
+                    : "";
 
 
             localizacaoProblema.value =
-                option.dataset.localizacao ||
-                "";
+                option
+                    ? option.dataset.localizacao || ""
+                    : "";
         }
     );
 
 
     /* =====================================================
-       FOTOGRAFIAS
+       FOTOS
     ===================================================== */
 
-    function converterImagemBase64(arquivo) {
+    function atualizarInfoFotos() {
 
-        return new Promise(
-            function (resolve, reject) {
-
-                const reader =
-                    new FileReader();
+        const quantidade =
+            fotosBase64.length;
 
 
-                reader.onload =
-                    function () {
-
-                        resolve(
-                            reader.result
-                        );
-                    };
-
-
-                reader.onerror =
-                    function () {
-
-                        reject(
-                            new Error(
-                                "Erro ao ler a imagem."
-                            )
-                        );
-                    };
-
-
-                reader.readAsDataURL(
-                    arquivo
-                );
-            }
-        );
-    }
-
-
-    fotografias.addEventListener(
-        "change",
-        async function () {
-
-            const arquivos =
-                Array.from(
-                    fotografias.files
-                );
-
-
-            for (const arquivo of arquivos) {
-
-                if (
-                    !arquivo.type.startsWith(
-                        "image/"
-                    )
-                ) {
-                    continue;
-                }
-
-
-                try {
-
-                    const base64 =
-                        await converterImagemBase64(
-                            arquivo
-                        );
-
-
-                    fotosBase64.push(
-                        base64
-                    );
-
-                }
-                catch (erro) {
-
-                    console.error(
-                        erro
-                    );
-                }
-            }
-
-
-            fotografias.value = "";
-
-            atualizarFotos();
-        }
-    );
-
-
-    function atualizarFotos() {
-
-        previewFotos.innerHTML = "";
-
-
-        if (
-            fotosBase64.length === 0
-        ) {
+        if (quantidade === 0) {
 
             fotoInfo.textContent =
                 "Nenhuma foto selecionada";
@@ -2110,10 +4075,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         fotoInfo.textContent =
-            fotosBase64.length === 1
-                ? "1 foto adicionada"
-                : fotosBase64.length +
-                  " fotos adicionadas";
+            quantidade === 1
+                ? "1 foto selecionada"
+                : quantidade +
+                  " fotos selecionadas";
+    }
+
+
+    function renderizarFotos() {
+
+        previewFotos.innerHTML =
+            "";
 
 
         fotosBase64.forEach(
@@ -2124,6 +4096,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         "div"
                     );
 
+
                 item.className =
                     "preview-item";
 
@@ -2133,8 +4106,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         "img"
                     );
 
+
                 imagem.src =
                     foto;
+
+
+                imagem.alt =
+                    "Foto " +
+                    (indice + 1);
 
 
                 const remover =
@@ -2142,11 +4121,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         "button"
                     );
 
+
                 remover.type =
                     "button";
 
+
                 remover.textContent =
                     "×";
+
+
+                remover.title =
+                    "Remover foto";
 
 
                 remover.addEventListener(
@@ -2158,7 +4143,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             1
                         );
 
-                        atualizarFotos();
+
+                        renderizarFotos();
+
+                        atualizarInfoFotos();
                     }
                 );
 
@@ -2167,9 +4155,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     imagem
                 );
 
+
                 item.appendChild(
                     remover
                 );
+
 
                 previewFotos.appendChild(
                     item
@@ -2179,19 +4169,85 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    fotografias.addEventListener(
+        "change",
+        function () {
+
+            const arquivos =
+                Array.from(
+                    fotografias.files ||
+                    []
+                );
+
+
+            if (
+                arquivos.length === 0
+            ) {
+                return;
+            }
+
+
+            arquivos.forEach(
+                function (arquivo) {
+
+                    if (
+                        !arquivo.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        return;
+                    }
+
+
+                    const leitor =
+                        new FileReader();
+
+
+                    leitor.onload =
+                        function (event) {
+
+                            fotosBase64.push(
+                                event.target.result
+                            );
+
+
+                            renderizarFotos();
+
+                            atualizarInfoFotos();
+                        };
+
+
+                    leitor.readAsDataURL(
+                        arquivo
+                    );
+                }
+            );
+
+
+            fotografias.value =
+                "";
+        }
+    );
+
+
     /* =====================================================
-       LIMPAR PARA PRÓXIMO ITEM
+       LIMPAR FORMULÁRIO
     ===================================================== */
 
     function limparFormularioItem() {
 
-        tituloProblema.value = "";
+        tituloProblema.value =
+            "";
 
-        localItem.value = "";
+        localItem.value =
+            "";
 
-        descricaoProblema.value = "";
+        descricaoProblema.value =
+            "";
 
-        recomendacao.value = "";
+        recomendacao.value =
+            "";
 
 
         document
@@ -2199,10 +4255,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 'input[name="criticidade"]'
             )
             .forEach(
-                function (radio) {
+                function (campo) {
 
-                    radio.checked = false;
-
+                    campo.checked =
+                        false;
                 }
             );
 
@@ -2212,32 +4268,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 'input[name="prioridade"]'
             )
             .forEach(
-                function (radio) {
+                function (campo) {
 
-                    radio.checked = false;
-
+                    campo.checked =
+                        false;
                 }
             );
 
 
         fotosBase64 = [];
 
-        atualizarFotos();
+
+        renderizarFotos();
+
+        atualizarInfoFotos();
 
         atualizarNumeroItem();
 
+
         tituloProblema.focus();
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
     }
 
 
     /* =====================================================
-       OBTER DADOS DO FORMULÁRIO
+       DADOS DO FORMULÁRIO
     ===================================================== */
 
     function obterDadosFormulario() {
@@ -2324,7 +4378,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fotos:
                 [...fotosBase64]
-
         };
     }
 
@@ -2333,7 +4386,9 @@ document.addEventListener("DOMContentLoaded", function () {
        SALVAR ITEM NA INSPEÇÃO
     ===================================================== */
 
-    function salvarItemNaInspecao(dados) {
+    function salvarItemNaInspecao(
+        dados
+    ) {
 
         if (!inspecaoAtual) {
 
@@ -2356,7 +4411,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const numero =
-            inspecaoAtual.itens.length + 1;
+            inspecaoAtual.itens.length +
+            1;
 
 
         const item = {
@@ -2392,8 +4448,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Aberto",
 
             criadoEm:
-                new Date().toISOString()
-
+                new Date()
+                    .toISOString()
         };
 
 
@@ -2459,7 +4515,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             criadoEm:
                 item.criadoEm
-
         };
 
 
@@ -2469,7 +4524,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         inspecaoAtual.atualizadaEm =
-            new Date().toISOString();
+            new Date()
+                .toISOString();
 
 
         const indice =
@@ -2478,9 +4534,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     return (
                         String(inspecao.id) ===
-                        String(inspecaoAtual.id)
+                        String(
+                            inspecaoAtual.id
+                        )
                     );
-
                 }
             );
 
@@ -2489,7 +4546,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             inspecoes[indice] =
                 inspecaoAtual;
-
         }
         else {
 
@@ -2512,7 +4568,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         localStorage.setItem(
             CHAVE_INSPECAO_ATUAL,
-            String(inspecaoAtual.id)
+            String(
+                inspecaoAtual.id
+            )
         );
 
 
@@ -2529,17 +4587,23 @@ document.addEventListener("DOMContentLoaded", function () {
         inspecaoAtual.statusRelatorio =
             "Pendente de aprovação";
 
+
         inspecaoAtual.statusAprovacao =
             "Pendente";
+
 
         inspecaoAtual.situacao =
             "Concluída";
 
+
         inspecaoAtual.finalizadaEm =
-            new Date().toISOString();
+            new Date()
+                .toISOString();
+
 
         inspecaoAtual.atualizadaEm =
-            new Date().toISOString();
+            new Date()
+                .toISOString();
 
 
         const indice =
@@ -2548,9 +4612,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     return (
                         String(inspecao.id) ===
-                        String(inspecaoAtual.id)
+                        String(
+                            inspecaoAtual.id
+                        )
                     );
-
                 }
             );
 
@@ -2559,7 +4624,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             inspecoes[indice] =
                 inspecaoAtual;
-
         }
 
 
@@ -2574,17 +4638,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* Guarda qual relatório deverá ser aberto */
-
         localStorage.setItem(
             "relatorioAtualId",
-            String(inspecaoAtual.id)
+            String(
+                inspecaoAtual.id
+            )
         );
 
-
-        /*
-           A inspeção deixou de estar em edição.
-        */
 
         localStorage.removeItem(
             CHAVE_INSPECAO_ATUAL
@@ -2610,7 +4670,9 @@ document.addEventListener("DOMContentLoaded", function () {
        SALVAR PROBLEMA AVULSO
     ===================================================== */
 
-    function salvarProblemaAvulso(dados) {
+    function salvarProblemaAvulso(
+        dados
+    ) {
 
         if (!areaProblema.value) {
 
@@ -2624,7 +4686,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        if (!equipamentoProblema.value) {
+        if (
+            !equipamentoProblema.value
+        ) {
 
             alert(
                 "Selecione o equipamento."
@@ -2690,8 +4754,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 horaAtual(),
 
             criadoEm:
-                new Date().toISOString()
-
+                new Date()
+                    .toISOString()
         };
 
 
@@ -2741,7 +4805,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if (
-            !Array.isArray(problemas)
+            !Array.isArray(
+                problemas
+            )
         ) {
 
             problemas = [];
@@ -2761,7 +4827,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         localStorage.setItem(
             "problemaAtual",
-            JSON.stringify(problema)
+            JSON.stringify(
+                problema
+            )
         );
 
 
@@ -2818,7 +4886,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 /* SALVAR E ADICIONAR OUTRO */
 
-                if (acao === "outro") {
+                if (
+                    acao === "outro"
+                ) {
 
                     alert(
                         "Item salvo com sucesso!\n\n" +
@@ -2862,7 +4932,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             window.location.href =
                 "historico.html";
-
         }
     );
 
@@ -2898,7 +4967,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             window.location.href =
                 "dashboard.html";
-
         }
     );
 
@@ -2907,51 +4975,104 @@ document.addEventListener("DOMContentLoaded", function () {
        SAIR DO SISTEMA
     ===================================================== */
 
+    function sairDoSistema(
+        event
+    ) {
+
+        if (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+        }
+
+
+        const confirmar =
+            confirm(
+                "Deseja realmente sair do sistema?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        sessionStorage.clear();
+
+
+        localStorage.removeItem(
+            "usuarioLogado"
+        );
+
+
+        localStorage.removeItem(
+            "sessaoUsuario"
+        );
+
+
+        window.location.href =
+            "../pagina_inicial.html";
+    }
+
+
     if (btnSair) {
 
         btnSair.addEventListener(
             "click",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const confirmar =
-                    confirm(
-                        "Deseja realmente sair do sistema?"
-                    );
-
-
-                if (!confirmar) {
-                    return;
-                }
-
-
-                sessionStorage.clear();
-
-
-                localStorage.removeItem(
-                    "usuarioLogado"
-                );
-
-
-                localStorage.removeItem(
-                    "sessaoUsuario"
-                );
-
-
-                window.location.href =
-                    "../pagina_inicial.html";
-
-            }
+            sairDoSistema
         );
-
     }
+
+
+    if (btnSairPerfil) {
+
+        btnSairPerfil.addEventListener(
+            "click",
+            sairDoSistema
+        );
+    }
+
+
+    /* =====================================================
+       SINCRONIZAÇÃO ENTRE AS PÁGINAS
+    ===================================================== */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (
+                event.key ===
+                CHAVE_NOTIFICACOES
+            ) {
+
+                renderizarNotificacoes();
+            }
+
+
+            if (
+                event.key ===
+                    CHAVE_PERFIL ||
+                event.key ===
+                    "sessaoUsuario"
+            ) {
+
+                carregarPerfil();
+            }
+        }
+    );
 
 
     /* =====================================================
        INICIALIZAÇÃO
     ===================================================== */
+
+    carregarPerfil();
+
+    renderizarNotificacoes();
+
+    atualizarInfoFotos();
 
     configurarTela();
 
@@ -2960,4 +5081,5 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 </body>
+
 </html>

@@ -2,10 +2,16 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Relatórios | AutoRelatório Industrial</title>
+
 
     <style>
 
@@ -20,10 +26,12 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+
         body {
             background: #f3f5f8;
             color: #172033;
         }
+
 
         button {
             font-family: inherit;
@@ -51,8 +59,10 @@
             z-index: 1000;
         }
 
+
         .logo {
             height: 65px;
+
             padding: 10px 16px;
 
             display: flex;
@@ -62,6 +72,7 @@
 
             border-bottom: 1px solid #1b243b;
         }
+
 
         .logo-icon {
             width: 32px;
@@ -82,10 +93,12 @@
             flex-shrink: 0;
         }
 
+
         .logo-text {
             font-size: 14px;
             font-weight: bold;
         }
+
 
         .logo-text span {
             display: block;
@@ -99,9 +112,11 @@
             margin-top: 2px;
         }
 
+
         .menu {
             padding: 17px 9px;
         }
+
 
         .menu a {
             height: 40px;
@@ -126,10 +141,12 @@
             transition: .2s;
         }
 
+
         .menu a:hover {
             background: #151f3a;
             color: white;
         }
+
 
         .menu a.active {
             background: #12315c;
@@ -139,10 +156,17 @@
             border-left: 2px solid #3b82f6;
         }
 
+
         .menu-icon {
             width: 16px;
+
             text-align: center;
         }
+
+
+        /* =========================================================
+           PARTE INFERIOR DA SIDEBAR
+        ========================================================= */
 
         .sidebar-bottom {
             margin-top: auto;
@@ -152,6 +176,7 @@
             border-top: 1px solid #1b243b;
         }
 
+
         .profile {
             display: flex;
             align-items: center;
@@ -160,6 +185,7 @@
 
             margin-bottom: 22px;
         }
+
 
         .profile-circle {
             width: 32px;
@@ -177,7 +203,22 @@
 
             font-size: 11px;
             font-weight: bold;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
         }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
 
         .profile-name {
             color: white;
@@ -187,6 +228,7 @@
             font-weight: bold;
         }
 
+
         .profile-info {
             color: #7f8ba0;
 
@@ -194,6 +236,7 @@
 
             margin-top: 3px;
         }
+
 
         .logout {
             display: inline-flex;
@@ -209,6 +252,7 @@
 
             cursor: pointer;
         }
+
 
         .logout:hover {
             color: white;
@@ -227,6 +271,11 @@
             width: calc(100% - 240px);
         }
 
+
+        /* =========================================================
+           TOPO
+        ========================================================= */
+
         .topbar {
             min-height: 65px;
 
@@ -239,7 +288,12 @@
             justify-content: space-between;
 
             padding: 0 28px;
+
+            position: relative;
+
+            z-index: 50;
         }
+
 
         .page-title h1 {
             font-size: 18px;
@@ -249,46 +303,336 @@
             margin-bottom: 4px;
         }
 
+
         .page-title p {
             font-size: 11px;
 
             color: #8b95a5;
         }
 
-        .top-right {
+
+        /* =========================================================
+           AÇÕES DO TOPO
+        ========================================================= */
+
+        .topbar-actions {
             display: flex;
             align-items: center;
 
-            gap: 14px;
-        }
-
-        .notification {
-            color: #64748b;
-
-            font-size: 15px;
+            gap: 15px;
 
             position: relative;
         }
 
-        .notification::after {
-            content: "";
 
-            position: absolute;
+        /* =========================================================
+           NOTIFICAÇÕES
+        ========================================================= */
 
-            width: 6px;
-            height: 6px;
+        .notification-wrapper {
+            position: relative;
+        }
 
-            background: #ef4444;
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
 
             border-radius: 50%;
 
-            right: -2px;
-            top: 0;
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            color: #5f6b7c;
+
+            font-size: 19px;
+
+            transition: .2s;
         }
 
+
+        .notification-button:hover {
+            background: #f1f4f8;
+
+            color: #2563eb;
+        }
+
+
+        .notification-count {
+            position: absolute;
+
+            top: 1px;
+            right: 0;
+
+            min-width: 17px;
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 10px;
+
+            background: #e53935;
+
+            color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+
+        /* =========================================================
+           PAINEL DE NOTIFICAÇÕES
+        ========================================================= */
+
+        .notification-panel {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 360px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .notification-panel.aberto {
+            display: block;
+        }
+
+
+        .notification-header {
+            min-height: 60px;
+
+            padding: 15px 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .notification-header h3 {
+            color: #172033;
+
+            font-size: 14px;
+        }
+
+
+        .notification-header button {
+            border: none;
+
+            background: transparent;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .notification-header button:hover {
+            text-decoration: underline;
+        }
+
+
+        .notification-list {
+            max-height: 380px;
+
+            overflow-y: auto;
+        }
+
+
+        .notification-item {
+            padding: 14px 16px;
+
+            display: flex;
+
+            gap: 12px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+
+        .notification-item.nao-lida {
+            background: #f4f8ff;
+        }
+
+
+        .notification-item.nao-lida:hover {
+            background: #edf4ff;
+        }
+
+
+        .notification-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+        }
+
+
+        .notification-icon.aprovado {
+            background: #e8f7ee;
+            color: #218447;
+        }
+
+
+        .notification-icon.devolvido {
+            background: #fff4e5;
+            color: #d97706;
+        }
+
+
+        .notification-icon.comentario {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+
+        .notification-icon.alerta {
+            background: #fff0f0;
+            color: #d63b3b;
+        }
+
+
+        .notification-content {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .notification-title {
+            margin-bottom: 4px;
+
+            color: #263348;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .notification-text {
+            color: #6f7b8c;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        .notification-time {
+            margin-top: 6px;
+
+            color: #9aa4b2;
+
+            font-size: 9px;
+        }
+
+
+        .notification-empty {
+            padding: 35px 20px;
+
+            color: #8b95a5;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           PERFIL DO TOPO
+        ========================================================= */
+
+        .user-wrapper {
+            position: relative;
+        }
+
+
+        .user-button {
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+
+            padding: 3px;
+
+            border-radius: 20px;
+
+            transition: .2s;
+        }
+
+
+        .user-button:hover {
+            background: #f1f4f8;
+        }
+
+
         .user {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
 
             border-radius: 50%;
 
@@ -300,8 +644,192 @@
             align-items: center;
             justify-content: center;
 
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
+        }
+
+
+        .user img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .user-arrow {
+            color: #8993a2;
+
+            font-size: 9px;
+
+            margin-right: 4px;
+        }
+
+
+        /* =========================================================
+           MENU DO PERFIL
+        ========================================================= */
+
+        .profile-menu {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 245px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .profile-menu.aberto {
+            display: block;
+        }
+
+
+        .profile-menu-header {
+            padding: 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .profile-menu-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-menu-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-menu-name {
+            color: #172033;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-menu-role {
+            color: #7f8ba0;
+
+            font-size: 10px;
+        }
+
+
+        .profile-menu-links {
+            padding: 7px;
+        }
+
+
+        .profile-menu-links a,
+        .profile-menu-links button {
+            width: 100%;
+
+            min-height: 38px;
+
+            padding: 0 11px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #465266;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .profile-menu-links a:hover,
+        .profile-menu-links button:hover {
+            background: #f4f6f9;
+
+            color: #2563eb;
+        }
+
+
+        .profile-menu-links .menu-sair {
+            color: #c83e3e;
+
+            border-top: 1px solid #edf0f3;
+
+            margin-top: 6px;
+
+            padding-top: 7px;
+
+            border-radius: 0;
+        }
+
+
+        .profile-menu-links .menu-sair:hover {
+            color: #b52e2e;
+
+            background: #fff5f5;
         }
 
 
@@ -328,6 +856,7 @@
             margin-bottom: 28px;
         }
 
+
         .resumo-card {
             background: white;
 
@@ -337,8 +866,11 @@
 
             padding: 18px 20px;
 
-            box-shadow: 0 1px 3px rgba(0,0,0,.03);
+            box-shadow:
+                0 1px 3px
+                rgba(0,0,0,.03);
         }
+
 
         .resumo-card span {
             display: block;
@@ -350,19 +882,23 @@
             margin-bottom: 10px;
         }
 
+
         .resumo-card strong {
             color: #12213a;
 
             font-size: 28px;
         }
 
+
         .numero-pendente {
             color: #d97706 !important;
         }
 
+
         .numero-aprovado {
             color: #168447 !important;
         }
+
 
         .numero-aberto {
             color: #dc2626 !important;
@@ -382,11 +918,13 @@
             margin-bottom: 15px;
         }
 
+
         .lista-header h2 {
             color: #15223a;
 
             font-size: 17px;
         }
+
 
         .lista-header p {
             color: #8a94a5;
@@ -395,6 +933,7 @@
 
             margin-top: 4px;
         }
+
 
         .filtros {
             display: flex;
@@ -405,6 +944,7 @@
 
             flex-wrap: wrap;
         }
+
 
         .filtro {
             border: 1px solid #d9dee7;
@@ -422,6 +962,7 @@
             font-size: 10px;
         }
 
+
         .filtro.ativo {
             background: #1f67bb;
 
@@ -438,12 +979,14 @@
         .relatorios-grid {
             display: grid;
 
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
 
             gap: 16px;
 
             margin-bottom: 30px;
         }
+
 
         .relatorio-card {
             background: white;
@@ -459,6 +1002,7 @@
             transition: .2s;
         }
 
+
         .relatorio-card:hover {
             border-color: #72a5e7;
 
@@ -468,6 +1012,7 @@
 
             transform: translateY(-2px);
         }
+
 
         .card-top {
             display: flex;
@@ -480,6 +1025,7 @@
             margin-bottom: 14px;
         }
 
+
         .codigo-relatorio {
             font-family: monospace;
 
@@ -489,6 +1035,7 @@
 
             color: #17243b;
         }
+
 
         .card-status {
             display: inline-block;
@@ -502,20 +1049,24 @@
             font-weight: bold;
         }
 
+
         .status-elaboracao {
             background: #e8eef8;
             color: #47617f;
         }
+
 
         .status-pendente {
             background: #fff2d8;
             color: #b76800;
         }
 
+
         .status-aprovado {
             background: #e5f7eb;
             color: #168447;
         }
+
 
         .card-titulo {
             color: #17243b;
@@ -527,15 +1078,18 @@
             margin-bottom: 14px;
         }
 
+
         .card-dados {
             display: grid;
 
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, 1fr);
 
             gap: 10px;
 
             margin-bottom: 14px;
         }
+
 
         .card-dado small {
             display: block;
@@ -551,11 +1105,13 @@
             margin-bottom: 4px;
         }
 
+
         .card-dado span {
             color: #455269;
 
             font-size: 11px;
         }
+
 
         .card-footer {
             border-top: 1px solid #edf0f3;
@@ -570,6 +1126,7 @@
             gap: 10px;
         }
 
+
         .quantidade-itens {
             font-size: 10px;
 
@@ -577,6 +1134,7 @@
 
             font-weight: bold;
         }
+
 
         .btn-visualizar {
             border: none;
@@ -596,6 +1154,7 @@
             cursor: pointer;
         }
 
+
         .sem-relatorios {
             grid-column: 1 / -1;
 
@@ -612,6 +1171,7 @@
             color: #8a95a6;
         }
 
+
         .sem-relatorios strong {
             display: block;
 
@@ -621,6 +1181,7 @@
 
             margin-bottom: 8px;
         }
+
 
         .sem-relatorios p {
             font-size: 11px;
@@ -637,6 +1198,7 @@
             display: none;
         }
 
+
         .report-toolbar {
             display: flex;
 
@@ -648,11 +1210,13 @@
             margin-bottom: 12px;
         }
 
+
         .toolbar-title {
             font-size: 11px;
 
             color: #687386;
         }
+
 
         .toolbar-actions {
             display: flex;
@@ -661,6 +1225,7 @@
 
             flex-wrap: wrap;
         }
+
 
         .toolbar-button {
             height: 34px;
@@ -678,6 +1243,7 @@
             cursor: pointer;
         }
 
+
         .btn-voltar {
             background: white;
 
@@ -685,6 +1251,7 @@
 
             color: #58677c;
         }
+
 
         .export-button {
             background: #2166b1;
@@ -715,7 +1282,7 @@
 
 
         /* =========================================================
-           CABEÇALHO PROFISSIONAL
+           CABEÇALHO DO RELATÓRIO
         ========================================================= */
 
         .report-header {
@@ -726,6 +1293,7 @@
             padding: 22px 28px;
         }
 
+
         .cabecalho-superior {
             display: flex;
 
@@ -735,6 +1303,7 @@
             gap: 20px;
         }
 
+
         .empresa {
             display: flex;
 
@@ -742,6 +1311,7 @@
 
             gap: 12px;
         }
+
 
         .empresa-logo {
             width: 42px;
@@ -760,11 +1330,13 @@
             font-weight: bold;
         }
 
+
         .empresa-nome {
             font-size: 16px;
 
             font-weight: bold;
         }
+
 
         .empresa-setor {
             color: #9bc7f8;
@@ -774,9 +1346,11 @@
             margin-top: 4px;
         }
 
+
         .numero-relatorio {
             text-align: right;
         }
+
 
         .numero-relatorio small {
             display: block;
@@ -790,11 +1364,13 @@
             margin-bottom: 4px;
         }
 
+
         .numero-relatorio strong {
             font-family: monospace;
 
             font-size: 17px;
         }
+
 
         .linha-header {
             height: 1px;
@@ -805,11 +1381,13 @@
             margin: 20px 0 15px;
         }
 
+
         .titulo-relatorio {
             font-size: 18px;
 
             font-weight: bold;
         }
+
 
         .subtitulo-relatorio {
             color: #bdcadd;
@@ -829,10 +1407,6 @@
         }
 
 
-        /* =========================================================
-           IDENTIFICAÇÃO
-        ========================================================= */
-
         .titulo-secao-documento {
             font-size: 11px;
 
@@ -851,6 +1425,11 @@
             margin-bottom: 12px;
         }
 
+
+        /* =========================================================
+           IDENTIFICAÇÃO
+        ========================================================= */
+
         .identificacao-grid {
             display: grid;
 
@@ -861,6 +1440,7 @@
 
             margin-bottom: 26px;
         }
+
 
         .identificacao-campo {
             padding: 11px 12px;
@@ -874,13 +1454,16 @@
                 1px solid #d8dee7;
         }
 
+
         .identificacao-campo:nth-child(4n) {
             border-right: none;
         }
 
+
         .identificacao-campo:nth-last-child(-n+4) {
             border-bottom: none;
         }
+
 
         .identificacao-campo small {
             display: block;
@@ -895,6 +1478,7 @@
 
             margin-bottom: 6px;
         }
+
 
         .identificacao-campo strong {
             color: #25344b;
@@ -940,6 +1524,7 @@
             gap: 26px;
         }
 
+
         .item-relatorio {
             border: 1px solid #d9dfe7;
 
@@ -949,6 +1534,7 @@
 
             page-break-inside: avoid;
         }
+
 
         .item-header {
             background: #edf3f9;
@@ -965,6 +1551,7 @@
             gap: 15px;
         }
 
+
         .item-identificacao {
             display: flex;
 
@@ -972,6 +1559,7 @@
 
             gap: 10px;
         }
+
 
         .item-numero {
             width: 30px;
@@ -992,6 +1580,7 @@
             font-weight: bold;
         }
 
+
         .item-titulo {
             color: #172c48;
 
@@ -999,6 +1588,7 @@
 
             font-weight: bold;
         }
+
 
         .item-local {
             color: #78869a;
@@ -1008,6 +1598,7 @@
             margin-top: 3px;
         }
 
+
         .item-tags {
             display: flex;
 
@@ -1015,6 +1606,7 @@
 
             flex-wrap: wrap;
         }
+
 
         .tag {
             padding: 5px 8px;
@@ -1026,42 +1618,51 @@
             font-weight: bold;
         }
 
+
         .tag-critica {
             background: #fee2e2;
             color: #b91c1c;
         }
+
 
         .tag-alta {
             background: #ffedd5;
             color: #c2410c;
         }
 
+
         .tag-media {
             background: #fef3c7;
             color: #a16207;
         }
+
 
         .tag-baixa {
             background: #dcfce7;
             color: #15803d;
         }
 
+
         .tag-prioridade {
             background: #e8eef8;
             color: #405b7c;
         }
 
+
         .item-body {
             padding: 16px;
         }
+
 
         .bloco-item {
             margin-bottom: 16px;
         }
 
+
         .bloco-item:last-child {
             margin-bottom: 0;
         }
+
 
         .bloco-item h4 {
             color: #173a67;
@@ -1074,6 +1675,7 @@
 
             margin-bottom: 7px;
         }
+
 
         .texto-item {
             background: #fafbfc;
@@ -1090,6 +1692,7 @@
 
             white-space: pre-wrap;
         }
+
 
         .recomendacao-item {
             background: #fff8f1;
@@ -1110,7 +1713,7 @@
 
 
         /* =========================================================
-           FOTOS DE CADA ITEM
+           FOTOS
         ========================================================= */
 
         .fotos-item {
@@ -1124,6 +1727,7 @@
             margin-top: 8px;
         }
 
+
         .foto-item {
             border: 1px solid #dfe4ea;
 
@@ -1134,6 +1738,7 @@
             background: #f4f5f7;
         }
 
+
         .foto-item img {
             width: 100%;
             height: 150px;
@@ -1142,6 +1747,7 @@
 
             object-fit: cover;
         }
+
 
         .foto-legenda {
             padding: 6px 8px;
@@ -1154,6 +1760,7 @@
 
             font-family: monospace;
         }
+
 
         .sem-foto-item {
             color: #9aa4b2;
@@ -1184,6 +1791,7 @@
             gap: 20px;
         }
 
+
         .responsavel strong {
             display: block;
 
@@ -1191,6 +1799,7 @@
 
             font-size: 10px;
         }
+
 
         .responsavel small {
             display: block;
@@ -1202,9 +1811,11 @@
             margin-top: 4px;
         }
 
+
         .status-relatorio {
             text-align: right;
         }
+
 
         .status-relatorio small {
             display: block;
@@ -1215,6 +1826,7 @@
 
             margin-bottom: 5px;
         }
+
 
         .status-badge {
             display: inline-block;
@@ -1249,6 +1861,7 @@
             gap: 15px;
         }
 
+
         .aviso-aprovacao {
             color: #778396;
 
@@ -1257,15 +1870,18 @@
             line-height: 16px;
         }
 
+
         .aviso-aprovacao strong {
             color: #b76800;
         }
+
 
         .botoes-edicao {
             display: flex;
 
             gap: 8px;
         }
+
 
         .btn-editar,
         .btn-salvar,
@@ -1283,6 +1899,7 @@
             cursor: pointer;
         }
 
+
         .btn-editar {
             border: none;
 
@@ -1290,6 +1907,7 @@
 
             color: white;
         }
+
 
         .btn-salvar {
             border: none;
@@ -1299,6 +1917,7 @@
             color: white;
         }
 
+
         .btn-cancelar {
             border: 1px solid #d5dbe4;
 
@@ -1307,14 +1926,11 @@
             color: #687386;
         }
 
+
         .oculto {
             display: none !important;
         }
 
-
-        /* =========================================================
-           EDIÇÃO
-        ========================================================= */
 
         [contenteditable="true"] {
             outline: 2px solid #82b7ee;
@@ -1334,14 +1950,17 @@
                     repeat(2, 1fr);
             }
 
+
             .relatorios-grid {
                 grid-template-columns: 1fr;
             }
+
 
             .identificacao-grid {
                 grid-template-columns:
                     repeat(2, 1fr);
             }
+
 
             .fotos-item {
                 grid-template-columns:
@@ -1349,11 +1968,13 @@
             }
         }
 
+
         @media (max-width: 650px) {
 
             .sidebar {
                 display: none;
             }
+
 
             .main {
                 margin-left: 0;
@@ -1361,22 +1982,32 @@
                 width: 100%;
             }
 
+
             .content {
                 padding: 15px;
             }
+
+
+            .topbar {
+                padding: 0 18px;
+            }
+
 
             .resumo-grid {
                 grid-template-columns:
                     repeat(2, 1fr);
             }
 
+
             .identificacao-grid {
                 grid-template-columns: 1fr;
             }
 
+
             .fotos-item {
                 grid-template-columns: 1fr;
             }
+
 
             .report-toolbar,
             .acoes-tecnico,
@@ -1384,6 +2015,27 @@
                 flex-direction: column;
 
                 align-items: flex-start;
+            }
+
+
+            .notification-panel {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+                left: 10px;
+
+                width: auto;
+            }
+
+
+            .profile-menu {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+
+                width: 245px;
             }
         }
 
@@ -1399,9 +2051,11 @@
                 margin: 10mm;
             }
 
+
             body {
                 background: white;
             }
+
 
             .sidebar,
             .topbar,
@@ -1412,19 +2066,23 @@
                 display: none !important;
             }
 
+
             .main {
                 margin: 0;
 
                 width: 100%;
             }
 
+
             .content {
                 padding: 0;
             }
 
+
             #areaRelatorio {
                 display: block !important;
             }
+
 
             .report {
                 border: none;
@@ -1434,11 +2092,8 @@
                 border-radius: 0;
             }
 
-            .report-header {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
 
+            .report-header,
             .item-header,
             .item-numero,
             .tag,
@@ -1448,10 +2103,13 @@
                 print-color-adjust: exact;
             }
 
+
             .item-relatorio {
                 break-inside: avoid;
+
                 page-break-inside: avoid;
             }
+
 
             .foto-item img {
                 height: 125px;
@@ -1462,6 +2120,7 @@
 
 </head>
 
+
 <body>
 
 
@@ -1471,11 +2130,13 @@
 
     <aside class="sidebar">
 
+
         <div class="logo">
 
             <div class="logo-icon">
                 ▤
             </div>
+
 
             <div class="logo-text">
 
@@ -1492,62 +2153,129 @@
 
         <nav class="menu">
 
+
             <a href="dashboard.html">
-                <span class="menu-icon">⌂</span>
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
                 Dashboard
+
             </a>
+
 
             <a href="nova_inspecao.html">
-                <span class="menu-icon">✓</span>
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
                 Nova Inspeção
+
             </a>
+
 
             <a href="registrar_problema.html">
-                <span class="menu-icon">△</span>
+
+                <span class="menu-icon">
+                    △
+                </span>
+
                 Registrar Problema
+
             </a>
 
+
             <a href="historico.html">
-                <span class="menu-icon">♢</span>
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
                 Histórico
+
             </a>
+
 
             <a
                 href="relatorios.html"
                 class="active"
             >
-                <span class="menu-icon">▧</span>
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
                 Relatórios
+
             </a>
+
 
             <a href="areas.html">
-                <span class="menu-icon">▦</span>
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
                 Áreas
+
             </a>
 
+
             <a href="equipamentos.html">
-                <span class="menu-icon">⌁</span>
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
                 Equipamentos
+
             </a>
 
         </nav>
 
 
+        <!-- =====================================================
+             PERFIL DA SIDEBAR
+        ====================================================== -->
+
         <div class="sidebar-bottom">
+
 
             <div class="profile">
 
+
                 <div class="profile-circle">
-                    TC
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+
+                    <img
+                        id="sidebarFoto"
+                        src=""
+                        alt="Foto do usuário"
+                    >
+
                 </div>
+
 
                 <div>
 
-                    <div class="profile-name">
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
                         Técnico
                     </div>
 
-                    <div class="profile-info">
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
                         Perfil Técnico
                     </div>
 
@@ -1561,8 +2289,13 @@
                 class="logout"
                 id="btnSair"
             >
-                <span>⇥</span>
+
+                <span>
+                    ⇥
+                </span>
+
                 Sair
+
             </a>
 
         </div>
@@ -1577,9 +2310,12 @@
     <main class="main">
 
 
-        <!-- TOPO -->
+        <!-- =====================================================
+             TOPO
+        ====================================================== -->
 
         <header class="topbar">
+
 
             <div class="page-title">
 
@@ -1594,14 +2330,229 @@
             </div>
 
 
-            <div class="top-right">
+            <!-- =================================================
+                 SINO + PERFIL
+            ================================================== -->
 
-                <div class="notification">
-                    ♧
+            <div class="topbar-actions">
+
+
+                <!-- NOTIFICAÇÕES -->
+
+                <div class="notification-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="btnNotificacoes"
+                        title="Notificações"
+                        aria-label="Abrir notificações"
+                    >
+
+                        🔔
+
+
+                        <span
+                            class="notification-count vazio"
+                            id="contadorNotificacoes"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="notification-panel"
+                        id="painelNotificacoes"
+                    >
+
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notificações
+                            </h3>
+
+
+                            <button
+                                type="button"
+                                id="btnMarcarTodasLidas"
+                            >
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="notification-list"
+                            id="listaNotificacoes"
+                        >
+
+                            <div class="notification-empty">
+                                Nenhuma notificação no momento.
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="user">
-                    TC
+
+                <!-- PERFIL -->
+
+                <div class="user-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="user-button"
+                        id="btnPerfil"
+                        title="Meu perfil"
+                        aria-label="Abrir menu do perfil"
+                    >
+
+
+                        <div class="user">
+
+                            <span id="topIniciais">
+                                TC
+                            </span>
+
+
+                            <img
+                                id="topFoto"
+                                src=""
+                                alt="Foto do usuário"
+                            >
+
+                        </div>
+
+
+                        <span class="user-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+                    <!-- MENU DO PERFIL -->
+
+                    <div
+                        class="profile-menu"
+                        id="menuPerfil"
+                    >
+
+
+                        <div class="profile-menu-header">
+
+
+                            <div class="profile-menu-avatar">
+
+                                <span id="menuIniciais">
+                                    TC
+                                </span>
+
+
+                                <img
+                                    id="menuFoto"
+                                    src=""
+                                    alt="Foto do usuário"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="profile-menu-name"
+                                    id="menuNome"
+                                >
+                                    Técnico
+                                </div>
+
+
+                                <div
+                                    class="profile-menu-role"
+                                    id="menuFuncao"
+                                >
+                                    Perfil Técnico
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-menu-links">
+
+
+                            <a href="perfil.html">
+
+                                👤
+
+                                <span>
+                                    Meu Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="editar_perfil.html">
+
+                                ✎
+
+                                <span>
+                                    Editar Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="alterar_senha.html">
+
+                                🔒
+
+                                <span>
+                                    Alterar Senha
+                                </span>
+
+                            </a>
+
+
+                            <a href="preferencias.html">
+
+                                ⚙
+
+                                <span>
+                                    Preferências
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="menu-sair"
+                                id="btnSairPerfil"
+                            >
+
+                                ⇥
+
+                                <span>
+                                    Sair
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -1621,6 +2572,7 @@
             ================================================== -->
 
             <div class="resumo-grid">
+
 
                 <div class="resumo-card">
 
@@ -1686,10 +2638,11 @@
 
 
             <!-- =================================================
-                 LISTA
+                 LISTA DE RELATÓRIOS
             ================================================== -->
 
             <div id="areaLista">
+
 
                 <div class="lista-header">
 
@@ -1710,6 +2663,7 @@
 
                 <div class="filtros">
 
+
                     <button
                         type="button"
                         class="filtro ativo"
@@ -1717,6 +2671,7 @@
                     >
                         Todos
                     </button>
+
 
                     <button
                         type="button"
@@ -1726,6 +2681,7 @@
                         Em elaboração
                     </button>
 
+
                     <button
                         type="button"
                         class="filtro"
@@ -1733,6 +2689,7 @@
                     >
                         Pendentes
                     </button>
+
 
                     <button
                         type="button"
@@ -1765,12 +2722,14 @@
 
                 <div class="report-toolbar">
 
+
                     <span class="toolbar-title">
                         Visualização completa do relatório técnico
                     </span>
 
 
                     <div class="toolbar-actions">
+
 
                         <button
                             type="button"
@@ -1808,13 +2767,17 @@
 
                     <header class="report-header">
 
+
                         <div class="cabecalho-superior">
 
+
                             <div class="empresa">
+
 
                                 <div class="empresa-logo">
                                     A
                                 </div>
+
 
                                 <div>
 
@@ -2023,6 +2986,7 @@
 
                         <div class="report-footer">
 
+
                             <div class="responsavel">
 
                                 <strong id="relResponsavel">
@@ -2054,9 +3018,12 @@
                         </div>
 
 
-                        <!-- AÇÕES DO TÉCNICO -->
+                        <!-- =================================================
+                             AÇÕES DO TÉCNICO
+                        ================================================== -->
 
                         <div class="acoes-tecnico">
+
 
                             <div class="aviso-aprovacao">
 
@@ -2074,6 +3041,7 @@
 
 
                             <div class="botoes-edicao">
+
 
                                 <button
                                     type="button"
@@ -2114,9 +3082,7 @@
         </section>
 
     </main>
-
-
-<script>
+    <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -2127,6 +3093,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const CHAVE_INSPECOES = "inspecoes";
     const CHAVE_RELATORIO_ATUAL = "relatorioAtualId";
 
+    const CHAVE_NOTIFICACOES = "notificacoes";
+    const CHAVE_PERFIL = "perfilUsuario";
+
     let inspecoes = [];
     let relatorios = [];
     let relatorioSelecionado = null;
@@ -2136,7 +3105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================================
-       ELEMENTOS
+       ELEMENTOS DOS RELATÓRIOS
     ========================================================= */
 
     const listaRelatorios =
@@ -2162,6 +3131,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const btnCancelar =
         document.getElementById("btnCancelar");
+
+
+    /* =========================================================
+       ELEMENTOS DO TOPO
+    ========================================================= */
+
+    const btnNotificacoes =
+        document.getElementById("btnNotificacoes");
+
+    const contadorNotificacoes =
+        document.getElementById("contadorNotificacoes");
+
+    const painelNotificacoes =
+        document.getElementById("painelNotificacoes");
+
+    const listaNotificacoes =
+        document.getElementById("listaNotificacoes");
+
+    const btnMarcarTodasLidas =
+        document.getElementById("btnMarcarTodasLidas");
+
+    const btnPerfil =
+        document.getElementById("btnPerfil");
+
+    const menuPerfil =
+        document.getElementById("menuPerfil");
+
+    const btnSair =
+        document.getElementById("btnSair");
+
+    const btnSairPerfil =
+        document.getElementById("btnSairPerfil");
 
 
     /* =========================================================
@@ -2301,16 +3302,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function obterItensInspecao(inspecao) {
 
-        /*
-            NOVO MODELO:
-
-            inspecao.itens = [
-                Item 01,
-                Item 02,
-                Item 03...
-            ]
-        */
-
         if (
             Array.isArray(inspecao.itens) &&
             inspecao.itens.length > 0
@@ -2319,13 +3310,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return inspecao.itens;
         }
 
-
-        /*
-            COMPATIBILIDADE:
-
-            Caso existam inspeções antigas,
-            tenta usar "problemas".
-        */
 
         if (
             Array.isArray(inspecao.problemas) &&
@@ -2349,9 +3333,7 @@ document.addEventListener("DOMContentLoaded", function () {
         indice
     ) {
 
-        if (
-            inspecao.codigoRelatorio
-        ) {
+        if (inspecao.codigoRelatorio) {
 
             return inspecao.codigoRelatorio;
         }
@@ -2377,16 +3359,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================================
-       DEFINIR STATUS DO RELATÓRIO
+       STATUS DO RELATÓRIO
     ========================================================= */
 
-    function obterStatusRelatorio(
-        inspecao
-    ) {
+    function obterStatusRelatorio(inspecao) {
 
-        if (
-            inspecao.statusRelatorio
-        ) {
+        if (inspecao.statusRelatorio) {
 
             return inspecao.statusRelatorio;
         }
@@ -2418,9 +3396,7 @@ document.addEventListener("DOMContentLoaded", function () {
        CRITICIDADE MAIS ALTA
     ========================================================= */
 
-    function obterMaiorCriticidade(
-        itens
-    ) {
+    function obterMaiorCriticidade(itens) {
 
         const pesos = {
             "crítica": 4,
@@ -2456,7 +3432,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     maior =
                         item.criticidade;
                 }
-
             }
         );
 
@@ -2487,9 +3462,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     Não cria relatório vazio.
                 */
 
-                if (
-                    itens.length === 0
-                ) {
+                if (itens.length === 0) {
                     return;
                 }
 
@@ -2501,14 +3474,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                /*
-                    Mantém o código salvo
-                    dentro da própria inspeção.
-                */
-
-                if (
-                    !inspecao.codigoRelatorio
-                ) {
+                if (!inspecao.codigoRelatorio) {
 
                     inspecao.codigoRelatorio =
                         codigo;
@@ -2590,22 +3556,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     atualizadaEm:
                         inspecao.atualizadaEm ||
                         null
-
                 };
 
 
                 relatorios.push(
                     relatorio
                 );
-
             }
         );
 
-
-        /*
-            Persiste códigos eventualmente
-            criados nesta página.
-        */
 
         salvarJSON(
             CHAVE_INSPECOES,
@@ -2620,9 +3579,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function classeStatus(status) {
 
-        if (
-            status === "Aprovado"
-        ) {
+        if (status === "Aprovado") {
             return "status-aprovado";
         }
 
@@ -2631,6 +3588,7 @@ document.addEventListener("DOMContentLoaded", function () {
             status ===
             "Pendente de aprovação"
         ) {
+
             return "status-pendente";
         }
 
@@ -2653,13 +3611,13 @@ document.addEventListener("DOMContentLoaded", function () {
             valor === "crítica" ||
             valor === "critica"
         ) {
+
             return "tag-critica";
         }
 
 
-        if (
-            valor === "alta"
-        ) {
+        if (valor === "alta") {
+
             return "tag-alta";
         }
 
@@ -2668,6 +3626,7 @@ document.addEventListener("DOMContentLoaded", function () {
             valor === "média" ||
             valor === "media"
         ) {
+
             return "tag-media";
         }
 
@@ -2694,7 +3653,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         relatorio.status ===
                         "Pendente de aprovação"
                     );
-
                 }
             ).length;
 
@@ -2707,7 +3665,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         relatorio.status ===
                         "Aprovado"
                     );
-
                 }
             ).length;
 
@@ -2736,10 +3693,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             abertos++;
                         }
-
                     }
                 );
-
             }
         );
 
@@ -2775,9 +3730,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function obterRelatoriosFiltrados() {
 
-        if (
-            filtroAtual === "Todos"
-        ) {
+        if (filtroAtual === "Todos") {
 
             return relatorios;
         }
@@ -2790,7 +3743,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     relatorio.status ===
                     filtroAtual
                 );
-
             }
         );
     }
@@ -2810,9 +3762,7 @@ document.addEventListener("DOMContentLoaded", function () {
             obterRelatoriosFiltrados();
 
 
-        if (
-            lista.length === 0
-        ) {
+        if (lista.length === 0) {
 
             listaRelatorios.innerHTML = `
 
@@ -2962,7 +3912,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         abrirRelatorio(
                             relatorio.id
                         );
-
                     }
                 );
 
@@ -2970,7 +3919,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 listaRelatorios.appendChild(
                     card
                 );
-
             }
         );
     }
@@ -2999,7 +3947,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             item.classList.remove(
                                 "ativo"
                             );
-
                         }
                     );
 
@@ -3014,16 +3961,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     renderizarRelatorios();
-
                 }
             );
-
         }
     );
 
 
     /* =========================================================
-       CRIAR FOTOS DO ITEM
+       GALERIA DE FOTOS
     ========================================================= */
 
     function criarGaleriaFotos(
@@ -3037,9 +3982,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 : [];
 
 
-        if (
-            fotos.length === 0
-        ) {
+        if (fotos.length === 0) {
 
             return `
 
@@ -3063,16 +4006,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (
-                    typeof foto === "string"
+                    typeof foto ===
+                    "string"
                 ) {
 
                     origem = foto;
-
                 }
 
                 else if (
                     foto &&
-                    typeof foto === "object"
+                    typeof foto ===
+                    "object"
                 ) {
 
                     origem =
@@ -3081,7 +4025,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         foto.base64 ||
                         foto.dados ||
                         "";
-
                 }
 
 
@@ -3110,7 +4053,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
 
                 `;
-
             }
         );
 
@@ -3125,12 +4067,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================================
-       RENDERIZAR ITENS
+       RENDERIZAR ITENS DO RELATÓRIO
     ========================================================= */
 
-    function renderizarItens(
-        relatorio
-    ) {
+    function renderizarItens(relatorio) {
 
         const container =
             document.getElementById(
@@ -3152,9 +4092,7 @@ document.addEventListener("DOMContentLoaded", function () {
             container.innerHTML = `
 
                 <div class="sem-relatorios">
-
                     Nenhum item registrado.
-
                 </div>
 
             `;
@@ -3226,26 +4164,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="item-identificacao">
 
                             <div class="item-numero">
-
                                 ${String(numero).padStart(2, "0")}
-
                             </div>
 
 
                             <div>
 
                                 <div class="item-titulo">
-
                                     ${escaparHTML(titulo)}
-
                                 </div>
 
-
                                 <div class="item-local">
-
                                     Local:
                                     ${escaparHTML(local)}
-
                                 </div>
 
                             </div>
@@ -3330,7 +4261,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         </div>
 
-
                     </div>
 
                 `;
@@ -3339,7 +4269,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 container.appendChild(
                     bloco
                 );
-
             }
         );
     }
@@ -3359,7 +4288,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         String(relatorio.id) ===
                         String(id)
                     );
-
                 }
             );
 
@@ -3472,11 +4400,6 @@ document.addEventListener("DOMContentLoaded", function () {
         desativarEdicao();
 
 
-        /*
-            Guarda qual relatório
-            está sendo visualizado.
-        */
-
         localStorage.setItem(
             CHAVE_RELATORIO_ATUAL,
             String(encontrado.id)
@@ -3547,16 +4470,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 "oculto"
             );
 
-
             btnSalvar.classList.add(
                 "oculto"
             );
 
-
             btnCancelar.classList.add(
                 "oculto"
             );
-
 
             return;
         }
@@ -3578,7 +4498,6 @@ document.addEventListener("DOMContentLoaded", function () {
             btnEditar.classList.remove(
                 "oculto"
             );
-
 
             return;
         }
@@ -3634,11 +4553,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-            Guarda o conteúdo antes
-            da edição.
-        */
-
         dadosAntesEdicao = {
 
             resumo:
@@ -3649,7 +4563,6 @@ document.addEventListener("DOMContentLoaded", function () {
             descricoes: [],
 
             recomendacoes: []
-
         };
 
 
@@ -3665,7 +4578,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         .push(
                             campo.textContent
                         );
-
                 }
             );
 
@@ -3682,7 +4594,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         .push(
                             campo.textContent
                         );
-
                 }
             );
 
@@ -3695,7 +4606,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         "contenteditable",
                         "true"
                     );
-
                 }
             );
 
@@ -3741,7 +4651,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     campo.removeAttribute(
                         "contenteditable"
                     );
-
                 }
             );
 
@@ -3765,8 +4674,8 @@ document.addEventListener("DOMContentLoaded", function () {
             btnEditar.classList.remove(
                 "oculto"
             );
-
         }
+
         else {
 
             btnEditar.classList.add(
@@ -3807,10 +4716,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     campo.textContent =
                         dadosAntesEdicao
-                            .descricoes[
-                                indice
-                            ] || "";
-
+                            .descricoes[indice] ||
+                        "";
                 }
             );
 
@@ -3824,10 +4731,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     campo.textContent =
                         dadosAntesEdicao
-                            .recomendacoes[
-                                indice
-                            ] || "";
-
+                            .recomendacoes[indice] ||
+                        "";
                 }
             );
 
@@ -3862,7 +4767,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         relatorioSelecionado.inspecaoId
                     )
                 );
-
             }
         ) || null;
     }
@@ -3906,19 +4810,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-            SALVA O RESUMO
-        */
-
         inspecao.resumoRelatorio =
             document.getElementById(
                 "relResumo"
             ).textContent.trim();
 
-
-        /*
-            GARANTE QUE EXISTA ARRAY DE ITENS
-        */
 
         let itensOriginais;
 
@@ -3930,8 +4826,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             itensOriginais =
                 inspecao.itens;
-
         }
+
         else if (
             Array.isArray(
                 inspecao.problemas
@@ -3940,17 +4836,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             itensOriginais =
                 inspecao.problemas;
-
         }
+
         else {
 
             itensOriginais = [];
         }
 
-
-        /*
-            SALVA DESCRIÇÕES
-        */
 
         document
             .querySelectorAll(
@@ -3974,14 +4866,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         ].relatorioDescricao =
                             campo.textContent.trim();
                     }
-
                 }
             );
 
-
-        /*
-            SALVA RECOMENDAÇÕES
-        */
 
         document
             .querySelectorAll(
@@ -4005,14 +4892,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         ].relatorioAcao =
                             campo.textContent.trim();
                     }
-
                 }
             );
 
 
         /*
-            AO SALVAR, O RELATÓRIO
-            VAI PARA APROVAÇÃO.
+            AO SALVAR, ENVIA PARA APROVAÇÃO.
         */
 
         inspecao.statusRelatorio =
@@ -4041,6 +4926,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 inspecoes
             )
         ) {
+
             return;
         }
 
@@ -4068,7 +4954,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         String(relatorio.id) ===
                         String(idAtual)
                     );
-
                 }
             ) || null;
 
@@ -4077,9 +4962,7 @@ document.addEventListener("DOMContentLoaded", function () {
             null;
 
 
-        if (
-            relatorioSelecionado
-        ) {
+        if (relatorioSelecionado) {
 
             abrirRelatorio(
                 relatorioSelecionado.id
@@ -4149,12 +5032,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-            Caso esteja editando,
-            remove temporariamente
-            o modo de edição.
-        */
-
         obterCamposEditaveis()
             .forEach(
                 function (campo) {
@@ -4162,24 +5039,818 @@ document.addEventListener("DOMContentLoaded", function () {
                     campo.removeAttribute(
                         "contenteditable"
                     );
-
                 }
             );
 
-
-        /*
-            Abre a impressão do navegador.
-
-            No Chrome:
-            Destino -> Salvar como PDF
-        */
 
         window.print();
     }
 
 
     /* =========================================================
-       BOTÕES
+       PERFIL DO USUÁRIO
+    ========================================================= */
+
+    function obterPerfil() {
+
+        let perfil =
+            lerJSON(
+                CHAVE_PERFIL,
+                null
+            );
+
+
+        if (!perfil) {
+
+            perfil =
+                lerJSON(
+                    "sessaoUsuario",
+                    null
+                );
+        }
+
+
+        if (!perfil) {
+
+            perfil = {
+
+                nome:
+                    "Técnico",
+
+                funcao:
+                    "Perfil Técnico",
+
+                perfil:
+                    "Técnico",
+
+                foto:
+                    ""
+            };
+        }
+
+
+        return perfil;
+    }
+
+
+    function obterIniciais(nome) {
+
+        if (!nome) {
+            return "TC";
+        }
+
+
+        const partes =
+            nome
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        if (partes.length === 0) {
+            return "TC";
+        }
+
+
+        if (partes.length === 1) {
+
+            return partes[0]
+                .substring(0, 2)
+                .toUpperCase();
+        }
+
+
+        return (
+            partes[0][0] +
+            partes[
+                partes.length - 1
+            ][0]
+        ).toUpperCase();
+    }
+
+
+    function aplicarAvatar(
+        elementoIniciais,
+        elementoFoto,
+        perfil
+    ) {
+
+        if (
+            !elementoIniciais ||
+            !elementoFoto
+        ) {
+            return;
+        }
+
+
+        elementoIniciais.textContent =
+            obterIniciais(
+                perfil.nome
+            );
+
+
+        if (perfil.foto) {
+
+            elementoFoto.src =
+                perfil.foto;
+
+
+            elementoFoto.style.display =
+                "block";
+
+
+            elementoIniciais.style.display =
+                "none";
+        }
+
+        else {
+
+            elementoFoto.removeAttribute(
+                "src"
+            );
+
+
+            elementoFoto.style.display =
+                "none";
+
+
+            elementoIniciais.style.display =
+                "inline";
+        }
+    }
+
+
+    function carregarPerfil() {
+
+        const perfil =
+            obterPerfil();
+
+
+        const nome =
+            perfil.nome ||
+            "Técnico";
+
+
+        const funcao =
+            perfil.funcao ||
+            perfil.perfil ||
+            "Perfil Técnico";
+
+
+        const sidebarNome =
+            document.getElementById(
+                "sidebarNome"
+            );
+
+
+        const sidebarPerfil =
+            document.getElementById(
+                "sidebarPerfil"
+            );
+
+
+        const menuNome =
+            document.getElementById(
+                "menuNome"
+            );
+
+
+        const menuFuncao =
+            document.getElementById(
+                "menuFuncao"
+            );
+
+
+        if (sidebarNome) {
+
+            sidebarNome.textContent =
+                nome;
+        }
+
+
+        if (sidebarPerfil) {
+
+            sidebarPerfil.textContent =
+                funcao;
+        }
+
+
+        if (menuNome) {
+
+            menuNome.textContent =
+                nome;
+        }
+
+
+        if (menuFuncao) {
+
+            menuFuncao.textContent =
+                funcao;
+        }
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "sidebarIniciais"
+            ),
+
+            document.getElementById(
+                "sidebarFoto"
+            ),
+
+            perfil
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "topIniciais"
+            ),
+
+            document.getElementById(
+                "topFoto"
+            ),
+
+            perfil
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "menuIniciais"
+            ),
+
+            document.getElementById(
+                "menuFoto"
+            ),
+
+            perfil
+        );
+    }
+
+
+    /* =========================================================
+       NOTIFICAÇÕES
+    ========================================================= */
+
+    function carregarNotificacoes() {
+
+        const dados =
+            lerJSON(
+                CHAVE_NOTIFICACOES,
+                []
+            );
+
+
+        return Array.isArray(dados)
+            ? dados
+            : [];
+    }
+
+
+    function salvarNotificacoes(
+        notificacoes
+    ) {
+
+        salvarJSON(
+            CHAVE_NOTIFICACOES,
+            notificacoes
+        );
+    }
+
+
+    function dadosTipoNotificacao(tipo) {
+
+        switch (tipo) {
+
+            case "aprovado":
+
+                return {
+                    icone: "✓",
+                    classe: "aprovado"
+                };
+
+
+            case "devolvido":
+
+                return {
+                    icone: "↩",
+                    classe: "devolvido"
+                };
+
+
+            case "comentario":
+
+                return {
+                    icone: "✎",
+                    classe: "comentario"
+                };
+
+
+            case "critico":
+
+                return {
+                    icone: "!",
+                    classe: "alerta"
+                };
+
+
+            default:
+
+                return {
+                    icone: "•",
+                    classe: "comentario"
+                };
+        }
+    }
+
+
+    function formatarTempoNotificacao(
+        notificacao
+    ) {
+
+        const data =
+            notificacao.criadoEm ||
+            notificacao.dataHora ||
+            notificacao.data;
+
+
+        if (!data) {
+            return "";
+        }
+
+
+        const momento =
+            new Date(data);
+
+
+        if (
+            Number.isNaN(
+                momento.getTime()
+            )
+        ) {
+            return "";
+        }
+
+
+        const agora =
+            new Date();
+
+
+        const diferenca =
+            agora.getTime() -
+            momento.getTime();
+
+
+        const minutos =
+            Math.floor(
+                diferenca / 60000
+            );
+
+
+        if (minutos < 1) {
+            return "Agora";
+        }
+
+
+        if (minutos < 60) {
+
+            return (
+                "Há " +
+                minutos +
+                " min"
+            );
+        }
+
+
+        const horas =
+            Math.floor(
+                minutos / 60
+            );
+
+
+        if (horas < 24) {
+
+            return (
+                "Há " +
+                horas +
+                (
+                    horas === 1
+                        ? " hora"
+                        : " horas"
+                )
+            );
+        }
+
+
+        return momento.toLocaleDateString(
+            "pt-BR"
+        );
+    }
+
+
+    function abrirNotificacao(
+        notificacao,
+        indice
+    ) {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        if (notificacoes[indice]) {
+
+            notificacoes[indice].lida =
+                true;
+
+
+            salvarNotificacoes(
+                notificacoes
+            );
+
+
+            renderizarNotificacoes();
+        }
+
+
+        /*
+            Se a notificação estiver relacionada
+            a um relatório, abrimos o próprio
+            relatório dentro desta página.
+        */
+
+        if (notificacao.relatorioId) {
+
+            localStorage.setItem(
+                CHAVE_RELATORIO_ATUAL,
+                String(
+                    notificacao.relatorioId
+                )
+            );
+
+
+            const encontrado =
+                relatorios.find(
+                    function (relatorio) {
+
+                        return (
+                            String(relatorio.id) ===
+                            String(
+                                notificacao.relatorioId
+                            )
+                        );
+                    }
+                );
+
+
+            if (encontrado) {
+
+                abrirRelatorio(
+                    encontrado.id
+                );
+
+                if (painelNotificacoes) {
+
+                    painelNotificacoes
+                        .classList
+                        .remove("aberto");
+                }
+
+                return;
+            }
+
+
+            window.location.href =
+                "relatorios.html";
+
+            return;
+        }
+
+
+        if (notificacao.destino) {
+
+            window.location.href =
+                notificacao.destino;
+        }
+    }
+
+
+    function renderizarNotificacoes() {
+
+        if (
+            !listaNotificacoes ||
+            !contadorNotificacoes
+        ) {
+            return;
+        }
+
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        const naoLidas =
+            notificacoes.filter(
+                function (item) {
+
+                    return !item.lida;
+                }
+            ).length;
+
+
+        if (naoLidas > 0) {
+
+            contadorNotificacoes.textContent =
+                naoLidas > 99
+                    ? "99+"
+                    : naoLidas;
+
+
+            contadorNotificacoes
+                .classList
+                .remove("vazio");
+        }
+
+        else {
+
+            contadorNotificacoes.textContent =
+                "0";
+
+
+            contadorNotificacoes
+                .classList
+                .add("vazio");
+        }
+
+
+        if (notificacoes.length === 0) {
+
+            listaNotificacoes.innerHTML = `
+
+                <div class="notification-empty">
+                    Nenhuma notificação no momento.
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        listaNotificacoes.innerHTML =
+            "";
+
+
+        notificacoes
+            .slice()
+            .reverse()
+            .forEach(
+                function (
+                    notificacao,
+                    indiceReverso
+                ) {
+
+                    const indiceReal =
+                        notificacoes.length -
+                        1 -
+                        indiceReverso;
+
+
+                    const dados =
+                        dadosTipoNotificacao(
+                            notificacao.tipo
+                        );
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "notification-item" +
+                        (
+                            notificacao.lida
+                                ? ""
+                                : " nao-lida"
+                        );
+
+
+                    item.innerHTML = `
+
+                        <div
+                            class="notification-icon ${dados.classe}"
+                        >
+                            ${dados.icone}
+                        </div>
+
+
+                        <div class="notification-content">
+
+                            <div class="notification-title">
+
+                                ${escaparHTML(
+                                    notificacao.titulo ||
+                                    "Notificação"
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-text">
+
+                                ${escaparHTML(
+                                    notificacao.mensagem ||
+                                    notificacao.texto ||
+                                    ""
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-time">
+
+                                ${escaparHTML(
+                                    formatarTempoNotificacao(
+                                        notificacao
+                                    )
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    item.addEventListener(
+                        "click",
+                        function () {
+
+                            abrirNotificacao(
+                                notificacao,
+                                indiceReal
+                            );
+                        }
+                    );
+
+
+                    listaNotificacoes
+                        .appendChild(
+                            item
+                        );
+                }
+            );
+    }
+
+
+    function marcarTodasComoLidas() {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        notificacoes.forEach(
+            function (item) {
+
+                item.lida = true;
+            }
+        );
+
+
+        salvarNotificacoes(
+            notificacoes
+        );
+
+
+        renderizarNotificacoes();
+    }
+
+
+    /* =========================================================
+       ABRIR / FECHAR SINO
+    ========================================================= */
+
+    if (btnNotificacoes) {
+
+        btnNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (menuPerfil) {
+
+                    menuPerfil
+                        .classList
+                        .remove("aberto");
+                }
+
+
+                painelNotificacoes
+                    .classList
+                    .toggle("aberto");
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ABRIR / FECHAR PERFIL
+    ========================================================= */
+
+    if (btnPerfil) {
+
+        btnPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (painelNotificacoes) {
+
+                    painelNotificacoes
+                        .classList
+                        .remove("aberto");
+                }
+
+
+                menuPerfil
+                    .classList
+                    .toggle("aberto");
+            }
+        );
+    }
+
+
+    if (painelNotificacoes) {
+
+        painelNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    if (menuPerfil) {
+
+        menuPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            if (painelNotificacoes) {
+
+                painelNotificacoes
+                    .classList
+                    .remove("aberto");
+            }
+
+
+            if (menuPerfil) {
+
+                menuPerfil
+                    .classList
+                    .remove("aberto");
+            }
+        }
+    );
+
+
+    if (btnMarcarTodasLidas) {
+
+        btnMarcarTodasLidas.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                marcarTodasComoLidas();
+            }
+        );
+    }
+
+
+    /* =========================================================
+       BOTÕES DO RELATÓRIO
     ========================================================= */
 
     btnEditar.addEventListener(
@@ -4216,49 +5887,59 @@ document.addEventListener("DOMContentLoaded", function () {
        SAIR
     ========================================================= */
 
-    const btnSair =
-        document.getElementById(
-            "btnSair"
+    function sairDoSistema(event) {
+
+        if (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+        }
+
+
+        const confirmar =
+            confirm(
+                "Deseja realmente sair do sistema?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        sessionStorage.clear();
+
+
+        localStorage.removeItem(
+            "usuarioLogado"
         );
+
+
+        localStorage.removeItem(
+            "sessaoUsuario"
+        );
+
+
+        window.location.href =
+            "../pagina_inicial.html";
+    }
 
 
     if (btnSair) {
 
         btnSair.addEventListener(
             "click",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const confirmar =
-                    confirm(
-                        "Deseja realmente sair do sistema?"
-                    );
+            sairDoSistema
+        );
+    }
 
 
-                if (!confirmar) {
-                    return;
-                }
+    if (btnSairPerfil) {
 
-
-                sessionStorage.clear();
-
-
-                localStorage.removeItem(
-                    "usuarioLogado"
-                );
-
-
-                localStorage.removeItem(
-                    "sessaoUsuario"
-                );
-
-
-                window.location.href =
-                    "../pagina_inicial.html";
-
-            }
+        btnSairPerfil.addEventListener(
+            "click",
+            sairDoSistema
         );
     }
 
@@ -4307,7 +5988,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                         idAberto
                                     )
                                 );
-
                             }
                         );
 
@@ -4317,13 +5997,34 @@ document.addEventListener("DOMContentLoaded", function () {
                         abrirRelatorio(
                             atualizado.id
                         );
-
                     }
+
                     else {
 
                         voltarParaRelatorios();
                     }
                 }
+            }
+
+
+            if (
+                event.key ===
+                CHAVE_NOTIFICACOES
+            ) {
+
+                renderizarNotificacoes();
+            }
+
+
+            if (
+                event.key ===
+                    CHAVE_PERFIL ||
+
+                event.key ===
+                    "sessaoUsuario"
+            ) {
+
+                carregarPerfil();
             }
         }
     );
@@ -4358,6 +6059,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 renderizarRelatorios();
 
+                carregarPerfil();
+
+                renderizarNotificacoes();
+
 
                 if (idAberto) {
 
@@ -4373,7 +6078,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                         idAberto
                                     )
                                 );
-
                             }
                         );
 
@@ -4391,8 +6095,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================================
-       ABRIR AUTOMATICAMENTE O RELATÓRIO
-       RECÉM-FINALIZADO
+       ABRIR AUTOMATICAMENTE RELATÓRIO RECÉM-FINALIZADO
     ========================================================= */
 
     function abrirRelatorioAtual() {
@@ -4416,7 +6119,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         String(relatorio.id) ===
                         String(id)
                     );
-
                 }
             );
 
@@ -4447,7 +6149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function iniciar() {
 
         /*
-            1. Busca as inspeções reais.
+            1. Busca inspeções reais.
         */
 
         inspecoes =
@@ -4456,7 +6158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /*
             2. Cada inspeção com itens
-               vira UM relatório.
+               vira um relatório.
         */
 
         gerarRelatorios();
@@ -4470,14 +6172,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-            4. Monta os cards.
+            4. Monta cards.
         */
 
         renderizarRelatorios();
 
 
         /*
-            5. Inicialmente mostra
+            5. Carrega o perfil.
+        */
+
+        carregarPerfil();
+
+
+        /*
+            6. Carrega notificações.
+        */
+
+        renderizarNotificacoes();
+
+
+        /*
+            7. Mostra inicialmente
                a lista.
         */
 
@@ -4490,10 +6206,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-            6. Se o usuário acabou de
-               finalizar uma inspeção,
-               abre o relatório dela
-               automaticamente.
+            8. Se veio de uma inspeção
+               recém-finalizada, abre
+               automaticamente o relatório.
         */
 
         abrirRelatorioAtual();

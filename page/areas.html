@@ -2,11 +2,23 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Áreas Industriais - AutoRelatório</title>
 
+
     <style>
+
+        /* =========================================================
+           CONFIGURAÇÃO GERAL
+        ========================================================= */
+
         * {
             margin: 0;
             padding: 0;
@@ -14,1115 +26,4521 @@
             font-family: Arial, sans-serif;
         }
 
+
         body {
             background: #f3f4f7;
             color: #172033;
         }
 
-        /* ================= SIDEBAR ================= */
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
 
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
+
             width: 240px;
             height: 100vh;
+
             background: #0b132b;
             color: white;
+
             display: flex;
             flex-direction: column;
+
+            z-index: 1000;
         }
+
 
         .logo {
             height: 65px;
+
             display: flex;
             align-items: center;
+
             gap: 10px;
+
             padding: 10px 16px;
+
             border-bottom: 1px solid #1b243b;
         }
+
 
         .logo-icon {
             width: 32px;
             height: 32px;
+
             background: #2563eb;
+
             border-radius: 4px;
+
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
 
         .logo-text {
             font-size: 14px;
             font-weight: bold;
         }
 
+
         .logo-text span {
             display: block;
+
             color: #3b82f6;
+
             font-size: 8px;
+
             letter-spacing: 1.2px;
+
             margin-top: 2px;
         }
+
+
+        /* =========================================================
+           MENU
+        ========================================================= */
 
         .menu {
             padding: 17px 9px;
         }
 
+
         .menu a {
             height: 40px;
+
             padding: 0 12px;
+
             margin-bottom: 3px;
+
             display: flex;
             align-items: center;
+
             gap: 10px;
+
             color: #aeb8ca;
+
             text-decoration: none;
+
             font-size: 13px;
+
             border-radius: 5px;
+
+            transition: .2s;
         }
+
 
         .menu a:hover {
             background: #151f3a;
             color: white;
         }
 
+
         .menu a.active {
             background: #12315c;
+
             color: #3b82f6;
+
             border-left: 2px solid #3b82f6;
         }
 
+
         .menu-icon {
             width: 16px;
+
             text-align: center;
         }
 
+
+        /* =========================================================
+           PARTE INFERIOR DA SIDEBAR
+        ========================================================= */
+
         .sidebar-bottom {
             margin-top: auto;
+
             padding: 20px 18px;
+
             border-top: 1px solid #1b243b;
         }
+
 
         .profile {
             display: flex;
             align-items: center;
+
             gap: 11px;
+
             margin-bottom: 22px;
         }
+
 
         .profile-circle {
             width: 32px;
             height: 32px;
+
             border-radius: 50%;
+
             background: #2867b5;
+
+            color: white;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 11px;
             font-weight: bold;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
         }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
 
         .profile-name {
             font-size: 12px;
             font-weight: bold;
         }
 
+
         .profile-info {
             color: #7f8ba0;
+
             font-size: 9px;
+
             margin-top: 3px;
         }
+
 
         .logout {
             color: #aeb8ca;
+
             text-decoration: none;
+
             font-size: 12px;
+
+            display: inline-flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
         }
 
-        /* ================= PRINCIPAL ================= */
+
+        .logout:hover {
+            color: white;
+        }
+
+
+        /* =========================================================
+           PRINCIPAL
+        ========================================================= */
 
         .main {
             margin-left: 240px;
+
             width: calc(100% - 240px);
+
             min-height: 100vh;
         }
 
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
         .topbar {
             height: 65px;
+
             background: white;
+
             border-bottom: 1px solid #dfe3e9;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             padding: 0 25px;
+
+            position: relative;
+
+            z-index: 50;
         }
+
 
         .page-title h1 {
             font-size: 18px;
+
             color: #111827;
         }
 
+
         .page-title p {
             font-size: 11px;
+
             color: #8b95a5;
+
             margin-top: 3px;
         }
 
-        .user {
-            width: 32px;
-            height: 32px;
+
+        /* =========================================================
+           AÇÕES DO TOPO
+        ========================================================= */
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            position: relative;
+        }
+
+
+        /* =========================================================
+           SINO
+        ========================================================= */
+
+        .notification-wrapper {
+            position: relative;
+        }
+
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
             border-radius: 50%;
-            background: #2867b5;
-            color: white;
+
+            background: transparent;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            color: #5f6b7c;
+
+            font-size: 19px;
+
+            transition: .2s;
+        }
+
+
+        .notification-button:hover {
+            background: #f1f4f8;
+
+            color: #2563eb;
+        }
+
+
+        .notification-count {
+            position: absolute;
+
+            top: 1px;
+            right: 0;
+
+            min-width: 17px;
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 10px;
+
+            background: #e53935;
+
+            color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+
+        /* =========================================================
+           PAINEL DE NOTIFICAÇÕES
+        ========================================================= */
+
+        .notification-panel {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 360px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .notification-panel.aberto {
+            display: block;
+        }
+
+
+        .notification-header {
+            min-height: 60px;
+
+            padding: 15px 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .notification-header h3 {
+            color: #172033;
+
+            font-size: 14px;
+        }
+
+
+        .notification-header button {
+            border: none;
+
+            background: transparent;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .notification-header button:hover {
+            text-decoration: underline;
+        }
+
+
+        .notification-list {
+            max-height: 380px;
+
+            overflow-y: auto;
+        }
+
+
+        .notification-item {
+            padding: 14px 16px;
+
+            display: flex;
+
+            gap: 12px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+
+        .notification-item.nao-lida {
+            background: #f4f8ff;
+        }
+
+
+        .notification-item.nao-lida:hover {
+            background: #edf4ff;
+        }
+
+
+        .notification-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+        }
+
+
+        .notification-icon.aprovado {
+            background: #e8f7ee;
+            color: #218447;
+        }
+
+
+        .notification-icon.devolvido {
+            background: #fff4e5;
+            color: #d97706;
+        }
+
+
+        .notification-icon.comentario {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+
+        .notification-icon.alerta {
+            background: #fff0f0;
+            color: #d63b3b;
+        }
+
+
+        .notification-content {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .notification-title {
+            margin-bottom: 4px;
+
+            color: #263348;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .notification-text {
+            color: #6f7b8c;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        .notification-time {
+            margin-top: 6px;
+
+            color: #9aa4b2;
+
+            font-size: 9px;
+        }
+
+
+        .notification-empty {
+            padding: 35px 20px;
+
+            color: #8b95a5;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           PERFIL DO TOPO
+        ========================================================= */
+
+        .user-wrapper {
+            position: relative;
+        }
+
+
+        .user-button {
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+
+            padding: 3px;
+
+            border-radius: 20px;
+
+            transition: .2s;
+        }
+
+
+        .user-button:hover {
+            background: #f1f4f8;
+        }
+
+
+        .user {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
             font-size: 11px;
             font-weight: bold;
         }
+
+
+        .user img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .user-arrow {
+            color: #8993a2;
+
+            font-size: 9px;
+
+            margin-right: 4px;
+        }
+
+
+        /* =========================================================
+           MENU DO PERFIL
+        ========================================================= */
+
+        .profile-menu {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 245px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .profile-menu.aberto {
+            display: block;
+        }
+
+
+        .profile-menu-header {
+            padding: 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .profile-menu-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-menu-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-menu-name {
+            color: #172033;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-menu-role {
+            color: #7f8ba0;
+
+            font-size: 10px;
+        }
+
+
+        .profile-menu-links {
+            padding: 7px;
+        }
+
+
+        .profile-menu-links a,
+        .profile-menu-links button {
+            width: 100%;
+
+            min-height: 38px;
+
+            padding: 0 11px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #465266;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .profile-menu-links a:hover,
+        .profile-menu-links button:hover {
+            background: #f4f6f9;
+
+            color: #2563eb;
+        }
+
+
+        .profile-menu-links .menu-sair {
+            color: #c83e3e;
+
+            border-top: 1px solid #edf0f3;
+
+            margin-top: 6px;
+
+            padding-top: 7px;
+
+            border-radius: 0;
+        }
+
+
+        .profile-menu-links .menu-sair:hover {
+            color: #b52e2e;
+
+            background: #fff5f5;
+        }
+
+
+        /* =========================================================
+           CONTEÚDO
+        ========================================================= */
 
         .content {
             padding: 25px 24px 40px;
         }
 
+
         .content-top {
             display: flex;
+
             align-items: center;
             justify-content: space-between;
+
             margin-bottom: 20px;
         }
 
+
         .area-count {
             font-size: 14px;
+
             color: #687386;
         }
 
+
         .new-button {
             height: 37px;
+
             padding: 0 18px;
+
             border: none;
+
             border-radius: 5px;
+
             background: #2166b1;
+
             color: white;
+
             font-size: 13px;
             font-weight: bold;
+
             cursor: pointer;
         }
+
 
         .new-button:hover {
             background: #19599d;
         }
 
-        /* ================= CARDS ================= */
+
+        /* =========================================================
+           CARDS DAS ÁREAS
+        ========================================================= */
 
         .areas-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 16px;
         }
 
+
         .area-card {
             background: white;
+
             border: 1px solid #dce1e7;
+
             border-radius: 8px;
+
             padding: 20px;
+
             min-height: 190px;
+
             cursor: pointer;
+
             transition: .2s;
         }
 
+
         .area-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,.07);
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,.07);
+
             border-color: #9dbde4;
         }
 
+
         .area-icon {
             font-size: 27px;
+
             margin-bottom: 10px;
         }
 
+
         .area-card h3 {
             font-size: 17px;
+
             color: #111827;
+
             margin-bottom: 7px;
         }
 
+
         .area-card p {
             font-size: 12px;
+
             color: #607087;
+
             line-height: 1.5;
+
             min-height: 45px;
         }
 
+
         .area-footer {
             border-top: 1px solid #edf0f3;
+
             margin-top: 15px;
+
             padding-top: 15px;
+
             font-size: 11px;
+
             color: #8190a5;
+
             display: flex;
+
             justify-content: space-between;
         }
 
-        /* ================= DETALHES ================= */
+
+        /* =========================================================
+           DETALHES DA ÁREA
+        ========================================================= */
 
         #areaDetalhes {
             display: none;
         }
 
+
         .detalhes-header {
             background: white;
+
             border: 1px solid #dce1e7;
+
             border-radius: 9px;
+
             padding: 22px;
+
             margin-bottom: 20px;
         }
 
+
         .voltar {
             border: none;
+
             background: none;
+
             color: #2166b1;
+
             cursor: pointer;
+
             margin-bottom: 18px;
+
             font-weight: bold;
         }
 
+
         .detalhes-header h2 {
             font-size: 23px;
+
             margin-bottom: 7px;
         }
 
+
         .detalhes-header p {
             color: #687386;
+
             font-size: 13px;
         }
 
+
         .equipamentos-topo {
             display: flex;
+
             justify-content: space-between;
             align-items: center;
+
             margin-bottom: 14px;
         }
+
 
         .equipamentos-topo h3 {
             font-size: 16px;
         }
 
+
         .lista-equipamentos {
             display: grid;
+
             gap: 10px;
         }
 
+
         .equipamento-card {
             background: white;
+
             border: 1px solid #dce1e7;
+
             border-radius: 7px;
+
             padding: 17px;
+
             display: flex;
+
             justify-content: space-between;
             align-items: center;
         }
 
+
         .equipamento-card h4 {
             font-size: 14px;
+
             margin-bottom: 5px;
         }
 
+
         .equipamento-card p {
             color: #718096;
+
             font-size: 11px;
         }
+
 
         .status {
             padding: 5px 10px;
+
             border-radius: 15px;
+
             font-size: 11px;
         }
 
+
         .operando {
             background: #ecfdf3;
+
             color: #008a4b;
         }
 
+
         .manutencao {
             background: #fff5e9;
+
             color: #c75300;
         }
 
+
         .parado {
             background: #fff0f0;
+
             color: #dc2626;
         }
 
+
         .vazio {
             background: white;
+
             border: 1px dashed #cbd5e1;
+
             padding: 35px;
+
             text-align: center;
+
             color: #8793a5;
+
             border-radius: 8px;
         }
 
-        /* ================= MODAL ================= */
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
 
         .modal {
             display: none;
+
             position: fixed;
+
             inset: 0;
-            background: rgba(0,0,0,.45);
-            z-index: 100;
+
+            background:
+                rgba(0,0,0,.45);
+
+            z-index: 6000;
+
             align-items: center;
             justify-content: center;
         }
+
 
         .modal.ativo {
             display: flex;
         }
 
+
         .modal-box {
             background: white;
+
             width: 430px;
-            max-width: calc(100% - 30px);
+
+            max-width:
+                calc(100% - 30px);
+
             border-radius: 10px;
+
             padding: 25px;
         }
+
 
         .modal-box h2 {
             margin-bottom: 20px;
         }
 
+
         .campo {
             margin-bottom: 15px;
         }
 
+
         .campo label {
             display: block;
+
             font-size: 12px;
             font-weight: bold;
+
             margin-bottom: 6px;
         }
+
 
         .campo input,
         .campo textarea {
             width: 100%;
+
             border: 1px solid #d4dae3;
+
             border-radius: 5px;
+
             padding: 11px;
+
             outline: none;
         }
 
+
         .campo textarea {
             resize: vertical;
+
             min-height: 85px;
         }
+
 
         .campo input:focus,
         .campo textarea:focus {
             border-color: #2563eb;
         }
 
+
         .modal-actions {
             display: flex;
+
             justify-content: flex-end;
+
             gap: 10px;
+
             margin-top: 20px;
         }
 
+
         .cancelar {
             background: white;
+
             border: 1px solid #ccd3dd;
+
             padding: 10px 18px;
+
             border-radius: 5px;
+
             cursor: pointer;
         }
 
-        @media(max-width:1000px) {
+
+        /* =========================================================
+           RESPONSIVIDADE
+        ========================================================= */
+
+        @media(max-width: 1000px) {
+
             .areas-grid {
-                grid-template-columns: repeat(2,1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
         }
 
-        @media(max-width:750px) {
+
+        @media(max-width: 750px) {
+
             .sidebar {
                 display: none;
             }
 
+
             .main {
                 margin-left: 0;
+
                 width: 100%;
+            }
+
+
+            .notification-panel {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+                left: 10px;
+
+                width: auto;
+            }
+
+
+            .profile-menu {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+
+                width: 245px;
             }
         }
 
-        @media(max-width:600px) {
+
+        @media(max-width: 600px) {
+
             .areas-grid {
                 grid-template-columns: 1fr;
             }
+
+
+            .content {
+                padding:
+                    20px 15px 35px;
+            }
+
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+
+            .page-title h1 {
+                font-size: 16px;
+            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<aside class="sidebar">
 
-    <div class="logo">
-        <div class="logo-icon">▰</div>
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
 
-        <div class="logo-text">
-            AutoRelatório
-            <span>INDUSTRIAL</span>
-        </div>
-    </div>
+    <aside class="sidebar">
 
-    <nav class="menu">
-        <a href="dashboard.html"><span class="menu-icon">⌂</span>Dashboard</a>
-        <a href="nova_inspecao.html"><span class="menu-icon">✓</span>Nova Inspeção</a>
-        <a href="registrar_problema.html"><span class="menu-icon">△</span>Registrar Problema</a>
-        <a href="historico.html"><span class="menu-icon">♢</span>Histórico</a>
-        <a href="relatorios.html"><span class="menu-icon">▧</span>Relatórios</a>
-        <a href="areas.html" class="active"><span class="menu-icon">▦</span>Áreas</a>
-        <a href="equipamentos.html"><span class="menu-icon">⌁</span>Equipamentos</a>
-    </nav>
 
-    <div class="sidebar-bottom">
-        <div class="profile">
-            <div class="profile-circle">TC</div>
-            <div>
-                <div class="profile-name">Técnico</div>
-                <div class="profile-info">Perfil Técnico</div>
-            </div>
-        </div>
+        <div class="logo">
 
-        <a href="../pagina_inicial.html" class="logout">⇥ &nbsp; Sair</a>
-    </div>
-
-</aside>
-
-<main class="main">
-
-    <header class="topbar">
-        <div class="page-title">
-            <h1>Áreas Industriais</h1>
-            <p>Cadastro e gerenciamento de áreas</p>
-        </div>
-
-        <div class="user">TC</div>
-    </header>
-
-    <section class="content">
-
-        <!-- LISTA DE ÁREAS -->
-
-        <div id="areaLista">
-
-            <div class="content-top">
-                <div class="area-count" id="contadorAreas">
-                    0 áreas cadastradas
-                </div>
-
-                <button class="new-button" id="btnNovaArea">
-                    + &nbsp; Nova Área
-                </button>
+            <div class="logo-icon">
+                ▰
             </div>
 
-            <div class="areas-grid" id="areasGrid"></div>
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
 
         </div>
 
-        <!-- DETALHES DA ÁREA -->
 
-        <div id="areaDetalhes">
+        <!-- =====================================================
+             MENU
+        ====================================================== -->
 
-            <div class="detalhes-header">
+        <nav class="menu">
 
-                <button class="voltar" id="btnVoltar">
-                    ← Voltar para áreas
-                </button>
 
-                <h2 id="detalheNome"></h2>
-                <p id="detalheDescricao"></p>
+            <a href="dashboard.html">
 
-            </div>
+                <span class="menu-icon">
+                    ⌂
+                </span>
 
-            <div class="equipamentos-topo">
+                Dashboard
 
-                <h3 id="tituloEquipamentos">
-                    Equipamentos
-                </h3>
+            </a>
 
-                <button class="new-button" id="btnNovoEquipamento">
-                    + &nbsp; Novo Equipamento
-                </button>
 
-            </div>
+            <a href="nova_inspecao.html">
 
-            <div class="lista-equipamentos" id="listaEquipamentos"></div>
+                <span class="menu-icon">
+                    ✓
+                </span>
 
-        </div>
+                Nova Inspeção
 
-    </section>
+            </a>
 
-</main>
 
+            <a href="registrar_problema.html">
 
-<!-- MODAL NOVA ÁREA -->
+                <span class="menu-icon">
+                    △
+                </span>
 
-<div class="modal" id="modalArea">
+                Registrar Problema
 
-    <div class="modal-box">
+            </a>
 
-        <h2>Nova Área Industrial</h2>
 
-        <form id="formArea">
+            <a href="historico.html">
 
-            <div class="campo">
-                <label>Nome da área *</label>
-                <input id="nomeArea" required placeholder="Ex: Redução">
-            </div>
+                <span class="menu-icon">
+                    ♢
+                </span>
 
-            <div class="campo">
-                <label>Descrição</label>
-                <textarea id="descricaoArea"
-                    placeholder="Descrição da área industrial"></textarea>
-            </div>
+                Histórico
 
-            <div class="campo">
-                <label>Ícone</label>
-                <input id="iconeArea" placeholder="Ex: 🏭">
-            </div>
+            </a>
 
-            <div class="modal-actions">
 
-                <button type="button"
-                        class="cancelar"
-                        id="cancelarArea">
-                    Cancelar
-                </button>
+            <a href="relatorios.html">
 
-                <button type="submit"
-                        class="new-button">
-                    Salvar Área
-                </button>
+                <span class="menu-icon">
+                    ▧
+                </span>
 
-            </div>
+                Relatórios
 
-        </form>
+            </a>
 
-    </div>
 
-</div>
+            <a
+                href="areas.html"
+                class="active"
+            >
 
+                <span class="menu-icon">
+                    ▦
+                </span>
 
-<script>
+                Áreas
 
-    /* =====================================================
-       DADOS
-    ===================================================== */
+            </a>
 
-    const CHAVE_AREAS = "autoRelatorio_areas";
-    const CHAVE_EQUIPAMENTOS = "autoRelatorio_equipamentos";
 
+            <a href="equipamentos.html">
 
-    /* ÁREAS INICIAIS */
+                <span class="menu-icon">
+                    ⌁
+                </span>
 
-    const areasPadrao = [
-        {
-            id: 1,
-            nome: "Redução",
-            descricao: "Alto-fornos e sistema de injeção de carvão",
-            icone: "🏭"
-        },
+                Equipamentos
 
-        {
-            id: 2,
-            nome: "Aciaria",
-            descricao: "Convertedores LD, fornos panela e lingotamento contínuo",
-            icone: "🔥"
-        },
+            </a>
 
-        {
-            id: 3,
-            nome: "Laminação",
-            descricao: "Laminadores a quente e a frio, linha de acabamento",
-            icone: "⚙️"
-        },
+        </nav>
 
-        {
-            id: 4,
-            nome: "Utilidades",
-            descricao: "Geração de energia, ar comprimido e tratamento de água",
-            icone: "⚡"
-        },
 
-        {
-            id: 5,
-            nome: "Manutenção",
-            descricao: "Oficinas mecânica, elétrica e instrumentação",
-            icone: "🔧"
-        },
+        <!-- =====================================================
+             PERFIL DA SIDEBAR
+        ====================================================== -->
 
-        {
-            id: 6,
-            nome: "Logística",
-            descricao: "Pátios, pontes rolantes e sistemas de movimentação",
-            icone: "🏗️"
-        }
-    ];
+        <div class="sidebar-bottom">
 
 
-    function carregarAreas() {
+            <div class="profile">
 
-        let dados = JSON.parse(
-            localStorage.getItem(CHAVE_AREAS) || "null"
-        );
 
-        if (!dados) {
+                <div class="profile-circle">
 
-            dados = areasPadrao;
-
-            localStorage.setItem(
-                CHAVE_AREAS,
-                JSON.stringify(dados)
-            );
-
-        }
-
-        return dados;
-    }
-
-
-    function carregarEquipamentos() {
-
-        return JSON.parse(
-            localStorage.getItem(CHAVE_EQUIPAMENTOS) || "[]"
-        );
-
-    }
-
-
-    let areas = carregarAreas();
-    let areaSelecionada = null;
-
-
-    /* =====================================================
-       ELEMENTOS
-    ===================================================== */
-
-    const areasGrid =
-        document.getElementById("areasGrid");
-
-    const contadorAreas =
-        document.getElementById("contadorAreas");
-
-    const areaLista =
-        document.getElementById("areaLista");
-
-    const areaDetalhes =
-        document.getElementById("areaDetalhes");
-
-    const detalheNome =
-        document.getElementById("detalheNome");
-
-    const detalheDescricao =
-        document.getElementById("detalheDescricao");
-
-    const tituloEquipamentos =
-        document.getElementById("tituloEquipamentos");
-
-    const listaEquipamentos =
-        document.getElementById("listaEquipamentos");
-
-    const modalArea =
-        document.getElementById("modalArea");
-
-
-    /* =====================================================
-       RENDERIZAR ÁREAS
-    ===================================================== */
-
-    function renderizarAreas() {
-
-        areas = carregarAreas();
-
-        const equipamentos =
-            carregarEquipamentos();
-
-
-        contadorAreas.textContent =
-            `${areas.length} área${areas.length !== 1 ? "s" : ""} cadastrada${areas.length !== 1 ? "s" : ""}`;
-
-
-        areasGrid.innerHTML = "";
-
-
-        areas.forEach(function(area) {
-
-            const quantidade =
-                equipamentos.filter(function(eq) {
-                    return eq.area === area.nome;
-                }).length;
-
-
-            const card =
-                document.createElement("div");
-
-            card.className = "area-card";
-
-
-            card.innerHTML = `
-                <div class="area-icon">
-                    ${area.icone || "🏭"}
-                </div>
-
-                <h3>${area.nome}</h3>
-
-                <p>${area.descricao || "Sem descrição cadastrada."}</p>
-
-                <div class="area-footer">
-
-                    <span>
-                        ◇ ${quantidade}
-                        equipamento${quantidade !== 1 ? "s" : ""}
+                    <span id="sidebarIniciais">
+                        TC
                     </span>
 
-                    <span>›</span>
+
+                    <img
+                        id="sidebarFoto"
+                        src=""
+                        alt="Foto do usuário"
+                    >
 
                 </div>
-            `;
 
-
-            card.addEventListener(
-                "click",
-                function() {
-
-                    abrirArea(area.id);
-
-                }
-            );
-
-
-            areasGrid.appendChild(card);
-
-        });
-
-    }
-
-
-    /* =====================================================
-       ABRIR ÁREA
-    ===================================================== */
-
-    function abrirArea(id) {
-
-        areas = carregarAreas();
-
-        areaSelecionada =
-            areas.find(function(area) {
-                return area.id === id;
-            });
-
-
-        if (!areaSelecionada) {
-            return;
-        }
-
-
-        areaLista.style.display = "none";
-        areaDetalhes.style.display = "block";
-
-
-        detalheNome.textContent =
-            `${areaSelecionada.icone || "🏭"} ${areaSelecionada.nome}`;
-
-        detalheDescricao.textContent =
-            areaSelecionada.descricao || "";
-
-
-        renderizarEquipamentosArea();
-
-    }
-
-
-    /* =====================================================
-       EQUIPAMENTOS DA ÁREA
-    ===================================================== */
-
-    function renderizarEquipamentosArea() {
-
-        const equipamentos =
-            carregarEquipamentos().filter(
-                function(eq) {
-
-                    return eq.area ===
-                        areaSelecionada.nome;
-
-                }
-            );
-
-
-        tituloEquipamentos.textContent =
-            `Equipamentos da área — ${equipamentos.length}`;
-
-
-        listaEquipamentos.innerHTML = "";
-
-
-        if (equipamentos.length === 0) {
-
-            listaEquipamentos.innerHTML = `
-                <div class="vazio">
-
-                    Nenhum equipamento cadastrado
-                    nesta área.
-
-                    <br><br>
-
-                    Utilize o botão
-                    <strong>+ Novo Equipamento</strong>.
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        equipamentos.forEach(function(eq) {
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "equipamento-card";
-
-
-            let classeStatus =
-                eq.status === "Manutenção"
-                ? "manutencao"
-                : eq.status === "Parado"
-                ? "parado"
-                : "operando";
-
-
-            card.innerHTML = `
 
                 <div>
 
-                    <h4>
-                        ${eq.nome}
-                    </h4>
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
+                        Técnico
+                    </div>
 
-                    <p>
-                        Patrimônio:
-                        ${eq.patrimonio || "Não informado"}
-                    </p>
 
-                    <p>
-                        ${eq.localizacao || ""}
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+                ⇥ Sair
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         PRINCIPAL
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             TOPO
+        ====================================================== -->
+
+        <header class="topbar">
+
+
+            <div class="page-title">
+
+                <h1>
+                    Áreas Industriais
+                </h1>
+
+                <p>
+                    Cadastro e gerenciamento de áreas
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 SINO + PERFIL
+            ================================================== -->
+
+            <div class="topbar-actions">
+
+
+                <!-- NOTIFICAÇÕES -->
+
+                <div class="notification-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="btnNotificacoes"
+                        aria-label="Notificações"
+                        title="Notificações"
+                    >
+
+                        🔔
+
+
+                        <span
+                            class="notification-count vazio"
+                            id="contadorNotificacoes"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="notification-panel"
+                        id="painelNotificacoes"
+                    >
+
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notificações
+                            </h3>
+
+
+                            <button
+                                type="button"
+                                id="btnMarcarTodasLidas"
+                            >
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="notification-list"
+                            id="listaNotificacoes"
+                        >
+
+                            <div class="notification-empty">
+                                Nenhuma notificação no momento.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERFIL -->
+
+                <div class="user-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="user-button"
+                        id="btnPerfil"
+                        aria-label="Abrir meu perfil"
+                        title="Meu Perfil"
+                    >
+
+
+                        <div class="user">
+
+                            <span id="topIniciais">
+                                TC
+                            </span>
+
+
+                            <img
+                                id="topFoto"
+                                src=""
+                                alt="Foto do usuário"
+                            >
+
+                        </div>
+
+
+                        <span class="user-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+                    <!-- MENU DO PERFIL -->
+
+                    <div
+                        class="profile-menu"
+                        id="menuPerfil"
+                    >
+
+
+                        <div class="profile-menu-header">
+
+
+                            <div class="profile-menu-avatar">
+
+                                <span id="menuIniciais">
+                                    TC
+                                </span>
+
+
+                                <img
+                                    id="menuFoto"
+                                    src=""
+                                    alt="Foto do usuário"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="profile-menu-name"
+                                    id="menuNome"
+                                >
+                                    Técnico
+                                </div>
+
+
+                                <div
+                                    class="profile-menu-role"
+                                    id="menuFuncao"
+                                >
+                                    Perfil Técnico
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-menu-links">
+
+
+                            <a href="perfil.html">
+                                👤 Meu Perfil
+                            </a>
+
+
+                            <a href="editar_perfil.html">
+                                ✎ Editar Perfil
+                            </a>
+
+
+                            <a href="alterar_senha.html">
+                                🔒 Alterar Senha
+                            </a>
+
+
+                            <a href="preferencias.html">
+                                ⚙ Preferências
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="menu-sair"
+                                id="btnSairPerfil"
+                            >
+                                ⇥ Sair
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTEÚDO
+        ====================================================== -->
+
+        <section class="content">
+
+
+            <!-- =================================================
+                 LISTA DE ÁREAS
+            ================================================== -->
+
+            <div id="areaLista">
+
+
+                <div class="content-top">
+
+
+                    <div
+                        class="area-count"
+                        id="contadorAreas"
+                    >
+                        0 áreas cadastradas
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="new-button"
+                        id="btnNovaArea"
+                    >
+                        + &nbsp; Nova Área
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="areas-grid"
+                    id="areasGrid"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DETALHES DA ÁREA
+            ================================================== -->
+
+            <div id="areaDetalhes">
+
+
+                <div class="detalhes-header">
+
+
+                    <button
+                        type="button"
+                        class="voltar"
+                        id="btnVoltar"
+                    >
+                        ← Voltar para áreas
+                    </button>
+
+
+                    <h2 id="detalheNome">
+                    </h2>
+
+
+                    <p id="detalheDescricao">
                     </p>
 
                 </div>
 
 
-                <span class="status ${classeStatus}">
-                    ${eq.status || "Operando"}
-                </span>
+                <div class="equipamentos-topo">
+
+
+                    <h3 id="tituloEquipamentos">
+                        Equipamentos
+                    </h3>
+
+
+                    <button
+                        type="button"
+                        class="new-button"
+                        id="btnNovoEquipamento"
+                    >
+                        + &nbsp; Novo Equipamento
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="lista-equipamentos"
+                    id="listaEquipamentos"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         MODAL NOVA ÁREA
+    ========================================================== -->
+
+    <div
+        class="modal"
+        id="modalArea"
+    >
+
+
+        <div class="modal-box">
+
+
+            <h2>
+                Nova Área Industrial
+            </h2>
+
+
+            <form id="formArea">
+
+
+                <div class="campo">
+
+                    <label for="nomeArea">
+                        Nome da área *
+                    </label>
+
+
+                    <input
+                        id="nomeArea"
+                        required
+                        placeholder="Ex: Redução"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="descricaoArea">
+                        Descrição
+                    </label>
+
+
+                    <textarea
+                        id="descricaoArea"
+                        placeholder="Descrição da área industrial"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="iconeArea">
+                        Ícone
+                    </label>
+
+
+                    <input
+                        id="iconeArea"
+                        placeholder="Ex: 🏭"
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+
+                    <button
+                        type="button"
+                        class="cancelar"
+                        id="cancelarArea"
+                    >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="new-button"
+                    >
+                        Salvar Área
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================================
+       CHAVES DO LOCALSTORAGE
+    ========================================================= */
+
+    const CHAVE_AREAS =
+        "autoRelatorio_areas";
+
+    const CHAVE_EQUIPAMENTOS =
+        "autoRelatorio_equipamentos";
+
+    const CHAVE_NOTIFICACOES =
+        "notificacoes";
+
+    const CHAVE_PERFIL =
+        "perfilUsuario";
+
+
+    /* =========================================================
+       VARIÁVEIS
+    ========================================================= */
+
+    let areas = [];
+
+    let equipamentos = [];
+
+    let areaSelecionada = null;
+
+
+    /* =========================================================
+       ELEMENTOS DA PÁGINA
+    ========================================================= */
+
+    const areasGrid =
+        document.getElementById(
+            "areasGrid"
+        );
+
+
+    const contadorAreas =
+        document.getElementById(
+            "contadorAreas"
+        );
+
+
+    const areaLista =
+        document.getElementById(
+            "areaLista"
+        );
+
+
+    const areaDetalhes =
+        document.getElementById(
+            "areaDetalhes"
+        );
+
+
+    const detalheNome =
+        document.getElementById(
+            "detalheNome"
+        );
+
+
+    const detalheDescricao =
+        document.getElementById(
+            "detalheDescricao"
+        );
+
+
+    const tituloEquipamentos =
+        document.getElementById(
+            "tituloEquipamentos"
+        );
+
+
+    const listaEquipamentos =
+        document.getElementById(
+            "listaEquipamentos"
+        );
+
+
+    const btnNovaArea =
+        document.getElementById(
+            "btnNovaArea"
+        );
+
+
+    const btnVoltar =
+        document.getElementById(
+            "btnVoltar"
+        );
+
+
+    const btnNovoEquipamento =
+        document.getElementById(
+            "btnNovoEquipamento"
+        );
+
+
+    const modalArea =
+        document.getElementById(
+            "modalArea"
+        );
+
+
+    const formArea =
+        document.getElementById(
+            "formArea"
+        );
+
+
+    const nomeArea =
+        document.getElementById(
+            "nomeArea"
+        );
+
+
+    const descricaoArea =
+        document.getElementById(
+            "descricaoArea"
+        );
+
+
+    const iconeArea =
+        document.getElementById(
+            "iconeArea"
+        );
+
+
+    const cancelarArea =
+        document.getElementById(
+            "cancelarArea"
+        );
+
+
+    /* =========================================================
+       ELEMENTOS DO TOPO
+    ========================================================= */
+
+    const btnNotificacoes =
+        document.getElementById(
+            "btnNotificacoes"
+        );
+
+
+    const contadorNotificacoes =
+        document.getElementById(
+            "contadorNotificacoes"
+        );
+
+
+    const painelNotificacoes =
+        document.getElementById(
+            "painelNotificacoes"
+        );
+
+
+    const listaNotificacoes =
+        document.getElementById(
+            "listaNotificacoes"
+        );
+
+
+    const btnMarcarTodasLidas =
+        document.getElementById(
+            "btnMarcarTodasLidas"
+        );
+
+
+    const btnPerfil =
+        document.getElementById(
+            "btnPerfil"
+        );
+
+
+    const menuPerfil =
+        document.getElementById(
+            "menuPerfil"
+        );
+
+
+    const btnSair =
+        document.getElementById(
+            "btnSair"
+        );
+
+
+    const btnSairPerfil =
+        document.getElementById(
+            "btnSairPerfil"
+        );
+
+
+    /* =========================================================
+       FUNÇÕES DE LOCALSTORAGE
+    ========================================================= */
+
+    function lerJSON(
+        chave,
+        padrao = null
+    ) {
+
+        try {
+
+            const valor =
+                localStorage.getItem(
+                    chave
+                );
+
+
+            if (!valor) {
+
+                return padrao;
+            }
+
+
+            return JSON.parse(
+                valor
+            );
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                "Erro ao ler " + chave,
+                erro
+            );
+
+
+            return padrao;
+        }
+    }
+
+
+    function salvarJSON(
+        chave,
+        valor
+    ) {
+
+        try {
+
+            localStorage.setItem(
+
+                chave,
+
+                JSON.stringify(
+                    valor
+                )
+            );
+
+
+            return true;
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                "Erro ao salvar " + chave,
+                erro
+            );
+
+
+            return false;
+        }
+    }
+
+
+    function carregarLista(
+        chave
+    ) {
+
+        const dados =
+            lerJSON(
+                chave,
+                []
+            );
+
+
+        return Array.isArray(
+            dados
+        )
+            ? dados
+            : [];
+    }
+
+
+    /* =========================================================
+       SEGURANÇA PARA TEXTO
+    ========================================================= */
+
+    function escaparHTML(
+        valor
+    ) {
+
+        return String(
+            valor ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+    }
+
+
+    /* =========================================================
+       GERAR ID
+    ========================================================= */
+
+    function gerarId(
+        prefixo
+    ) {
+
+        return (
+            prefixo +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(16)
+                .slice(2)
+        );
+    }
+
+
+    /* =========================================================
+       CARREGAR DADOS
+    ========================================================= */
+
+    function carregarDados() {
+
+        areas =
+            carregarLista(
+                CHAVE_AREAS
+            );
+
+
+        equipamentos =
+            carregarLista(
+                CHAVE_EQUIPAMENTOS
+            );
+    }
+
+
+    /* =========================================================
+       IDENTIFICAR NOME DA ÁREA
+    ========================================================= */
+
+    function obterNomeArea(
+        area
+    ) {
+
+        if (
+            typeof area ===
+            "string"
+        ) {
+
+            return area;
+        }
+
+
+        return (
+            area.nome ||
+            area.area ||
+            area.descricao ||
+            "Área sem nome"
+        );
+    }
+
+
+    /* =========================================================
+       IDENTIFICAR ID DA ÁREA
+    ========================================================= */
+
+    function obterIdArea(
+        area
+    ) {
+
+        if (
+            typeof area ===
+            "string"
+        ) {
+
+            return area;
+        }
+
+
+        return (
+            area.id ||
+            area.codigo ||
+            area.nome
+        );
+    }
+
+
+    /* =========================================================
+       EQUIPAMENTOS DA ÁREA
+    ========================================================= */
+
+    function equipamentosDaArea(
+        area
+    ) {
+
+        const idArea =
+            obterIdArea(
+                area
+            );
+
+
+        const nome =
+            obterNomeArea(
+                area
+            );
+
+
+        return equipamentos.filter(
+
+            function (
+                equipamento
+            ) {
+
+                const referencia =
+
+                    equipamento.areaId ??
+                    equipamento.idArea ??
+                    equipamento.area ??
+                    equipamento.nomeArea;
+
+
+                return (
+
+                    String(
+                        referencia
+                    ) ===
+                    String(
+                        idArea
+                    )
+
+                    ||
+
+                    String(
+                        referencia
+                    ).toLowerCase() ===
+                    String(
+                        nome
+                    ).toLowerCase()
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ATUALIZAR CONTADOR
+    ========================================================= */
+
+    function atualizarContadorAreas() {
+
+        const quantidade =
+            areas.length;
+
+
+        contadorAreas.textContent =
+
+            quantidade +
+
+            (
+                quantidade === 1
+                    ? " área cadastrada"
+                    : " áreas cadastradas"
+            );
+    }
+
+
+    /* =========================================================
+       RENDERIZAR ÁREAS
+    ========================================================= */
+
+    function renderizarAreas() {
+
+        areasGrid.innerHTML =
+            "";
+
+
+        atualizarContadorAreas();
+
+
+        if (
+            areas.length === 0
+        ) {
+
+            areasGrid.innerHTML = `
+
+                <div
+                    class="vazio"
+                    style="grid-column: 1 / -1;"
+                >
+
+                    <strong>
+                        Nenhuma área cadastrada
+                    </strong>
+
+                    <br><br>
+
+                    Clique em
+                    <strong>
+                        Nova Área
+                    </strong>
+                    para cadastrar a primeira
+                    área industrial.
+
+                </div>
 
             `;
 
 
-            listaEquipamentos.appendChild(card);
-
-        });
-
-    }
+            return;
+        }
 
 
-    /* =====================================================
-       NOVA ÁREA
-    ===================================================== */
+        areas.forEach(
 
-    document
-        .getElementById("btnNovaArea")
-        .addEventListener(
-            "click",
-            function() {
-
-                modalArea.classList.add("ativo");
-
-                document
-                    .getElementById("nomeArea")
-                    .focus();
-
-            }
-        );
-
-
-    document
-        .getElementById("cancelarArea")
-        .addEventListener(
-            "click",
-            function() {
-
-                modalArea.classList.remove("ativo");
-
-                document
-                    .getElementById("formArea")
-                    .reset();
-
-            }
-        );
-
-
-    document
-        .getElementById("formArea")
-        .addEventListener(
-            "submit",
-            function(event) {
-
-                event.preventDefault();
-
+            function (
+                area,
+                indice
+            ) {
 
                 const nome =
-                    document
-                        .getElementById("nomeArea")
-                        .value
-                        .trim();
+                    obterNomeArea(
+                        area
+                    );
+
 
                 const descricao =
-                    document
-                        .getElementById("descricaoArea")
-                        .value
-                        .trim();
+                    typeof area ===
+                    "object"
+                        ? (
+                            area.descricao ||
+                            "Área industrial cadastrada no sistema."
+                        )
+                        : "Área industrial cadastrada no sistema.";
+
 
                 const icone =
-                    document
-                        .getElementById("iconeArea")
-                        .value
-                        .trim();
+                    typeof area ===
+                    "object"
+                        ? (
+                            area.icone ||
+                            "🏭"
+                        )
+                        : "🏭";
 
 
-                if (!nome) {
-                    return;
-                }
+                const quantidadeEquipamentos =
+                    equipamentosDaArea(
+                        area
+                    ).length;
 
 
-                areas = carregarAreas();
+                const card =
+                    document.createElement(
+                        "div"
+                    );
 
 
-                const existe =
-                    areas.some(function(area) {
-
-                        return area.nome
-                            .toLowerCase() ===
-                            nome.toLowerCase();
-
-                    });
+                card.className =
+                    "area-card";
 
 
-                if (existe) {
+                card.innerHTML = `
 
-                    alert("Essa área já está cadastrada.");
-
-                    return;
-
-                }
+                    <div class="area-icon">
+                        ${escaparHTML(icone)}
+                    </div>
 
 
-                const novaArea = {
-
-                    id: Date.now(),
-
-                    nome: nome,
-
-                    descricao: descricao,
-
-                    icone: icone || "🏭"
-
-                };
+                    <h3>
+                        ${escaparHTML(nome)}
+                    </h3>
 
 
-                areas.push(novaArea);
+                    <p>
+                        ${escaparHTML(descricao)}
+                    </p>
 
 
-                localStorage.setItem(
-                    CHAVE_AREAS,
-                    JSON.stringify(areas)
+                    <div class="area-footer">
+
+                        <span>
+
+                            ${quantidadeEquipamentos}
+
+                            ${
+                                quantidadeEquipamentos === 1
+                                    ? " equipamento"
+                                    : " equipamentos"
+                            }
+
+                        </span>
+
+
+                        <span>
+                            Ver detalhes →
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                card.addEventListener(
+
+                    "click",
+
+                    function () {
+
+                        abrirArea(
+                            indice
+                        );
+                    }
                 );
 
 
-                document
-                    .getElementById("formArea")
-                    .reset();
-
-
-                modalArea.classList.remove("ativo");
-
-
-                renderizarAreas();
-
+                areasGrid.appendChild(
+                    card
+                );
             }
         );
+    }
 
 
-    /* =====================================================
-       VOLTAR
-    ===================================================== */
+    /* =========================================================
+       ABRIR DETALHES DA ÁREA
+    ========================================================= */
 
-    document
-        .getElementById("btnVoltar")
-        .addEventListener(
-            "click",
-            function() {
+    function abrirArea(
+        indice
+    ) {
 
-                areaSelecionada = null;
-
-                areaDetalhes.style.display =
-                    "none";
-
-                areaLista.style.display =
-                    "block";
-
-                renderizarAreas();
-
-            }
-        );
+        const area =
+            areas[indice];
 
 
-    /* =====================================================
-       NOVO EQUIPAMENTO DA ÁREA
-    ===================================================== */
+        if (!area) {
 
-    document
-        .getElementById("btnNovoEquipamento")
-        .addEventListener(
-            "click",
-            function() {
+            return;
+        }
 
-                if (!areaSelecionada) {
-                    return;
+
+        areaSelecionada =
+            area;
+
+
+        const nome =
+            obterNomeArea(
+                area
+            );
+
+
+        const descricao =
+
+            typeof area ===
+            "object"
+
+                ? (
+                    area.descricao ||
+                    "Área industrial cadastrada no sistema."
+                )
+
+                : "Área industrial cadastrada no sistema.";
+
+
+        detalheNome.textContent =
+            nome;
+
+
+        detalheDescricao.textContent =
+            descricao;
+
+
+        tituloEquipamentos.textContent =
+            "Equipamentos da área " +
+            nome;
+
+
+        areaLista.style.display =
+            "none";
+
+
+        areaDetalhes.style.display =
+            "block";
+
+
+        renderizarEquipamentosDaArea();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       RENDERIZAR EQUIPAMENTOS DA ÁREA
+    ========================================================= */
+
+    function renderizarEquipamentosDaArea() {
+
+        listaEquipamentos.innerHTML =
+            "";
+
+
+        if (!areaSelecionada) {
+
+            return;
+        }
+
+
+        const lista =
+            equipamentosDaArea(
+                areaSelecionada
+            );
+
+
+        if (
+            lista.length === 0
+        ) {
+
+            listaEquipamentos.innerHTML = `
+
+                <div class="vazio">
+
+                    <strong>
+                        Nenhum equipamento cadastrado nesta área.
+                    </strong>
+
+                    <br><br>
+
+                    Clique em
+                    <strong>
+                        Novo Equipamento
+                    </strong>
+                    para realizar o cadastro.
+
+                </div>
+
+            `;
+
+
+            return;
+        }
+
+
+        lista.forEach(
+
+            function (
+                equipamento
+            ) {
+
+                const nome =
+
+                    equipamento.nome ||
+                    equipamento.equipamento ||
+                    equipamento.descricao ||
+                    "Equipamento";
+
+
+                const patrimonio =
+
+                    equipamento.patrimonio ||
+                    equipamento.tag ||
+                    equipamento.codigo ||
+                    "Sem patrimônio/TAG";
+
+
+                const localizacao =
+
+                    equipamento.localizacao ||
+                    equipamento.local ||
+                    "Localização não informada";
+
+
+                const status =
+
+                    equipamento.status ||
+                    "Operando";
+
+
+                let classeStatus =
+                    "operando";
+
+
+                const statusNormalizado =
+                    String(
+                        status
+                    ).toLowerCase();
+
+
+                if (
+                    statusNormalizado.includes(
+                        "manuten"
+                    )
+                ) {
+
+                    classeStatus =
+                        "manutencao";
                 }
 
 
-                window.location.href =
-                    "equipamentos.html?area=" +
-                    encodeURIComponent(
-                        areaSelecionada.nome
+                else if (
+                    statusNormalizado.includes(
+                        "parado"
+                    )
+                ) {
+
+                    classeStatus =
+                        "parado";
+                }
+
+
+                const card =
+                    document.createElement(
+                        "div"
                     );
 
+
+                card.className =
+                    "equipamento-card";
+
+
+                card.innerHTML = `
+
+                    <div>
+
+                        <h4>
+                            ${escaparHTML(nome)}
+                        </h4>
+
+
+                        <p>
+
+                            ${escaparHTML(patrimonio)}
+
+                            &nbsp; • &nbsp;
+
+                            ${escaparHTML(localizacao)}
+
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="
+                            status
+                            ${classeStatus}
+                        "
+                    >
+
+                        ${escaparHTML(status)}
+
+                    </span>
+
+                `;
+
+
+                listaEquipamentos.appendChild(
+                    card
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       VOLTAR PARA ÁREAS
+    ========================================================= */
+
+    function voltarParaAreas() {
+
+        areaSelecionada =
+            null;
+
+
+        areaDetalhes.style.display =
+            "none";
+
+
+        areaLista.style.display =
+            "block";
+
+
+        renderizarAreas();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       ABRIR MODAL NOVA ÁREA
+    ========================================================= */
+
+    function abrirModalArea() {
+
+        formArea.reset();
+
+
+        modalArea.classList.add(
+            "ativo"
+        );
+
+
+        setTimeout(
+
+            function () {
+
+                nomeArea.focus();
+            },
+
+            100
+        );
+    }
+
+
+    /* =========================================================
+       FECHAR MODAL
+    ========================================================= */
+
+    function fecharModalArea() {
+
+        modalArea.classList.remove(
+            "ativo"
+        );
+
+
+        formArea.reset();
+    }
+
+
+    /* =========================================================
+       SALVAR NOVA ÁREA
+    ========================================================= */
+
+    function salvarNovaArea(
+        event
+    ) {
+
+        event.preventDefault();
+
+
+        const nome =
+            nomeArea.value.trim();
+
+
+        const descricao =
+            descricaoArea.value.trim();
+
+
+        const icone =
+            iconeArea.value.trim() ||
+            "🏭";
+
+
+        if (!nome) {
+
+            alert(
+                "Informe o nome da área."
+            );
+
+
+            nomeArea.focus();
+
+
+            return;
+        }
+
+
+        /*
+            Impede duplicidade de área.
+        */
+
+        const existe =
+            areas.some(
+
+                function (
+                    area
+                ) {
+
+                    return (
+
+                        obterNomeArea(
+                            area
+                        )
+                        .toLowerCase()
+
+                        ===
+
+                        nome.toLowerCase()
+                    );
+                }
+            );
+
+
+        if (existe) {
+
+            alert(
+                "Já existe uma área cadastrada com esse nome."
+            );
+
+
+            return;
+        }
+
+
+        const novaArea = {
+
+            id:
+                gerarId(
+                    "AREA"
+                ),
+
+            nome:
+                nome,
+
+            descricao:
+                descricao,
+
+            icone:
+                icone,
+
+            criadoEm:
+                new Date()
+                    .toISOString()
+        };
+
+
+        areas.push(
+            novaArea
+        );
+
+
+        if (
+            !salvarJSON(
+                CHAVE_AREAS,
+                areas
+            )
+        ) {
+
+            alert(
+                "Não foi possível salvar a área."
+            );
+
+
+            return;
+        }
+
+
+        fecharModalArea();
+
+
+        renderizarAreas();
+
+
+        alert(
+            "Área cadastrada com sucesso!"
+        );
+    }
+
+
+    /* =========================================================
+       NOVO EQUIPAMENTO
+    ========================================================= */
+
+    function novoEquipamento() {
+
+        if (!areaSelecionada) {
+
+            alert(
+                "Selecione uma área primeiro."
+            );
+
+
+            return;
+        }
+
+
+        /*
+            Guardamos a área selecionada para
+            a página equipamentos.html já saber
+            em qual área o novo equipamento
+            deverá ser cadastrado.
+        */
+
+        const areaTemporaria = {
+
+            id:
+                obterIdArea(
+                    areaSelecionada
+                ),
+
+            nome:
+                obterNomeArea(
+                    areaSelecionada
+                )
+        };
+
+
+        localStorage.setItem(
+
+            "areaSelecionada",
+
+            JSON.stringify(
+                areaTemporaria
+            )
+        );
+
+
+        window.location.href =
+            "equipamentos.html?novo=1";
+    }
+
+
+    /* =========================================================
+       EVENTOS DA ÁREA
+    ========================================================= */
+
+    btnNovaArea.addEventListener(
+
+        "click",
+
+        abrirModalArea
+    );
+
+
+    cancelarArea.addEventListener(
+
+        "click",
+
+        fecharModalArea
+    );
+
+
+    formArea.addEventListener(
+
+        "submit",
+
+        salvarNovaArea
+    );
+
+
+    btnVoltar.addEventListener(
+
+        "click",
+
+        voltarParaAreas
+    );
+
+
+    btnNovoEquipamento.addEventListener(
+
+        "click",
+
+        novoEquipamento
+    );
+
+
+    /*
+        Fecha o modal clicando
+        na parte escura.
+    */
+
+    modalArea.addEventListener(
+
+        "click",
+
+        function (
+            event
+        ) {
+
+            if (
+                event.target ===
+                modalArea
+            ) {
+
+                fecharModalArea();
+            }
+        }
+    );
+
+
+    /*
+        ESC fecha o modal.
+    */
+
+    document.addEventListener(
+
+        "keydown",
+
+        function (
+            event
+        ) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                fecharModalArea();
+
+
+                if (
+                    painelNotificacoes
+                ) {
+
+                    painelNotificacoes
+                        .classList
+                        .remove(
+                            "aberto"
+                        );
+                }
+
+
+                if (
+                    menuPerfil
+                ) {
+
+                    menuPerfil
+                        .classList
+                        .remove(
+                            "aberto"
+                        );
+                }
+            }
+        }
+    );
+
+
+    /* =========================================================
+       PERFIL
+    ========================================================= */
+
+    function obterPerfil() {
+
+        let perfil =
+            lerJSON(
+                CHAVE_PERFIL,
+                null
+            );
+
+
+        if (!perfil) {
+
+            perfil =
+                lerJSON(
+                    "sessaoUsuario",
+                    null
+                );
+        }
+
+
+        if (!perfil) {
+
+            perfil = {
+
+                nome:
+                    "Técnico",
+
+                funcao:
+                    "Perfil Técnico",
+
+                perfil:
+                    "Técnico",
+
+                foto:
+                    ""
+            };
+        }
+
+
+        return perfil;
+    }
+
+
+    /* =========================================================
+       INICIAIS
+    ========================================================= */
+
+    function obterIniciais(
+        nome
+    ) {
+
+        if (!nome) {
+
+            return "TC";
+        }
+
+
+        const partes =
+            nome
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        if (
+            partes.length === 0
+        ) {
+
+            return "TC";
+        }
+
+
+        if (
+            partes.length === 1
+        ) {
+
+            return partes[0]
+                .substring(
+                    0,
+                    2
+                )
+                .toUpperCase();
+        }
+
+
+        return (
+
+            partes[0][0] +
+
+            partes[
+                partes.length - 1
+            ][0]
+
+        ).toUpperCase();
+    }
+
+
+    /* =========================================================
+       FOTO / AVATAR
+    ========================================================= */
+
+    function aplicarAvatar(
+        elementoIniciais,
+        elementoFoto,
+        perfil
+    ) {
+
+        if (
+            !elementoIniciais ||
+            !elementoFoto
+        ) {
+
+            return;
+        }
+
+
+        elementoIniciais.textContent =
+            obterIniciais(
+                perfil.nome
+            );
+
+
+        if (perfil.foto) {
+
+            elementoFoto.src =
+                perfil.foto;
+
+
+            elementoFoto.style.display =
+                "block";
+
+
+            elementoIniciais.style.display =
+                "none";
+        }
+
+        else {
+
+            elementoFoto.removeAttribute(
+                "src"
+            );
+
+
+            elementoFoto.style.display =
+                "none";
+
+
+            elementoIniciais.style.display =
+                "inline";
+        }
+    }
+
+
+    /* =========================================================
+       CARREGAR PERFIL
+    ========================================================= */
+
+    function carregarPerfil() {
+
+        const perfil =
+            obterPerfil();
+
+
+        const nome =
+            perfil.nome ||
+            perfil.nomeCompleto ||
+            perfil.usuario ||
+            "Técnico";
+
+
+        const funcao =
+            perfil.funcao ||
+            perfil.cargo ||
+            perfil.perfil ||
+            "Perfil Técnico";
+
+
+        const sidebarNome =
+            document.getElementById(
+                "sidebarNome"
+            );
+
+
+        const sidebarPerfil =
+            document.getElementById(
+                "sidebarPerfil"
+            );
+
+
+        const menuNome =
+            document.getElementById(
+                "menuNome"
+            );
+
+
+        const menuFuncao =
+            document.getElementById(
+                "menuFuncao"
+            );
+
+
+        if (sidebarNome) {
+
+            sidebarNome.textContent =
+                nome;
+        }
+
+
+        if (sidebarPerfil) {
+
+            sidebarPerfil.textContent =
+                funcao;
+        }
+
+
+        if (menuNome) {
+
+            menuNome.textContent =
+                nome;
+        }
+
+
+        if (menuFuncao) {
+
+            menuFuncao.textContent =
+                funcao;
+        }
+
+
+        /*
+            Precisamos passar o nome final
+            para as iniciais.
+        */
+
+        const perfilAvatar = {
+
+            ...perfil,
+
+            nome:
+                nome
+        };
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "sidebarIniciais"
+            ),
+
+            document.getElementById(
+                "sidebarFoto"
+            ),
+
+            perfilAvatar
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "topIniciais"
+            ),
+
+            document.getElementById(
+                "topFoto"
+            ),
+
+            perfilAvatar
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "menuIniciais"
+            ),
+
+            document.getElementById(
+                "menuFoto"
+            ),
+
+            perfilAvatar
+        );
+    }
+
+
+    /* =========================================================
+       NOTIFICAÇÕES
+    ========================================================= */
+
+    function carregarNotificacoes() {
+
+        const dados =
+            lerJSON(
+                CHAVE_NOTIFICACOES,
+                []
+            );
+
+
+        return Array.isArray(
+            dados
+        )
+            ? dados
+            : [];
+    }
+
+
+    function salvarNotificacoes(
+        notificacoes
+    ) {
+
+        salvarJSON(
+
+            CHAVE_NOTIFICACOES,
+
+            notificacoes
+        );
+    }
+
+
+    /* =========================================================
+       TIPO DA NOTIFICAÇÃO
+    ========================================================= */
+
+    function dadosTipoNotificacao(
+        tipo
+    ) {
+
+        switch (
+            String(
+                tipo || ""
+            ).toLowerCase()
+        ) {
+
+            case "aprovado":
+
+                return {
+
+                    icone:
+                        "✓",
+
+                    classe:
+                        "aprovado"
+                };
+
+
+            case "devolvido":
+
+                return {
+
+                    icone:
+                        "↩",
+
+                    classe:
+                        "devolvido"
+                };
+
+
+            case "comentario":
+
+                return {
+
+                    icone:
+                        "✎",
+
+                    classe:
+                        "comentario"
+                };
+
+
+            case "critico":
+
+            case "crítico":
+
+                return {
+
+                    icone:
+                        "!",
+
+                    classe:
+                        "alerta"
+                };
+
+
+            default:
+
+                return {
+
+                    icone:
+                        "•",
+
+                    classe:
+                        "comentario"
+                };
+        }
+    }
+
+
+    /* =========================================================
+       TEMPO DA NOTIFICAÇÃO
+    ========================================================= */
+
+    function formatarTempoNotificacao(
+        notificacao
+    ) {
+
+        /*
+            Se a própria notificação já
+            tiver um texto de tempo.
+        */
+
+        if (
+            notificacao.tempo
+        ) {
+
+            return notificacao.tempo;
+        }
+
+
+        const data =
+
+            notificacao.dataHora ||
+            notificacao.criadoEm ||
+            notificacao.data;
+
+
+        if (!data) {
+
+            return "";
+        }
+
+
+        const momento =
+            new Date(
+                data
+            );
+
+
+        if (
+            Number.isNaN(
+                momento.getTime()
+            )
+        ) {
+
+            return String(
+                data
+            );
+        }
+
+
+        const diferenca =
+            Date.now() -
+            momento.getTime();
+
+
+        if (
+            diferenca >= 0
+        ) {
+
+            const minutos =
+                Math.floor(
+                    diferenca /
+                    60000
+                );
+
+
+            if (
+                minutos < 1
+            ) {
+
+                return "Agora";
+            }
+
+
+            if (
+                minutos < 60
+            ) {
+
+                return (
+                    "Há " +
+                    minutos +
+                    " min"
+                );
+            }
+
+
+            const horas =
+                Math.floor(
+                    minutos /
+                    60
+                );
+
+
+            if (
+                horas < 24
+            ) {
+
+                return (
+                    "Há " +
+                    horas +
+                    (
+                        horas === 1
+                            ? " hora"
+                            : " horas"
+                    )
+                );
+            }
+
+
+            const dias =
+                Math.floor(
+                    horas /
+                    24
+                );
+
+
+            if (
+                dias < 7
+            ) {
+
+                return (
+                    "Há " +
+                    dias +
+                    (
+                        dias === 1
+                            ? " dia"
+                            : " dias"
+                    )
+                );
+            }
+        }
+
+
+        return momento
+            .toLocaleDateString(
+                "pt-BR"
+            );
+    }
+
+
+    /* =========================================================
+       ABRIR NOTIFICAÇÃO
+    ========================================================= */
+
+    function abrirNotificacao(
+        notificacao,
+        indice
+    ) {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        if (
+            notificacoes[indice]
+        ) {
+
+            notificacoes[
+                indice
+            ].lida =
+                true;
+
+
+            salvarNotificacoes(
+                notificacoes
+            );
+
+
+            renderizarNotificacoes();
+        }
+
+
+        /*
+            Notificação ligada
+            a relatório.
+        */
+
+        if (
+            notificacao.relatorioId
+        ) {
+
+            localStorage.setItem(
+
+                "relatorioAtualId",
+
+                String(
+                    notificacao.relatorioId
+                )
+            );
+
+
+            window.location.href =
+                "relatorios.html";
+
+
+            return;
+        }
+
+
+        /*
+            Destino personalizado.
+        */
+
+        if (
+            notificacao.destino
+        ) {
+
+            window.location.href =
+                notificacao.destino;
+        }
+    }
+
+
+    /* =========================================================
+       RENDERIZAR NOTIFICAÇÕES
+    ========================================================= */
+
+    function renderizarNotificacoes() {
+
+        if (
+            !listaNotificacoes ||
+            !contadorNotificacoes
+        ) {
+
+            return;
+        }
+
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        const naoLidas =
+            notificacoes.filter(
+
+                function (
+                    notificacao
+                ) {
+
+                    return (
+                        !notificacao.lida
+                    );
+                }
+            ).length;
+
+
+        /* CONTADOR */
+
+        if (
+            naoLidas > 0
+        ) {
+
+            contadorNotificacoes
+                .textContent =
+
+                naoLidas > 99
+                    ? "99+"
+                    : naoLidas;
+
+
+            contadorNotificacoes
+                .classList
+                .remove(
+                    "vazio"
+                );
+        }
+
+        else {
+
+            contadorNotificacoes
+                .textContent =
+                "0";
+
+
+            contadorNotificacoes
+                .classList
+                .add(
+                    "vazio"
+                );
+        }
+
+
+        /* LISTA VAZIA */
+
+        if (
+            notificacoes.length === 0
+        ) {
+
+            listaNotificacoes.innerHTML = `
+
+                <div class="notification-empty">
+
+                    Nenhuma notificação
+                    no momento.
+
+                </div>
+
+            `;
+
+
+            return;
+        }
+
+
+        listaNotificacoes.innerHTML =
+            "";
+
+
+        /*
+            Mais recentes primeiro.
+        */
+
+        notificacoes
+            .slice()
+            .reverse()
+            .forEach(
+
+                function (
+                    notificacao,
+                    indiceReverso
+                ) {
+
+                    const indiceReal =
+
+                        notificacoes.length -
+                        1 -
+                        indiceReverso;
+
+
+                    const dados =
+                        dadosTipoNotificacao(
+                            notificacao.tipo
+                        );
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+
+                        "notification-item" +
+
+                        (
+                            notificacao.lida
+                                ? ""
+                                : " nao-lida"
+                        );
+
+
+                    item.innerHTML = `
+
+                        <div
+                            class="
+                                notification-icon
+                                ${dados.classe}
+                            "
+                        >
+
+                            ${dados.icone}
+
+                        </div>
+
+
+                        <div class="notification-content">
+
+
+                            <div class="notification-title">
+
+                                ${escaparHTML(
+                                    notificacao.titulo ||
+                                    "Notificação"
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-text">
+
+                                ${escaparHTML(
+                                    notificacao.mensagem ||
+                                    notificacao.texto ||
+                                    notificacao.descricao ||
+                                    ""
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-time">
+
+                                ${escaparHTML(
+                                    formatarTempoNotificacao(
+                                        notificacao
+                                    )
+                                )}
+
+                            </div>
+
+
+                        </div>
+
+                    `;
+
+
+                    item.addEventListener(
+
+                        "click",
+
+                        function () {
+
+                            abrirNotificacao(
+                                notificacao,
+                                indiceReal
+                            );
+                        }
+                    );
+
+
+                    listaNotificacoes
+                        .appendChild(
+                            item
+                        );
+                }
+            );
+    }
+
+
+    /* =========================================================
+       MARCAR TODAS COMO LIDAS
+    ========================================================= */
+
+    function marcarTodasComoLidas() {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        notificacoes.forEach(
+
+            function (
+                notificacao
+            ) {
+
+                notificacao.lida =
+                    true;
             }
         );
 
 
-    /* =====================================================
-       INICIAR
-    ===================================================== */
+        salvarNotificacoes(
+            notificacoes
+        );
 
-    renderizarAreas();
+
+        renderizarNotificacoes();
+    }
+
+
+    /* =========================================================
+       ABRIR SINO
+    ========================================================= */
+
+    if (
+        btnNotificacoes
+    ) {
+
+        btnNotificacoes
+            .addEventListener(
+
+                "click",
+
+                function (
+                    event
+                ) {
+
+                    event.stopPropagation();
+
+
+                    if (
+                        menuPerfil
+                    ) {
+
+                        menuPerfil
+                            .classList
+                            .remove(
+                                "aberto"
+                            );
+                    }
+
+
+                    painelNotificacoes
+                        .classList
+                        .toggle(
+                            "aberto"
+                        );
+                }
+            );
+    }
+
+
+    /* =========================================================
+       ABRIR PERFIL
+    ========================================================= */
+
+    if (
+        btnPerfil
+    ) {
+
+        btnPerfil
+            .addEventListener(
+
+                "click",
+
+                function (
+                    event
+                ) {
+
+                    event.stopPropagation();
+
+
+                    if (
+                        painelNotificacoes
+                    ) {
+
+                        painelNotificacoes
+                            .classList
+                            .remove(
+                                "aberto"
+                            );
+                    }
+
+
+                    menuPerfil
+                        .classList
+                        .toggle(
+                            "aberto"
+                        );
+                }
+            );
+    }
+
+
+    /* =========================================================
+       NÃO FECHAR AO CLICAR DENTRO
+    ========================================================= */
+
+    if (
+        painelNotificacoes
+    ) {
+
+        painelNotificacoes
+            .addEventListener(
+
+                "click",
+
+                function (
+                    event
+                ) {
+
+                    event.stopPropagation();
+                }
+            );
+    }
+
+
+    if (
+        menuPerfil
+    ) {
+
+        menuPerfil
+            .addEventListener(
+
+                "click",
+
+                function (
+                    event
+                ) {
+
+                    event.stopPropagation();
+                }
+            );
+    }
+
+
+    /* =========================================================
+       FECHAR AO CLICAR FORA
+    ========================================================= */
+
+    document.addEventListener(
+
+        "click",
+
+        function () {
+
+            if (
+                painelNotificacoes
+            ) {
+
+                painelNotificacoes
+                    .classList
+                    .remove(
+                        "aberto"
+                    );
+            }
+
+
+            if (
+                menuPerfil
+            ) {
+
+                menuPerfil
+                    .classList
+                    .remove(
+                        "aberto"
+                    );
+            }
+        }
+    );
+
+
+    /* =========================================================
+       BOTÃO MARCAR TODAS
+    ========================================================= */
+
+    if (
+        btnMarcarTodasLidas
+    ) {
+
+        btnMarcarTodasLidas
+            .addEventListener(
+
+                "click",
+
+                function (
+                    event
+                ) {
+
+                    event.stopPropagation();
+
+
+                    marcarTodasComoLidas();
+                }
+            );
+    }
+
+
+    /* =========================================================
+       SAIR DO SISTEMA
+    ========================================================= */
+
+    function sairDoSistema(
+        event
+    ) {
+
+        if (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+        }
+
+
+        const confirmar =
+            confirm(
+                "Deseja realmente sair do sistema?"
+            );
+
+
+        if (!confirmar) {
+
+            return;
+        }
+
+
+        /*
+            Não apagamos:
+            áreas,
+            equipamentos,
+            inspeções,
+            relatórios,
+            notificações.
+        */
+
+        sessionStorage.clear();
+
+
+        localStorage.removeItem(
+            "usuarioLogado"
+        );
+
+
+        localStorage.removeItem(
+            "sessaoUsuario"
+        );
+
+
+        window.location.href =
+            "../pagina_inicial.html";
+    }
+
+
+    if (
+        btnSair
+    ) {
+
+        btnSair
+            .addEventListener(
+
+                "click",
+
+                sairDoSistema
+            );
+    }
+
+
+    if (
+        btnSairPerfil
+    ) {
+
+        btnSairPerfil
+            .addEventListener(
+
+                "click",
+
+                sairDoSistema
+            );
+    }
+
+
+    /* =========================================================
+       SINCRONIZAÇÃO ENTRE ABAS
+    ========================================================= */
+
+    window.addEventListener(
+
+        "storage",
+
+        function (
+            event
+        ) {
+
+            /*
+                ÁREAS
+            */
+
+            if (
+                event.key ===
+                CHAVE_AREAS
+            ) {
+
+                areas =
+                    carregarLista(
+                        CHAVE_AREAS
+                    );
+
+
+                renderizarAreas();
+            }
+
+
+            /*
+                EQUIPAMENTOS
+            */
+
+            if (
+                event.key ===
+                CHAVE_EQUIPAMENTOS
+            ) {
+
+                equipamentos =
+                    carregarLista(
+                        CHAVE_EQUIPAMENTOS
+                    );
+
+
+                renderizarAreas();
+
+
+                if (
+                    areaSelecionada
+                ) {
+
+                    renderizarEquipamentosDaArea();
+                }
+            }
+
+
+            /*
+                NOTIFICAÇÕES
+            */
+
+            if (
+                event.key ===
+                CHAVE_NOTIFICACOES
+            ) {
+
+                renderizarNotificacoes();
+            }
+
+
+            /*
+                PERFIL
+            */
+
+            if (
+                event.key ===
+                    CHAVE_PERFIL ||
+
+                event.key ===
+                    "sessaoUsuario"
+            ) {
+
+                carregarPerfil();
+            }
+        }
+    );
+
+
+    /* =========================================================
+       ATUALIZAR QUANDO VOLTAR PARA A PÁGINA
+    ========================================================= */
+
+    document.addEventListener(
+
+        "visibilitychange",
+
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                carregarDados();
+
+
+                renderizarAreas();
+
+
+                if (
+                    areaSelecionada
+                ) {
+
+                    /*
+                        Recuperamos a área atual
+                        caso os dados tenham sido
+                        atualizados.
+                    */
+
+                    const idAtual =
+                        obterIdArea(
+                            areaSelecionada
+                        );
+
+
+                    const atualizada =
+                        areas.find(
+
+                            function (
+                                area
+                            ) {
+
+                                return (
+
+                                    String(
+                                        obterIdArea(
+                                            area
+                                        )
+                                    ) ===
+
+                                    String(
+                                        idAtual
+                                    )
+                                );
+                            }
+                        );
+
+
+                    if (
+                        atualizada
+                    ) {
+
+                        areaSelecionada =
+                            atualizada;
+
+
+                        detalheNome.textContent =
+                            obterNomeArea(
+                                atualizada
+                            );
+
+
+                        detalheDescricao.textContent =
+
+                            atualizada.descricao ||
+                            "Área industrial cadastrada no sistema.";
+
+
+                        tituloEquipamentos.textContent =
+
+                            "Equipamentos da área " +
+
+                            obterNomeArea(
+                                atualizada
+                            );
+
+
+                        renderizarEquipamentosDaArea();
+                    }
+
+                    else {
+
+                        voltarParaAreas();
+                    }
+                }
+
+
+                carregarPerfil();
+
+
+                renderizarNotificacoes();
+            }
+        }
+    );
+
+
+    /* =========================================================
+       INICIAR PÁGINA
+    ========================================================= */
+
+    function iniciar() {
+
+        carregarDados();
+
+
+        /*
+            Exibe inicialmente
+            a lista de áreas.
+        */
+
+        areaLista.style.display =
+            "block";
+
+
+        areaDetalhes.style.display =
+            "none";
+
+
+        renderizarAreas();
+
+
+        carregarPerfil();
+
+
+        renderizarNotificacoes();
+    }
+
+
+    iniciar();
+
+});
 
 </script>
 
 </body>
+
 </html>
