@@ -1,0 +1,7305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Relatórios | AutoRelatório Industrial</title>
+
+
+    <style>
+
+        /* =========================================================
+           CONFIGURAÇÃO GERAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f3f5f8;
+            color: #172033;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           MENU LATERAL
+        ========================================================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+            height: 65px;
+
+            padding: 10px 16px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            font-size: 16px;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        .logo-text span {
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: .2s;
+        }
+
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+
+        .menu a.active {
+            background: #12315c;
+
+            color: #3b82f6;
+
+            border-left: 2px solid #3b82f6;
+        }
+
+
+        .menu-icon {
+            width: 16px;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           PARTE INFERIOR DA SIDEBAR
+        ========================================================= */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+        }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-name {
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .profile-info {
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .logout {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 9px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+
+        .logout:hover {
+            color: white;
+        }
+
+
+        /* =========================================================
+           ÁREA PRINCIPAL
+        ========================================================= */
+
+        .main {
+            margin-left: 240px;
+
+            min-height: 100vh;
+
+            width: calc(100% - 240px);
+        }
+
+
+        /* =========================================================
+           TOPO
+        ========================================================= */
+
+        .topbar {
+            min-height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #dfe3e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            position: relative;
+
+            z-index: 50;
+        }
+
+
+        .page-title h1 {
+            font-size: 18px;
+
+            color: #111827;
+
+            margin-bottom: 4px;
+        }
+
+
+        .page-title p {
+            font-size: 11px;
+
+            color: #8b95a5;
+        }
+
+
+        /* =========================================================
+           AÇÕES DO TOPO
+        ========================================================= */
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            position: relative;
+        }
+
+
+        /* =========================================================
+           NOTIFICAÇÕES
+        ========================================================= */
+
+        .notification-wrapper {
+            position: relative;
+        }
+
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            color: #5f6b7c;
+
+            font-size: 19px;
+
+            transition: .2s;
+        }
+
+
+        .notification-button:hover {
+            background: #f1f4f8;
+
+            color: #2563eb;
+        }
+
+
+        .notification-count {
+            position: absolute;
+
+            top: 1px;
+            right: 0;
+
+            min-width: 17px;
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 10px;
+
+            background: #e53935;
+
+            color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+
+        /* =========================================================
+           PAINEL DE NOTIFICAÇÕES
+        ========================================================= */
+
+        .notification-panel {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 360px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .notification-panel.aberto {
+            display: block;
+        }
+
+
+        .notification-header {
+            min-height: 60px;
+
+            padding: 15px 17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .notification-header h3 {
+            color: #172033;
+
+            font-size: 14px;
+        }
+
+
+        .notification-header button {
+            border: none;
+
+            background: transparent;
+
+            color: #2563eb;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+
+        .notification-header button:hover {
+            text-decoration: underline;
+        }
+
+
+        .notification-list {
+            max-height: 380px;
+
+            overflow-y: auto;
+        }
+
+
+        .notification-item {
+            padding: 14px 16px;
+
+            display: flex;
+
+            gap: 12px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+
+        .notification-item.nao-lida {
+            background: #f4f8ff;
+        }
+
+
+        .notification-item.nao-lida:hover {
+            background: #edf4ff;
+        }
+
+
+        .notification-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 14px;
+        }
+
+
+        .notification-icon.aprovado {
+            background: #e8f7ee;
+            color: #218447;
+        }
+
+
+        .notification-icon.devolvido {
+            background: #fff4e5;
+            color: #d97706;
+        }
+
+
+        .notification-icon.comentario {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+
+        .notification-icon.alerta {
+            background: #fff0f0;
+            color: #d63b3b;
+        }
+
+
+        .notification-content {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .notification-title {
+            margin-bottom: 4px;
+
+            color: #263348;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .notification-text {
+            color: #6f7b8c;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        .notification-time {
+            margin-top: 6px;
+
+            color: #9aa4b2;
+
+            font-size: 9px;
+        }
+
+
+        .notification-empty {
+            padding: 35px 20px;
+
+            color: #8b95a5;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           PERFIL DO TOPO
+        ========================================================= */
+
+        .user-wrapper {
+            position: relative;
+        }
+
+
+        .user-button {
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+
+            padding: 3px;
+
+            border-radius: 20px;
+
+            transition: .2s;
+        }
+
+
+        .user-button:hover {
+            background: #f1f4f8;
+        }
+
+
+        .user {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+        .user img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .user-arrow {
+            color: #8993a2;
+
+            font-size: 9px;
+
+            margin-right: 4px;
+        }
+
+
+        /* =========================================================
+           MENU DO PERFIL
+        ========================================================= */
+
+        .profile-menu {
+            position: absolute;
+
+            top: 48px;
+            right: 0;
+
+            width: 245px;
+
+            background: white;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(15, 23, 42, .15);
+
+            overflow: hidden;
+
+            display: none;
+
+            z-index: 5000;
+        }
+
+
+        .profile-menu.aberto {
+            display: block;
+        }
+
+
+        .profile-menu-header {
+            padding: 17px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .profile-menu-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-menu-avatar img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-menu-name {
+            color: #172033;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-menu-role {
+            color: #7f8ba0;
+
+            font-size: 10px;
+        }
+
+
+        .profile-menu-links {
+            padding: 7px;
+        }
+
+
+        .profile-menu-links a,
+        .profile-menu-links button {
+            width: 100%;
+
+            min-height: 38px;
+
+            padding: 0 11px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: #465266;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .profile-menu-links a:hover,
+        .profile-menu-links button:hover {
+            background: #f4f6f9;
+
+            color: #2563eb;
+        }
+
+
+        .profile-menu-links .menu-sair {
+            color: #c83e3e;
+
+            border-top: 1px solid #edf0f3;
+
+            margin-top: 6px;
+
+            padding-top: 7px;
+
+            border-radius: 0;
+        }
+
+
+        .profile-menu-links .menu-sair:hover {
+            color: #b52e2e;
+
+            background: #fff5f5;
+        }
+
+
+        /* =========================================================
+           CONTEÚDO
+        ========================================================= */
+
+        .content {
+            padding: 25px 30px 50px;
+        }
+
+
+        /* =========================================================
+           INDICADORES
+        ========================================================= */
+
+        .resumo-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .resumo-card {
+            background: white;
+
+            border: 1px solid #dfe4eb;
+
+            border-radius: 8px;
+
+            padding: 18px 20px;
+
+            box-shadow:
+                0 1px 3px
+                rgba(0,0,0,.03);
+        }
+
+
+        .resumo-card span {
+            display: block;
+
+            color: #788497;
+
+            font-size: 11px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .resumo-card strong {
+            color: #12213a;
+
+            font-size: 28px;
+        }
+
+
+        .numero-pendente {
+            color: #d97706 !important;
+        }
+
+
+        .numero-aprovado {
+            color: #168447 !important;
+        }
+
+
+        .numero-aberto {
+            color: #dc2626 !important;
+        }
+
+
+        /* =========================================================
+           LISTA DE RELATÓRIOS
+        ========================================================= */
+
+        .lista-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+        }
+
+
+        .lista-header h2 {
+            color: #15223a;
+
+            font-size: 17px;
+        }
+
+
+        .lista-header p {
+            color: #8a94a5;
+
+            font-size: 11px;
+
+            margin-top: 4px;
+        }
+
+
+        .filtros {
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .filtro {
+            border: 1px solid #d9dee7;
+
+            background: white;
+
+            color: #647084;
+
+            border-radius: 20px;
+
+            padding: 7px 13px;
+
+            cursor: pointer;
+
+            font-size: 10px;
+        }
+
+
+        .filtro.ativo {
+            background: #1f67bb;
+
+            border-color: #1f67bb;
+
+            color: white;
+        }
+
+
+        /* =========================================================
+           CARDS
+        ========================================================= */
+
+        .relatorios-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .relatorio-card {
+            background: white;
+
+            border: 1px solid #dce2e9;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .relatorio-card:hover {
+            border-color: #72a5e7;
+
+            box-shadow:
+                0 5px 15px
+                rgba(26, 74, 133, .09);
+
+            transform: translateY(-2px);
+        }
+
+
+        .card-top {
+            display: flex;
+
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .codigo-relatorio {
+            font-family: monospace;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #17243b;
+        }
+
+
+        .card-status {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 9px;
+
+            font-weight: bold;
+        }
+
+
+        .status-elaboracao {
+            background: #e8eef8;
+            color: #47617f;
+        }
+
+
+        .status-pendente {
+            background: #fff2d8;
+            color: #b76800;
+        }
+
+
+        .status-aprovado {
+            background: #e5f7eb;
+            color: #168447;
+        }
+
+
+        .card-titulo {
+            color: #17243b;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+
+        .card-dados {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .card-dado small {
+            display: block;
+
+            color: #9aa4b3;
+
+            font-size: 8px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .card-dado span {
+            color: #455269;
+
+            font-size: 11px;
+        }
+
+
+        .card-footer {
+            border-top: 1px solid #edf0f3;
+
+            padding-top: 12px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+
+        .quantidade-itens {
+            font-size: 10px;
+
+            color: #5d697b;
+
+            font-weight: bold;
+        }
+
+
+        .btn-visualizar {
+            border: none;
+
+            background: #edf4ff;
+
+            color: #2166b1;
+
+            padding: 7px 11px;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .sem-relatorios {
+            grid-column: 1 / -1;
+
+            background: white;
+
+            border: 1px dashed #ccd4df;
+
+            border-radius: 8px;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: #8a95a6;
+        }
+
+
+        .sem-relatorios strong {
+            display: block;
+
+            color: #536074;
+
+            font-size: 15px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .sem-relatorios p {
+            font-size: 11px;
+
+            line-height: 18px;
+        }
+
+
+        /* =========================================================
+           ÁREA DO RELATÓRIO
+        ========================================================= */
+
+        #areaRelatorio {
+            display: none;
+        }
+
+
+        .report-toolbar {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .toolbar-title {
+            font-size: 11px;
+
+            color: #687386;
+        }
+
+
+        .toolbar-actions {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .toolbar-button {
+            height: 34px;
+
+            padding: 0 16px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .btn-voltar {
+            background: white;
+
+            border: 1px solid #d5dbe4;
+
+            color: #58677c;
+        }
+
+
+        .export-button {
+            background: #2166b1;
+
+            color: white;
+        }
+
+
+        /* =========================================================
+           DOCUMENTO
+        ========================================================= */
+
+        .report {
+            width: 100%;
+
+            background: white;
+
+            border: 1px solid #d4d9e0;
+
+            border-radius: 7px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 2px 6px
+                rgba(0,0,0,.10);
+        }
+
+
+        /* =========================================================
+           CABEÇALHO DO RELATÓRIO
+        ========================================================= */
+
+        .report-header {
+            background: #16345c;
+
+            color: white;
+
+            padding: 22px 28px;
+        }
+
+
+        .cabecalho-superior {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .empresa {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .empresa-logo {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 5px;
+
+            background: #2374c9;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+
+        .empresa-nome {
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+
+        .empresa-setor {
+            color: #9bc7f8;
+
+            font-size: 9px;
+
+            margin-top: 4px;
+        }
+
+
+        .numero-relatorio {
+            text-align: right;
+        }
+
+
+        .numero-relatorio small {
+            display: block;
+
+            color: #b7c7db;
+
+            font-size: 8px;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .numero-relatorio strong {
+            font-family: monospace;
+
+            font-size: 17px;
+        }
+
+
+        .linha-header {
+            height: 1px;
+
+            background:
+                rgba(255,255,255,.16);
+
+            margin: 20px 0 15px;
+        }
+
+
+        .titulo-relatorio {
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .subtitulo-relatorio {
+            color: #bdcadd;
+
+            font-size: 9px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================================
+           CORPO DO DOCUMENTO
+        ========================================================= */
+
+        .report-body {
+            padding: 28px;
+        }
+
+
+        .titulo-secao-documento {
+            font-size: 11px;
+
+            color: #173a67;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            font-weight: bold;
+
+            border-bottom: 2px solid #2d6faf;
+
+            padding-bottom: 7px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================================================
+           IDENTIFICAÇÃO
+        ========================================================= */
+
+        .identificacao-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            border: 1px solid #d8dee7;
+
+            margin-bottom: 26px;
+        }
+
+
+        .identificacao-campo {
+            padding: 11px 12px;
+
+            min-height: 58px;
+
+            border-right:
+                1px solid #d8dee7;
+
+            border-bottom:
+                1px solid #d8dee7;
+        }
+
+
+        .identificacao-campo:nth-child(4n) {
+            border-right: none;
+        }
+
+
+        .identificacao-campo:nth-last-child(-n+4) {
+            border-bottom: none;
+        }
+
+
+        .identificacao-campo small {
+            display: block;
+
+            color: #8995a7;
+
+            font-size: 7px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .identificacao-campo strong {
+            color: #25344b;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           RESUMO DA INSPEÇÃO
+        ========================================================= */
+
+        .resumo-inspecao {
+            background: #f7f9fc;
+
+            border-left: 3px solid #286bb5;
+
+            padding: 14px 17px;
+
+            margin-bottom: 27px;
+
+            font-size: 10px;
+
+            color: #4c5b70;
+
+            line-height: 17px;
+
+            white-space: pre-wrap;
+        }
+
+
+        /* =========================================================
+           ITENS DO RELATÓRIO
+        ========================================================= */
+
+        .itens-relatorio {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 26px;
+        }
+
+
+        .item-relatorio {
+            border: 1px solid #d9dfe7;
+
+            border-radius: 5px;
+
+            overflow: hidden;
+
+            page-break-inside: avoid;
+        }
+
+
+        .item-header {
+            background: #edf3f9;
+
+            border-bottom: 1px solid #d9dfe7;
+
+            padding: 12px 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .item-identificacao {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .item-numero {
+            width: 30px;
+            height: 30px;
+
+            background: #1d609f;
+
+            color: white;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 10px;
+
+            font-weight: bold;
+        }
+
+
+        .item-titulo {
+            color: #172c48;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .item-local {
+            color: #78869a;
+
+            font-size: 8px;
+
+            margin-top: 3px;
+        }
+
+
+        .item-tags {
+            display: flex;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .tag {
+            padding: 5px 8px;
+
+            border-radius: 12px;
+
+            font-size: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .tag-critica {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+
+        .tag-alta {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+
+        .tag-media {
+            background: #fef3c7;
+            color: #a16207;
+        }
+
+
+        .tag-baixa {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        .tag-prioridade {
+            background: #e8eef8;
+            color: #405b7c;
+        }
+
+
+        .item-body {
+            padding: 16px;
+        }
+
+
+        .bloco-item {
+            margin-bottom: 16px;
+        }
+
+
+        .bloco-item:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .bloco-item h4 {
+            color: #173a67;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .texto-item {
+            background: #fafbfc;
+
+            border-left: 3px solid #3478bb;
+
+            padding: 11px 13px;
+
+            color: #4c596b;
+
+            font-size: 10px;
+
+            line-height: 16px;
+
+            white-space: pre-wrap;
+        }
+
+
+        .recomendacao-item {
+            background: #fff8f1;
+
+            border-left:
+                3px solid #e77817;
+
+            padding: 11px 13px;
+
+            color: #6b4a2d;
+
+            font-size: 10px;
+
+            line-height: 16px;
+
+            white-space: pre-wrap;
+        }
+
+
+        /* =========================================================
+           FOTOS
+        ========================================================= */
+
+        .fotos-item {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 8px;
+        }
+
+
+        .foto-item {
+            border: 1px solid #dfe4ea;
+
+            border-radius: 4px;
+
+            overflow: hidden;
+
+            background: #f4f5f7;
+        }
+
+
+        .foto-item img {
+            width: 100%;
+            height: 150px;
+
+            display: block;
+
+            object-fit: cover;
+        }
+
+
+        .foto-legenda {
+            padding: 6px 8px;
+
+            background: white;
+
+            color: #8490a0;
+
+            font-size: 8px;
+
+            font-family: monospace;
+        }
+
+
+        .sem-foto-item {
+            color: #9aa4b2;
+
+            font-size: 9px;
+
+            font-style: italic;
+        }
+
+
+        /* =========================================================
+           RODAPÉ DO DOCUMENTO
+        ========================================================= */
+
+        .report-footer {
+            margin-top: 30px;
+
+            border-top:
+                1px solid #dce2e9;
+
+            padding-top: 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-end;
+
+            gap: 20px;
+        }
+
+
+        .responsavel strong {
+            display: block;
+
+            color: #26364c;
+
+            font-size: 10px;
+        }
+
+
+        .responsavel small {
+            display: block;
+
+            color: #8c97a6;
+
+            font-size: 8px;
+
+            margin-top: 4px;
+        }
+
+
+        .status-relatorio {
+            text-align: right;
+        }
+
+
+        .status-relatorio small {
+            display: block;
+
+            color: #8d98a7;
+
+            font-size: 8px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .status-badge {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 12px;
+
+            font-size: 8px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+           AÇÕES DO TÉCNICO
+        ========================================================= */
+
+        .acoes-tecnico {
+            margin-top: 22px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid #e2e6ec;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .aviso-aprovacao {
+            color: #778396;
+
+            font-size: 10px;
+
+            line-height: 16px;
+        }
+
+
+        .aviso-aprovacao strong {
+            color: #b76800;
+        }
+
+
+        .botoes-edicao {
+            display: flex;
+
+            gap: 8px;
+        }
+
+
+        .btn-editar,
+        .btn-salvar,
+        .btn-cancelar {
+            min-height: 36px;
+
+            padding: 0 16px;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .btn-editar {
+            border: none;
+
+            background: #2166b1;
+
+            color: white;
+        }
+
+
+        .btn-salvar {
+            border: none;
+
+            background: #168447;
+
+            color: white;
+        }
+
+
+        .btn-cancelar {
+            border: 1px solid #d5dbe4;
+
+            background: white;
+
+            color: #687386;
+        }
+
+        .btn-aprovar {
+            border: none;
+            background: #10b981;
+            color: white;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-aprovar:hover {
+            background: #059669;
+        }
+
+        .btn-excluir {
+            border: 1px solid #fca5a5;
+            background: #fff1f2;
+            color: #e11d48;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-excluir:hover {
+            background: #ffe4e6;
+            color: #be123c;
+        }
+
+        /* Modal de Resolução */
+        .modal-resolucao-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 19, 43, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-resolucao-box {
+            background: white;
+            width: 90%;
+            max-width: 620px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 24px 28px;
+        }
+
+        .modal-resolucao-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+
+        .modal-resolucao-topo h3 {
+            color: #0b132b;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn-fechar-modal {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-subtitulo {
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .modal-campo {
+            margin-bottom: 16px;
+        }
+
+        .modal-campo label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .modal-campo label span {
+            color: #e11d48;
+        }
+
+        .modal-campo textarea {
+            width: 100%;
+            min-height: 75px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .modal-campo textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+        .modal-campo input[type="file"] {
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .preview-comprovante-box {
+            margin-top: 10px;
+            border: 1px dashed #cbd5e1;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            max-width: 250px;
+        }
+
+        .preview-comprovante-box img {
+            max-width: 100%;
+            max-height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .modal-acoes {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 22px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+
+        .btn-aprovar-modal {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-aprovar-modal:hover {
+            background: #059669;
+        }
+
+        /* Card de Resolução no Documento */
+        .secao-resolucao-doc {
+            margin: 25px 0;
+        }
+
+        .card-resolucao-aprovada {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-left: 4px solid #16a34a;
+            border-radius: 6px;
+            padding: 18px 20px;
+        }
+
+        .resolucao-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge-resolvido {
+            background: #16a34a;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .data-resolucao {
+            font-size: 11px;
+            color: #15803d;
+            font-weight: 500;
+        }
+
+        .campo-resolucao {
+            margin-bottom: 10px;
+        }
+
+        .campo-resolucao strong {
+            font-size: 11px;
+            color: #166534;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .campo-resolucao p {
+            font-size: 12px;
+            color: #1f2937;
+            line-height: 1.5;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #dcfce7;
+        }
+
+        .foto-comprovante-wrapper {
+            margin-top: 6px;
+            max-width: 280px;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: white;
+            padding: 4px;
+        }
+
+        .foto-comprovante-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .resolucao-autor {
+            margin-top: 12px;
+            text-align: right;
+            color: #166534;
+        }
+
+        .oculto {
+            display: none !important;
+        }
+
+
+        [contenteditable="true"] {
+            outline: 2px solid #82b7ee;
+
+            background: white !important;
+        }
+
+
+        /* =========================================================
+           RESPONSIVIDADE
+        ========================================================= */
+
+        @media (max-width: 1050px) {
+
+            .resumo-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .relatorios-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .identificacao-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .fotos-item {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                display: none;
+            }
+
+
+            .main {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+
+            .content {
+                padding: 15px;
+            }
+
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+
+            .resumo-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .identificacao-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .fotos-item {
+                grid-template-columns: 1fr;
+            }
+
+
+            .report-toolbar,
+            .acoes-tecnico,
+            .report-footer {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .notification-panel {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+                left: 10px;
+
+                width: auto;
+            }
+
+
+            .profile-menu {
+                position: fixed;
+
+                top: 61px;
+                right: 10px;
+
+                width: 245px;
+            }
+        }
+
+
+        /* =========================================================
+           IMPRESSÃO / PDF
+        ========================================================= */
+
+        @media print {
+
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+
+            body {
+                background: white;
+            }
+
+
+            .sidebar,
+            .topbar,
+            .resumo-grid,
+            #areaLista,
+            .report-toolbar,
+            .acoes-tecnico {
+                display: none !important;
+            }
+
+
+            .main {
+                margin: 0;
+
+                width: 100%;
+            }
+
+
+            .content {
+                padding: 0;
+            }
+
+
+            #areaRelatorio {
+                display: block !important;
+            }
+
+
+            .report {
+                border: none;
+
+                box-shadow: none;
+
+                border-radius: 0;
+            }
+
+
+            .report-header,
+            .item-header,
+            .item-numero,
+            .tag,
+            .texto-item,
+            .recomendacao-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+
+            .item-relatorio {
+                break-inside: avoid;
+
+                page-break-inside: avoid;
+            }
+
+
+            .foto-item img {
+                height: 125px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         MENU LATERAL
+    ========================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ▤
+            </div>
+
+
+            <div class="logo-text">
+
+                AutoRelatório
+
+                <span>
+                    INDUSTRIAL
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+
+            <a href="dashboard.html">
+
+                <span class="menu-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="nova_inspecao.html">
+
+                <span class="menu-icon">
+                    ✓
+                </span>
+
+                Nova Inspeção
+
+            </a>
+
+
+            <a href="registrar_problema.html">
+
+                <span class="menu-icon">
+                    △
+                </span>
+
+                Registrar Problema
+
+            </a>
+
+
+            <a href="historico.html">
+
+                <span class="menu-icon">
+                    ♢
+                </span>
+
+                Histórico
+
+            </a>
+
+
+            <a
+                href="relatorios.html"
+                class="active"
+            >
+
+                <span class="menu-icon">
+                    ▧
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a href="areas.html">
+
+                <span class="menu-icon">
+                    ▦
+                </span>
+
+                Áreas
+
+            </a>
+
+
+            <a href="equipamentos.html">
+
+                <span class="menu-icon">
+                    ⌁
+                </span>
+
+                Equipamentos
+
+            </a>
+
+        </nav>
+
+
+        <!-- =====================================================
+             PERFIL DA SIDEBAR
+        ====================================================== -->
+
+        <div class="sidebar-bottom">
+
+
+            <div class="profile">
+
+
+                <div class="profile-circle">
+
+                    <span id="sidebarIniciais">
+                        TC
+                    </span>
+
+
+                    <img
+                        id="sidebarFoto"
+                        src=""
+                        alt="Foto do usuário"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="sidebarNome"
+                    >
+                        Técnico
+                    </div>
+
+
+                    <div
+                        class="profile-info"
+                        id="sidebarPerfil"
+                    >
+                        Perfil Técnico
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="logout"
+                id="btnSair"
+            >
+
+                <span>
+                    ⇥
+                </span>
+
+                Sair
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         PRINCIPAL
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             TOPO
+        ====================================================== -->
+
+        <header class="topbar">
+
+
+            <div class="page-title">
+
+                <h1>
+                    Relatórios Técnicos
+                </h1>
+
+                <p>
+                    Relatórios consolidados das inspeções industriais
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 SINO + PERFIL
+            ================================================== -->
+
+            <div class="topbar-actions">
+
+
+                <!-- NOTIFICAÇÕES -->
+
+                <div class="notification-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="notification-button"
+                        id="btnNotificacoes"
+                        title="Notificações"
+                        aria-label="Abrir notificações"
+                    >
+
+                        🔔
+
+
+                        <span
+                            class="notification-count vazio"
+                            id="contadorNotificacoes"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="notification-panel"
+                        id="painelNotificacoes"
+                    >
+
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notificações
+                            </h3>
+
+
+                            <button
+                                type="button"
+                                id="btnMarcarTodasLidas"
+                            >
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="notification-list"
+                            id="listaNotificacoes"
+                        >
+
+                            <div class="notification-empty">
+                                Nenhuma notificação no momento.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERFIL -->
+
+                <div class="user-wrapper">
+
+
+                    <button
+                        type="button"
+                        class="user-button"
+                        id="btnPerfil"
+                        title="Meu perfil"
+                        aria-label="Abrir menu do perfil"
+                    >
+
+
+                        <div class="user">
+
+                            <span id="topIniciais">
+                                TC
+                            </span>
+
+
+                            <img
+                                id="topFoto"
+                                src=""
+                                alt="Foto do usuário"
+                            >
+
+                        </div>
+
+
+                        <span class="user-arrow">
+                            ▼
+                        </span>
+
+                    </button>
+
+
+                    <!-- MENU DO PERFIL -->
+
+                    <div
+                        class="profile-menu"
+                        id="menuPerfil"
+                    >
+
+
+                        <div class="profile-menu-header">
+
+
+                            <div class="profile-menu-avatar">
+
+                                <span id="menuIniciais">
+                                    TC
+                                </span>
+
+
+                                <img
+                                    id="menuFoto"
+                                    src=""
+                                    alt="Foto do usuário"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="profile-menu-name"
+                                    id="menuNome"
+                                >
+                                    Técnico
+                                </div>
+
+
+                                <div
+                                    class="profile-menu-role"
+                                    id="menuFuncao"
+                                >
+                                    Perfil Técnico
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-menu-links">
+
+
+                            <a href="perfil.html">
+
+                                👤
+
+                                <span>
+                                    Meu Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="editar_perfil.html">
+
+                                ✎
+
+                                <span>
+                                    Editar Perfil
+                                </span>
+
+                            </a>
+
+
+                            <a href="alterar_senha.html">
+
+                                🔒
+
+                                <span>
+                                    Alterar Senha
+                                </span>
+
+                            </a>
+
+
+                            <a href="preferencias.html">
+
+                                ⚙
+
+                                <span>
+                                    Preferências
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="menu-sair"
+                                id="btnSairPerfil"
+                            >
+
+                                ⇥
+
+                                <span>
+                                    Sair
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTEÚDO
+        ====================================================== -->
+
+        <section class="content">
+
+
+            <!-- =================================================
+                 INDICADORES
+            ================================================== -->
+
+            <div class="resumo-grid">
+
+
+                <div class="resumo-card" id="cardKpiTotal" style="cursor: pointer;" title="Clique para ver todos os relatórios">
+
+                    <span>
+                        Relatórios gerados
+                    </span>
+
+                    <strong id="totalRelatorios">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="resumo-card" id="cardKpiPendentes" style="cursor: pointer;" title="Clique para ver os relatórios pendentes">
+
+                    <span>
+                        Pendentes de aprovação
+                    </span>
+
+                    <strong
+                        id="totalPendentes"
+                        class="numero-pendente"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="resumo-card" id="cardKpiAprovados" style="cursor: pointer;" title="Clique para abrir a aba de relatórios aprovados e concluídos">
+
+                    <span>
+                        Aprovados / Concluídos
+                    </span>
+
+                    <strong
+                        id="totalAprovados"
+                        class="numero-aprovado"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="resumo-card" id="cardKpiAbertos">
+
+                    <span>
+                        Itens em aberto
+                    </span>
+
+                    <strong
+                        id="totalAbertos"
+                        class="numero-aberto"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LISTA DE RELATÓRIOS
+            ================================================== -->
+
+            <div id="areaLista">
+
+
+                <div class="lista-header">
+
+                    <div>
+
+                        <h2>
+                            Relatórios gerados
+                        </h2>
+
+                        <p>
+                            Gerencie os relatórios das inspeções, aprove pendências resolvidas e consulte os relatórios finalizados.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="filtros" role="tablist">
+
+
+                    <button
+                        type="button"
+                        class="filtro ativo"
+                        data-filtro="Todos"
+                        id="tabFiltroTodos"
+                    >
+                        Todos (<span id="contFiltroTodos">0</span>)
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="filtro"
+                        data-filtro="Aprovado"
+                        id="tabFiltroAprovados"
+                    >
+                        ✓ Aprovados &amp; Concluídos (<span id="contFiltroAprovados">0</span>)
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="filtro"
+                        data-filtro="Pendente de aprovação"
+                        id="tabFiltroPendentes"
+                    >
+                        ⏳ Pendentes (<span id="contFiltroPendentes">0</span>)
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="filtro"
+                        data-filtro="Em elaboração"
+                        id="tabFiltroElaboracao"
+                    >
+                        Em elaboração (<span id="contFiltroElaboracao">0</span>)
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="relatorios-grid"
+                    id="listaRelatorios"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RELATÓRIO COMPLETO
+            ================================================== -->
+
+            <div id="areaRelatorio">
+
+
+                <!-- BARRA DE AÇÕES -->
+
+                <div class="report-toolbar">
+
+
+                    <span class="toolbar-title">
+                        Visualização completa do relatório técnico
+                    </span>
+
+
+                    <div class="toolbar-actions">
+
+
+                        <button
+                            type="button"
+                            class="toolbar-button btn-voltar"
+                            id="btnVoltar"
+                        >
+                            ← Voltar aos relatórios
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="toolbar-button export-button"
+                            id="btnExportar"
+                        >
+                            ⇩ Imprimir / Salvar PDF
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DOCUMENTO
+                ================================================== -->
+
+                <article
+                    class="report"
+                    id="documentoRelatorio"
+                >
+
+
+                    <!-- CABEÇALHO -->
+
+                    <header class="report-header">
+
+
+                        <div class="cabecalho-superior">
+
+
+                            <div class="empresa">
+
+
+                                <div class="empresa-logo">
+                                    A
+                                </div>
+
+
+                                <div>
+
+                                    <div class="empresa-nome">
+                                        ArcelorMittal Brasil
+                                    </div>
+
+                                    <div class="empresa-setor">
+                                        Engenharia de Manutenção • Planta Tubarão
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="numero-relatorio">
+
+                                <small>
+                                    RELATÓRIO TÉCNICO
+                                </small>
+
+                                <strong id="relCodigo">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="linha-header"></div>
+
+
+                        <div
+                            class="titulo-relatorio"
+                            id="relTitulo"
+                        >
+                            Relatório de Inspeção Industrial
+                        </div>
+
+
+                        <div
+                            class="subtitulo-relatorio"
+                            id="relSubtitulo"
+                        >
+                            Registro técnico das condições identificadas durante a inspeção.
+                        </div>
+
+                    </header>
+
+
+                    <!-- =================================================
+                         CORPO
+                    ================================================== -->
+
+                    <div class="report-body">
+
+
+                        <!-- IDENTIFICAÇÃO -->
+
+                        <div class="titulo-secao-documento">
+                            1. Identificação da Inspeção
+                        </div>
+
+
+                        <div class="identificacao-grid">
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Nº da inspeção
+                                </small>
+
+                                <strong id="relInspecao">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Data
+                                </small>
+
+                                <strong id="relData">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Hora
+                                </small>
+
+                                <strong id="relHora">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Inspetor
+                                </small>
+
+                                <strong id="relInspetor">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Área
+                                </small>
+
+                                <strong id="relArea">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Equipamento
+                                </small>
+
+                                <strong id="relEquipamento">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Patrimônio / TAG
+                                </small>
+
+                                <strong id="relPatrimonio">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="identificacao-campo">
+
+                                <small>
+                                    Quantidade de itens
+                                </small>
+
+                                <strong id="relQuantidade">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RESUMO -->
+
+                        <div class="titulo-secao-documento">
+                            2. Resumo da Inspeção
+                        </div>
+
+
+                        <div
+                            class="resumo-inspecao campo-editavel"
+                            id="relResumo"
+                        >
+                            -
+                        </div>
+
+
+                        <!-- ITENS -->
+
+                        <div class="titulo-secao-documento">
+                            3. Itens Identificados
+                        </div>
+
+
+                        <div
+                            class="itens-relatorio"
+                            id="relItens"
+                        >
+                        </div>
+
+                        <!-- 4. COMPROVAÇÃO DE RESOLUÇÃO E APROVAÇÃO -->
+                        <div id="blocoResolucaoDocumento" class="secao-resolucao-doc oculto">
+                            <div class="titulo-secao-documento">
+                                4. Comprovação de Resolução e Aprovação Técnica
+                            </div>
+                            <div class="card-resolucao-aprovada">
+                                <div class="resolucao-header">
+                                    <span class="badge-resolvido">✓ PENDÊNCIA RESOLVIDA E APROVADA</span>
+                                    <span class="data-resolucao" id="docResolvidoEm">-</span>
+                                </div>
+                                <div class="campo-resolucao">
+                                    <strong>O que foi feito (Ação Corretiva):</strong>
+                                    <p id="docOQueFoiFeito">-</p>
+                                </div>
+                                <div class="campo-resolucao">
+                                    <strong>Como foi feito (Procedimento Técnico Adotado):</strong>
+                                    <p id="docComoFoiFeito">-</p>
+                                </div>
+                                <div class="campo-resolucao" id="docContainerFoto">
+                                    <strong>Fotografia Comprovante de Conclusão:</strong>
+                                    <div class="foto-comprovante-wrapper">
+                                        <img id="docFotoComprovante" src="" alt="Comprovante de término da pendência">
+                                    </div>
+                                </div>
+                                <div class="resolucao-autor">
+                                    <small>Aprovado e Concluído por: <strong id="docResolvidoPor">-</strong></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RODAPÉ -->
+
+                        <div class="report-footer">
+
+
+                            <div class="responsavel">
+
+                                <strong id="relResponsavel">
+                                    -
+                                </strong>
+
+                                <small>
+                                    Responsável pela inspeção
+                                </small>
+
+                            </div>
+
+
+                            <div class="status-relatorio">
+
+                                <small>
+                                    STATUS DO RELATÓRIO
+                                </small>
+
+                                <span
+                                    class="status-badge"
+                                    id="relStatus"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             AÇÕES DO TÉCNICO
+                        ================================================== -->
+
+                        <div class="acoes-tecnico">
+
+
+                            <div class="aviso-aprovacao">
+
+                                <strong id="mensagemStatus">
+                                    Relatório em elaboração.
+                                </strong>
+
+                                <br>
+
+                                <span id="descricaoStatus">
+                                    Confira os dados antes de enviar para aprovação.
+                                </span>
+
+                            </div>
+
+
+                            <div class="botoes-edicao">
+
+                                <button
+                                    type="button"
+                                    class="btn-aprovar"
+                                    id="btnResolverPendencia"
+                                >
+                                    ✓ Resolver Pendência & Aprovar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn-cancelar oculto"
+                                    id="btnCancelar"
+                                >
+                                    Cancelar edição
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="btn-editar"
+                                    id="btnEditar"
+                                >
+                                    Editar relatório
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="btn-salvar oculto"
+                                    id="btnSalvar"
+                                >
+                                    Salvar relatório
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn-excluir"
+                                    id="btnExcluirRegistro"
+                                >
+                                    🗑 Excluir registro
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <!-- MODAL DE RESOLUÇÃO E APROVAÇÃO -->
+                <div id="modalResolucao" class="modal-resolucao-overlay oculto">
+                    <div class="modal-resolucao-box">
+                        <div class="modal-resolucao-topo">
+                            <h3>✓ Resolução de Pendência e Aprovação</h3>
+                            <button type="button" class="btn-fechar-modal" id="btnFecharModalResolucao">✕</button>
+                        </div>
+                        <form id="formResolucaoPendencia">
+                            <p class="modal-subtitulo">
+                                Relate a ação corretiva executada para sanar a pendência e anexe a foto comprovante do término para aprovação.
+                            </p>
+
+                            <div class="modal-campo">
+                                <label for="campoOQueFez">O que foi feito (Ação Corretiva Realizada) <span>*</span></label>
+                                <textarea id="campoOQueFez" placeholder="Ex.: Realizada troca da vedação rompida, reajuste de parafusos da carcaça e limpeza do resíduo de graxa..." required></textarea>
+                            </div>
+
+                            <div class="modal-campo">
+                                <label for="campoComoFez">Como foi feito (Procedimento Técnico Adotado) <span>*</span></label>
+                                <textarea id="campoComoFez" placeholder="Ex.: Bloqueio elétrico LOTO efetuado, drenagem do fluido, substituição da junta por modelo original sob torque de 45 Nm e teste de pressão por 20 minutos sem vazamentos..." required></textarea>
+                            </div>
+
+                            <div class="modal-campo">
+                                <label for="campoFotoComprovante">Fotografia Comprovante de Conclusão / Término</label>
+                                <input type="file" id="campoFotoComprovante" accept="image/*">
+                                <div id="previewFotoComprovante" class="preview-comprovante-box oculto">
+                                    <img id="imgPreviewComprovante" src="" alt="Prévia da foto comprovante">
+                                </div>
+                            </div>
+
+                            <div class="modal-acoes">
+                                <button type="button" class="btn-cancelar" id="btnCancelarModalResolucao">Cancelar</button>
+                                <button type="submit" class="btn-aprovar-modal" id="btnConfirmarAprovacao">
+                                    ✓ Confirmar e Aprovar Pendência
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================================
+       CONFIGURAÇÕES / CHAVES
+    ========================================================= */
+
+    const CHAVE_INSPECOES = "inspecoes";
+    const CHAVE_RELATORIO_ATUAL = "relatorioAtualId";
+
+    const CHAVE_NOTIFICACOES = "notificacoes";
+    const CHAVE_PERFIL = "perfilUsuario";
+
+    let inspecoes = [];
+    let relatorios = [];
+    let relatorioSelecionado = null;
+    let filtroAtual = "Todos";
+
+    let dadosAntesEdicao = null;
+
+
+    /* =========================================================
+       ELEMENTOS DOS RELATÓRIOS
+    ========================================================= */
+
+    const listaRelatorios =
+        document.getElementById("listaRelatorios");
+
+    const areaLista =
+        document.getElementById("areaLista");
+
+    const areaRelatorio =
+        document.getElementById("areaRelatorio");
+
+    const btnVoltar =
+        document.getElementById("btnVoltar");
+
+    const btnExportar =
+        document.getElementById("btnExportar");
+
+    const btnEditar =
+        document.getElementById("btnEditar");
+
+    const btnSalvar =
+        document.getElementById("btnSalvar");
+
+    const btnCancelar =
+        document.getElementById("btnCancelar");
+
+    const btnResolverPendencia =
+        document.getElementById("btnResolverPendencia");
+
+    const btnExcluirRegistro =
+        document.getElementById("btnExcluirRegistro");
+
+    const modalResolucao =
+        document.getElementById("modalResolucao");
+
+    const btnFecharModalResolucao =
+        document.getElementById("btnFecharModalResolucao");
+
+    const btnCancelarModalResolucao =
+        document.getElementById("btnCancelarModalResolucao");
+
+    const formResolucaoPendencia =
+        document.getElementById("formResolucaoPendencia");
+
+    const campoOQueFez =
+        document.getElementById("campoOQueFez");
+
+    const campoComoFez =
+        document.getElementById("campoComoFez");
+
+    const campoFotoComprovante =
+        document.getElementById("campoFotoComprovante");
+
+    const previewFotoComprovante =
+        document.getElementById("previewFotoComprovante");
+
+    const imgPreviewComprovante =
+        document.getElementById("imgPreviewComprovante");
+
+    const blocoResolucaoDocumento =
+        document.getElementById("blocoResolucaoDocumento");
+
+    let fotoComprovanteBase64 = "";
+
+
+    /* =========================================================
+       ELEMENTOS DO TOPO
+    ========================================================= */
+
+    const btnNotificacoes =
+        document.getElementById("btnNotificacoes");
+
+    const contadorNotificacoes =
+        document.getElementById("contadorNotificacoes");
+
+    const painelNotificacoes =
+        document.getElementById("painelNotificacoes");
+
+    const listaNotificacoes =
+        document.getElementById("listaNotificacoes");
+
+    const btnMarcarTodasLidas =
+        document.getElementById("btnMarcarTodasLidas");
+
+    const btnPerfil =
+        document.getElementById("btnPerfil");
+
+    const menuPerfil =
+        document.getElementById("menuPerfil");
+
+    const btnSair =
+        document.getElementById("btnSair");
+
+    const btnSairPerfil =
+        document.getElementById("btnSairPerfil");
+
+
+    /* =========================================================
+       FUNÇÕES AUXILIARES
+    ========================================================= */
+
+    function lerJSON(chave, padrao) {
+
+        try {
+
+            const valor =
+                localStorage.getItem(chave);
+
+            if (!valor) {
+                return padrao;
+            }
+
+            return JSON.parse(valor);
+
+        }
+        catch (erro) {
+
+            console.error(
+                "Erro ao ler " + chave,
+                erro
+            );
+
+            return padrao;
+        }
+    }
+
+
+    function salvarJSON(chave, valor) {
+
+        try {
+
+            localStorage.setItem(
+                chave,
+                JSON.stringify(valor)
+            );
+
+            return true;
+
+        }
+        catch (erro) {
+
+            console.error(
+                "Erro ao salvar " + chave,
+                erro
+            );
+
+            alert(
+                "Não foi possível salvar as alterações."
+            );
+
+            return false;
+        }
+    }
+
+
+    function escaparHTML(valor) {
+
+        if (
+            valor === null ||
+            valor === undefined
+        ) {
+            return "";
+        }
+
+        return String(valor)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "-";
+        }
+
+        if (
+            String(data).includes("/")
+        ) {
+            return data;
+        }
+
+        const partes =
+            String(data).split("-");
+
+        if (partes.length !== 3) {
+            return data;
+        }
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+    }
+
+
+    function normalizarTexto(valor) {
+
+        return String(valor || "")
+            .trim()
+            .toLowerCase();
+    }
+
+
+    /* =========================================================
+       CARREGAR INSPEÇÕES
+    ========================================================= */
+
+    function carregarInspecoes() {
+
+        const dados =
+            lerJSON(
+                CHAVE_INSPECOES,
+                []
+            );
+
+        return Array.isArray(dados)
+            ? dados
+            : [];
+    }
+
+
+    /* =========================================================
+       COMPATIBILIDADE COM ITENS ANTIGOS
+    ========================================================= */
+
+    function obterItensInspecao(inspecao) {
+
+        if (
+            Array.isArray(inspecao.itens) &&
+            inspecao.itens.length > 0
+        ) {
+
+            return inspecao.itens;
+        }
+
+
+        if (
+            Array.isArray(inspecao.problemas) &&
+            inspecao.problemas.length > 0
+        ) {
+
+            return inspecao.problemas;
+        }
+
+
+        return [];
+    }
+
+
+    /* =========================================================
+       GERAR CÓDIGO DO RELATÓRIO
+    ========================================================= */
+
+    function gerarCodigoRelatorio(
+        inspecao,
+        indice
+    ) {
+
+        if (inspecao.codigoRelatorio) {
+
+            return inspecao.codigoRelatorio;
+        }
+
+
+        const ano =
+            inspecao.data
+                ? String(
+                    inspecao.data
+                ).substring(0, 4)
+                : new Date().getFullYear();
+
+
+        return (
+            "RT-" +
+            ano +
+            "-" +
+            String(
+                indice + 1
+            ).padStart(4, "0")
+        );
+    }
+
+
+    /* =========================================================
+       STATUS DO RELATÓRIO
+    ========================================================= */
+
+    function obterStatusRelatorio(inspecao) {
+
+        if (inspecao.resolucao) {
+            return "Aprovado";
+        }
+
+        if (inspecao.statusRelatorio) {
+
+            return inspecao.statusRelatorio;
+        }
+
+
+        if (
+            inspecao.statusAprovacao ===
+            "Aprovado"
+        ) {
+
+            return "Aprovado";
+        }
+
+
+        if (
+            inspecao.situacao ===
+            "Concluída"
+        ) {
+
+            return "Pendente de aprovação";
+        }
+
+
+        return "Em elaboração";
+    }
+
+
+    /* =========================================================
+       CRITICIDADE MAIS ALTA
+    ========================================================= */
+
+    function obterMaiorCriticidade(itens) {
+
+        const pesos = {
+            "crítica": 4,
+            "critica": 4,
+            "alta": 3,
+            "média": 2,
+            "media": 2,
+            "baixa": 1
+        };
+
+
+        let maior = null;
+        let maiorPeso = 0;
+
+
+        itens.forEach(
+            function (item) {
+
+                const criticidade =
+                    normalizarTexto(
+                        item.criticidade
+                    );
+
+
+                const peso =
+                    pesos[criticidade] || 0;
+
+
+                if (peso > maiorPeso) {
+
+                    maiorPeso = peso;
+
+                    maior =
+                        item.criticidade;
+                }
+            }
+        );
+
+
+        return maior || "Não definida";
+    }
+
+
+    /* =========================================================
+       GERAR RELATÓRIOS
+    ========================================================= */
+
+    function gerarRelatorios() {
+
+        relatorios = [];
+
+
+        inspecoes.forEach(
+            function (inspecao, indice) {
+
+                const itens =
+                    obterItensInspecao(
+                        inspecao
+                    );
+
+
+                /*
+                    Não cria relatório vazio.
+                */
+
+                if (itens.length === 0) {
+                    return;
+                }
+
+
+                const codigo =
+                    gerarCodigoRelatorio(
+                        inspecao,
+                        indice
+                    );
+
+
+                if (!inspecao.codigoRelatorio) {
+
+                    inspecao.codigoRelatorio =
+                        codigo;
+                }
+
+
+                const relatorio = {
+
+                    id:
+                        inspecao.id,
+
+                    inspecaoId:
+                        inspecao.id,
+
+                    codigo:
+                        codigo,
+
+                    codigoInspecao:
+                        inspecao.codigo ||
+                        "INS-" +
+                        String(
+                            indice + 1
+                        ).padStart(4, "0"),
+
+                    titulo:
+                        inspecao.tituloRelatorio ||
+                        "Relatório de Inspeção Industrial",
+
+                    area:
+                        inspecao.area ||
+                        "-",
+
+                    equipamento:
+                        inspecao.equipamento ||
+                        "-",
+
+                    patrimonio:
+                        inspecao.patrimonio ||
+                        "-",
+
+                    localizacao:
+                        inspecao.localizacao ||
+                        "-",
+
+                    data:
+                        inspecao.data ||
+                        "",
+
+                    hora:
+                        inspecao.hora ||
+                        "-",
+
+                    inspetor:
+                        inspecao.inspetor ||
+                        inspecao.responsavel ||
+                        "Técnico responsável",
+
+                    resumo:
+                        inspecao.resumoRelatorio ||
+                        inspecao.observacoes ||
+                        "Durante a inspeção foram identificadas as condições técnicas descritas nos itens abaixo.",
+
+                    status:
+                        obterStatusRelatorio(
+                            inspecao
+                        ),
+
+                    criticidade:
+                        obterMaiorCriticidade(
+                            itens
+                        ),
+
+                    itens:
+                        itens,
+
+                    quantidadeItens:
+                        itens.length,
+
+                    atualizadaEm:
+                        inspecao.atualizadaEm ||
+                        null,
+
+                    resolucao:
+                        inspecao.resolucao ||
+                        null
+                };
+
+
+                relatorios.push(
+                    relatorio
+                );
+            }
+        );
+
+
+        salvarJSON(
+            CHAVE_INSPECOES,
+            inspecoes
+        );
+    }
+
+
+    /* =========================================================
+       CLASSES DE STATUS
+    ========================================================= */
+
+    function classeStatus(status) {
+
+        if (status === "Aprovado") {
+            return "status-aprovado";
+        }
+
+
+        if (
+            status ===
+            "Pendente de aprovação"
+        ) {
+
+            return "status-pendente";
+        }
+
+
+        return "status-elaboracao";
+    }
+
+
+    function classeCriticidade(
+        criticidade
+    ) {
+
+        const valor =
+            normalizarTexto(
+                criticidade
+            );
+
+
+        if (
+            valor === "crítica" ||
+            valor === "critica"
+        ) {
+
+            return "tag-critica";
+        }
+
+
+        if (valor === "alta") {
+
+            return "tag-alta";
+        }
+
+
+        if (
+            valor === "média" ||
+            valor === "media"
+        ) {
+
+            return "tag-media";
+        }
+
+
+        return "tag-baixa";
+    }
+
+
+    /* =========================================================
+       INDICADORES
+    ========================================================= */
+
+    function atualizarIndicadores() {
+
+        const total =
+            relatorios.length;
+
+
+        const pendentes =
+            relatorios.filter(
+                function (relatorio) {
+
+                    return (
+                        relatorio.status ===
+                        "Pendente de aprovação"
+                    );
+                }
+            ).length;
+
+
+        const aprovados =
+            relatorios.filter(
+                function (relatorio) {
+
+                    return (
+                        relatorio.status ===
+                        "Aprovado" ||
+                        Boolean(relatorio.resolucao)
+                    );
+                }
+            ).length;
+
+
+        const emElaboracao =
+            relatorios.filter(
+                function (relatorio) {
+
+                    return (
+                        relatorio.status ===
+                        "Em elaboração"
+                    );
+                }
+            ).length;
+
+
+        let abertos = 0;
+
+
+        relatorios.forEach(
+            function (relatorio) {
+
+                relatorio.itens.forEach(
+                    function (item) {
+
+                        const status =
+                            normalizarTexto(
+                                item.status
+                            );
+
+
+                        if (
+                            status !== "resolvido" &&
+                            status !== "concluído" &&
+                            status !== "concluido" &&
+                            status !== "fechado"
+                        ) {
+
+                            abertos++;
+                        }
+                    }
+                );
+            }
+        );
+
+
+        const elTotal = document.getElementById("totalRelatorios");
+        if (elTotal) elTotal.textContent = total;
+
+        const elPendentes = document.getElementById("totalPendentes");
+        if (elPendentes) elPendentes.textContent = pendentes;
+
+        const elAprovados = document.getElementById("totalAprovados");
+        if (elAprovados) elAprovados.textContent = aprovados;
+
+        const elAbertos = document.getElementById("totalAbertos");
+        if (elAbertos) elAbertos.textContent = abertos;
+
+        // Atualiza os contadores das abas
+        const elContTodos = document.getElementById("contFiltroTodos");
+        if (elContTodos) elContTodos.textContent = total;
+
+        const elContAprovados = document.getElementById("contFiltroAprovados");
+        if (elContAprovados) elContAprovados.textContent = aprovados;
+
+        const elContPendentes = document.getElementById("contFiltroPendentes");
+        if (elContPendentes) elContPendentes.textContent = pendentes;
+
+        const elContElaboracao = document.getElementById("contFiltroElaboracao");
+        if (elContElaboracao) elContElaboracao.textContent = emElaboracao;
+    }
+
+
+    /* =========================================================
+       FILTRAR RELATÓRIOS
+    ========================================================= */
+
+    function obterRelatoriosFiltrados() {
+
+        if (filtroAtual === "Todos") {
+
+            return relatorios;
+        }
+
+        if (filtroAtual === "Aprovado" || filtroAtual === "Aprovados") {
+
+            return relatorios.filter(
+                function (relatorio) {
+
+                    return (
+                        relatorio.status === "Aprovado" ||
+                        Boolean(relatorio.resolucao)
+                    );
+                }
+            );
+        }
+
+
+        return relatorios.filter(
+            function (relatorio) {
+
+                return (
+                    relatorio.status ===
+                    filtroAtual
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       RENDERIZAR CARDS
+    ========================================================= */
+
+    function renderizarRelatorios() {
+
+        listaRelatorios.innerHTML =
+            "";
+
+
+        const lista =
+            obterRelatoriosFiltrados();
+
+
+        if (lista.length === 0) {
+
+            let msgTitulo = "Nenhum relatório encontrado";
+            let msgDesc = "Finalize uma inspeção e registre pelo menos um item para gerar um relatório técnico.";
+
+            if (filtroAtual === "Aprovado" || filtroAtual === "Aprovados") {
+                msgTitulo = "Nenhum relatório aprovado no momento";
+                msgDesc = "Abra uma inspeção pendente e clique no botão 'Resolver Pendência & Aprovar' para registrar a resolução e a foto comprovante.";
+            } else if (filtroAtual === "Pendente de aprovação") {
+                msgTitulo = "Nenhuma pendência aguardando aprovação";
+                msgDesc = "Todas as inspeções com itens foram resolvidas e aprovadas ou estão em elaboração.";
+            }
+
+            listaRelatorios.innerHTML = `
+
+                <div class="sem-relatorios">
+
+                    <strong>
+                        ${escaparHTML(msgTitulo)}
+                    </strong>
+
+                    <p>
+                        ${escaparHTML(msgDesc)}
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        lista.forEach(
+            function (relatorio) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "relatorio-card";
+
+
+                card.innerHTML = `
+
+                    <div class="card-top">
+
+                        <span class="codigo-relatorio">
+                            ${escaparHTML(relatorio.codigo)}
+                        </span>
+
+                        <span
+                            class="
+                                card-status
+                                ${classeStatus(relatorio.status)}
+                            "
+                        >
+                            ${escaparHTML(relatorio.status)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-titulo">
+                        ${escaparHTML(relatorio.titulo)}
+                        ${
+                            relatorio.resolucao
+                                ? '<div style="margin-top: 6px;"><span class="badge-resolvido">✓ Pendência Resolvida &amp; Aprovada</span></div>'
+                                : ''
+                        }
+                    </div>
+
+
+                    <div class="card-dados">
+
+                        <div class="card-dado">
+
+                            <small>
+                                Equipamento
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.equipamento)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Área
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.area)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Inspeção
+                            </small>
+
+                            <span>
+                                ${escaparHTML(relatorio.codigoInspecao)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-dado">
+
+                            <small>
+                                Data
+                            </small>
+
+                            <span>
+                                ${escaparHTML(formatarData(relatorio.data))}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <span class="quantidade-itens">
+
+                            ${relatorio.quantidadeItens}
+                            ${
+                                relatorio.quantidadeItens === 1
+                                    ? " item registrado"
+                                    : " itens registrados"
+                            }
+
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="btn-visualizar"
+                        >
+                            Ver relatório
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        abrirRelatorio(
+                            relatorio.id
+                        );
+                    }
+                );
+
+
+                listaRelatorios.appendChild(
+                    card
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       FILTROS / ABAS
+    ========================================================= */
+
+    const botoesFiltro =
+        document.querySelectorAll(
+            ".filtro"
+        );
+
+
+    function ativarFiltro(nomeFiltro) {
+
+        filtroAtual = nomeFiltro;
+
+        botoesFiltro.forEach(
+            function (item) {
+
+                if (item.dataset.filtro === nomeFiltro) {
+
+                    item.classList.add("ativo");
+                } else {
+
+                    item.classList.remove("ativo");
+                }
+            }
+        );
+
+        renderizarRelatorios();
+    }
+
+
+    botoesFiltro.forEach(
+        function (botao) {
+
+            botao.addEventListener(
+                "click",
+                function () {
+
+                    ativarFiltro(botao.dataset.filtro);
+                }
+            );
+        }
+    );
+
+
+    // Ativação rápida através dos cards de indicadores (KPIs)
+    const cardKpiTotal = document.getElementById("cardKpiTotal");
+    const cardKpiPendentes = document.getElementById("cardKpiPendentes");
+    const cardKpiAprovados = document.getElementById("cardKpiAprovados");
+
+    if (cardKpiTotal) {
+        cardKpiTotal.addEventListener("click", function () {
+            ativarFiltro("Todos");
+        });
+    }
+
+    if (cardKpiPendentes) {
+        cardKpiPendentes.addEventListener("click", function () {
+            ativarFiltro("Pendente de aprovação");
+        });
+    }
+
+    if (cardKpiAprovados) {
+        cardKpiAprovados.addEventListener("click", function () {
+            ativarFiltro("Aprovado");
+        });
+    }
+
+
+    /* =========================================================
+       GALERIA DE FOTOS
+    ========================================================= */
+
+    function criarGaleriaFotos(
+        item,
+        numeroItem
+    ) {
+
+        const fotos =
+            Array.isArray(item.fotos)
+                ? item.fotos
+                : [];
+
+
+        if (fotos.length === 0) {
+
+            return `
+
+                <div class="sem-foto-item">
+                    Nenhuma fotografia anexada a este item.
+                </div>
+
+            `;
+        }
+
+
+        let html = `
+            <div class="fotos-item">
+        `;
+
+
+        fotos.forEach(
+            function (foto, indice) {
+
+                let origem = "";
+
+
+                if (
+                    typeof foto ===
+                    "string"
+                ) {
+
+                    origem = foto;
+                }
+
+                else if (
+                    foto &&
+                    typeof foto ===
+                    "object"
+                ) {
+
+                    origem =
+                        foto.url ||
+                        foto.src ||
+                        foto.base64 ||
+                        foto.dados ||
+                        "";
+                }
+
+
+                if (!origem) {
+                    return;
+                }
+
+
+                html += `
+
+                    <div class="foto-item">
+
+                        <img
+                            src="${escaparHTML(origem)}"
+                            alt="Fotografia do item ${numeroItem}"
+                        >
+
+                        <div class="foto-legenda">
+
+                            ITEM-${String(numeroItem).padStart(2, "0")}
+                            /
+                            FOTO-${String(indice + 1).padStart(2, "0")}
+
+                        </div>
+
+                    </div>
+
+                `;
+            }
+        );
+
+
+        html += `
+            </div>
+        `;
+
+
+        return html;
+    }
+
+
+    /* =========================================================
+       RENDERIZAR ITENS DO RELATÓRIO
+    ========================================================= */
+
+    function renderizarItens(relatorio) {
+
+        const container =
+            document.getElementById(
+                "relItens"
+            );
+
+
+        container.innerHTML =
+            "";
+
+
+        if (
+            !Array.isArray(
+                relatorio.itens
+            ) ||
+            relatorio.itens.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="sem-relatorios">
+                    Nenhum item registrado.
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        relatorio.itens.forEach(
+            function (item, indice) {
+
+                const numero =
+                    item.numero ||
+                    indice + 1;
+
+
+                const titulo =
+                    item.titulo ||
+                    "Item sem título";
+
+
+                const local =
+                    item.local ||
+                    item.localizacao ||
+                    "Local não informado";
+
+
+                const descricao =
+                    item.relatorioDescricao ||
+                    item.descricao ||
+                    "Descrição não informada.";
+
+
+                const recomendacao =
+                    item.relatorioAcao ||
+                    item.recomendacao ||
+                    item.acao ||
+                    "Nenhuma recomendação registrada.";
+
+
+                const criticidade =
+                    item.criticidade ||
+                    "Não definida";
+
+
+                const prioridade =
+                    item.prioridade ||
+                    "Não definida";
+
+
+                const bloco =
+                    document.createElement(
+                        "section"
+                    );
+
+
+                bloco.className =
+                    "item-relatorio";
+
+
+                bloco.dataset.itemId =
+                    item.id || indice;
+
+
+                bloco.innerHTML = `
+
+                    <div class="item-header">
+
+                        <div class="item-identificacao">
+
+                            <div class="item-numero">
+                                ${String(numero).padStart(2, "0")}
+                            </div>
+
+
+                            <div>
+
+                                <div class="item-titulo">
+                                    ${escaparHTML(titulo)}
+                                </div>
+
+                                <div class="item-local">
+                                    Local:
+                                    ${escaparHTML(local)}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="item-tags">
+
+                            <span
+                                class="
+                                    tag
+                                    ${classeCriticidade(criticidade)}
+                                "
+                            >
+                                ${escaparHTML(criticidade)}
+                            </span>
+
+
+                            <span class="tag tag-prioridade">
+
+                                Prioridade:
+                                ${escaparHTML(prioridade)}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-body">
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Descrição técnica
+                            </h4>
+
+                            <div
+                                class="
+                                    texto-item
+                                    campo-editavel
+                                    descricao-item
+                                "
+                                data-indice="${indice}"
+                            >
+                                ${escaparHTML(descricao)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Recomendação / Ação sugerida
+                            </h4>
+
+                            <div
+                                class="
+                                    recomendacao-item
+                                    campo-editavel
+                                    recomendacao-editavel
+                                "
+                                data-indice="${indice}"
+                            >
+                                ${escaparHTML(recomendacao)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="bloco-item">
+
+                            <h4>
+                                Registro fotográfico
+                            </h4>
+
+                            ${criarGaleriaFotos(item, numero)}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    bloco
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ABRIR RELATÓRIO
+    ========================================================= */
+
+    function abrirRelatorio(id) {
+
+        const encontrado =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(id)
+                    );
+                }
+            );
+
+
+        if (!encontrado) {
+
+            alert(
+                "Relatório não encontrado."
+            );
+
+            return;
+        }
+
+
+        relatorioSelecionado =
+            encontrado;
+
+
+        areaLista.style.display =
+            "none";
+
+
+        areaRelatorio.style.display =
+            "block";
+
+
+        document.getElementById(
+            "relCodigo"
+        ).textContent =
+            encontrado.codigo;
+
+
+        document.getElementById(
+            "relTitulo"
+        ).textContent =
+            encontrado.titulo;
+
+
+        document.getElementById(
+            "relInspecao"
+        ).textContent =
+            encontrado.codigoInspecao;
+
+
+        document.getElementById(
+            "relData"
+        ).textContent =
+            formatarData(
+                encontrado.data
+            );
+
+
+        document.getElementById(
+            "relHora"
+        ).textContent =
+            encontrado.hora ||
+            "-";
+
+
+        document.getElementById(
+            "relInspetor"
+        ).textContent =
+            encontrado.inspetor;
+
+
+        document.getElementById(
+            "relArea"
+        ).textContent =
+            encontrado.area;
+
+
+        document.getElementById(
+            "relEquipamento"
+        ).textContent =
+            encontrado.equipamento;
+
+
+        document.getElementById(
+            "relPatrimonio"
+        ).textContent =
+            encontrado.patrimonio;
+
+
+        document.getElementById(
+            "relQuantidade"
+        ).textContent =
+            encontrado.quantidadeItens;
+
+
+        document.getElementById(
+            "relResumo"
+        ).textContent =
+            encontrado.resumo;
+
+
+        document.getElementById(
+            "relResponsavel"
+        ).textContent =
+            encontrado.inspetor;
+
+
+        renderizarItens(
+            encontrado
+        );
+
+        // Exibe o bloco de resolução caso a pendência tenha sido comprovada e aprovada
+        const inspecaoOrig = encontrarInspecaoOriginal() || encontrado;
+        if (inspecaoOrig && inspecaoOrig.resolucao) {
+            blocoResolucaoDocumento.classList.remove("oculto");
+            document.getElementById("docResolvidoEm").textContent = inspecaoOrig.resolucao.resolvidoEm || "-";
+            document.getElementById("docOQueFoiFeito").textContent = inspecaoOrig.resolucao.oQueFoiFeito || "-";
+            document.getElementById("docComoFoiFeito").textContent = inspecaoOrig.resolucao.comoFoiFeito || "-";
+            document.getElementById("docResolvidoPor").textContent = inspecaoOrig.resolucao.resolvidoPor || "Técnico";
+
+            const containerFoto = document.getElementById("docContainerFoto");
+            const imgFoto = document.getElementById("docFotoComprovante");
+            if (inspecaoOrig.resolucao.fotoComprovante) {
+                containerFoto.style.display = "block";
+                imgFoto.src = inspecaoOrig.resolucao.fotoComprovante;
+            } else {
+                containerFoto.style.display = "none";
+            }
+        } else {
+            blocoResolucaoDocumento.classList.add("oculto");
+        }
+
+        atualizarStatusRelatorio();
+
+        desativarEdicao();
+
+        localStorage.setItem(
+            CHAVE_RELATORIO_ATUAL,
+            String(encontrado.id)
+        );
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    function atualizarStatusRelatorio() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+        const campoStatus =
+            document.getElementById(
+                "relStatus"
+            );
+
+        const mensagem =
+            document.getElementById(
+                "mensagemStatus"
+            );
+
+        const descricao =
+            document.getElementById(
+                "descricaoStatus"
+            );
+
+        campoStatus.textContent =
+            relatorioSelecionado.status;
+
+        campoStatus.className =
+            "status-badge " +
+            classeStatus(
+                relatorioSelecionado.status
+            );
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
+        ) {
+
+            mensagem.textContent =
+                "Relatório aprovado e pendência concluída.";
+
+            descricao.textContent =
+                "A ação corretiva foi comprovada tecnicamente e o documento está arquivado.";
+
+            btnResolverPendencia.classList.add(
+                "oculto"
+            );
+
+            btnEditar.classList.add(
+                "oculto"
+            );
+
+            btnSalvar.classList.add(
+                "oculto"
+            );
+
+            btnCancelar.classList.add(
+                "oculto"
+            );
+
+            return;
+        }
+
+        btnResolverPendencia.classList.remove(
+            "oculto"
+        );
+
+        if (
+            relatorioSelecionado.status ===
+            "Pendente de aprovação"
+        ) {
+
+            mensagem.textContent =
+                "Relatório com pendência registrada.";
+
+            descricao.textContent =
+                "Após concluir as correções em campo, clique em 'Resolver Pendência & Aprovar' informando o procedimento e a foto comprovante.";
+
+            btnEditar.classList.remove(
+                "oculto"
+            );
+
+            return;
+        }
+
+        mensagem.textContent =
+            "Relatório em elaboração.";
+
+        descricao.textContent =
+            "Confira os dados antes de finalizar e resolver as pendências técnicas.";
+
+
+        btnEditar.classList.remove(
+            "oculto"
+        );
+    }
+
+
+    /* =========================================================
+       CAMPOS EDITÁVEIS
+    ========================================================= */
+
+    function obterCamposEditaveis() {
+
+        return document.querySelectorAll(
+            "#documentoRelatorio .campo-editavel"
+        );
+    }
+
+
+    /* =========================================================
+       ATIVAR EDIÇÃO
+    ========================================================= */
+
+    function ativarEdicao() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
+        ) {
+
+            alert(
+                "Este relatório já foi aprovado e não pode ser alterado pelo técnico."
+            );
+
+            return;
+        }
+
+
+        dadosAntesEdicao = {
+
+            resumo:
+                document.getElementById(
+                    "relResumo"
+                ).textContent,
+
+            descricoes: [],
+
+            recomendacoes: []
+        };
+
+
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo) {
+
+                    dadosAntesEdicao
+                        .descricoes
+                        .push(
+                            campo.textContent
+                        );
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo) {
+
+                    dadosAntesEdicao
+                        .recomendacoes
+                        .push(
+                            campo.textContent
+                        );
+                }
+            );
+
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.setAttribute(
+                        "contenteditable",
+                        "true"
+                    );
+                }
+            );
+
+
+        btnEditar.classList.add(
+            "oculto"
+        );
+
+
+        btnSalvar.classList.remove(
+            "oculto"
+        );
+
+
+        btnCancelar.classList.remove(
+            "oculto"
+        );
+
+
+        document.getElementById(
+            "mensagemStatus"
+        ).textContent =
+            "Modo de edição ativo.";
+
+
+        document.getElementById(
+            "descricaoStatus"
+        ).textContent =
+            "Você pode editar o resumo, as descrições técnicas e as recomendações dos itens.";
+    }
+
+
+    /* =========================================================
+       DESATIVAR EDIÇÃO
+    ========================================================= */
+
+    function desativarEdicao() {
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.removeAttribute(
+                        "contenteditable"
+                    );
+                }
+            );
+
+
+        btnSalvar.classList.add(
+            "oculto"
+        );
+
+
+        btnCancelar.classList.add(
+            "oculto"
+        );
+
+
+        if (
+            relatorioSelecionado &&
+            relatorioSelecionado.status !==
+            "Aprovado"
+        ) {
+
+            btnEditar.classList.remove(
+                "oculto"
+            );
+        }
+
+        else {
+
+            btnEditar.classList.add(
+                "oculto"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       CANCELAR EDIÇÃO
+    ========================================================= */
+
+    function cancelarEdicao() {
+
+        if (!dadosAntesEdicao) {
+
+            desativarEdicao();
+
+            atualizarStatusRelatorio();
+
+            return;
+        }
+
+
+        document.getElementById(
+            "relResumo"
+        ).textContent =
+            dadosAntesEdicao.resumo;
+
+
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo, indice) {
+
+                    campo.textContent =
+                        dadosAntesEdicao
+                            .descricoes[indice] ||
+                        "";
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo, indice) {
+
+                    campo.textContent =
+                        dadosAntesEdicao
+                            .recomendacoes[indice] ||
+                        "";
+                }
+            );
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        desativarEdicao();
+
+        atualizarStatusRelatorio();
+    }
+
+
+    /* =========================================================
+       ENCONTRAR INSPEÇÃO ORIGINAL
+    ========================================================= */
+
+    function encontrarInspecaoOriginal() {
+
+        if (!relatorioSelecionado) {
+            return null;
+        }
+
+
+        return inspecoes.find(
+            function (inspecao) {
+
+                return (
+                    String(inspecao.id) ===
+                    String(
+                        relatorioSelecionado.inspecaoId
+                    )
+                );
+            }
+        ) || null;
+    }
+
+
+    /* =========================================================
+       SALVAR ALTERAÇÕES
+    ========================================================= */
+
+    function salvarAlteracoes() {
+
+        if (!relatorioSelecionado) {
+            return;
+        }
+
+
+        if (
+            relatorioSelecionado.status ===
+            "Aprovado"
+        ) {
+
+            alert(
+                "Relatórios aprovados não podem ser alterados pelo técnico."
+            );
+
+            return;
+        }
+
+
+        const inspecao =
+            encontrarInspecaoOriginal();
+
+
+        if (!inspecao) {
+
+            alert(
+                "Não foi possível localizar a inspeção original."
+            );
+
+            return;
+        }
+
+
+        inspecao.resumoRelatorio =
+            document.getElementById(
+                "relResumo"
+            ).textContent.trim();
+
+
+        let itensOriginais;
+
+
+        if (
+            Array.isArray(inspecao.itens) &&
+            inspecao.itens.length > 0
+        ) {
+
+            itensOriginais =
+                inspecao.itens;
+        }
+
+        else if (
+            Array.isArray(
+                inspecao.problemas
+            )
+        ) {
+
+            itensOriginais =
+                inspecao.problemas;
+        }
+
+        else {
+
+            itensOriginais = [];
+        }
+
+
+        document
+            .querySelectorAll(
+                ".descricao-item"
+            )
+            .forEach(
+                function (campo) {
+
+                    const indice =
+                        Number(
+                            campo.dataset.indice
+                        );
+
+
+                    if (
+                        itensOriginais[indice]
+                    ) {
+
+                        itensOriginais[
+                            indice
+                        ].relatorioDescricao =
+                            campo.textContent.trim();
+                    }
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".recomendacao-editavel"
+            )
+            .forEach(
+                function (campo) {
+
+                    const indice =
+                        Number(
+                            campo.dataset.indice
+                        );
+
+
+                    if (
+                        itensOriginais[indice]
+                    ) {
+
+                        itensOriginais[
+                            indice
+                        ].relatorioAcao =
+                            campo.textContent.trim();
+                    }
+                }
+            );
+
+
+        /*
+            AO SALVAR, ENVIA PARA APROVAÇÃO.
+        */
+
+        inspecao.statusRelatorio =
+            "Pendente de aprovação";
+
+
+        inspecao.statusAprovacao =
+            "Pendente";
+
+
+        inspecao.situacao =
+            "Concluída";
+
+
+        inspecao.codigoRelatorio =
+            relatorioSelecionado.codigo;
+
+
+        inspecao.atualizadaEm =
+            new Date().toISOString();
+
+
+        if (
+            !salvarJSON(
+                CHAVE_INSPECOES,
+                inspecoes
+            )
+        ) {
+
+            return;
+        }
+
+
+        const idAtual =
+            relatorioSelecionado.id;
+
+
+        inspecoes =
+            carregarInspecoes();
+
+
+        gerarRelatorios();
+
+        atualizarIndicadores();
+
+        renderizarRelatorios();
+
+
+        relatorioSelecionado =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(idAtual)
+                    );
+                }
+            ) || null;
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        if (relatorioSelecionado) {
+
+            abrirRelatorio(
+                relatorioSelecionado.id
+            );
+        }
+
+
+        alert(
+            "Relatório salvo com sucesso e enviado para aprovação do supervisor."
+        );
+    }
+
+
+    /* =========================================================
+       VOLTAR AOS RELATÓRIOS
+    ========================================================= */
+
+    function voltarParaRelatorios() {
+
+        desativarEdicao();
+
+
+        dadosAntesEdicao =
+            null;
+
+
+        relatorioSelecionado =
+            null;
+
+
+        localStorage.removeItem(
+            CHAVE_RELATORIO_ATUAL
+        );
+
+
+        areaRelatorio.style.display =
+            "none";
+
+
+        areaLista.style.display =
+            "block";
+
+
+        renderizarRelatorios();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       PDF / IMPRESSÃO
+    ========================================================= */
+
+    function imprimirRelatorio() {
+
+        if (!relatorioSelecionado) {
+
+            alert(
+                "Abra um relatório antes de gerar o PDF."
+            );
+
+            return;
+        }
+
+
+        obterCamposEditaveis()
+            .forEach(
+                function (campo) {
+
+                    campo.removeAttribute(
+                        "contenteditable"
+                    );
+                }
+            );
+
+
+        window.print();
+    }
+
+
+    /* =========================================================
+       PERFIL DO USUÁRIO
+    ========================================================= */
+
+    function obterPerfil() {
+
+        let perfil =
+            lerJSON(
+                CHAVE_PERFIL,
+                null
+            );
+
+
+        if (!perfil) {
+
+            perfil =
+                lerJSON(
+                    "sessaoUsuario",
+                    null
+                );
+        }
+
+
+        if (!perfil) {
+
+            perfil = {
+
+                nome:
+                    "Técnico",
+
+                funcao:
+                    "Perfil Técnico",
+
+                perfil:
+                    "Técnico",
+
+                foto:
+                    ""
+            };
+        }
+
+
+        return perfil;
+    }
+
+
+    function obterIniciais(nome) {
+
+        if (!nome) {
+            return "TC";
+        }
+
+
+        const partes =
+            nome
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        if (partes.length === 0) {
+            return "TC";
+        }
+
+
+        if (partes.length === 1) {
+
+            return partes[0]
+                .substring(0, 2)
+                .toUpperCase();
+        }
+
+
+        return (
+            partes[0][0] +
+            partes[
+                partes.length - 1
+            ][0]
+        ).toUpperCase();
+    }
+
+
+    function aplicarAvatar(
+        elementoIniciais,
+        elementoFoto,
+        perfil
+    ) {
+
+        if (
+            !elementoIniciais ||
+            !elementoFoto
+        ) {
+            return;
+        }
+
+
+        elementoIniciais.textContent =
+            obterIniciais(
+                perfil.nome
+            );
+
+
+        if (perfil.foto) {
+
+            elementoFoto.src =
+                perfil.foto;
+
+
+            elementoFoto.style.display =
+                "block";
+
+
+            elementoIniciais.style.display =
+                "none";
+        }
+
+        else {
+
+            elementoFoto.removeAttribute(
+                "src"
+            );
+
+
+            elementoFoto.style.display =
+                "none";
+
+
+            elementoIniciais.style.display =
+                "inline";
+        }
+    }
+
+
+    function carregarPerfil() {
+
+        const perfil =
+            obterPerfil();
+
+
+        const nome =
+            perfil.nome ||
+            "Técnico";
+
+
+        const funcao =
+            perfil.funcao ||
+            perfil.perfil ||
+            "Perfil Técnico";
+
+
+        const sidebarNome =
+            document.getElementById(
+                "sidebarNome"
+            );
+
+
+        const sidebarPerfil =
+            document.getElementById(
+                "sidebarPerfil"
+            );
+
+
+        const menuNome =
+            document.getElementById(
+                "menuNome"
+            );
+
+
+        const menuFuncao =
+            document.getElementById(
+                "menuFuncao"
+            );
+
+
+        if (sidebarNome) {
+
+            sidebarNome.textContent =
+                nome;
+        }
+
+
+        if (sidebarPerfil) {
+
+            sidebarPerfil.textContent =
+                funcao;
+        }
+
+
+        if (menuNome) {
+
+            menuNome.textContent =
+                nome;
+        }
+
+
+        if (menuFuncao) {
+
+            menuFuncao.textContent =
+                funcao;
+        }
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "sidebarIniciais"
+            ),
+
+            document.getElementById(
+                "sidebarFoto"
+            ),
+
+            perfil
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "topIniciais"
+            ),
+
+            document.getElementById(
+                "topFoto"
+            ),
+
+            perfil
+        );
+
+
+        aplicarAvatar(
+
+            document.getElementById(
+                "menuIniciais"
+            ),
+
+            document.getElementById(
+                "menuFoto"
+            ),
+
+            perfil
+        );
+    }
+
+
+    /* =========================================================
+       NOTIFICAÇÕES
+    ========================================================= */
+
+    function carregarNotificacoes() {
+
+        const dados =
+            lerJSON(
+                CHAVE_NOTIFICACOES,
+                []
+            );
+
+
+        return Array.isArray(dados)
+            ? dados
+            : [];
+    }
+
+
+    function salvarNotificacoes(
+        notificacoes
+    ) {
+
+        salvarJSON(
+            CHAVE_NOTIFICACOES,
+            notificacoes
+        );
+    }
+
+
+    /* =========================================================
+       CRIAR NOTIFICAÇÃO
+    ========================================================= */
+
+    function criarNotificacao(
+        titulo,
+        mensagem,
+        tipo,
+        relatorioId,
+        destino
+    ) {
+
+        let t = tipo || "comentario";
+        let tit = titulo || "Notificação";
+        let msg = mensagem || "";
+
+        if (
+            [
+                "aprovado",
+                "devolvido",
+                "comentario",
+                "critico",
+                "alerta",
+                "sucesso"
+            ].includes(titulo)
+        ) {
+
+            t = titulo;
+            tit = mensagem || "Notificação";
+            msg = tipo || "";
+        }
+
+
+        const notificacoes =
+            carregarNotificacoes();
+
+        const agora =
+            new Date();
+
+
+        let tipoIcone = t;
+        if (t === "sucesso") tipoIcone = "aprovado";
+        if (t === "alerta") tipoIcone = "critico";
+
+
+        const nova = {
+            id:
+                "NOT-" +
+                Date.now() +
+                "-" +
+                Math.floor(Math.random() * 1000),
+
+            tipo:
+                tipoIcone,
+
+            titulo:
+                tit,
+
+            mensagem:
+                msg,
+
+            relatorioId:
+                relatorioId || null,
+
+            destino:
+                destino || null,
+
+            data:
+                agora.toLocaleDateString("pt-BR"),
+
+            hora:
+                agora.toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }),
+
+            criadaEm:
+                agora.toISOString(),
+
+            lida:
+                false
+        };
+
+
+        notificacoes.unshift(nova);
+        salvarNotificacoes(notificacoes);
+        renderizarNotificacoes();
+
+        return nova;
+    }
+
+
+    function dadosTipoNotificacao(tipo) {
+
+        switch (tipo) {
+
+            case "aprovado":
+
+                return {
+                    icone: "✓",
+                    classe: "aprovado"
+                };
+
+
+            case "devolvido":
+
+                return {
+                    icone: "↩",
+                    classe: "devolvido"
+                };
+
+
+            case "comentario":
+
+                return {
+                    icone: "✎",
+                    classe: "comentario"
+                };
+
+
+            case "critico":
+
+                return {
+                    icone: "!",
+                    classe: "alerta"
+                };
+
+
+            default:
+
+                return {
+                    icone: "•",
+                    classe: "comentario"
+                };
+        }
+    }
+
+
+    function formatarTempoNotificacao(
+        notificacao
+    ) {
+
+        const data =
+            notificacao.criadoEm ||
+            notificacao.dataHora ||
+            notificacao.data;
+
+
+        if (!data) {
+            return "";
+        }
+
+
+        const momento =
+            new Date(data);
+
+
+        if (
+            Number.isNaN(
+                momento.getTime()
+            )
+        ) {
+            return "";
+        }
+
+
+        const agora =
+            new Date();
+
+
+        const diferenca =
+            agora.getTime() -
+            momento.getTime();
+
+
+        const minutos =
+            Math.floor(
+                diferenca / 60000
+            );
+
+
+        if (minutos < 1) {
+            return "Agora";
+        }
+
+
+        if (minutos < 60) {
+
+            return (
+                "Há " +
+                minutos +
+                " min"
+            );
+        }
+
+
+        const horas =
+            Math.floor(
+                minutos / 60
+            );
+
+
+        if (horas < 24) {
+
+            return (
+                "Há " +
+                horas +
+                (
+                    horas === 1
+                        ? " hora"
+                        : " horas"
+                )
+            );
+        }
+
+
+        return momento.toLocaleDateString(
+            "pt-BR"
+        );
+    }
+
+
+    function abrirNotificacao(
+        notificacao,
+        indice
+    ) {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        if (notificacoes[indice]) {
+
+            notificacoes[indice].lida =
+                true;
+
+
+            salvarNotificacoes(
+                notificacoes
+            );
+
+
+            renderizarNotificacoes();
+        }
+
+
+        /*
+            Se a notificação estiver relacionada
+            a um relatório, abrimos o próprio
+            relatório dentro desta página.
+        */
+
+        if (notificacao.relatorioId) {
+
+            localStorage.setItem(
+                CHAVE_RELATORIO_ATUAL,
+                String(
+                    notificacao.relatorioId
+                )
+            );
+
+
+            const encontrado =
+                relatorios.find(
+                    function (relatorio) {
+
+                        return (
+                            String(relatorio.id) ===
+                            String(
+                                notificacao.relatorioId
+                            )
+                        );
+                    }
+                );
+
+
+            if (encontrado) {
+
+                abrirRelatorio(
+                    encontrado.id
+                );
+
+                if (painelNotificacoes) {
+
+                    painelNotificacoes
+                        .classList
+                        .remove("aberto");
+                }
+
+                return;
+            }
+
+
+            window.location.href =
+                "relatorios.html";
+
+            return;
+        }
+
+
+        if (notificacao.destino) {
+
+            window.location.href =
+                notificacao.destino;
+        }
+    }
+
+
+    function renderizarNotificacoes() {
+
+        if (
+            !listaNotificacoes ||
+            !contadorNotificacoes
+        ) {
+            return;
+        }
+
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        const naoLidas =
+            notificacoes.filter(
+                function (item) {
+
+                    return !item.lida;
+                }
+            ).length;
+
+
+        if (naoLidas > 0) {
+
+            contadorNotificacoes.textContent =
+                naoLidas > 99
+                    ? "99+"
+                    : naoLidas;
+
+
+            contadorNotificacoes
+                .classList
+                .remove("vazio");
+        }
+
+        else {
+
+            contadorNotificacoes.textContent =
+                "0";
+
+
+            contadorNotificacoes
+                .classList
+                .add("vazio");
+        }
+
+
+        if (notificacoes.length === 0) {
+
+            listaNotificacoes.innerHTML = `
+
+                <div class="notification-empty">
+                    Nenhuma notificação no momento.
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        listaNotificacoes.innerHTML =
+            "";
+
+
+        notificacoes
+            .slice()
+            .reverse()
+            .forEach(
+                function (
+                    notificacao,
+                    indiceReverso
+                ) {
+
+                    const indiceReal =
+                        notificacoes.length -
+                        1 -
+                        indiceReverso;
+
+
+                    const dados =
+                        dadosTipoNotificacao(
+                            notificacao.tipo
+                        );
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "notification-item" +
+                        (
+                            notificacao.lida
+                                ? ""
+                                : " nao-lida"
+                        );
+
+
+                    item.innerHTML = `
+
+                        <div
+                            class="notification-icon ${dados.classe}"
+                        >
+                            ${dados.icone}
+                        </div>
+
+
+                        <div class="notification-content">
+
+                            <div class="notification-title">
+
+                                ${escaparHTML(
+                                    notificacao.titulo ||
+                                    "Notificação"
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-text">
+
+                                ${escaparHTML(
+                                    notificacao.mensagem ||
+                                    notificacao.texto ||
+                                    ""
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-time">
+
+                                ${escaparHTML(
+                                    formatarTempoNotificacao(
+                                        notificacao
+                                    )
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    item.addEventListener(
+                        "click",
+                        function () {
+
+                            abrirNotificacao(
+                                notificacao,
+                                indiceReal
+                            );
+                        }
+                    );
+
+
+                    listaNotificacoes
+                        .appendChild(
+                            item
+                        );
+                }
+            );
+    }
+
+
+    function marcarTodasComoLidas() {
+
+        const notificacoes =
+            carregarNotificacoes();
+
+
+        notificacoes.forEach(
+            function (item) {
+
+                item.lida = true;
+            }
+        );
+
+
+        salvarNotificacoes(
+            notificacoes
+        );
+
+
+        renderizarNotificacoes();
+    }
+
+
+    /* =========================================================
+       ABRIR / FECHAR SINO
+    ========================================================= */
+
+    if (btnNotificacoes) {
+
+        btnNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (menuPerfil) {
+
+                    menuPerfil
+                        .classList
+                        .remove("aberto");
+                }
+
+
+                painelNotificacoes
+                    .classList
+                    .toggle("aberto");
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ABRIR / FECHAR PERFIL
+    ========================================================= */
+
+    if (btnPerfil) {
+
+        btnPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (painelNotificacoes) {
+
+                    painelNotificacoes
+                        .classList
+                        .remove("aberto");
+                }
+
+
+                menuPerfil
+                    .classList
+                    .toggle("aberto");
+            }
+        );
+    }
+
+
+    if (painelNotificacoes) {
+
+        painelNotificacoes.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    if (menuPerfil) {
+
+        menuPerfil.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+            }
+        );
+    }
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            if (painelNotificacoes) {
+
+                painelNotificacoes
+                    .classList
+                    .remove("aberto");
+            }
+
+
+            if (menuPerfil) {
+
+                menuPerfil
+                    .classList
+                    .remove("aberto");
+            }
+        }
+    );
+
+
+    if (btnMarcarTodasLidas) {
+
+        btnMarcarTodasLidas.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                marcarTodasComoLidas();
+            }
+        );
+    }
+
+
+    /* =========================================================
+       BOTÕES DO RELATÓRIO
+    ========================================================= */
+
+    btnEditar.addEventListener(
+        "click",
+        ativarEdicao
+    );
+
+
+    btnSalvar.addEventListener(
+        "click",
+        salvarAlteracoes
+    );
+
+
+    btnCancelar.addEventListener(
+        "click",
+        cancelarEdicao
+    );
+
+
+    btnVoltar.addEventListener(
+        "click",
+        voltarParaRelatorios
+    );
+
+
+    btnExportar.addEventListener(
+        "click",
+        imprimirRelatorio
+    );
+
+
+    /* =========================================================
+       RESOLVER PENDÊNCIA E APROVAÇÃO TÉCNICA
+    ========================================================= */
+
+    function abrirModalResolucao() {
+
+        if (!relatorioSelecionado) {
+
+            alert(
+                "Nenhum relatório selecionado para aprovação."
+            );
+
+            return;
+        }
+
+
+        if (formResolucaoPendencia) {
+
+            formResolucaoPendencia.reset();
+        }
+
+
+        fotoComprovanteBase64 = "";
+
+
+        if (previewFotoComprovante) {
+
+            previewFotoComprovante.classList.add("oculto");
+        }
+
+
+        if (imgPreviewComprovante) {
+
+            imgPreviewComprovante.src = "";
+        }
+
+
+        if (modalResolucao) {
+
+            modalResolucao.classList.remove("oculto");
+        }
+
+
+        if (campoOQueFez) {
+
+            campoOQueFez.focus();
+        }
+    }
+
+
+    function fecharModalResolucao() {
+
+        if (modalResolucao) {
+
+            modalResolucao.classList.add("oculto");
+        }
+    }
+
+
+    if (btnResolverPendencia) {
+
+        btnResolverPendencia.addEventListener(
+            "click",
+            abrirModalResolucao
+        );
+    }
+
+
+    if (btnFecharModalResolucao) {
+
+        btnFecharModalResolucao.addEventListener(
+            "click",
+            fecharModalResolucao
+        );
+    }
+
+
+    if (btnCancelarModalResolucao) {
+
+        btnCancelarModalResolucao.addEventListener(
+            "click",
+            fecharModalResolucao
+        );
+    }
+
+
+    if (modalResolucao) {
+
+        modalResolucao.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === modalResolucao) {
+
+                    fecharModalResolucao();
+                }
+            }
+        );
+    }
+
+
+    if (campoFotoComprovante) {
+
+        campoFotoComprovante.addEventListener(
+            "change",
+            function () {
+
+                const arquivo =
+                    campoFotoComprovante.files &&
+                    campoFotoComprovante.files[0];
+
+
+                if (!arquivo) {
+
+                    fotoComprovanteBase64 = "";
+
+                    if (previewFotoComprovante) {
+
+                        previewFotoComprovante.classList.add("oculto");
+                    }
+
+                    if (imgPreviewComprovante) {
+
+                        imgPreviewComprovante.src = "";
+                    }
+
+                    return;
+                }
+
+
+                if (arquivo.size > 8 * 1024 * 1024) {
+
+                    alert(
+                        "A imagem selecionada excede o limite de 8MB. Selecione uma imagem menor."
+                    );
+
+                    campoFotoComprovante.value = "";
+
+                    return;
+                }
+
+
+                const leitor = new FileReader();
+
+                leitor.onload = function (evento) {
+
+                    fotoComprovanteBase64 =
+                        evento.target.result;
+
+
+                    if (imgPreviewComprovante) {
+
+                        imgPreviewComprovante.src =
+                            fotoComprovanteBase64;
+                    }
+
+
+                    if (previewFotoComprovante) {
+
+                        previewFotoComprovante.classList.remove("oculto");
+                    }
+                };
+
+                leitor.readAsDataURL(arquivo);
+            }
+        );
+    }
+
+
+    if (formResolucaoPendencia) {
+
+        formResolucaoPendencia.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (!relatorioSelecionado) {
+
+                    alert("Nenhum relatório selecionado.");
+
+                    return;
+                }
+
+
+                const oQueFez =
+                    campoOQueFez
+                        ? campoOQueFez.value.trim()
+                        : "";
+
+
+                const comoFez =
+                    campoComoFez
+                        ? campoComoFez.value.trim()
+                        : "";
+
+
+                if (!oQueFez) {
+
+                    alert(
+                        "Por favor, descreva o que foi feito na ação corretiva."
+                    );
+
+                    if (campoOQueFez) campoOQueFez.focus();
+
+                    return;
+                }
+
+
+                if (!comoFez) {
+
+                    alert(
+                        "Por favor, descreva como o procedimento técnico foi adotado."
+                    );
+
+                    if (campoComoFez) campoComoFez.focus();
+
+                    return;
+                }
+
+
+                const perfil =
+                    obterPerfil();
+
+
+                const nomeAprovador =
+                    perfil.nome ||
+                    "Técnico";
+
+
+                const dataHoraAtual =
+                    new Date().toLocaleString(
+                        "pt-BR",
+                        {
+                            dateStyle: "short",
+                            timeStyle: "short"
+                        }
+                    );
+
+
+                const dadosResolucao = {
+                    oQueFoiFeito: oQueFez,
+                    comoFoiFeito: comoFez,
+                    fotoComprovante: fotoComprovanteBase64 || "",
+                    resolvidoEm: dataHoraAtual,
+                    resolvidoPor: nomeAprovador
+                };
+
+
+                // 1. Atualiza na lista de inspeções
+                const inspecao =
+                    encontrarInspecaoOriginal();
+
+
+                if (inspecao) {
+
+                    inspecao.statusRelatorio = "Aprovado";
+                    inspecao.statusAprovacao = "Aprovado";
+                    inspecao.situacao = "Concluída";
+                    inspecao.resolucao = dadosResolucao;
+
+
+                    const itens =
+                        obterItensInspecao(inspecao);
+
+
+                    itens.forEach(
+                        function (item) {
+
+                            item.status = "resolvido";
+                        }
+                    );
+
+
+                    salvarJSON(
+                        CHAVE_INSPECOES,
+                        inspecoes
+                    );
+                }
+
+
+                // 2. Atualiza relatório em memória
+                relatorioSelecionado.status = "Aprovado";
+                relatorioSelecionado.resolucao = dadosResolucao;
+
+
+                if (Array.isArray(relatorioSelecionado.itens)) {
+
+                    relatorioSelecionado.itens.forEach(
+                        function (item) {
+
+                            item.status = "resolvido";
+                        }
+                    );
+                }
+
+
+                // 3. Sincroniza com o backend PHP / banco de dados relatorios
+                try {
+
+                    fetch(
+                        "../back/relatorio.php",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                action: "aprovar_resolucao",
+                                id: relatorioSelecionado.id,
+                                inspecao_id: relatorioSelecionado.inspecaoId,
+                                o_que_foi_feito: oQueFez,
+                                como_foi_feito: comoFez,
+                                foto_comprovante: fotoComprovanteBase64 || "",
+                                aprovado_por: nomeAprovador
+                            })
+                        }
+                    ).catch(
+                        function (erro) {
+
+                            console.log(
+                                "Sincronização backend:",
+                                erro
+                            );
+                        }
+                    );
+
+                }
+                catch (erro) {}
+
+
+                // 4. Cria notificação
+                criarNotificacao(
+                    "✓ Pendência Resolvida e Aprovada",
+                    "O relatório " + (relatorioSelecionado.codigo || relatorioSelecionado.codigoInspecao) + " foi aprovado com comprovação técnica.",
+                    "sucesso",
+                    relatorioSelecionado.id
+                );
+
+
+                fecharModalResolucao();
+
+
+                // 5. Atualiza a interface
+                gerarRelatorios();
+                atualizarIndicadores();
+                renderizarRelatorios();
+                abrirRelatorio(relatorioSelecionado.id);
+
+
+                alert(
+                    "✓ Pendência resolvida e relatório aprovado com sucesso!"
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       EXCLUIR REGISTRO
+    ========================================================= */
+
+    if (btnExcluirRegistro) {
+
+        btnExcluirRegistro.addEventListener(
+            "click",
+            function () {
+
+                if (!relatorioSelecionado) {
+                    return;
+                }
+
+                const codigoAlvo =
+                    relatorioSelecionado.codigo ||
+                    relatorioSelecionado.codigoInspecao ||
+                    "este relatório";
+
+                const codigoInspecaoAlvo =
+                    relatorioSelecionado.codigoInspecao || "";
+
+                const idAlvo =
+                    relatorioSelecionado.id;
+
+                const inspecaoIdAlvo =
+                    relatorioSelecionado.inspecaoId;
+
+                const confirmar =
+                    confirm(
+                        "Tem certeza que deseja excluir permanentemente o relatório " + codigoAlvo + "?\n\n" +
+                        "Esta ação removerá o relatório e a inspeção associada do sistema e do histórico."
+                    );
+
+                if (!confirmar) {
+                    return;
+                }
+
+                try {
+                    // 1. Remove das inspeções no localStorage
+                    inspecoes = carregarInspecoes().filter(
+                        function (insp) {
+                            const matchId = (
+                                (insp.id !== undefined && String(insp.id) === String(idAlvo)) ||
+                                (inspecaoIdAlvo !== undefined && String(insp.id) === String(inspecaoIdAlvo))
+                            );
+                            const matchCodigo = (
+                                (insp.codigo && codigoInspecaoAlvo && String(insp.codigo) === String(codigoInspecaoAlvo)) ||
+                                (insp.codigo && codigoAlvo && String(insp.codigo) === String(codigoAlvo)) ||
+                                (insp.codigoRelatorio && codigoAlvo && String(insp.codigoRelatorio) === String(codigoAlvo))
+                            );
+                            return !matchId && !matchCodigo;
+                        }
+                    );
+
+                    salvarJSON(CHAVE_INSPECOES, inspecoes);
+
+                    // 2. Remove problemas vinculados se houver
+                    try {
+                        let probs = lerJSON(CHAVE_PROBLEMAS, []);
+                        if (Array.isArray(probs)) {
+                            probs = probs.filter(function (p) {
+                                return (
+                                    String(p.inspecaoId) !== String(idAlvo) &&
+                                    String(p.inspecaoId) !== String(inspecaoIdAlvo) &&
+                                    String(p.id) !== String(idAlvo)
+                                );
+                            });
+                            salvarJSON(CHAVE_PROBLEMAS, probs);
+                        }
+                    } catch (e) {}
+
+                    try {
+                        let probsAvulsos = lerJSON("problemasAvulsos", []);
+                        if (Array.isArray(probsAvulsos)) {
+                            probsAvulsos = probsAvulsos.filter(function (p) {
+                                return (
+                                    String(p.inspecaoId) !== String(idAlvo) &&
+                                    String(p.inspecaoId) !== String(inspecaoIdAlvo) &&
+                                    String(p.id) !== String(idAlvo)
+                                );
+                            });
+                            salvarJSON("problemasAvulsos", probsAvulsos);
+                        }
+                    } catch (e) {}
+
+                    // 3. Remove chaves temporárias do localStorage
+                    localStorage.removeItem(CHAVE_RELATORIO_ATUAL);
+                    localStorage.removeItem("inspecaoSelecionada");
+                    localStorage.removeItem("inspecaoAtual");
+
+                    // 4. Regera a lista de relatórios
+                    gerarRelatorios();
+
+                    // 5. Notifica backend PHP para exclusão no banco de dados
+                    try {
+                        fetch("../back/relatorio.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                action: "excluir",
+                                id: idAlvo,
+                                inspecao_id: inspecaoIdAlvo
+                            })
+                        }).catch(function (erro) {
+                            console.log("Exclusão no backend:", erro);
+                        });
+                    } catch (e) {}
+
+                    // 6. Cria notificação
+                    try {
+                        criarNotificacao(
+                            "🗑 Registro Excluído",
+                            "O relatório " + codigoAlvo + " foi excluído permanentemente.",
+                            "alerta"
+                        );
+                    } catch (e) {}
+
+                } catch (erroGeral) {
+                    console.error("Erro durante a exclusão:", erroGeral);
+                }
+
+                // 7. Volta para a lista de relatórios e atualiza a tela
+                voltarParaRelatorios();
+                atualizarIndicadores();
+                renderizarRelatorios();
+
+                alert("✓ Registro excluído com sucesso.");
+            }
+        );
+    }
+
+
+    /* =========================================================
+       SAIR
+    ========================================================= */
+
+    function sairDoSistema(event) {
+
+        if (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+        }
+
+
+        const confirmar =
+            confirm(
+                "Deseja realmente sair do sistema?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        sessionStorage.clear();
+
+
+        localStorage.removeItem(
+            "usuarioLogado"
+        );
+
+
+        localStorage.removeItem(
+            "sessaoUsuario"
+        );
+
+
+        window.location.href =
+            "../pagina_inicial.html";
+    }
+
+
+    if (btnSair) {
+
+        btnSair.addEventListener(
+            "click",
+            sairDoSistema
+        );
+    }
+
+
+    if (btnSairPerfil) {
+
+        btnSairPerfil.addEventListener(
+            "click",
+            sairDoSistema
+        );
+    }
+
+
+    /* =========================================================
+       ATUALIZAÇÃO ENTRE ABAS
+    ========================================================= */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (
+                event.key ===
+                CHAVE_INSPECOES
+            ) {
+
+                const idAberto =
+                    relatorioSelecionado
+                        ? relatorioSelecionado.id
+                        : null;
+
+
+                inspecoes =
+                    carregarInspecoes();
+
+
+                gerarRelatorios();
+
+                atualizarIndicadores();
+
+                renderizarRelatorios();
+
+
+                if (idAberto) {
+
+                    const atualizado =
+                        relatorios.find(
+                            function (relatorio) {
+
+                                return (
+                                    String(
+                                        relatorio.id
+                                    ) ===
+                                    String(
+                                        idAberto
+                                    )
+                                );
+                            }
+                        );
+
+
+                    if (atualizado) {
+
+                        abrirRelatorio(
+                            atualizado.id
+                        );
+                    }
+
+                    else {
+
+                        voltarParaRelatorios();
+                    }
+                }
+            }
+
+
+            if (
+                event.key ===
+                CHAVE_NOTIFICACOES
+            ) {
+
+                renderizarNotificacoes();
+            }
+
+
+            if (
+                event.key ===
+                    CHAVE_PERFIL ||
+
+                event.key ===
+                    "sessaoUsuario"
+            ) {
+
+                carregarPerfil();
+            }
+        }
+    );
+
+
+    /* =========================================================
+       ATUALIZAÇÃO QUANDO VOLTAR À PÁGINA
+    ========================================================= */
+
+    document.addEventListener(
+        "visibilitychange",
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                const idAberto =
+                    relatorioSelecionado
+                        ? relatorioSelecionado.id
+                        : null;
+
+
+                inspecoes =
+                    carregarInspecoes();
+
+
+                gerarRelatorios();
+
+                atualizarIndicadores();
+
+                renderizarRelatorios();
+
+                carregarPerfil();
+
+                renderizarNotificacoes();
+
+
+                if (idAberto) {
+
+                    const atualizado =
+                        relatorios.find(
+                            function (relatorio) {
+
+                                return (
+                                    String(
+                                        relatorio.id
+                                    ) ===
+                                    String(
+                                        idAberto
+                                    )
+                                );
+                            }
+                        );
+
+
+                    if (atualizado) {
+
+                        abrirRelatorio(
+                            atualizado.id
+                        );
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* =========================================================
+       ABRIR AUTOMATICAMENTE RELATÓRIO RECÉM-FINALIZADO
+    ========================================================= */
+
+    function abrirRelatorioAtual() {
+
+        const id =
+            localStorage.getItem(
+                CHAVE_RELATORIO_ATUAL
+            );
+
+
+        if (!id) {
+            return false;
+        }
+
+
+        const existe =
+            relatorios.find(
+                function (relatorio) {
+
+                    return (
+                        String(relatorio.id) ===
+                        String(id)
+                    );
+                }
+            );
+
+
+        if (!existe) {
+
+            localStorage.removeItem(
+                CHAVE_RELATORIO_ATUAL
+            );
+
+            return false;
+        }
+
+
+        abrirRelatorio(
+            existe.id
+        );
+
+
+        return true;
+    }
+
+
+    /* =========================================================
+       INICIAR
+    ========================================================= */
+
+    function iniciar() {
+
+        /*
+            1. Busca inspeções reais.
+        */
+
+        inspecoes =
+            carregarInspecoes();
+
+
+        /*
+            2. Cada inspeção com itens
+               vira um relatório.
+        */
+
+        gerarRelatorios();
+
+
+        /*
+            3. Atualiza indicadores.
+        */
+
+        atualizarIndicadores();
+
+
+        /*
+            4. Monta cards.
+        */
+
+        renderizarRelatorios();
+
+
+        /*
+            5. Carrega o perfil.
+        */
+
+        carregarPerfil();
+
+
+        /*
+            6. Carrega notificações.
+        */
+
+        renderizarNotificacoes();
+
+
+        /*
+            7. Mostra inicialmente
+               a lista.
+        */
+
+        areaLista.style.display =
+            "block";
+
+
+        areaRelatorio.style.display =
+            "none";
+
+
+        /*
+            8. Se veio com parâmetro ou hash de aprovados, ativa a aba correspondente.
+        */
+
+        const paramsUrl =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const filtroUrl =
+            paramsUrl.get("filtro");
+
+        const hashUrl =
+            window.location.hash
+                .replace("#", "")
+                .toLowerCase();
+
+        if (
+            filtroUrl === "aprovado" ||
+            filtroUrl === "Aprovado" ||
+            hashUrl === "aprovados" ||
+            hashUrl === "aprovado"
+        ) {
+
+            ativarFiltro("Aprovado");
+        }
+
+
+        /*
+            9. Se veio de uma inspeção
+               recém-finalizada, abre
+               automaticamente o relatório.
+        */
+
+        abrirRelatorioAtual();
+    }
+
+
+    iniciar();
+
+});
+
+</script>
+
+</body>
+</html>

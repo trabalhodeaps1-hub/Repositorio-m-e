@@ -1,0 +1,156 @@
+<?php
+// Cadastro de Usuário e Registro de Problemas
+require_once __DIR__ . '/../config/bootstrap.php';
+
+// Permite GET para listar registros cadastrados (útil para consultas ou depuração)
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $stmt = $pdo->query('
+        SELECT id, nome, email, idade, informacao_problema, criado_em 
+        FROM usuarios 
+        ORDER BY id DESC
+    ');
+    
+    json_response([
+        'success' => true,
+        'usuarios' => $stmt->fetchAll()
+    ]);
+}
+
+require_method('POST');
+
+$data = request_data();
+
+// Captura e sanitização dos campos solicitados
+$nome = text_value($data, 'nome', 150);
+$email = filter_var(text_value($data, 'email', 180), FILTER_VALIDATE_EMAIL);
+$idade = filter_var($data['idade'] ?? null, FILTER_VALIDATE_INT);
+$senha = (string) ($data['senha'] ?? '');
+$confirmaSenha = (string) ($data['confirmar_senha'] ?? $data['confirma_senha'] ?? '');
+$telefone = text_value($data, 'telefone', 30);
+
+// Captura a descrição do problema aceitando múltiplos nomes possíveis de input
+$problema = text_value($data, 'informacao_problema', 3000);
+if ($problema === '') {
+    $problema = text_value($data, 'problema', 3000);
+    if ($problema === '') {
+        $problema = text_value($data, 'descricao', 3000);
+    }
+}
+
+// 1. Validação de campos obrigatórios
+if ($nome === '') {
+    json_response([
+        'success' => false,
+        'message' => 'O campo Nome é obrigatório.'
+    ], 422);
+}
+
+if (!$email) {
+    json_response([
+        'success' => false,
+        'message' => 'Por favor, informe um endereço de e-mail válido.'
+    ], 422);
+}
+
+if (strlen($senha) < 6) {
+    json_response([
+        'success' => false,
+        'message' => 'A senha deve ter no mínimo 6 caracteres.'
+    ], 422);
+}
+
+// 2. Se o formulário tiver confirmação de senha, valida se coincidem
+if ($confirmaSenha !== '' && $senha !== $confirmaSenha) {
+    json_response([
+        'success' => false,
+        'message' => 'As senhas informadas não coincidem.'
+    ], 422);
+}
+
+// 3. Validação de idade (se informada)
+if ($idade !== null && $idade !== false && ($idade < 1 || $idade > 125)) {
+    json_response([
+        'success' => false,
+        'message' => 'Por favor, informe uma idade válida (entre 1 e 125 anos).'
+    ], 422);
+}
+
+try {
+    // 4. Verifica se o e-mail já existe
+    $checkStmt = $pdo->prepare('SELECT id FROM usuarios WHERE email = :email LIMIT 1');
+    $checkStmt->execute(['email' => $email]);
+    if ($checkStmt->fetch()) {
+        json_response([
+            'success' => false,
+            'message' => 'Este e-mail já está cadastrado no sistema.'
+        ], 409);
+    }
+
+    // 5. Gera matrícula caso não informada e insere na tabela usuarios
+    $matricula = text_value($data, 'matricula', 40);
+    if ($matricula === '') {
+        $matricula = 'AM-' . str_pad((string) rand(1000, 99999), 5, '0', STR_PAD_LEFT);
+    }
+
+    $stmtUser = $pdo->prepare('
+        INSERT INTO usuarios (nome, email, idade, telefone, matricula, senha_hash, informacao_problema)
+        VALUES (:nome, :email, :idade, :telefone, :matricula, :senha_hash, :problema)
+    ');
+
+    $stmtUser->execute([
+        'nome' => $nome,
+        'email' => $email,
+        'idade' => $idade ?: null,
+        'telefone' => $telefone ?: null,
+        'matricula' => $matricula,
+        'senha_hash' => password_hash($senha, PASSWORD_DEFAULT),
+        'problema' => $problema !== '' ? $problema : null
+    ]);
+
+    $usuarioId = (int) $pdo->lastInsertId();
+
+    // 6. Se houver descrição do problema, registra também na tabela de problemas
+    if ($problema !== '') {
+        $stmtProblema = $pdo->prepare("
+            INSERT INTO problemas (usuario_id, nome, email, idade, descricao_problema, status)
+            VALUES (:usuario_id, :nome, :email, :idade, :descricao, 'aberto')
+        ");
+        $stmtProblema->execute([
+            'usuario_id' => $usuarioId,
+            'nome' => $nome,
+            'email' => $email,
+            'idade' => $idade ?: null,
+            'descricao' => $problema
+        ]);
+    }
+
+    // 7. Salva os dados na sessão
+    $_SESSION['user_id'] = $usuarioId;
+    $_SESSION['user_nome'] = $nome;
+    $_SESSION['user_email'] = $email;
+
+    json_response([
+        'success' => true,
+        'message' => 'Cadastro e informações salvos com sucesso!',
+        'id' => $usuarioId,
+        'dados' => [
+            'nome' => $nome,
+            'email' => $email,
+            'idade' => $idade,
+            'problema' => $problema
+        ]
+    ], 201);
+
+} catch (PDOException $e) {
+    if (in_array($e->getCode(), ['23000', '23505', '19'], true) || strpos($e->getMessage(), 'UNIQUE') !== false) {
+        json_response([
+            'success' => false,
+            'message' => 'Este e-mail já está cadastrado no sistema.'
+        ], 409);
+    }
+
+    json_response([
+        'success' => false,
+        'message' => 'Erro ao salvar os dados: ' . $e->getMessage()
+    ], 500);
+}

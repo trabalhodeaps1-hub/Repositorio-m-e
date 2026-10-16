@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Preferências - AutoRelatório</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f3f4f7;
+            color: #172033;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 240px;
+            height: 100vh;
+
+            background: #0b132b;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-bottom: 1px solid #1b243b;
+        }
+
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+
+            background: #2563eb;
+
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+        }
+
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        .logo-text span {
+            display: block;
+
+            color: #3b82f6;
+
+            font-size: 8px;
+
+            letter-spacing: 1.2px;
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+            padding: 17px 9px;
+        }
+
+
+        .menu a {
+            height: 40px;
+
+            padding: 0 12px;
+            margin-bottom: 3px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+
+            transition: .2s;
+        }
+
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           PARTE INFERIOR DA SIDEBAR
+        ===================================================== */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding: 20px 18px;
+
+            border-top: 1px solid #1b243b;
+        }
+
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 22px;
+
+            cursor: pointer;
+        }
+
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2867b5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        .profile-info {
+            color: #7f8ba0;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .logout {
+            color: #aeb8ca;
+
+            text-decoration: none;
+
+            font-size: 12px;
+        }
+
+
+        .logout:hover {
+            color: white;
+        }
+
+
+        /* =====================================================
+           PRINCIPAL
+        ===================================================== */
+
+        .main {
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #dfe3e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+
+        .topbar-info {
+            color: #7c8797;
+
+            font-size: 12px;
+        }
+
+
+        .voltar {
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .voltar:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .content {
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 32px 28px 50px;
+        }
+
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+
+        .page-header small {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #2563eb;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+
+        .page-header h1 {
+            color: #0d1c34;
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .page-header p {
+            color: #778295;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+            background: white;
+
+            border: 1px solid #dfe3e9;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+
+            margin-bottom: 20px;
+        }
+
+
+        .card-header {
+            padding: 20px 25px;
+
+            border-bottom: 1px solid #e5e8ed;
+
+            background: #fbfcfd;
+        }
+
+
+        .card-header h3 {
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .card-header p {
+            color: #7e8999;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           OPÇÕES
+        ===================================================== */
+
+        .opcao {
+            min-height: 72px;
+
+            padding: 16px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            border-bottom: 1px solid #edf0f3;
+        }
+
+
+        .opcao:last-child {
+            border-bottom: none;
+        }
+
+
+        .opcao-info {
+            flex: 1;
+        }
+
+
+        .opcao-info strong {
+            display: block;
+
+            font-size: 12px;
+
+            color: #273348;
+
+            margin-bottom: 5px;
+        }
+
+
+        .opcao-info p {
+            color: #8490a1;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           SWITCH
+        ===================================================== */
+
+        .switch {
+            position: relative;
+
+            display: inline-block;
+
+            width: 42px;
+            height: 23px;
+
+            flex-shrink: 0;
+        }
+
+
+        .switch input {
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+
+        .slider {
+            position: absolute;
+
+            cursor: pointer;
+
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: #ccd2da;
+
+            transition: .25s;
+
+            border-radius: 30px;
+        }
+
+
+        .slider:before {
+            position: absolute;
+
+            content: "";
+
+            width: 17px;
+            height: 17px;
+
+            left: 3px;
+            bottom: 3px;
+
+            background: white;
+
+            transition: .25s;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 1px 3px
+                rgba(0,0,0,.2);
+        }
+
+
+        .switch input:checked + .slider {
+            background: #2d76dc;
+        }
+
+
+        .switch input:checked + .slider:before {
+            transform: translateX(19px);
+        }
+
+
+        /* =====================================================
+           SELECT
+        ===================================================== */
+
+        .select-preferencia {
+            width: 180px;
+
+            height: 38px;
+
+            border: 1px solid #d5dae1;
+
+            border-radius: 5px;
+
+            background: white;
+
+            padding: 0 10px;
+
+            color: #4b576a;
+
+            font-size: 11px;
+
+            outline: none;
+        }
+
+
+        .select-preferencia:focus {
+            border-color: #3479dc;
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        .acoes {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 24px;
+        }
+
+
+        .btn {
+            min-height: 40px;
+
+            padding: 0 18px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .btn-cancelar {
+            background: white;
+
+            border: 1px solid #d4d9e0;
+
+            color: #566174;
+        }
+
+
+        .btn-cancelar:hover {
+            background: #f5f6f8;
+        }
+
+
+        .btn-salvar {
+            background: #2d76dc;
+
+            border: none;
+
+            color: white;
+        }
+
+
+        .btn-salvar:hover {
+            background: #1f63bd;
+        }
+
+
+        /* =====================================================
+           MENSAGEM
+        ===================================================== */
+
+        .mensagem {
+            display: none;
+
+            padding: 13px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            font-size: 11px;
+        }
+
+
+        .mensagem.sucesso {
+            display: block;
+
+            background: #eaf8ef;
+
+            border: 1px solid #c7ead4;
+
+            color: #247346;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media(max-width:750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+
+        @media(max-width:550px) {
+
+            .opcao {
+                align-items: flex-start;
+            }
+
+            .select-preferencia {
+                width: 130px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     MENU LATERAL
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            ▰
+        </div>
+
+        <div class="logo-text">
+
+            AutoRelatório
+
+            <span>
+                INDUSTRIAL
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="menu">
+
+
+        <a href="dashboard.html">
+
+            <span class="menu-icon">
+                ⌂
+            </span>
+
+            Dashboard
+
+        </a>
+
+
+        <a href="nova_inspecao.html">
+
+            <span class="menu-icon">
+                ✓
+            </span>
+
+            Nova Inspeção
+
+        </a>
+
+
+        <a href="registrar_problema.html">
+
+            <span class="menu-icon">
+                △
+            </span>
+
+            Registrar Problema
+
+        </a>
+
+
+        <a href="historico.html">
+
+            <span class="menu-icon">
+                ♢
+            </span>
+
+            Histórico
+
+        </a>
+
+
+        <a href="relatorios.html">
+
+            <span class="menu-icon">
+                ▧
+            </span>
+
+            Relatórios
+
+        </a>
+
+
+        <a href="areas.html">
+
+            <span class="menu-icon">
+                ▦
+            </span>
+
+            Áreas
+
+        </a>
+
+
+        <a href="equipamentos.html">
+
+            <span class="menu-icon">
+                ⌁
+            </span>
+
+            Equipamentos
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- PERFIL -->
+
+    <div class="sidebar-bottom">
+
+
+        <div
+            class="profile"
+            id="perfilSidebar"
+        >
+
+
+            <div class="profile-circle">
+
+
+                <span id="sidebarIniciais">
+                    TC
+                </span>
+
+
+                <img
+                    id="sidebarFoto"
+                    alt="Foto do usuário"
+                >
+
+
+            </div>
+
+
+            <div>
+
+
+                <div
+                    class="profile-name"
+                    id="sidebarNome"
+                >
+                    Técnico
+                </div>
+
+
+                <div
+                    class="profile-info"
+                    id="sidebarPerfil"
+                >
+                    Perfil Técnico
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <a
+            href="#"
+            class="logout"
+            id="btnSair"
+        >
+            ⇥ &nbsp; Sair
+        </a>
+
+
+    </div>
+
+
+</aside>
+
+
+<!-- =====================================================
+     CONTEÚDO PRINCIPAL
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+
+        <div class="topbar-info">
+            Planta Tubarão • Preferências
+        </div>
+
+
+        <a
+            href="dashboard.html"
+            class="voltar"
+        >
+            ← Voltar ao Dashboard
+        </a>
+
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+
+    <section class="content">
+
+
+        <div class="page-header">
+
+
+            <small>
+                CONFIGURAÇÕES
+            </small>
+
+
+            <h1>
+                Preferências
+            </h1>
+
+
+            <p>
+                Personalize notificações e o comportamento
+                do AutoRelatório.
+            </p>
+
+
+        </div>
+
+
+        <div
+            id="mensagem"
+            class="mensagem"
+        ></div>
+
+
+        <!-- =================================================
+             NOTIFICAÇÕES
+        ================================================== -->
+
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+
+                <h3>
+                    Notificações
+                </h3>
+
+
+                <p>
+                    Escolha quais informações você deseja
+                    receber no sino de notificações.
+                </p>
+
+
+            </div>
+
+
+            <!-- APROVAÇÃO -->
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Relatório aprovado
+                    </strong>
+
+
+                    <p>
+                        Receber uma notificação quando o supervisor
+                        aprovar um relatório enviado por você.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifAprovado"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- DEVOLVIDO -->
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Relatório devolvido para edição
+                    </strong>
+
+
+                    <p>
+                        Avisar quando o supervisor solicitar
+                        alterações ou correções em um relatório.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifDevolvido"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- COMENTÁRIO -->
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Comentários do supervisor
+                    </strong>
+
+
+                    <p>
+                        Mostrar avisos quando um supervisor adicionar
+                        observações ou comentários.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifComentario"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- CRÍTICOS -->
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Problemas críticos
+                    </strong>
+
+
+                    <p>
+                        Receber alertas sobre problemas classificados
+                        com criticidade crítica.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifCriticos"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             RELATÓRIOS
+        ================================================== -->
+
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+
+                <h3>
+                    Relatórios
+                </h3>
+
+
+                <p>
+                    Configure como os relatórios devem ser
+                    apresentados no sistema.
+                </p>
+
+
+            </div>
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Ordenação padrão
+                    </strong>
+
+
+                    <p>
+                        Define a ordem utilizada inicialmente
+                        na página de relatórios.
+                    </p>
+
+
+                </div>
+
+
+                <select
+                    id="ordenacao"
+                    class="select-preferencia"
+                >
+
+                    <option value="recentes">
+                        Mais recentes
+                    </option>
+
+                    <option value="antigos">
+                        Mais antigos
+                    </option>
+
+                    <option value="criticidade">
+                        Maior criticidade
+                    </option>
+
+                    <option value="status">
+                        Status
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Exibir fotografias
+                    </strong>
+
+
+                    <p>
+                        Mostrar miniaturas das fotografias
+                        registradas nos relatórios.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="mostrarFotos"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             SISTEMA
+        ================================================== -->
+
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+
+                <h3>
+                    Sistema
+                </h3>
+
+
+                <p>
+                    Configure algumas preferências gerais
+                    de utilização.
+                </p>
+
+
+            </div>
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Confirmação antes de sair
+                    </strong>
+
+
+                    <p>
+                        Perguntar se você realmente deseja sair
+                        antes de encerrar sua sessão.
+                    </p>
+
+
+                </div>
+
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="confirmarSaida"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+            </div>
+
+
+            <div class="opcao">
+
+
+                <div class="opcao-info">
+
+
+                    <strong>
+                        Itens por página
+                    </strong>
+
+
+                    <p>
+                        Quantidade padrão de registros mostrados
+                        nas listas do sistema.
+                    </p>
+
+
+                </div>
+
+
+                <select
+                    id="itensPagina"
+                    class="select-preferencia"
+                >
+
+                    <option value="10">
+                        10 registros
+                    </option>
+
+                    <option value="20">
+                        20 registros
+                    </option>
+
+                    <option value="30">
+                        30 registros
+                    </option>
+
+                    <option value="50">
+                        50 registros
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             BOTÕES
+        ================================================== -->
+
+
+        <div class="acoes">
+
+
+            <button
+                type="button"
+                class="btn btn-cancelar"
+                onclick="location.href='dashboard.html'"
+            >
+                Cancelar
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-salvar"
+                id="btnSalvar"
+            >
+                ✓ Salvar preferências
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =================================================
+           FUNÇÃO PARA LER JSON
+        ================================================= */
+
+
+        function lerJSON(
+            chave,
+            padrao = {}
+        ) {
+
+            try {
+
+                const valor =
+                    localStorage.getItem(
+                        chave
+                    );
+
+
+                return valor
+                    ? JSON.parse(valor)
+                    : padrao;
+
+            }
+
+            catch (erro) {
+
+                console.error(
+                    "Erro ao ler:",
+                    chave,
+                    erro
+                );
+
+
+                return padrao;
+
+            }
+
+        }
+
+
+        /* =================================================
+           INICIAIS
+        ================================================= */
+
+
+        function obterIniciais(nome) {
+
+
+            const partes =
+                String(
+                    nome || "Técnico"
+                )
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+            if (
+                partes.length === 0
+            ) {
+
+                return "TC";
+
+            }
+
+
+            if (
+                partes.length === 1
+            ) {
+
+                return partes[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                partes[0][0] +
+                partes[
+                    partes.length - 1
+                ][0]
+            ).toUpperCase();
+
+        }
+
+
+        /* =================================================
+           CARREGAR PERFIL
+        ================================================= */
+
+
+        function carregarPerfil() {
+
+
+            const perfil =
+                lerJSON(
+                    "perfilUsuario",
+                    {}
+                );
+
+
+            const sessao =
+                lerJSON(
+                    "sessaoUsuario",
+                    {}
+                );
+
+
+            const nome =
+                perfil.nome ||
+                sessao.nome ||
+                "Técnico";
+
+
+            const tipoPerfil =
+                perfil.perfil ||
+                sessao.perfil ||
+                "Perfil Técnico";
+
+
+            const foto =
+                perfil.foto ||
+                sessao.foto ||
+                "";
+
+
+            document.getElementById(
+                "sidebarNome"
+            ).textContent =
+                nome;
+
+
+            document.getElementById(
+                "sidebarPerfil"
+            ).textContent =
+                tipoPerfil;
+
+
+            const imagem =
+                document.getElementById(
+                    "sidebarFoto"
+                );
+
+
+            const iniciais =
+                document.getElementById(
+                    "sidebarIniciais"
+                );
+
+
+            if (foto) {
+
+
+                imagem.src =
+                    foto;
+
+
+                imagem.style.display =
+                    "block";
+
+
+                iniciais.style.display =
+                    "none";
+
+
+            }
+
+            else {
+
+
+                imagem.style.display =
+                    "none";
+
+
+                iniciais.style.display =
+                    "inline";
+
+
+                iniciais.textContent =
+                    obterIniciais(
+                        nome
+                    );
+
+
+            }
+
+        }
+
+
+        /* =================================================
+           PREFERÊNCIAS PADRÃO
+        ================================================= */
+
+
+        const preferenciasPadrao = {
+
+            notifAprovado: true,
+
+            notifDevolvido: true,
+
+            notifComentario: true,
+
+            notifCriticos: true,
+
+            ordenacao: "recentes",
+
+            mostrarFotos: true,
+
+            confirmarSaida: true,
+
+            itensPagina: "20"
+
+        };
+
+
+        /* =================================================
+           CARREGAR PREFERÊNCIAS
+        ================================================= */
+
+
+        function carregarPreferencias() {
+
+
+            const salvas =
+                lerJSON(
+                    "preferenciasUsuario",
+                    {}
+                );
+
+
+            const preferencias = {
+
+                ...preferenciasPadrao,
+
+                ...salvas
+
+            };
+
+
+            document.getElementById(
+                "notifAprovado"
+            ).checked =
+                preferencias.notifAprovado;
+
+
+            document.getElementById(
+                "notifDevolvido"
+            ).checked =
+                preferencias.notifDevolvido;
+
+
+            document.getElementById(
+                "notifComentario"
+            ).checked =
+                preferencias.notifComentario;
+
+
+            document.getElementById(
+                "notifCriticos"
+            ).checked =
+                preferencias.notifCriticos;
+
+
+            document.getElementById(
+                "ordenacao"
+            ).value =
+                preferencias.ordenacao;
+
+
+            document.getElementById(
+                "mostrarFotos"
+            ).checked =
+                preferencias.mostrarFotos;
+
+
+            document.getElementById(
+                "confirmarSaida"
+            ).checked =
+                preferencias.confirmarSaida;
+
+
+            document.getElementById(
+                "itensPagina"
+            ).value =
+                preferencias.itensPagina;
+
+        }
+
+
+        /* =================================================
+           SALVAR PREFERÊNCIAS
+        ================================================= */
+
+
+        document.getElementById(
+            "btnSalvar"
+        ).addEventListener(
+            "click",
+            function () {
+
+
+                const preferencias = {
+
+
+                    notifAprovado:
+
+                        document.getElementById(
+                            "notifAprovado"
+                        ).checked,
+
+
+                    notifDevolvido:
+
+                        document.getElementById(
+                            "notifDevolvido"
+                        ).checked,
+
+
+                    notifComentario:
+
+                        document.getElementById(
+                            "notifComentario"
+                        ).checked,
+
+
+                    notifCriticos:
+
+                        document.getElementById(
+                            "notifCriticos"
+                        ).checked,
+
+
+                    ordenacao:
+
+                        document.getElementById(
+                            "ordenacao"
+                        ).value,
+
+
+                    mostrarFotos:
+
+                        document.getElementById(
+                            "mostrarFotos"
+                        ).checked,
+
+
+                    confirmarSaida:
+
+                        document.getElementById(
+                            "confirmarSaida"
+                        ).checked,
+
+
+                    itensPagina:
+
+                        document.getElementById(
+                            "itensPagina"
+                        ).value
+
+                };
+
+
+                try {
+
+
+                    localStorage.setItem(
+
+                        "preferenciasUsuario",
+
+                        JSON.stringify(
+                            preferencias
+                        )
+
+                    );
+
+
+                    const mensagem =
+                        document.getElementById(
+                            "mensagem"
+                        );
+
+
+                    mensagem.textContent =
+                        "Preferências salvas com sucesso.";
+
+
+                    mensagem.className =
+                        "mensagem sucesso";
+
+
+                    window.scrollTo({
+
+                        top: 0,
+
+                        behavior: "smooth"
+
+                    });
+
+
+                }
+
+                catch (erro) {
+
+
+                    console.error(
+                        "Erro ao salvar preferências:",
+                        erro
+                    );
+
+
+                    alert(
+                        "Não foi possível salvar as preferências."
+                    );
+
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           PERFIL
+        ================================================= */
+
+
+        document.getElementById(
+            "perfilSidebar"
+        ).addEventListener(
+            "click",
+            function () {
+
+
+                window.location.href =
+                    "meu_perfil.html";
+
+
+            }
+        );
+
+
+        /* =================================================
+           SAIR
+        ================================================= */
+
+
+        document.getElementById(
+            "btnSair"
+        ).addEventListener(
+            "click",
+            function (event) {
+
+
+                event.preventDefault();
+
+
+                const preferencias =
+                    lerJSON(
+                        "preferenciasUsuario",
+                        preferenciasPadrao
+                    );
+
+
+                /*
+                   Se a confirmação estiver habilitada,
+                   pergunta antes de sair.
+                */
+
+
+                if (
+                    preferencias.confirmarSaida !== false
+                ) {
+
+
+                    const confirmar =
+                        confirm(
+                            "Deseja realmente sair do sistema?"
+                        );
+
+
+                    if (!confirmar) {
+
+                        return;
+
+                    }
+
+                }
+
+
+                /*
+                   Remove apenas informações da sessão.
+
+                   NÃO apaga:
+                   - perfil
+                   - preferências
+                   - áreas
+                   - equipamentos
+                   - inspeções
+                   - relatórios
+                */
+
+
+                sessionStorage.clear();
+
+
+                localStorage.removeItem(
+                    "usuarioLogado"
+                );
+
+
+                localStorage.removeItem(
+                    "sessaoUsuario"
+                );
+
+
+                window.location.href =
+                    "../index.html";
+
+
+            }
+        );
+
+
+        /* =================================================
+           INICIALIZAÇÃO
+        ================================================= */
+
+
+        carregarPerfil();
+
+        carregarPreferencias();
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
