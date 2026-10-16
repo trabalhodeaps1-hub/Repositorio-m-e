@@ -178,12 +178,51 @@ Sugestão:(https://www.figma.com/make/oA20ZwhC5rNWYyPZ1ZsXJ5/AutoRelat%C3%B3rio-
 <img width="1229" height="690" alt="Captura de tela 2026-09-04 214220" src="https://github.com/user-attachments/assets/c61fd06a-7318-46dd-814a-656d4ccb04a3" />
 
 # Como Rodar o Código
-### 1. Link do Repositório<br>
-Copie o seguinte link do repósitório mãe do codigo:<br>
-https://github.com/trabalhodeaps1-hub/Repositorio-m-e.git <br>
 
-### 2. Clonar Código para Virtual Studio <br>
-Abra a pasta onde deseja colar o código <br>
-Abra o terminal e digite "code ." <br>
-Abra o terminal no virtual studio ( Ctrl + ' ) <br>
-Digite o seguinte código: git clone https://github.com/trabalhodeaps1-hub/Repositorio-m-e.git <br>
+### 1. Link do Repositório
+
+Acesse o repositório do projeto AutoRelatório:
+
+https://github.com/trabalhodeaps1-hub/Repositorio-m-e
+
+### 2. Primeira forma: Baixar pelo GitHub (simples)
+
+**Passo 1:** Acesse o link do repositório.
+
+**Passo 2:** Clique no botão verde **Code**.
+
+**Passo 3:** Selecione **Download ZIP**.
+
+**Passo 4:** Após o download, extraia o arquivo ZIP para uma pasta do computador.
+
+**Passo 5:** Abra o Visual Studio Code, clique em **Arquivo → Abrir Pasta** e selecione a pasta extraída do projeto.
+
+### 3. Segunda forma: Baixar usando comandos no CMD
+
+**Passo 1:** Abra o CMD do Windows. Pressione `Windows + R`, digite `cmd` e aperte Enter.
+
+**Passo 2:** Acesse a pasta onde deseja salvar o projeto. Exemplo, para salvar em Downloads:
+
+```cmd
+cd %USERPROFILE%\Downloads
+```
+
+**Passo 3:** Digite o comando para baixar o repositório:
+
+```cmd
+git clone https://github.com/trabalhodeaps1-hub/Repositorio-m-e.git
+```
+
+**Passo 4:** Entre na pasta do projeto:
+
+```cmd
+cd Repositorio-m-e
+```
+
+**Passo 5:** Abra o projeto no Visual Studio Code:
+
+```cmd
+code .
+```
+
+**Observação:** Para utilizar a segunda forma, é necessário ter o Git instalado. O comando `code .` também exige que o comando do Visual Studio Code esteja configurado no sistema.
