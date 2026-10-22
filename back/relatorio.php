@@ -55,9 +55,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || $action === 'excluir' || $action 
 
     try {
         if ($id) {
-            $stmtBusca = $pdo->prepare('SELECT inspecao_id FROM relatorios WHERE id = :id');
+            $stmtBusca = $pdo->prepare('SELECT status, inspecao_id FROM relatorios WHERE id = :id');
             $stmtBusca->execute(['id' => $id]);
-            $inspecaoId = $stmtBusca->fetchColumn() ?: $inspecaoIdParam;
+            $relatorioExistente = $stmtBusca->fetch();
+
+            if ($relatorioExistente && strtolower((string)$relatorioExistente['status']) === 'aprovado') {
+                json_response([
+                    'success' => false,
+                    'message' => 'Não é permitido excluir relatórios que já foram aprovados. Apenas pendentes ou em elaboração podem ser excluídos.'
+                ], 403);
+            }
+
+            $inspecaoId = ($relatorioExistente['inspecao_id'] ?? null) ?: $inspecaoIdParam;
 
             $stmtDel = $pdo->prepare('DELETE FROM relatorios WHERE id = :id');
             $stmtDel->execute(['id' => $id]);
@@ -67,6 +76,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || $action === 'excluir' || $action 
                 $stmtDelInsp->execute(['id' => $inspecaoId]);
             }
         } elseif ($inspecaoIdParam) {
+            $stmtCheca = $pdo->prepare('SELECT status FROM relatorios WHERE inspecao_id = :id');
+            $stmtCheca->execute(['id' => $inspecaoIdParam]);
+            while ($row = $stmtCheca->fetch()) {
+                if (strtolower((string)$row['status']) === 'aprovado') {
+                    json_response([
+                        'success' => false,
+                        'message' => 'Não é permitido excluir relatórios que já foram aprovados.'
+                    ], 403);
+                }
+            }
+
             $stmtDel = $pdo->prepare('DELETE FROM relatorios WHERE inspecao_id = :id');
             $stmtDel->execute(['id' => $inspecaoIdParam]);
 
@@ -88,6 +108,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || $action === 'excluir' || $action 
 
 // 3. APROVAÇÃO E RESOLUÇÃO DA PENDÊNCIA
 if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
+    // Permissão: apenas Supervisor e Gerente podem aprovar relatórios
+    $currentUser = current_user($pdo);
+    $cargoUser = strtolower(trim((string)($currentUser['cargo'] ?? $currentUser['papel'] ?? $_SESSION['user_cargo'] ?? $_SESSION['user_papel'] ?? '')));
+    $podeAprovar = (strpos($cargoUser, 'supervisor') !== false || strpos($cargoUser, 'gerente') !== false);
+
+    if (!$podeAprovar) {
+        json_response([
+            'success' => false,
+            'message' => 'Permissão negada. Apenas Supervisores e Gerentes podem aprovar relatórios e resolver pendências.'
+        ], 403);
+    }
+
     $id = filter_var($data['id'] ?? $data['relatorio_id'] ?? null, FILTER_VALIDATE_INT);
     $oQueFoiFeito = text_value($data, 'o_que_foi_feito', 5000);
     if ($oQueFoiFeito === '') {
@@ -149,6 +181,55 @@ if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
         json_response([
             'success' => false,
             'message' => 'Erro ao aprovar resolução no banco de dados: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+// 3.5. EDIÇÃO DE RELATÓRIO TÉCNICO (Permitido antes de ser aprovado)
+if ($action === 'editar' || $action === 'atualizar') {
+    $id = filter_var($data['id'] ?? $data['relatorio_id'] ?? null, FILTER_VALIDATE_INT);
+    if (!$id) {
+        json_response([
+            'success' => false,
+            'message' => 'Identificador do relatório não informado.'
+        ], 422);
+    }
+
+    try {
+        $stmtCheca = $pdo->prepare('SELECT status FROM relatorios WHERE id = :id');
+        $stmtCheca->execute(['id' => $id]);
+        $relExistente = $stmtCheca->fetch();
+
+        if ($relExistente && strtolower((string)$relExistente['status']) === 'aprovado') {
+            json_response([
+                'success' => false,
+                'message' => 'Relatórios já aprovados não podem ser editados.'
+            ], 403);
+        }
+
+        $resumo = text_value($data, 'resumo', 5000) ?: text_value($data, 'descricao_tecnica', 5000);
+        $recomendacoes = text_value($data, 'recomendacoes', 5000);
+
+        $stmtUp = $pdo->prepare('
+            UPDATE relatorios 
+            SET descricao_tecnica = COALESCE(:descricao, descricao_tecnica),
+                recomendacoes = COALESCE(:rec, recomendacoes)
+            WHERE id = :id AND status != "aprovado"
+        ');
+        $stmtUp->execute([
+            'descricao' => $resumo !== '' ? $resumo : null,
+            'rec'       => $recomendacoes !== '' ? $recomendacoes : null,
+            'id'        => $id
+        ]);
+
+        json_response([
+            'success' => true,
+            'message' => 'Relatório atualizado com sucesso!'
+        ]);
+    } catch (PDOException $e) {
+        json_response([
+            'success' => false,
+            'message' => 'Erro ao atualizar relatório: ' . $e->getMessage()
         ], 500);
     }
 }

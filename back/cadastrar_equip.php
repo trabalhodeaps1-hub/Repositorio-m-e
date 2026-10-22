@@ -23,6 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 require_method('POST');
 
+// Validação de permissão: apenas Supervisor e Gerente podem cadastrar equipamentos
+$currentUser = current_user($pdo);
+$cargoUser = strtolower(trim((string)($currentUser['cargo'] ?? $currentUser['papel'] ?? $_SESSION['user_cargo'] ?? $_SESSION['user_papel'] ?? '')));
+$podeCadastrar = (strpos($cargoUser, 'supervisor') !== false || strpos($cargoUser, 'gerente') !== false);
+
+if (!$podeCadastrar) {
+    json_response([
+        'success' => false,
+        'message' => 'Permissão negada. Apenas Supervisores e Gerentes podem cadastrar novos equipamentos.'
+    ], 403);
+}
+
 $data = request_data();
 
 $patrimonio = text_value($data, 'numero_patrimonio', 80);

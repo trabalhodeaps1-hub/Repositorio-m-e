@@ -23,7 +23,34 @@ $data = request_data();
 // Captura e sanitização dos campos solicitados
 $nome = text_value($data, 'nome', 150);
 $email = filter_var(text_value($data, 'email', 180), FILTER_VALIDATE_EMAIL);
-$idade = filter_var($data['idade'] ?? null, FILTER_VALIDATE_INT);
+$cargo = text_value($data, 'cargo', 80);
+$dataNascimento = text_value($data, 'data_nascimento', 20);
+if ($dataNascimento === '') {
+    $dataNascimento = text_value($data, 'dataNascimento', 20);
+}
+
+$idade = null;
+$anoNascimento = null;
+
+if ($dataNascimento !== '') {
+    try {
+        $nascObj = new DateTime($dataNascimento);
+        $hoje = new DateTime('today');
+        if ($nascObj <= $hoje) {
+            $idade = $nascObj->diff($hoje)->y;
+            $anoNascimento = (int) $nascObj->format('Y');
+        }
+    } catch (Exception $e) {
+        $idade = null;
+    }
+} elseif (!empty($data['ano_nascimento']) || !empty($data['anoNascimento'])) {
+    $anoNascimento = (int) ($data['ano_nascimento'] ?? $data['anoNascimento']);
+    $idade = (int) date('Y') - $anoNascimento;
+    $dataNascimento = "{$anoNascimento}-01-01";
+} else {
+    $idade = filter_var($data['idade'] ?? null, FILTER_VALIDATE_INT);
+}
+
 $senha = (string) ($data['senha'] ?? '');
 $confirmaSenha = (string) ($data['confirmar_senha'] ?? $data['confirma_senha'] ?? '');
 $telefone = text_value($data, 'telefone', 30);
@@ -67,12 +94,31 @@ if ($confirmaSenha !== '' && $senha !== $confirmaSenha) {
     ], 422);
 }
 
-// 3. Validação de idade (se informada)
-if ($idade !== null && $idade !== false && ($idade < 1 || $idade > 125)) {
-    json_response([
-        'success' => false,
-        'message' => 'Por favor, informe uma idade válida (entre 1 e 125 anos).'
-    ], 422);
+// 3. Validação de idade e data de nascimento (obrigatório para cadastro normal)
+$isRelatoAvulso = ($problema !== '' && ($nome === 'Relato Técnico' || strpos($email, 'relato@') !== false));
+
+if (!$isRelatoAvulso) {
+    if ($dataNascimento === '' || $idade === null) {
+        json_response([
+            'success' => false,
+            'message' => 'Por favor, informe uma data de nascimento válida.'
+        ], 422);
+    }
+
+    if ($idade < 18 || $idade > 99) {
+        json_response([
+            'success' => false,
+            'message' => "Cadastro permitido apenas para pessoas entre 18 e 99 anos (idade calculada: {$idade} anos)."
+        ], 422);
+    }
+
+    $cargosPermitidos = ['Operador de Máquina', 'Técnico de Manutenção', 'Supervisor', 'Gerente'];
+    if ($cargo === '' || !in_array($cargo, $cargosPermitidos, true)) {
+        json_response([
+            'success' => false,
+            'message' => 'Por favor, selecione um cargo válido: Operador de Máquina, Técnico de Manutenção, Supervisor ou Gerente.'
+        ], 422);
+    }
 }
 
 try {
@@ -92,15 +138,26 @@ try {
         $matricula = 'AM-' . str_pad((string) rand(1000, 99999), 5, '0', STR_PAD_LEFT);
     }
 
+    $papel = 'funcionario';
+    if ($cargo === 'Supervisor') {
+        $papel = 'supervisor';
+    } elseif ($cargo === 'Gerente') {
+        $papel = 'gerente';
+    }
+
     $stmtUser = $pdo->prepare('
-        INSERT INTO usuarios (nome, email, idade, telefone, matricula, senha_hash, informacao_problema)
-        VALUES (:nome, :email, :idade, :telefone, :matricula, :senha_hash, :problema)
+        INSERT INTO usuarios (nome, email, idade, data_nascimento, ano_nascimento, cargo, papel, telefone, matricula, senha_hash, informacao_problema)
+        VALUES (:nome, :email, :idade, :data_nasc, :ano_nasc, :cargo, :papel, :telefone, :matricula, :senha_hash, :problema)
     ');
 
     $stmtUser->execute([
         'nome' => $nome,
         'email' => $email,
         'idade' => $idade ?: null,
+        'data_nasc' => $dataNascimento ?: null,
+        'ano_nasc' => $anoNascimento ?: null,
+        'cargo' => $cargo ?: null,
+        'papel' => $papel,
         'telefone' => $telefone ?: null,
         'matricula' => $matricula,
         'senha_hash' => password_hash($senha, PASSWORD_DEFAULT),
@@ -128,6 +185,8 @@ try {
     $_SESSION['user_id'] = $usuarioId;
     $_SESSION['user_nome'] = $nome;
     $_SESSION['user_email'] = $email;
+    $_SESSION['user_cargo'] = $cargo;
+    $_SESSION['user_papel'] = $papel;
 
     json_response([
         'success' => true,

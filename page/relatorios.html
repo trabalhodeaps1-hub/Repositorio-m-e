@@ -4918,6 +4918,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 relatorioSelecionado.status
             );
 
+        const perfilAtivo = obterPerfil();
+        const cargoTexto = String(perfilAtivo.cargo || perfilAtivo.funcao || perfilAtivo.perfil || perfilAtivo.papel || "").toLowerCase();
+        const ehSupervisorOuGerente = cargoTexto.includes("supervisor") || cargoTexto.includes("gerente");
+
+        // Quando o relatório é APROVADO: bloqueia permanentemente edição e exclusão
         if (
             relatorioSelecionado.status ===
             "Aprovado"
@@ -4927,30 +4932,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Relatório aprovado e pendência concluída.";
 
             descricao.textContent =
-                "A ação corretiva foi comprovada tecnicamente e o documento está arquivado.";
+                "A ação corretiva foi comprovada tecnicamente e o documento está arquivado (bloqueado permanentemente para edição e exclusão).";
 
             btnResolverPendencia.classList.add(
                 "oculto"
             );
+            btnResolverPendencia.style.display = "none";
 
             btnEditar.classList.add(
                 "oculto"
             );
+            btnEditar.style.display = "none";
 
             btnSalvar.classList.add(
                 "oculto"
             );
+            btnSalvar.style.display = "none";
 
             btnCancelar.classList.add(
                 "oculto"
             );
+            btnCancelar.style.display = "none";
+
+            if (btnExcluirRegistro) {
+                btnExcluirRegistro.classList.add("oculto");
+                btnExcluirRegistro.style.display = "none";
+            }
 
             return;
         }
 
-        btnResolverPendencia.classList.remove(
-            "oculto"
-        );
+        // Quando o relatório AINDA NÃO FOI APROVADO (Pendente de aprovação ou Em elaboração):
+        // 1. Permite ver e editar o que foi enviado
+        btnEditar.classList.remove("oculto");
+        btnEditar.style.display = "";
+
+        // 2. Permite excluir o registro antes da aprovação
+        if (btnExcluirRegistro) {
+            btnExcluirRegistro.classList.remove("oculto");
+            btnExcluirRegistro.style.display = "";
+        }
+
+        // 3. Permite aprovar APENAS se for Supervisor ou Gerente
+        if (ehSupervisorOuGerente) {
+            btnResolverPendencia.classList.remove(
+                "oculto"
+            );
+            btnResolverPendencia.style.display = "";
+        } else {
+            btnResolverPendencia.classList.add(
+                "oculto"
+            );
+            btnResolverPendencia.style.display = "none";
+        }
 
         if (
             relatorioSelecionado.status ===
@@ -4960,12 +4994,13 @@ document.addEventListener("DOMContentLoaded", function () {
             mensagem.textContent =
                 "Relatório com pendência registrada.";
 
-            descricao.textContent =
-                "Após concluir as correções em campo, clique em 'Resolver Pendência & Aprovar' informando o procedimento e a foto comprovante.";
-
-            btnEditar.classList.remove(
-                "oculto"
-            );
+            if (ehSupervisorOuGerente) {
+                descricao.textContent =
+                    "Após concluir as correções em campo, clique em 'Resolver Pendência & Aprovar' informando o procedimento e a foto comprovante.";
+            } else {
+                descricao.textContent =
+                    "Relatório enviado ao Supervisor. Você pode visualizar todos os dados, editar o que enviou ou apagar o registro enquanto aguarda a aprovação.";
+            }
 
             return;
         }
@@ -4975,11 +5010,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         descricao.textContent =
             "Confira os dados antes de finalizar e resolver as pendências técnicas.";
-
-
-        btnEditar.classList.remove(
-            "oculto"
-        );
     }
 
 
@@ -5012,7 +5042,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             alert(
-                "Este relatório já foi aprovado e não pode ser alterado pelo técnico."
+                "Este relatório já foi aprovado pelo supervisor e não pode mais ser alterado."
             );
 
             return;
@@ -5079,16 +5109,19 @@ document.addEventListener("DOMContentLoaded", function () {
         btnEditar.classList.add(
             "oculto"
         );
+        btnEditar.style.display = "none";
 
 
         btnSalvar.classList.remove(
             "oculto"
         );
+        btnSalvar.style.display = "";
 
 
         btnCancelar.classList.remove(
             "oculto"
         );
+        btnCancelar.style.display = "";
 
 
         document.getElementById(
@@ -5124,11 +5157,13 @@ document.addEventListener("DOMContentLoaded", function () {
         btnSalvar.classList.add(
             "oculto"
         );
+        btnSalvar.style.display = "none";
 
 
         btnCancelar.classList.add(
             "oculto"
         );
+        btnCancelar.style.display = "none";
 
 
         if (
@@ -5140,6 +5175,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btnEditar.classList.remove(
                 "oculto"
             );
+            btnEditar.style.display = "";
         }
 
         else {
@@ -5147,6 +5183,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btnEditar.classList.add(
                 "oculto"
             );
+            btnEditar.style.display = "none";
         }
     }
 
@@ -5435,6 +5472,24 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
+
+        // Sincroniza a edição com o backend se disponível
+        try {
+            fetch("../back/relatorio.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "editar",
+                    id: relatorioSelecionado.id,
+                    resumo: inspecao.resumoRelatorio,
+                    recomendacoes: inspecao.resumoRelatorio
+                })
+            }).catch(function (e) {
+                console.log("Sincronização no backend:", e);
+            });
+        } catch (e) {}
 
         alert(
             "Relatório salvo com sucesso e enviado para aprovação do supervisor."
@@ -6447,6 +6502,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function abrirModalResolucao() {
 
+        const perfilAtivo = obterPerfil();
+        const cargoTexto = String(perfilAtivo.cargo || perfilAtivo.funcao || perfilAtivo.perfil || perfilAtivo.papel || "").toLowerCase();
+        const ehSupervisorOuGerente = cargoTexto.includes("supervisor") || cargoTexto.includes("gerente");
+
+        if (!ehSupervisorOuGerente) {
+            alert("Apenas Supervisores e Gerentes possuem permissão para aprovar relatórios e resolver pendências.");
+            return;
+        }
+
         if (!relatorioSelecionado) {
 
             alert(
@@ -6618,6 +6682,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 event.preventDefault();
 
+                const perfilAtivo = obterPerfil();
+                const cargoTexto = String(perfilAtivo.cargo || perfilAtivo.funcao || perfilAtivo.perfil || perfilAtivo.papel || "").toLowerCase();
+                const ehSupervisorOuGerente = cargoTexto.includes("supervisor") || cargoTexto.includes("gerente");
+
+                if (!ehSupervisorOuGerente) {
+                    alert("Apenas Supervisores e Gerentes possuem permissão para aprovar relatórios e resolver pendências.");
+                    fecharModalResolucao();
+                    return;
+                }
 
                 if (!relatorioSelecionado) {
 
@@ -6811,6 +6884,11 @@ document.addEventListener("DOMContentLoaded", function () {
             function () {
 
                 if (!relatorioSelecionado) {
+                    return;
+                }
+
+                if (relatorioSelecionado.status === "Aprovado") {
+                    alert("Não é permitido excluir relatórios que já foram aprovados. Apenas registros pendentes ou em elaboração podem ser excluídos.");
                     return;
                 }
 

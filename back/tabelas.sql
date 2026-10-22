@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(180) NOT NULL UNIQUE,
     idade INT,
+    data_nascimento VARCHAR(20),
+    ano_nascimento INT,
+    cargo VARCHAR(80),
     senha_hash TEXT NOT NULL,
     matricula VARCHAR(40) UNIQUE,
     telefone VARCHAR(30),
@@ -83,6 +86,9 @@ CREATE TABLE IF NOT EXISTS relatorios (
     status VARCHAR(30) NOT NULL DEFAULT 'aguardando_aprovacao'
         CHECK (status IN ('aguardando_aprovacao', 'aprovado', 'reprovado')),
     criado_por BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
+    o_que_foi_feito TEXT,
+    como_foi_feito TEXT,
+    foto_comprovante TEXT,
     aprovado_por BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
     aprovado_em TIMESTAMP,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP

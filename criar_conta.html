@@ -65,19 +65,32 @@
 
                 <div class="linha-formulario">
                     <div class="campo">
-                        <label for="idade">Idade <span>*</span></label>
-                        <input type="number" id="idade" name="idade" placeholder="Ex.: 25" min="1" max="120" required>
+                        <label for="dataNascimento">Data de Nascimento <span>*</span></label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" required>
                     </div>
 
+                    <div class="campo">
+                        <label for="cargo">Cargo / Função <span>*</span></label>
+                        <select id="cargo" name="cargo" required>
+                            <option value="" disabled selected>Selecione seu cargo</option>
+                            <option value="Operador de Máquina">Operador de Máquina</option>
+                            <option value="Técnico de Manutenção">Técnico de Manutenção</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Gerente">Gerente</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="linha-formulario">
                     <div class="campo">
                         <label for="telefone">Telefone / Ramal</label>
                         <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
                     </div>
-                </div>
 
-                <div class="campo">
-                    <label for="email">E-mail Corporativo <span>*</span></label>
-                    <input type="email" id="email" name="email" placeholder="usuario@arcelormittal.com.br" required>
+                    <div class="campo">
+                        <label for="email">E-mail Corporativo <span>*</span></label>
+                        <input type="email" id="email" name="email" placeholder="usuario@arcelormittal.com.br" required>
+                    </div>
                 </div>
 
                 <div class="linha-formulario">

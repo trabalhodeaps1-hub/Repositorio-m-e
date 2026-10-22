@@ -3007,7 +3007,18 @@ document.addEventListener("DOMContentLoaded", function () {
        NOVO EQUIPAMENTO
     ========================================================= */
 
+    function podeAdicionarEquipamento() {
+        const perfil = obterPerfil();
+        const cargo = String(perfil.cargo || perfil.funcao || perfil.perfil || perfil.papel || "").toLowerCase();
+        return cargo.includes("supervisor") || cargo.includes("gerente");
+    }
+
     function novoEquipamento() {
+
+        if (!podeAdicionarEquipamento()) {
+            alert("Apenas Supervisores e Gerentes possuem permissão para cadastrar novos equipamentos.");
+            return;
+        }
 
         if (!areaSelecionada) {
 
@@ -3457,6 +3468,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             perfilAvatar
         );
+
+        /* Regra de Permissão: apenas Supervisor e Gerente podem adicionar equipamentos */
+        if (btnNovoEquipamento) {
+            btnNovoEquipamento.style.display = podeAdicionarEquipamento() ? "" : "none";
+        }
     }
 
 

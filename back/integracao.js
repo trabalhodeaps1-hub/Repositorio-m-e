@@ -243,14 +243,20 @@
 
                 // Carrega estritamente as informações do usuário real cadastrado
                 const usuario = resultado.usuario;
+                const cargoDetectado = usuario.cargo || usuario.funcao || usuario.perfil || (usuario.papel === 'gerente' ? 'Gerente' : (usuario.papel === 'supervisor' ? 'Supervisor' : 'Técnico de Manutenção'));
                 const dadosSessao = {
                     id: usuario.id || 1,
                     nome: usuario.nome || identificador,
                     email: usuario.email || identificador,
                     matricula: usuario.matricula || '',
                     telefone: usuario.telefone || '',
-                    funcao: usuario.papel || 'Técnico',
-                    perfil: usuario.perfil || 'Perfil Técnico',
+                    data_nascimento: usuario.data_nascimento || '',
+                    ano_nascimento: usuario.ano_nascimento || null,
+                    idade: usuario.idade || null,
+                    cargo: cargoDetectado,
+                    funcao: cargoDetectado,
+                    perfil: cargoDetectado,
+                    papel: usuario.papel || (cargoDetectado.toLowerCase().includes('supervisor') ? 'supervisor' : (cargoDetectado.toLowerCase().includes('gerente') ? 'gerente' : (cargoDetectado.toLowerCase().includes('operador') ? 'operador' : 'tecnico'))),
                     foto: usuario.foto || usuario.foto_perfil || ''
                 };
 
@@ -277,7 +283,34 @@
                 const senha = dados.senha || '';
                 const confirma = dados.confirmarSenha || dados.confirmar_senha || dados.confirma_senha || '';
                 const telefone = (dados.telefone || '').trim();
-                const idade = dados.idade ? parseInt(dados.idade, 10) : null;
+                const cargo = (dados.cargo || '').trim();
+                const dataNascimento = (dados.dataNascimento || dados.data_nascimento || '').trim();
+                const anoNascimentoParam = dados.anoNascimento || dados.ano_nascimento ? parseInt(dados.anoNascimento || dados.ano_nascimento, 10) : null;
+
+                const hoje = new Date();
+                const anoAtual = hoje.getFullYear();
+                let idade = null;
+                let dataNascStr = dataNascimento;
+
+                if (dataNascimento) {
+                    const partes = dataNascimento.split('-');
+                    if (partes.length === 3) {
+                        const a = parseInt(partes[0], 10);
+                        const m = parseInt(partes[1], 10) - 1;
+                        const d = parseInt(partes[2], 10);
+                        const dataObj = new Date(a, m, d);
+                        if (!isNaN(dataObj.getTime()) && a >= 1900 && dataObj <= hoje) {
+                            idade = anoAtual - a;
+                            const diffMes = hoje.getMonth() - m;
+                            if (diffMes < 0 || (diffMes === 0 && hoje.getDate() < d)) {
+                                idade--;
+                            }
+                        }
+                    }
+                } else if (anoNascimentoParam) {
+                    idade = anoAtual - anoNascimentoParam;
+                    dataNascStr = `${anoNascimentoParam}-01-01`;
+                }
 
                 if (!nome) {
                     throw new Error('Por favor, informe seu nome completo.');
@@ -287,8 +320,21 @@
                     throw new Error('Por favor, informe um endereço de e-mail corporativo válido.');
                 }
 
-                if (idade !== null && (idade < 1 || idade > 120)) {
-                    throw new Error('Por favor, informe uma idade válida.');
+                if (!dataNascimento && !anoNascimentoParam) {
+                    throw new Error('Por favor, informe sua data de nascimento.');
+                }
+
+                if (idade === null || isNaN(idade)) {
+                    throw new Error('Por favor, informe uma data de nascimento válida.');
+                }
+
+                if (idade < 18 || idade > 99) {
+                    throw new Error(`Cadastro permitido apenas para pessoas com idade entre 18 e 99 anos (sua idade calculada é de ${idade} anos).`);
+                }
+
+                const cargosValidos = ['Operador de Máquina', 'Técnico de Manutenção', 'Supervisor', 'Gerente'];
+                if (!cargo || !cargosValidos.includes(cargo)) {
+                    throw new Error('Por favor, selecione seu cargo: Operador de Máquina, Técnico de Manutenção, Supervisor ou Gerente.');
                 }
 
                 if (!senha || senha.length < 6) {
@@ -305,17 +351,29 @@
                     throw new Error('Este e-mail já está cadastrado no sistema. Faça o login diretamente.');
                 }
 
+                const papelMap = {
+                    'Supervisor': 'supervisor',
+                    'Gerente': 'gerente',
+                    'Técnico de Manutenção': 'tecnico',
+                    'Operador de Máquina': 'operador'
+                };
+                const papel = papelMap[cargo] || 'funcionario';
+
                 const matriculaGerada = dados.matricula || ('AM-' + Math.floor(10000 + Math.random() * 90000));
                 const payload = {
                     nome: nome,
                     email: email,
+                    data_nascimento: dataNascStr,
+                    ano_nascimento: dataNascStr ? parseInt(dataNascStr.substring(0, 4), 10) : null,
                     idade: idade,
+                    cargo: cargo,
+                    funcao: cargo,
+                    perfil: cargo,
+                    papel: papel,
                     senha: senha,
                     confirmar_senha: confirma,
                     telefone: telefone,
-                    matricula: matriculaGerada,
-                    perfil: 'Perfil Técnico',
-                    papel: 'funcionario'
+                    matricula: matriculaGerada
                 };
 
                 let resultado = null;
@@ -353,6 +411,19 @@
 
             // 4. CADASTRO DE EQUIPAMENTO
             else if (isEquipamento) {
+                // Validação de permissão: apenas Supervisor e Gerente podem adicionar equipamentos
+                const sessaoAtiva = (() => {
+                    try {
+                        return JSON.parse(sessionStorage.getItem('usuarioLogado') || localStorage.getItem('usuarioLogado') || sessionStorage.getItem('sessaoUsuario') || localStorage.getItem('sessaoUsuario') || '{}');
+                    } catch (e) {
+                        return {};
+                    }
+                })();
+                const cargoSessao = String(sessaoAtiva.cargo || sessaoAtiva.funcao || sessaoAtiva.perfil || sessaoAtiva.papel || '').toLowerCase();
+                if (!cargoSessao.includes('supervisor') && !cargoSessao.includes('gerente')) {
+                    throw new Error('Apenas Supervisores e Gerentes possuem permissão para cadastrar equipamentos.');
+                }
+
                 const resultado = await enviarJSON(ENDPOINTS.equipamento, {
                     numero_patrimonio: ($('#patrimonio', form) || $('#numero_patrimonio', form))?.value,
                     nome: ($('#nomeEquipamento', form) || $('#nome', form))?.value,

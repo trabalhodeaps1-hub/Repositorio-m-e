@@ -84,6 +84,7 @@ try {
     $_SESSION['user_nome']  = $user['nome'] ?? '';
     $_SESSION['user_email'] = $user['email'] ?? '';
     $_SESSION['user_papel'] = $user['papel'] ?? 'usuario';
+    $_SESSION['user_cargo'] = $user['cargo'] ?? $user['papel'] ?? 'Técnico de Manutenção';
 
     // Remove a hash da senha antes de retornar os dados para o frontend
     unset($user['senha_hash'], $user['senha']);

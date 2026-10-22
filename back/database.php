@@ -8,15 +8,37 @@ declare(strict_types=1);
  * Este arquivo cria e disponibiliza a variável global $pdo para todo o sistema.
  */
 
-// 1. Configurações de acesso ao Banco de Dados (PostgreSQL / MySQL / SQLite)
+// 1. Configurações de acesso ao Banco de Dados (PostgreSQL / Aiven Cloud / SQLite)
 $dbConfig = [
-    'driver' => 'pgsql',          // 'pgsql' para PostgreSQL, 'mysql' para MySQL, 'sqlite' para SQLite
-    'host'   => '127.0.0.1',      // Endereço do servidor
-    'port'   => '5050',           // Porta configurada (5050 ou 5432 padrão do Postgres)
-    'dbname' => 'autorelatorio',  // Nome do banco de dados
-    'user'   => 'postgres',       // Usuário do banco
-    'pass'   => 'jesus',          // Senha do banco
+    'driver'  => 'pgsql',          // 'pgsql' para PostgreSQL / Aiven, 'sqlite' para SQLite
+    'host'    => '127.0.0.1',      // Endereço do host (ex: pg-xxxx.aivencloud.com para Aiven)
+    'port'    => '5050',           // Porta configurada (ex: 25060 no Aiven, 5432 padrão)
+    'dbname'  => 'autorelatorio',  // Nome do banco de dados (ex: defaultdb no Aiven)
+    'user'    => 'postgres',       // Usuário do banco (ex: avnadmin no Aiven)
+    'pass'    => 'jesus',          // Senha do banco
+    'sslmode' => 'prefer',         // Use 'require' para Aiven / Nuvem
+    'url'     => '',               // Ou cole aqui a Service URI completa do Aiven: postgres://...
 ];
+
+// Suporte opcional à Service URI do Aiven (DATABASE_URL)
+$databaseUrl = getenv('DATABASE_URL') ?: ($dbConfig['url'] ?? '');
+if (!empty($databaseUrl)) {
+    $parsed = parse_url($databaseUrl);
+    if (!empty($parsed['host'])) {
+        $dbConfig['host'] = $parsed['host'];
+        $dbConfig['port'] = (string)($parsed['port'] ?? 5432);
+        $dbConfig['user'] = urldecode($parsed['user'] ?? '');
+        $dbConfig['pass'] = urldecode($parsed['pass'] ?? '');
+        $dbConfig['dbname'] = ltrim($parsed['path'] ?? '', '/');
+        $dbConfig['sslmode'] = 'require';
+        if (!empty($parsed['query'])) {
+            parse_str($parsed['query'], $queryParts);
+            if (!empty($queryParts['sslmode'])) {
+                $dbConfig['sslmode'] = $queryParts['sslmode'];
+            }
+        }
+    }
+}
 
 // Opções recomendadas do PDO
 $options = [
@@ -27,18 +49,21 @@ $options = [
 
 $pdo = null;
 
-// 2. Tentativa de conexão com PostgreSQL (se o driver pdo_pgsql estiver ativo)
+// 2. Tentativa de conexão com PostgreSQL / Aiven Cloud
 if (extension_loaded('pdo_pgsql')) {
     try {
-        $dsn = "pgsql:host={$dbConfig['host']};port={$dbConfig['port']};dbname={$dbConfig['dbname']}";
+        $sslParam = !empty($dbConfig['sslmode']) ? ";sslmode={$dbConfig['sslmode']}" : "";
+        $dsn = "pgsql:host={$dbConfig['host']};port={$dbConfig['port']};dbname={$dbConfig['dbname']}{$sslParam}";
         $pdo = new PDO($dsn, $dbConfig['user'], $dbConfig['pass'], $options);
     } catch (PDOException $e) {
-        // Se a porta 5050 falhar, tenta a porta padrão 5432
-        try {
-            $dsnPadrao = "pgsql:host={$dbConfig['host']};port=5432;dbname={$dbConfig['dbname']}";
-            $pdo = new PDO($dsnPadrao, $dbConfig['user'], $dbConfig['pass'], $options);
-        } catch (PDOException $ignored) {
-            // PostgreSQL indisponível no momento
+        // Se a porta 5050 falhar no localhost, tenta a porta padrão 5432
+        if (in_array($dbConfig['host'], ['127.0.0.1', 'localhost'], true)) {
+            try {
+                $dsnPadrao = "pgsql:host={$dbConfig['host']};port=5432;dbname={$dbConfig['dbname']}";
+                $pdo = new PDO($dsnPadrao, $dbConfig['user'], $dbConfig['pass'], $options);
+            } catch (PDOException $ignored) {
+                // PostgreSQL indisponível no momento
+            }
         }
     }
 }
@@ -72,6 +97,9 @@ if ($driver === 'pgsql') {
             nome TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
             idade INTEGER,
+            data_nascimento TEXT,
+            ano_nascimento INTEGER,
+            cargo TEXT,
             senha_hash TEXT NOT NULL,
             matricula TEXT UNIQUE,
             telefone TEXT,
@@ -157,6 +185,9 @@ if ($driver === 'pgsql') {
         'telefone' => 'TEXT',
         'papel' => "TEXT DEFAULT 'funcionario'",
         'idade' => 'INTEGER',
+        'data_nascimento' => 'TEXT',
+        'ano_nascimento' => 'INTEGER',
+        'cargo' => 'TEXT',
         'informacao_problema' => 'TEXT',
         'foto_perfil' => 'TEXT'
     ];

@@ -2611,6 +2611,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function () {
 
+                if (!podeAdicionarEquipamento()) {
+                    alert("Apenas Supervisores e Gerentes possuem permissão para cadastrar novos equipamentos.");
+                    return;
+                }
+
                 /*
                     Atualiza as áreas antes
                     de abrir o formulário.
@@ -2688,6 +2693,11 @@ document.addEventListener("DOMContentLoaded", function () {
             ) {
 
                 event.preventDefault();
+
+                if (!podeAdicionarEquipamento()) {
+                    alert("Apenas Supervisores e Gerentes possuem permissão para cadastrar novos equipamentos.");
+                    return;
+                }
 
 
                 const patrimonio =
@@ -3230,6 +3240,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             perfil
         );
+
+        /* Regra de Permissão: apenas Supervisor e Gerente podem adicionar equipamentos */
+        if (btnNovoEquipamento) {
+            btnNovoEquipamento.style.display = podeAdicionarEquipamento() ? "" : "none";
+        }
+    }
+
+    function podeAdicionarEquipamento() {
+        const perfil = obterPerfil();
+        const cargo = String(perfil.cargo || perfil.funcao || perfil.perfil || perfil.papel || "").toLowerCase();
+        return cargo.includes("supervisor") || cargo.includes("gerente");
     }
 
 
