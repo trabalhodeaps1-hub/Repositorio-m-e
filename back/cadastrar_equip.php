@@ -1,4 +1,3 @@
-//cadastro de equipamentos
 <?php
 // Cadastro de equipamentos
 require_once __DIR__ . '/../config/bootstrap.php';

@@ -52,7 +52,7 @@ if ($dataNascimento !== '') {
 }
 
 $senha = (string) ($data['senha'] ?? '');
-$confirmaSenha = (string) ($data['confirmar_senha'] ?? $data['confirma_senha'] ?? '');
+$confirmaSenha = (string) ($data['confirmar_senha'] ?? ($data['confirma_senha'] ?? ($data['confirmarSenha'] ?? '')));
 $telefone = text_value($data, 'telefone', 30);
 
 // Captura a descrição do problema aceitando múltiplos nomes possíveis de input
@@ -94,10 +94,12 @@ if ($confirmaSenha !== '' && $senha !== $confirmaSenha) {
     ], 422);
 }
 
-// 3. Validação de idade e data de nascimento (obrigatório para cadastro normal)
+// 3. Validação de idade e cargo (obrigatório caso não seja formulário por matrícula)
+$matricula = text_value($data, 'matricula', 40);
+$isFormMatricula = ($matricula !== '');
 $isRelatoAvulso = ($problema !== '' && ($nome === 'Relato Técnico' || strpos($email, 'relato@') !== false));
 
-if (!$isRelatoAvulso) {
+if (!$isRelatoAvulso && !$isFormMatricula) {
     if ($dataNascimento === '' || $idade === null) {
         json_response([
             'success' => false,
@@ -132,17 +134,21 @@ try {
         ], 409);
     }
 
-    // 5. Gera matrícula caso não informada e insere na tabela usuarios
-    $matricula = text_value($data, 'matricula', 40);
+    // 5. Configuração da matrícula e do papel (papel por prefixo ou por cargo)
     if ($matricula === '') {
         $matricula = 'AM-' . str_pad((string) rand(1000, 99999), 5, '0', STR_PAD_LEFT);
     }
 
+    $prefixo = strtolower(substr($matricula, 0, 1));
     $papel = 'funcionario';
-    if ($cargo === 'Supervisor') {
+    if ($cargo === 'Supervisor' || $prefixo === 's') {
         $papel = 'supervisor';
-    } elseif ($cargo === 'Gerente') {
+        if ($cargo === '') $cargo = 'Supervisor';
+    } elseif ($cargo === 'Gerente' || $prefixo === 'g') {
         $papel = 'gerente';
+        if ($cargo === '') $cargo = 'Gerente';
+    } elseif ($cargo === '') {
+        $cargo = 'Técnico de Manutenção';
     }
 
     $stmtUser = $pdo->prepare('
@@ -204,7 +210,7 @@ try {
     if (in_array($e->getCode(), ['23000', '23505', '19'], true) || strpos($e->getMessage(), 'UNIQUE') !== false) {
         json_response([
             'success' => false,
-            'message' => 'Este e-mail já está cadastrado no sistema.'
+            'message' => 'Este e-mail ou matrícula já está cadastrado no sistema.'
         ], 409);
     }
 

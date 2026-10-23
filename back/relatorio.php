@@ -7,20 +7,20 @@ $userId = require_login();
 // 1. CONSULTA DE RELATÓRIOS (GET)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
-        $sql = '
+        $sql = "
             SELECT r.*, 
                    COALESCE(i.realizada_em, r.criado_em) AS realizada_em,
-                   COALESCE(i.numero_perimetro, "N/A") AS numero_perimetro,
-                   COALESCE(e.nome, "Equipamento Geral") AS equipamento_nome,
-                   COALESCE(a.nome, "Área Geral") AS area_nome,
-                   COALESCE(u.nome, "Usuário do Sistema") AS autor_nome
+                   COALESCE(i.numero_perimetro, 'N/A') AS numero_perimetro,
+                   COALESCE(e.nome, 'Equipamento Geral') AS equipamento_nome,
+                   COALESCE(a.nome, 'Área Geral') AS area_nome,
+                   COALESCE(u.nome, 'Usuário do Sistema') AS autor_nome
             FROM relatorios r
             LEFT JOIN inspecoes i ON i.id = r.inspecao_id
             LEFT JOIN equipamentos e ON e.id = i.equipamento_id
             LEFT JOIN areas a ON a.id = i.area_id
             LEFT JOIN usuarios u ON u.id = r.criado_por
             ORDER BY r.id DESC
-        ';
+        ";
 
         $stmt = $pdo->query($sql);
 
@@ -146,16 +146,16 @@ if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
     }
 
     try {
-        $stmt = $pdo->prepare('
+        $stmt = $pdo->prepare("
             UPDATE relatorios
-            SET status = "aprovado",
+            SET status = 'aprovado',
                 o_que_foi_feito = :oque,
                 como_foi_feito = :como,
                 foto_comprovante = :foto,
                 aprovado_em = CURRENT_TIMESTAMP,
                 aprovado_por = :user
             WHERE id = :id
-        ');
+        ");
 
         $stmt->execute([
             'oque' => $oQueFoiFeito,
@@ -166,11 +166,11 @@ if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
         ]);
 
         // Atualiza a inspeção correspondente para concluída
-        $stmtInsp = $pdo->prepare('
+        $stmtInsp = $pdo->prepare("
             UPDATE inspecoes 
-            SET status = "concluida" 
+            SET status = 'concluida' 
             WHERE id = (SELECT inspecao_id FROM relatorios WHERE id = :id)
-        ');
+        ");
         $stmtInsp->execute(['id' => $id]);
 
         json_response([
@@ -210,12 +210,12 @@ if ($action === 'editar' || $action === 'atualizar') {
         $resumo = text_value($data, 'resumo', 5000) ?: text_value($data, 'descricao_tecnica', 5000);
         $recomendacoes = text_value($data, 'recomendacoes', 5000);
 
-        $stmtUp = $pdo->prepare('
+        $stmtUp = $pdo->prepare("
             UPDATE relatorios 
             SET descricao_tecnica = COALESCE(:descricao, descricao_tecnica),
                 recomendacoes = COALESCE(:rec, recomendacoes)
-            WHERE id = :id AND status != "aprovado"
-        ');
+            WHERE id = :id AND status != 'aprovado'
+        ");
         $stmtUp->execute([
             'descricao' => $resumo !== '' ? $resumo : null,
             'rec'       => $recomendacoes !== '' ? $recomendacoes : null,
@@ -268,14 +268,14 @@ try {
         $inspecaoId = (int) $stmtUltima->fetchColumn() ?: null;
     }
 
-    $stmt = $pdo->prepare('
+    $stmt = $pdo->prepare("
         INSERT INTO relatorios
         (inspecao_id, titulo_item, local_exato, descricao_tecnica,
          criticidade, prioridade, recomendacoes, fotografia, status, criado_por)
         VALUES
         (:inspecao, :titulo, :local, :descricao,
-         :criticidade, :prioridade, :recomendacoes, :foto, "aguardando_aprovacao", :user)
-    ');
+         :criticidade, :prioridade, :recomendacoes, :foto, 'aguardando_aprovacao', :user)
+    ");
 
     $stmt->execute([
         'inspecao'      => $inspecaoId,

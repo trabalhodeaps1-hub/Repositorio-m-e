@@ -2,7 +2,7 @@
 // Configuração e inicialização do sistema (Bootstrap)
 
 // 1. Inicia sessão de forma segura (sem gerar warning se já estiver ativa ou headers enviados)
-if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+if (php_sapi_name() !== 'cli' && session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 

@@ -54,22 +54,3 @@ try {
         'counts' => $counts
     ], 500);
 }
-
-    // 5. Métricas gerais adicionais para enriquecer o painel
-    $counts['total_usuarios'] = (int) $pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn();
-    $counts['total_equipamentos'] = (int) $pdo->query('SELECT COUNT(*) FROM equipamentos')->fetchColumn();
-    $counts['total_areas'] = (int) $pdo->query('SELECT COUNT(*) FROM areas')->fetchColumn();
-
-    json_response([
-        'success' => true,
-        'counts' => $counts
-    ]);
-
-} catch (PDOException $e) {
-    json_response([
-        'success' => false,
-        'message' => 'Erro ao carregar dados do dashboard: ' . $e->getMessage(),
-        'counts' => $counts
-    ], 500);
-}
-

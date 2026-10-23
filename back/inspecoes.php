@@ -6,17 +6,17 @@ $userId = require_login();
 
 // 1. Consulta das inspeções (GET)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $pdo->prepare('
+    $stmt = $pdo->prepare("
         SELECT i.*, 
-               COALESCE(a.nome, "Área não identificada") AS area_nome,
-               COALESCE(e.nome, "Equipamento não identificado") AS equipamento_nome,
-               COALESCE(e.numero_patrimonio, "S/N") AS numero_patrimonio
+               COALESCE(a.nome, 'Área não identificada') AS area_nome,
+               COALESCE(e.nome, 'Equipamento não identificado') AS equipamento_nome,
+               COALESCE(e.numero_patrimonio, 'S/N') AS numero_patrimonio
         FROM inspecoes i
         LEFT JOIN areas a ON a.id = i.area_id
         LEFT JOIN equipamentos e ON e.id = i.equipamento_id
         WHERE i.realizada_por = :id
         ORDER BY i.id DESC
-    ');
+    ");
 
     $stmt->execute(['id' => $userId]);
 
@@ -69,12 +69,12 @@ if (!$areaId || !$equipamentoId || $perimetro === '' || $localizacao === '' || $
 }
 
 try {
-    $stmt = $pdo->prepare('
+    $stmt = $pdo->prepare("
         INSERT INTO inspecoes
         (realizada_em, area_id, equipamento_id, numero_perimetro, localizacao, objetivo, observacoes, realizada_por, status)
         VALUES
-        (:data, :area, :equipamento, :perimetro, :local, :objetivo, :observacoes, :user, "concluida")
-    ');
+        (:data, :area, :equipamento, :perimetro, :local, :objetivo, :observacoes, :user, 'concluida')
+    ");
 
     $stmt->execute([
         'data'        => $dataHora->format('Y-m-d H:i:s'),
