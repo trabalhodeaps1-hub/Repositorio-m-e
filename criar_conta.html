@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRelatório - Criar Conta</title>
+    <link rel="stylesheet" href="css/criar_conta.css">
+</head>
+<body>
+
+    <!-- LADO ESQUERDO: APRESENTAÇÃO E INDICADORES -->
+    <aside class="LadoEsquerdo">
+        <div class="cabecalho-logo">
+            <div class="icone-logo">◆</div>
+            <div class="logo">
+                <strong>AutoRelatório</strong>
+                <span>INDUSTRIAL</span>
+            </div>
+        </div>
+
+        <p class="empresa">ARCELORMITTAL BRASIL</p>
+
+        <h1>Inspeções <br><span>sem papel.</span> <br>Relatórios automáticos.</h1>
+
+        <p class="descricao">
+            Cadastre seu usuário, relate problemas técnicos e acompanhe o status de inspeções e relatórios industriais em tempo real.
+        </p>
+
+        <div class="indicadores">
+            <div class="indicador">
+                <div class="linha"></div>
+                <strong>1.240</strong>
+                <span>Inspeções realizadas</span>
+            </div>
+            <div class="indicador">
+                <div class="linha"></div>
+                <strong>98%</strong>
+                <span>Relatórios no prazo</span>
+            </div>
+            <div class="indicador">
+                <div class="linha"></div>
+                <strong>4 plantas</strong>
+                <span>Unidades conectadas</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- LADO DIREITO: FORMULÁRIO DE CADASTRO -->
+    <main class="LadoDireito">
+        <div class="conteudo-cadastro">
+            <div class="titulo-cadastro">
+                <h2>Crie sua conta</h2>
+                <p>Preencha seus dados para acessar o sistema corporativo</p>
+            </div>
+
+            <!-- MENSAGENS DE FEEDBACK -->
+            <div id="alertaErro" class="alerta alerta-erro" style="display: none;"></div>
+            <div id="alertaSucesso" class="alerta alerta-sucesso" style="display: none;"></div>
+
+            <form id="formCadastro">
+                <div class="campo">
+                    <label for="nome">Nome Completo <span>*</span></label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex.: Kauã Xavier" required>
+                </div>
+
+                <div class="linha-formulario">
+                    <div class="campo">
+                        <label for="dataNascimento">Data de Nascimento <span>*</span></label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cargo">Cargo / Função <span>*</span></label>
+                        <select id="cargo" name="cargo" required>
+                            <option value="" disabled selected>Selecione seu cargo</option>
+                            <option value="Operador de Máquina">Operador de Máquina</option>
+                            <option value="Técnico de Manutenção">Técnico de Manutenção</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Gerente">Gerente</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="linha-formulario">
+                    <div class="campo">
+                        <label for="telefone">Telefone / Ramal</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">E-mail Corporativo <span>*</span></label>
+                        <input type="email" id="email" name="email" placeholder="usuario@arcelormittal.com.br" required>
+                    </div>
+                </div>
+
+                <div class="linha-formulario">
+                    <div class="campo">
+                        <label for="senha">Senha <span>*</span></label>
+                        <input type="password" id="senha" name="senha" placeholder="Mínimo 6 dígitos" minlength="6" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="confirmarSenha">Confirmar Senha <span>*</span></label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Repita a senha" minlength="6" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnCriar">Criar Conta</button>
+            </form>
+
+            <p class="fazer-login">
+                Já tem uma conta? <a href="pagina_inicial.html">Fazer login</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="back/integracao.js"></script>
+</body>
+</html>
+
