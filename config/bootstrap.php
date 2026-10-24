@@ -11,7 +11,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-// 3. Conexão centralizada com o Banco de Dados (PostgreSQL com fallback automático para SQLite)
+// 3. Conexão centralizada com o Banco de Dados (PostgreSQL Primário com fallback SQLite)
 if (file_exists(__DIR__ . '/../back/database.php')) {
     require_once __DIR__ . '/../back/database.php';
 } else {
@@ -25,6 +25,7 @@ if (file_exists(__DIR__ . '/../back/database.php')) {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ]);
+        $dbDriver = 'sqlite';
     } catch (PDOException $e) {
         http_response_code(500);
         header('Content-Type: application/json; charset=utf-8');
@@ -99,6 +100,25 @@ if (!function_exists('text_value')) {
             $val = function_exists('mb_substr') ? mb_substr($val, 0, $maxLength) : substr($val, 0, $maxLength);
         }
         return $val;
+    }
+}
+
+/**
+ * Retorna o ID gerado na última inserção compatível com PostgreSQL (sequences) e SQLite
+ */
+if (!function_exists('db_last_insert_id')) {
+    function db_last_insert_id(PDO $pdo, string $table = 'usuarios', string $column = 'id'): int {
+        global $dbDriver;
+        if (($dbDriver ?? '') === 'pgsql') {
+            try {
+                $seq = "{$table}_{$column}_seq";
+                $id = $pdo->lastInsertId($seq);
+                if ($id) {
+                    return (int) $id;
+                }
+            } catch (Exception $e) {}
+        }
+        return (int) $pdo->lastInsertId();
     }
 }
 

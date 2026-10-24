@@ -48,7 +48,7 @@ try {
     json_response([
         'success' => true,
         'message' => 'Área cadastrada com sucesso!',
-        'id' => (int) $pdo->lastInsertId()
+        'id' => db_last_insert_id($pdo, 'areas')
     ], 201);
 
 } catch (PDOException $e) {

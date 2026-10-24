@@ -70,19 +70,21 @@ try {
         (:patrimonio, :nome, :area, :local, :status, :user)'
     );
 
+    $statusParam = (($dbDriver ?? '') === 'pgsql') ? ($status ? 'true' : 'false') : ($status ? 1 : 0);
+
     $stmt->execute([
         'patrimonio' => $patrimonio,
         'nome' => $nome,
         'area' => $areaId,
         'local' => $localizacao,
-        'status' => $status ? 1 : 0,
+        'status' => $statusParam,
         'user' => $userId
     ]);
 
     json_response([
         'success' => true,
         'message' => 'Equipamento cadastrado!',
-        'id' => (int) $pdo->lastInsertId()
+        'id' => db_last_insert_id($pdo, 'equipamentos')
     ], 201);
 
 } catch (PDOException $e) {

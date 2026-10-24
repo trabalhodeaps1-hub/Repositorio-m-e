@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 // =============================================================================
-// Diagnóstico do Armazenamento Local - AutoRelatório Industrial
+// Diagnóstico do Banco de Dados - AutoRelatório Industrial
 // Acesse via navegador: http://localhost/trabalho/Repositorio-m-e/back/teste_conexao.php
 // =============================================================================
 
@@ -33,55 +33,71 @@ function linha(string $rotulo, string $status, string $tipo = 'ok'): void {
 
 if (!$isCli) {
     header('Content-Type: text/html; charset=utf-8');
-    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Armazenamento Local - AutoRelatório</title>";
-    echo "<style>body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; padding: 30px; color: #1e293b;} .card{background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); max-width: 700px; margin: 0 auto;} h2{margin-top:0; color:#0f172a;} pre{background:#f1f5f9; padding:12px; border-radius:6px; overflow-x:auto;} .dica{background:#eff6ff; border-left:4px solid #3b82f6; padding:12px; margin-top:16px; border-radius:0 6px 6px 0;}</style></head><body><div class='card'>";
-    echo "<h2>📂 Armazenamento Local Ativo (SQLite)</h2>";
-    echo "<p>Status do banco de dados em arquivo local no projeto:</p>";
-    echo "<ul style='list-style: none; padding-left: 0;'>";
+    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Status do Banco de Dados - AutoRelatório</title>";
+    echo "<style>
+        body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; padding: 30px; color: #1e293b;}
+        .card{background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); max-width: 760px; margin: 0 auto;}
+        h2{margin-top:0; color:#0f172a;}
+        ul{list-style: none; padding-left: 0;}
+        .badge{display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 13px; font-weight: 600;}
+        .badge-pg{background: #dbeafe; color: #1e40af;}
+        .badge-sql{background: #fef3c7; color: #92400e;}
+        .dica{background:#eff6ff; border-left:4px solid #3b82f6; padding:14px; margin-top:20px; border-radius:0 8px 8px 0; font-size: 14px; line-height: 1.5;}
+        .btn{display: inline-block; background: #2563eb; color: #fff; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; margin-top: 14px;}
+    </style></head><body><div class='card'>";
+    
+    $badgeClass = ($dbDriver === 'pgsql') ? 'badge-pg' : 'badge-sql';
+    $driverNome = ($dbDriver === 'pgsql') ? '🐘 PostgreSQL Local (Ativo)' : '📁 SQLite Local (Fallback Ativo)';
+    echo "<h2>Status do Banco de Dados <span class='badge {$badgeClass}'>{$driverNome}</span></h2>";
+    echo "<p>Diagnóstico da conexão e persistência de dados do sistema:</p>";
+    echo "<ul>";
 }
 
-// 1. Informações do banco local
-$dbFile = realpath(__DIR__ . '/../database/app.sqlite');
-linha('Tipo de Armazenamento', 'Banco de Dados Local (SQLite)');
-if ($dbFile && file_exists($dbFile)) {
-    $tamanhoKB = round(filesize($dbFile) / 1024, 2);
-    linha('Arquivo Local', $dbFile, 'ok');
-    linha('Tamanho do Banco', "{$tamanhoKB} KB", 'ok');
-} else {
-    linha('Arquivo Local', 'Não localizado!', 'erro');
+// 1. Informações do Driver Ativo
+linha('Driver em Uso', ($dbDriver === 'pgsql' ? 'PostgreSQL' : 'SQLite Local'), 'ok');
+linha('Status da Conexão', $dbStatusMessage, ($dbDriver === 'pgsql' ? 'ok' : 'alerta'));
+
+// 2. Extensão PHP pdo_pgsql
+$temExtPgsql = extension_loaded('pdo_pgsql');
+linha('Extensão pdo_pgsql no PHP', $temExtPgsql ? 'Habilitada no XAMPP' : 'Não detectada', $temExtPgsql ? 'ok' : 'alerta');
+
+// 3. Contagem de Registros nas Tabelas Principais
+$tabelas = ['usuarios', 'areas', 'equipamentos', 'inspecoes', 'relatorios', 'problemas', 'notificacoes'];
+foreach ($tabelas as $tab) {
+    try {
+        $count = (int) $pdo->query("SELECT COUNT(*) FROM {$tab}")->fetchColumn();
+        linha("Tabela '{$tab}'", "{$count} registro(s) encontrado(s)", 'ok');
+    } catch (PDOException $e) {
+        linha("Tabela '{$tab}'", "Erro ao consultar: " . $e->getMessage(), 'erro');
+    }
 }
 
-// 2. Pasta de Uploads de Imagens
+// 4. Pasta de Uploads
 $uploadsDir = realpath(__DIR__ . '/../uploads');
 if ($uploadsDir && is_dir($uploadsDir)) {
-    linha('Armazenamento de Imagens', $uploadsDir, 'ok');
+    linha('Pasta de Fotos (/uploads)', $uploadsDir, 'ok');
 } else {
-    linha('Armazenamento de Imagens', 'Pasta criada automaticamente', 'alerta');
-}
-
-// 3. Contagem de Registros
-try {
-    $totalUsers = (int) $pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn();
-    $totalAreas = (int) $pdo->query('SELECT COUNT(*) FROM areas')->fetchColumn();
-    $totalEquip = (int) $pdo->query('SELECT COUNT(*) FROM equipamentos')->fetchColumn();
-    $totalInsp  = (int) $pdo->query('SELECT COUNT(*) FROM inspecoes')->fetchColumn();
-    $totalRelat = (int) $pdo->query('SELECT COUNT(*) FROM relatorios')->fetchColumn();
-
-    linha('Usuários Cadastrados', (string)$totalUsers, 'ok');
-    linha('Áreas Industriais', (string)$totalAreas, 'ok');
-    linha('Equipamentos Registrados', (string)$totalEquip, 'ok');
-    linha('Inspeções Realizadas', (string)$totalInsp, 'ok');
-    linha('Relatórios Técnicos', (string)$totalRelat, 'ok');
-
-} catch (Exception $e) {
-    linha('Consulta às Tabelas', 'Erro: ' . $e->getMessage(), 'erro');
+    linha('Pasta de Fotos (/uploads)', 'Pasta ausente (será criada no primeiro envio)', 'alerta');
 }
 
 if (!$isCli) {
     echo "</ul>";
-    echo "<div class='dica' style='background:#f0fdf4; border-color:#22c55e; color:#15803d;'>";
-    echo "🎉 <strong>Armazenamento Local Operando com Sucesso!</strong><br>";
-    echo "O sistema não depende de servidores externos e funcionará em qualquer computador.";
-    echo "</div>";
+    
+    if ($dbDriver !== 'pgsql') {
+        echo "<div class='dica'>";
+        echo "<strong>💡 Como ativar o PostgreSQL 18 local:</strong><br>";
+        echo "1. No Windows, abra o menu Iniciar e pesquise por <code>Serviços</code> (ou execute <code>services.msc</code>).<br>";
+        echo "2. Procure o serviço <strong>postgresql-x64-18</strong>, clique com o botão direito e selecione <strong>Iniciar</strong>.<br>";
+        echo "3. Você também pode rodar o arquivo <code>iniciar_postgresql.bat</code> na raiz do projeto como Administrador.<br>";
+        echo "4. Recarregue esta página. O sistema se conectará automaticamente e criará o banco <code>autorelatorio</code>!";
+        echo "</div>";
+    } else {
+        echo "<div class='dica' style='background: #f0fdf4; border-left-color: #22c55e;'>";
+        echo "<strong>✅ Tudo certo com o PostgreSQL!</strong><br>";
+        echo "Todas as alterações, cadastros de inspeções, laudos e fotos agora são gravados diretamente no banco de dados PostgreSQL no seu computador.";
+        echo "</div>";
+    }
+
+    echo "<p><a href='../pagina_inicial.html' class='btn'>Voltar para o Sistema</a></p>";
     echo "</div></body></html>";
 }

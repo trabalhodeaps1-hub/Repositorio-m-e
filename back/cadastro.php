@@ -170,7 +170,7 @@ try {
         'problema' => $problema !== '' ? $problema : null
     ]);
 
-    $usuarioId = (int) $pdo->lastInsertId();
+    $usuarioId = db_last_insert_id($pdo, 'usuarios');
 
     // 6. Se houver descrição do problema, registra também na tabela de problemas
     if ($problema !== '') {

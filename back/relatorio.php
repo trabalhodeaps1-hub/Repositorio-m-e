@@ -244,7 +244,7 @@ $descricao = text_value($data, 'descricao_tecnica', 5000) ?: (text_value($data, 
 $criticidade = strtolower(text_value($data, 'criticidade', 30)) ?: 'media';
 $prioridade  = strtolower(text_value($data, 'prioridade', 30)) ?: 'media';
 $recomendacoes = text_value($data, 'recomendacoes', 5000) ?: 'Avaliação técnica recomendada.';
-$foto = text_value($data, 'fotografia', 500) ?: text_value($data, 'foto', 500);
+$foto = text_value($data, 'fotografia', 15000000) ?: text_value($data, 'foto', 15000000);
 
 if ($titulo === '' || $descricao === '') {
     json_response([
@@ -289,7 +289,7 @@ try {
         'user'          => $userId
     ]);
 
-    $relatorioId = (int) $pdo->lastInsertId();
+    $relatorioId = db_last_insert_id($pdo, 'relatorios');
 
     json_response([
         'success'      => true,

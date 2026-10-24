@@ -87,7 +87,7 @@ try {
         'user'        => $userId
     ]);
 
-    $inspecaoId = (int) $pdo->lastInsertId();
+    $inspecaoId = db_last_insert_id($pdo, 'inspecoes');
 
     json_response([
         'success'     => true,
