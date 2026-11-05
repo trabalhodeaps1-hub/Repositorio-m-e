@@ -7369,7 +7369,17 @@ document.addEventListener("DOMContentLoaded", function () {
                automaticamente o relatório.
         */
 
-        abrirRelatorioAtual();
+        const abriu = abrirRelatorioAtual();
+        const acaoDashboard = paramsUrl.get("acao");
+        if (abriu && (acaoDashboard === "editar" || acaoDashboard === "aprovar" || acaoDashboard === "excluir")) {
+            const botao = acaoDashboard === "editar" ? btnEditar : acaoDashboard === "excluir" ? btnExcluirRegistro : btnResolverPendencia;
+            if (botao && !botao.classList.contains("oculto") && botao.style.display !== "none") {
+                botao.click();
+            }
+        }
+        if (acaoDashboard) {
+            window.history.replaceState(null, "", window.location.pathname);
+        }
     }
 
 

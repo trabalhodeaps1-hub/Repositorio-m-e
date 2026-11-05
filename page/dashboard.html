@@ -1799,10 +1799,10 @@
                         <thead>
 
                             <tr>
+                                <th>Inspeção / título</th>
                                 <th>Data</th>
-                                <th>Área</th>
-                                <th>Equipamento</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
 
                         </thead>
@@ -1885,6 +1885,14 @@
          JAVASCRIPT
     ========================================================== -->
 
+    <style>
+        .acoes-inspecao { display:flex; flex-wrap:wrap; gap:6px; min-width:175px; }
+        .acao-inspecao { padding:7px 10px; border:1px solid #d6dee8; border-radius:6px; background:#fff; cursor:pointer; color:#223047; font-size:12px; }
+        .acao-inspecao[data-acao="aprovar"] { background:#059669; color:white; border-color:#059669; }
+        .acao-inspecao[data-acao="excluir"] { background:#fff1f2; color:#b91c1c; border-color:#fecdd3; }
+        .detalhe-problema { margin-top:4px; font-size:12px; color:#4b5563; }
+        .acao-inspecao:hover { filter:brightness(.94); }
+    </style>
     <script>
 
         document.addEventListener(
@@ -3908,69 +3916,40 @@
                                 );
 
 
+                            const statusAtual = String(inspecao.resolucao ? "Aprovado" : (inspecao.statusRelatorio || (inspecao.statusAprovacao === "Aprovado" ? "Aprovado" : inspecao.situacao === "Concluída" ? "Pendente de aprovação" : "Em elaboração")));
+                            const statusNormalizado = statusAtual.toLowerCase();
+                            const aprovado = Boolean(inspecao.resolucao) || statusNormalizado.includes("aprovad") && !statusNormalizado.includes("pendente");
+                            const devolvido = statusNormalizado.includes("devolv") || statusNormalizado.includes("recus");
+                            const emElaboracao = statusNormalizado.includes("elabora") || statusNormalizado.includes("elabor a");
+                            const podeAgir = !aprovado && !emElaboracao && temProblema;
+                            const perfilAtual = obterPerfil();
+                            const papel = [perfilAtual.funcao, perfilAtual.perfil].join(" ").toLowerCase();
+                            const podeGerenciar = papel.includes("gerente") || papel.includes("supervisor");
+                            const codigo = inspecao.codigo || inspecao.codigoInspecao || ("INS-" + String(inspecao.id || "").padStart(4, "0"));
+                            const equipamento = inspecao.equipamento || "Equipamento não informado";
+                            const titulosProblemas = itens.map(function (item) {
+                                return typeof item === "string" ? item : (item.titulo || item.tituloProblema || item.nome || "");
+                            }).filter(Boolean);
+                            const tituloProblema = titulosProblemas.length ? titulosProblemas.join(" · ") : "Nenhum problema registrado";
+                            const botao = (rotulo, acao) => `<button type="button" data-acao="${acao}" class="acao-inspecao">${rotulo}</button>`;
                             linha.innerHTML = `
-
-                                <td>
-
-                                    ${escaparHTML(
-                                        formatarData(
-                                            inspecao.data
-                                        )
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${escaparHTML(
-                                        inspecao.area ||
-                                        "-"
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${escaparHTML(
-                                        inspecao.equipamento ||
-                                        "-"
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    <span
-                                        class="
-                                            status
-                                            ${
-                                                temProblema
-                                                    ? "status-problema"
-                                                    : "status-ok"
-                                            }
-                                        "
-                                    >
-
-                                        ${
-                                            temProblema
-                                                ? itens.length +
-                                                  (
-                                                    itens.length === 1
-                                                        ? " item"
-                                                        : " itens"
-                                                  )
-                                                : "Sem ocorrência"
-                                        }
-
-                                    </span>
-
-                                </td>
-
-                            `;
-
+                                <td><strong>${escaparHTML(equipamento)}</strong><div>${escaparHTML(codigo)}</div><div class="detalhe-problema">Problema: ${escaparHTML(tituloProblema)}</div><small>${escaparHTML(inspecao.area || "")}</small></td>
+                                <td>${escaparHTML(formatarData(inspecao.data))}</td>
+                                <td><span class="status ${aprovado ? "status-ok" : "status-problema"}">${escaparHTML(aprovado ? "Aprovado" : devolvido ? "Devolvido para edição" : statusAtual)}</span></td>
+                                <td><div class="acoes-inspecao">
+                                    ${podeGerenciar && podeAgir ? botao("Aprovar", "aprovar") : ""}
+                                    ${podeGerenciar && podeAgir ? botao("Editar", "editar") : ""}
+                                    ${podeGerenciar && podeAgir ? botao("Excluir", "excluir") : ""}
+                                </div></td>`;
+                            linha.querySelectorAll("button[data-acao]").forEach(function (botaoAcao) {
+                                botaoAcao.addEventListener("click", function () {
+                                    if (!podeGerenciar || !podeAgir) return;
+                                    const acao = botaoAcao.dataset.acao;
+                                    localStorage.setItem("relatorioAtualId", String(inspecao.id));
+                                    // Reutiliza as ações e confirmações da tela de relatórios.
+                                    window.location.href = "relatorios.html?acao=" + encodeURIComponent(acao);
+                                });
+                            });
 
                             tbody.appendChild(
                                 linha
