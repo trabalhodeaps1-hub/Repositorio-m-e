@@ -19,10 +19,10 @@ try {
 
         // Se o usuário não tiver notificações, insere uma de boas-vindas do sistema
         if (empty($notificacoes)) {
-            $stmtBoasVindas = $pdo->prepare('
+            $stmtBoasVindas = $pdo->prepare("
                 INSERT INTO notificacoes (usuario_id, mensagem, lida, link)
-                VALUES (:id, "Bem-vindo ao Sistema! Seu cadastro está ativo.", 0, "dashboard.html")
-            ');
+                VALUES (:id, 'Bem-vindo ao Sistema! Seu cadastro está ativo.', false, 'dashboard.html')
+            ");
             $stmtBoasVindas->execute(['id' => $userId]);
 
             $stmt->execute(['id' => $userId]);
@@ -32,7 +32,7 @@ try {
         // Conta quantas notificações não foram lidas
         $stmtNaoLidas = $pdo->prepare('
             SELECT COUNT(*) FROM notificacoes 
-            WHERE usuario_id = :id AND (lida = 0 OR lida IS FALSE)
+            WHERE usuario_id = :id AND (lida = false OR lida = 0 OR lida IS NULL)
         ');
         $stmtNaoLidas->execute(['id' => $userId]);
         $totalNaoLidas = (int) $stmtNaoLidas->fetchColumn();
@@ -54,7 +54,7 @@ try {
         $notificacaoId = filter_var($data['notificacao_id'] ?? null, FILTER_VALIDATE_INT);
         if ($notificacaoId) {
             $stmtUpdate = $pdo->prepare('
-                UPDATE notificacoes SET lida = 1 
+                UPDATE notificacoes SET lida = true 
                 WHERE id = :id AND usuario_id = :user_id
             ');
             $stmtUpdate->execute(['id' => $notificacaoId, 'user_id' => $userId]);
@@ -69,7 +69,7 @@ try {
     // Marcar todas as notificações como lidas
     if ($acao === 'marcar_todas' || $acao === 'marcar_todas_lidas') {
         $stmtUpdateTodas = $pdo->prepare('
-            UPDATE notificacoes SET lida = 1 
+            UPDATE notificacoes SET lida = true 
             WHERE usuario_id = :user_id
         ');
         $stmtUpdateTodas->execute(['user_id' => $userId]);

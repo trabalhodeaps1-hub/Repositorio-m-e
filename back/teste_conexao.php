@@ -62,7 +62,7 @@ $temExtPgsql = extension_loaded('pdo_pgsql');
 linha('Extensão pdo_pgsql no PHP', $temExtPgsql ? 'Habilitada no XAMPP' : 'Não detectada', $temExtPgsql ? 'ok' : 'alerta');
 
 // 3. Contagem de Registros nas Tabelas Principais
-$tabelas = ['usuarios', 'areas', 'equipamentos', 'inspecoes', 'relatorios', 'problemas', 'notificacoes'];
+$tabelas = ['funcionarios', 'usuarios', 'areas', 'equipamentos', 'inspecoes', 'relatorios', 'problemas', 'notificacoes'];
 foreach ($tabelas as $tab) {
     try {
         $count = (int) $pdo->query("SELECT COUNT(*) FROM {$tab}")->fetchColumn();
@@ -72,7 +72,7 @@ foreach ($tabelas as $tab) {
     }
 }
 
-// 4. Pasta de Uploads
+// 4. Pasta de Fotos
 $uploadsDir = realpath(__DIR__ . '/../uploads');
 if ($uploadsDir && is_dir($uploadsDir)) {
     linha('Pasta de Fotos (/uploads)', $uploadsDir, 'ok');
@@ -97,7 +97,5 @@ if (!$isCli) {
         echo "Todas as alterações, cadastros de inspeções, laudos e fotos agora são gravados diretamente no banco de dados PostgreSQL no seu computador.";
         echo "</div>";
     }
-
-    echo "<p><a href='../pagina_inicial.html' class='btn'>Voltar para o Sistema</a></p>";
     echo "</div></body></html>";
 }

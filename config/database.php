@@ -3,25 +3,28 @@ declare(strict_types=1);
 
 /**
  * ====================================================================
- * CONFIGURAÇÃO DO BANCO DE DADOS LOCAL (POSTGRESQL PRIMÁRIO)
+ * CONFIGURAÇÃO ESTRITAMENTE LOCAL DO BANCO DE DADOS (SEM NUVEM / SEM ONLINE)
  * ====================================================================
- * Configurações para salvar todas as alterações diretamente no PostgreSQL
- * instalado no computador local (localhost:5432).
+ * Todos os dados, relatórios e fotos são armazenados 100% no computador local:
+ * 1. Primário: PostgreSQL Local (localhost:5432 - Banco: autorelatorio)
+ * 2. Fallback de Contingência: SQLite Local (database/app.sqlite)
+ * 3. Fotos e Anexos: Pasta física local (uploads/)
+ * ====================================================================
  */
 
 return [
-    // Driver preferencial: 'pgsql' (PostgreSQL) com fallback para 'sqlite' se o serviço estiver offline
-    'driver' => getenv('DB_DRIVER') ?: 'pgsql',
+    // Driver padrão local: PostgreSQL local (com fallback automático para SQLite se o serviço local estiver inativo)
+    'driver' => 'pgsql',
 
-    // Configurações do PostgreSQL Local
+    // Configurações exclusivas do PostgreSQL instalado neste computador
     'pgsql' => [
-        'host'     => getenv('DB_HOST') ?: '127.0.0.1',
-        'port'     => (int) (getenv('DB_PORT') ?: 5432),
-        'database' => getenv('DB_NAME') ?: 'autorelatorio',
-        'user'     => getenv('DB_USER') ?: 'postgres',
-        'password' => getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'jesus',
+        'host'     => '127.0.0.1',
+        'port'     => 5432,
+        'database' => 'autorelatorio',
+        'user'     => 'postgres',
+        'password' => 'jesus',
         
-        // Senhas testadas automaticamente caso a padrão precise de ajuste
+        // Senhas locais comuns testadas automaticamente caso a senha padrão precise de ajuste
         'alternative_passwords' => [
             'postgres',
             '123456',
@@ -32,7 +35,7 @@ return [
         ],
     ],
 
-    // Armazenamento de contingência em arquivo SQLite local
+    // Armazenamento local em arquivo SQLite no disco rígido
     'sqlite' => [
         'path' => __DIR__ . '/../database/app.sqlite',
     ]

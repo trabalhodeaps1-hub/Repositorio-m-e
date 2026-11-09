@@ -130,8 +130,31 @@ if (!function_exists('require_login')) {
         if (!empty($_SESSION['user_id'])) {
             return (int) $_SESSION['user_id'];
         }
-        // Retorna ID 1 padrão para ambiente de desenvolvimento se não houver sessão ativa
-        return 1;
+
+        // Suporte para header X-User-Matricula (testes automatizados e chamadas diretas)
+        if (!empty($_SERVER['HTTP_X_USER_MATRICULA'])) {
+            global $pdo;
+            if ($pdo) {
+                $stmt = $pdo->prepare('SELECT id, cargo, papel, matricula, nome FROM usuarios WHERE LOWER(matricula) = LOWER(:mat) LIMIT 1');
+                $stmt->execute(['mat' => trim($_SERVER['HTTP_X_USER_MATRICULA'])]);
+                $u = $stmt->fetch();
+                if ($u) {
+                    $_SESSION['user_id'] = (int)$u['id'];
+                    $_SESSION['user_nome'] = $u['nome'];
+                    $_SESSION['user_matricula'] = $u['matricula'];
+                    $_SESSION['user_cargo'] = $u['cargo'];
+                    $_SESSION['user_papel'] = $u['papel'];
+                    return (int)$u['id'];
+                }
+            }
+        }
+
+        if (!empty($_SERVER['HTTP_X_USER_ID'])) {
+            return (int)$_SERVER['HTTP_X_USER_ID'];
+        }
+
+        // Se não houver sessão ativa nem header, retorna 0 (não-autenticado)
+        return 0;
     }
 }
 
@@ -140,24 +163,51 @@ if (!function_exists('require_login')) {
  */
 if (!function_exists('current_user')) {
     function current_user(PDO $pdo): array {
+        // Suporte a header X-User-Matricula
+        if (!empty($_SERVER['HTTP_X_USER_MATRICULA'])) {
+            try {
+                $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE LOWER(matricula) = LOWER(:mat) LIMIT 1');
+                $stmt->execute(['mat' => trim($_SERVER['HTTP_X_USER_MATRICULA'])]);
+                $u = $stmt->fetch();
+                if ($u) {
+                    unset($u['senha_hash'], $u['senha']);
+                    return $u;
+                }
+            } catch (PDOException $ignored) {}
+        }
+
         $id = require_login();
 
-        try {
-            $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE id = :id LIMIT 1');
-            $stmt->execute(['id' => $id]);
-            $user = $stmt->fetch();
+        if ($id > 0) {
+            try {
+                $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE id = :id LIMIT 1');
+                $stmt->execute(['id' => $id]);
+                $user = $stmt->fetch();
 
-            if ($user) {
-                unset($user['senha_hash'], $user['senha']);
-                return $user;
-            }
-        } catch (PDOException $ignored) {}
+                if ($user) {
+                    unset($user['senha_hash'], $user['senha']);
+                    if (!empty($_SESSION['user_papel'])) {
+                        $user['papel'] = $_SESSION['user_papel'];
+                    }
+                    if (!empty($_SESSION['user_cargo'])) {
+                        $user['cargo'] = $_SESSION['user_cargo'];
+                    }
+                    if (!empty($_SESSION['user_matricula'])) {
+                        $user['matricula'] = $_SESSION['user_matricula'];
+                    }
+                    return $user;
+                }
+            } catch (PDOException $ignored) {}
+        }
 
-        // Se usuário padrão não existir no banco, entrega perfil de fallback para dev
+        // Se usuário não autenticado, retorna perfil restrito de operador sem privilégios de supervisor/gerente
         return [
-            'id'          => $id,
-            'nome'        => $_SESSION['user_nome'] ?? 'Usuário do Sistema',
-            'email'       => $_SESSION['user_email'] ?? 'usuario@sistema.local',
+            'id'          => 0,
+            'nome'        => $_SESSION['user_nome'] ?? 'Visitante Operador',
+            'email'       => $_SESSION['user_email'] ?? 'operador@sistema.local',
+            'matricula'   => $_SESSION['user_matricula'] ?? 'f000',
+            'cargo'       => $_SESSION['user_cargo'] ?? 'Operador de Campo',
+            'papel'       => $_SESSION['user_papel'] ?? 'funcionario',
             'idade'       => null,
             'foto_perfil' => null
         ];

@@ -100,6 +100,18 @@ if (extension_loaded('pdo_pgsql') && ($config['driver'] ?? 'pgsql') === 'pgsql')
 
             // B. Criação automática de tabelas PostgreSQL
             $pdo->exec("
+                -- 0. TABELA DE FUNCIONÁRIOS (REGISTRO PRÉVIO DA EMPRESA)
+                CREATE TABLE IF NOT EXISTS funcionarios (
+                    id BIGSERIAL PRIMARY KEY,
+                    matricula VARCHAR(40) NOT NULL UNIQUE,
+                    nome_completo VARCHAR(150) NOT NULL,
+                    data_nascimento VARCHAR(20) NOT NULL,
+                    cargo VARCHAR(80) NOT NULL,
+                    codigo_ativacao VARCHAR(40),
+                    conta_criada BOOLEAN NOT NULL DEFAULT FALSE,
+                    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+
                 -- 1. TABELA DE USUÁRIOS
                 CREATE TABLE IF NOT EXISTS usuarios (
                     id BIGSERIAL PRIMARY KEY,
@@ -210,6 +222,12 @@ if (extension_loaded('pdo_pgsql') && ($config['driver'] ?? 'pgsql') === 'pgsql')
     }
 }
 
+            if ($pdo !== null) {
+                try {
+                    $pdo->exec("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS funcionario_id BIGINT UNIQUE REFERENCES funcionarios(id);");
+                } catch (Exception $ignored) {}
+            }
+
 // 4. FALLBACK RESILIENTE: SQLITE LOCAL
 // Se o serviço do PostgreSQL estiver parado no Windows ou sem extensão CLI, ativa o SQLite
 if ($pdo === null) {
@@ -222,6 +240,17 @@ if ($pdo === null) {
 
         // Cria tabelas no SQLite
         $pdo->exec("
+            CREATE TABLE IF NOT EXISTS funcionarios (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                matricula TEXT UNIQUE NOT NULL,
+                nome_completo TEXT NOT NULL,
+                data_nascimento TEXT NOT NULL,
+                cargo TEXT NOT NULL,
+                codigo_ativacao TEXT,
+                conta_criada INTEGER NOT NULL DEFAULT 0,
+                criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
+            );
+
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
@@ -331,7 +360,82 @@ if ($pdo === null) {
     }
 }
 
+        try {
+            $cols = $pdo->query("PRAGMA table_info(usuarios)")->fetchAll(PDO::FETCH_COLUMN, 1);
+            if (!in_array('funcionario_id', $cols, true)) {
+                $pdo->exec("ALTER TABLE usuarios ADD COLUMN funcionario_id INTEGER REFERENCES funcionarios(id)");
+            }
+        } catch (Exception $ignored) {}
+
 // 5. SEED INICIAL (Gera dados padrão se o banco estiver vazio)
+try {
+    // Seed de Funcionários Pré-Cadastrados da Empresa
+    $stmtCheckFunc = $pdo->prepare("SELECT COUNT(*) FROM funcionarios WHERE matricula = :mat");
+    $stmtInsFunc = $pdo->prepare("
+        INSERT INTO funcionarios (matricula, nome_completo, data_nascimento, cargo, codigo_ativacao, conta_criada)
+        VALUES (:mat, :nome, :nasc, :cargo, :codigo, :criada)
+    ");
+
+    $funcionariosSeed = [
+        [
+            'mat'    => 'f001',
+            'nome'   => 'Beatriz',
+            'nasc'   => '2001-01-01',
+            'cargo'  => 'Técnico de Manutenção',
+            'codigo' => 'ATIV-F001',
+            'criada' => 0
+        ],
+        [
+            'mat'    => 'f002',
+            'nome'   => 'Arthur Max',
+            'nasc'   => '1998-05-15',
+            'cargo'  => 'Técnico de Manutenção',
+            'codigo' => 'ATIV-F002',
+            'criada' => 0
+        ],
+        [
+            'mat'    => 's001',
+            'nome'   => 'Marcos Silva',
+            'nasc'   => '1985-08-20',
+            'cargo'  => 'Supervisor',
+            'codigo' => 'ATIV-S001',
+            'criada' => 0
+        ],
+        [
+            'mat'    => 'f010',
+            'nome'   => 'Lucas Silva',
+            'nasc'   => '1995-10-10',
+            'cargo'  => 'Técnico de Manutenção',
+            'codigo' => 'ATIV-F010',
+            'criada' => 0
+        ],
+        [
+            'mat'    => 'f011',
+            'nome'   => 'Lucas Silva',
+            'nasc'   => '1995-10-10',
+            'cargo'  => 'Técnico de Manutenção',
+            'codigo' => 'ATIV-F011',
+            'criada' => 0
+        ]
+    ];
+
+    foreach ($funcionariosSeed as $f) {
+        $stmtCheckFunc->execute(['mat' => $f['mat']]);
+        if ((int)$stmtCheckFunc->fetchColumn() === 0) {
+            $criadaVal = ($dbDriver === 'pgsql') ? ($f['criada'] ? 'true' : 'false') : $f['criada'];
+            $stmtInsFunc->execute([
+                'mat'    => $f['mat'],
+                'nome'   => $f['nome'],
+                'nasc'   => $f['nasc'],
+                'cargo'  => $f['cargo'],
+                'codigo' => $f['codigo'],
+                'criada' => $criadaVal
+            ]);
+        }
+    }
+
+} catch (Exception $ignored) {}
+
 try {
     $totalAreas = (int) $pdo->query('SELECT COUNT(*) FROM areas')->fetchColumn();
     if ($totalAreas === 0) {

@@ -3,6 +3,25 @@
 <html lang="pt-BR">
 
 <head>
+    <script>
+        (() => {
+            const raw = sessionStorage.getItem('usuarioLogado') || localStorage.getItem('usuarioLogado') || '{}';
+            try {
+                const u = JSON.parse(raw);
+                const papel = String(u.papel || '').toLowerCase();
+                const mat = String(u.matricula || '').toLowerCase();
+                const cargo = String(u.cargo || '').toLowerCase();
+                const isSup = papel === 'supervisor' || papel === 'gerente' || mat.startsWith('s') || mat.startsWith('g') || cargo.includes('supervisor') || cargo.includes('gerente');
+                if (isSup) {
+                    window.location.replace('supervisor/dashboard.html');
+                } else {
+                    window.location.replace('tecnico/painel.html');
+                }
+            } catch(e) {
+                window.location.replace('tecnico/painel.html');
+            }
+        })();
+    </script>
 
     <meta charset="UTF-8">
 

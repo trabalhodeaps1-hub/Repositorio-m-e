@@ -2,9 +2,22 @@
 -- ESTRUTURA DO BANCO DE DADOS (PostgreSQL / SQLite / MySQL)
 -- ====================================================================
 
+-- 0. TABELA DE FUNCIONÁRIOS (REGISTRO PRÉVIO DA EMPRESA)
+CREATE TABLE IF NOT EXISTS funcionarios (
+    id BIGSERIAL PRIMARY KEY,
+    matricula VARCHAR(40) NOT NULL UNIQUE,
+    nome_completo VARCHAR(150) NOT NULL,
+    data_nascimento VARCHAR(20) NOT NULL,
+    cargo VARCHAR(80) NOT NULL,
+    codigo_ativacao VARCHAR(40),
+    conta_criada BOOLEAN NOT NULL DEFAULT FALSE,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 1. TABELA DE USUÁRIOS
 CREATE TABLE IF NOT EXISTS usuarios (
     id BIGSERIAL PRIMARY KEY,
+    funcionario_id BIGINT UNIQUE REFERENCES funcionarios(id) ON DELETE SET NULL,
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(180) NOT NULL UNIQUE,
     idade INT,
@@ -107,6 +120,7 @@ CREATE TABLE IF NOT EXISTS notificacoes (
 -- ====================================================================
 -- ÍNDICES PARA OTIMIZAÇÃO DE BUSCA E PERFORMANCE
 -- ====================================================================
+CREATE INDEX IF NOT EXISTS idx_funcionarios_matricula ON funcionarios(matricula);
 CREATE INDEX IF NOT EXISTS idx_usuarios_email ON usuarios(email);
 CREATE INDEX IF NOT EXISTS idx_problemas_usuario ON problemas(usuario_id);
 CREATE INDEX IF NOT EXISTS idx_equipamentos_patrimonio ON equipamentos(numero_patrimonio);

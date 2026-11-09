@@ -2,8 +2,14 @@
 
 (() => {
     // Detecta o caminho base relativo para a pasta 'back' dependendo de onde o HTML está sendo executado
-    const isInsideBack = location.pathname.includes('/back/');
-    const BACK_URL = isInsideBack ? './' : 'back/';
+    function getBackUrl() {
+        const path = location.pathname.replace(/\\/g, '/');
+        if (path.includes('/back/')) return './';
+        if (path.includes('/page/tecnico/') || path.includes('/page/supervisor/')) return '../../back/';
+        if (path.includes('/page/')) return '../back/';
+        return 'back/';
+    }
+    const BACK_URL = getBackUrl();
 
     const ENDPOINTS = {
         login: BACK_URL + 'login.php',
@@ -269,7 +275,20 @@
                 mensagem(form, 'Login realizado com sucesso! Redirecionando...', false);
 
                 setTimeout(() => {
-                    location.href = window.location.pathname.includes('/page/') ? 'dashboard.html' : 'page/dashboard.html';
+                    const papelNorm = String(dadosSessao.papel || '').toLowerCase();
+                    const matriculaNorm = String(dadosSessao.matricula || '').toLowerCase();
+                    const cargoNorm = String(dadosSessao.cargo || '').toLowerCase();
+                    const isSupervisorOuGerente = papelNorm === 'supervisor' || papelNorm === 'gerente' || matriculaNorm.startsWith('s') || matriculaNorm.startsWith('g') || cargoNorm.includes('supervisor') || cargoNorm.includes('gerente');
+                    const path = location.pathname.replace(/\\/g, '/');
+                    let destino = '';
+                    if (path.includes('/page/tecnico/') || path.includes('/page/supervisor/')) {
+                        destino = isSupervisorOuGerente ? '../supervisor/dashboard.html' : '../tecnico/painel.html';
+                    } else if (path.includes('/page/')) {
+                        destino = isSupervisorOuGerente ? 'supervisor/dashboard.html' : 'tecnico/painel.html';
+                    } else {
+                        destino = isSupervisorOuGerente ? 'page/supervisor/dashboard.html' : 'page/tecnico/painel.html';
+                    }
+                    location.href = destino;
                 }, 800);
             }
 

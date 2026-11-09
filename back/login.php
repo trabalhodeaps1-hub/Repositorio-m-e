@@ -48,24 +48,16 @@ if ($identificador === '' || $senha === '') {
 }
 
 try {
-    // 3. Busca o usuário por e-mail ou matrícula de forma segura
+    // 3. Busca o usuário por e-mail ou matrícula (case-insensitive) de forma segura
     $stmt = $pdo->prepare('
         SELECT * FROM usuarios 
-        WHERE email = :login 
-           OR (nome = :login)
+        WHERE LOWER(email) = LOWER(:login) 
+           OR LOWER(matricula) = LOWER(:login)
+           OR LOWER(nome) = LOWER(:login)
         LIMIT 1
     ');
     $stmt->execute(['login' => $identificador]);
     $user = $stmt->fetch();
-
-    // Se não encontrou, tenta buscar por matrícula caso a coluna exista
-    if (!$user) {
-        try {
-            $stmtMatricula = $pdo->prepare('SELECT * FROM usuarios WHERE matricula = :login LIMIT 1');
-            $stmtMatricula->execute(['login' => $identificador]);
-            $user = $stmtMatricula->fetch();
-        } catch (PDOException $ignored) {}
-    }
 
     // 4. Verificação da senha criptografada
     if (!$user || empty($user['senha_hash']) || !password_verify($senha, $user['senha_hash'])) {
@@ -80,11 +72,12 @@ try {
         session_regenerate_id(true);
     }
 
-    $_SESSION['user_id']    = (int) $user['id'];
-    $_SESSION['user_nome']  = $user['nome'] ?? '';
-    $_SESSION['user_email'] = $user['email'] ?? '';
-    $_SESSION['user_papel'] = $user['papel'] ?? 'usuario';
-    $_SESSION['user_cargo'] = $user['cargo'] ?? $user['papel'] ?? 'Técnico de Manutenção';
+    $_SESSION['user_id']        = (int) $user['id'];
+    $_SESSION['user_nome']      = $user['nome'] ?? '';
+    $_SESSION['user_email']     = $user['email'] ?? '';
+    $_SESSION['user_matricula'] = $user['matricula'] ?? '';
+    $_SESSION['user_papel']     = $user['papel'] ?? 'funcionario';
+    $_SESSION['user_cargo']     = $user['cargo'] ?? $user['papel'] ?? 'Técnico de Manutenção';
 
     // Remove a hash da senha antes de retornar os dados para o frontend
     unset($user['senha_hash'], $user['senha']);
@@ -98,6 +91,6 @@ try {
 } catch (PDOException $e) {
     json_response([
         'success' => false,
-        'message' => 'Erro ao realizar login no banco de dados: ' . $e->getMessage()
+        'message' => 'Erro interno ao realizar autenticação: ' . $e->getMessage()
     ], 500);
 }

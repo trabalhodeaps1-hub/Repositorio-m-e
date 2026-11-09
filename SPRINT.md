@@ -48,3 +48,14 @@
   6. Removido arquivo corrompido com erro de encoding (`conexo.php`) e cópia redundante (`cerro.php`).
   7. Criado utilitário [`iniciar_postgresql.bat`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/iniciar_postgresql.bat) e painel diagnóstico [`back/teste_conexao.php`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/back/teste_conexao.php).
 * **Impedimentos**: Nenhum. Todos os 12 arquivos PHP validados sem erros de sintaxe (100% de aprovação no linter).
+
+#### Dia 3 (Separação Técnico x Supervisor e Blindagem 100% Local):
+* **Realizado**:
+  1. **Purificação do Backend Local**: Removidas variáveis `getenv` de nuvem em [`config/database.php`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/config/database.php); assegurado armazenamento 100% no computador (PostgreSQL `127.0.0.1:5432` + SQLite contingencial `database/app.sqlite` + fotos em `uploads/`).
+  2. **Correção SQL em Notificações**: Corrigido comando INSERT em [`back/notificacao.php`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/back/notificacao.php) substituindo aspas duplas por aspas simples e booleans nativos.
+  3. **Limpeza Autorizada de Redundâncias**: Removidos com confirmação do usuário os arquivos obsoletos `page/index.html`, `page/meu_perfil.html` e `page/criar_conta.html`.
+  4. **Separação Estrutural de Módulos**:
+     - Módulo Técnico em [`page/tecnico/`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/page/tecnico/painel.html): criado `painel.html` com foco em vistorias de campo e menus enxutos em `nova_inspecao.html`, `registrar_problema.html`, `historico.html` e `perfil.html`.
+     - Módulo Supervisor em [`page/supervisor/`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/page/supervisor/dashboard.html): dashboard executivo, gestão de laudos/aprovações em `relatorios.html`, gestão de `areas.html` e `equipamentos.html`.
+  5. **Comunicação e Roteamento Integrados**: Atualizado [`back/integracao.js`](file:///c:/xampp/htdocs/trabalho/Repositorio-m-e/back/integracao.js) com resolução dinâmica de caminhos (`BACK_URL`) e redirecionamento no login por perfil (`f` -> Técnico, `s`/`g` -> Supervisor).
+* **Impedimentos**: Nenhum. Todos os testes de sintaxe e conexão passaram com 100% de sucesso.
