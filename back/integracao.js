@@ -95,7 +95,10 @@
         }
 
         if (!resposta.ok || dados.success === false) {
-            throw new Error(dados.message || 'Não foi possível concluir a operação.');
+            const err = new Error(dados.message || 'Não foi possível concluir a operação.');
+            err.dados = dados;
+            err.status = resposta.status;
+            throw err;
         }
 
         return dados;
@@ -292,68 +295,30 @@
                 }, 800);
             }
 
-            // 2. CADASTRO DE CONTA - ONDE O USUÁRIO CRIA SUA INFORMAÇÃO REAL
+            // 2. CADASTRO DE CONTA - VINCULADO AOS FUNCIONÁRIOS DA EMPRESA
             else if (isCadastro) {
                 const formData = new FormData(form);
                 const dados = Object.fromEntries(formData.entries());
 
                 const nome = (dados.nome || '').trim();
-                const email = (dados.email || '').trim().toLowerCase();
+                const dataNascimento = (dados.dataNascimento || dados.data_nascimento || '').trim();
+                const codigoAtivacao = (dados.codigoAtivacao || dados.codigo_ativacao || '').trim().toUpperCase();
+                const matricula = (dados.matricula || '').trim().toUpperCase();
                 const senha = dados.senha || '';
                 const confirma = dados.confirmarSenha || dados.confirmar_senha || dados.confirma_senha || '';
+                const email = (dados.email || '').trim().toLowerCase();
                 const telefone = (dados.telefone || '').trim();
-                const cargo = (dados.cargo || '').trim();
-                const dataNascimento = (dados.dataNascimento || dados.data_nascimento || '').trim();
-                const anoNascimentoParam = dados.anoNascimento || dados.ano_nascimento ? parseInt(dados.anoNascimento || dados.ano_nascimento, 10) : null;
-
-                const hoje = new Date();
-                const anoAtual = hoje.getFullYear();
-                let idade = null;
-                let dataNascStr = dataNascimento;
-
-                if (dataNascimento) {
-                    const partes = dataNascimento.split('-');
-                    if (partes.length === 3) {
-                        const a = parseInt(partes[0], 10);
-                        const m = parseInt(partes[1], 10) - 1;
-                        const d = parseInt(partes[2], 10);
-                        const dataObj = new Date(a, m, d);
-                        if (!isNaN(dataObj.getTime()) && a >= 1900 && dataObj <= hoje) {
-                            idade = anoAtual - a;
-                            const diffMes = hoje.getMonth() - m;
-                            if (diffMes < 0 || (diffMes === 0 && hoje.getDate() < d)) {
-                                idade--;
-                            }
-                        }
-                    }
-                } else if (anoNascimentoParam) {
-                    idade = anoAtual - anoNascimentoParam;
-                    dataNascStr = `${anoNascimentoParam}-01-01`;
-                }
 
                 if (!nome) {
                     throw new Error('Por favor, informe seu nome completo.');
                 }
 
-                if (!email || !email.includes('@')) {
-                    throw new Error('Por favor, informe um endereço de e-mail corporativo válido.');
-                }
-
-                if (!dataNascimento && !anoNascimentoParam) {
+                if (!dataNascimento) {
                     throw new Error('Por favor, informe sua data de nascimento.');
                 }
 
-                if (idade === null || isNaN(idade)) {
-                    throw new Error('Por favor, informe uma data de nascimento válida.');
-                }
-
-                if (idade < 18 || idade > 99) {
-                    throw new Error(`Cadastro permitido apenas para pessoas com idade entre 18 e 99 anos (sua idade calculada é de ${idade} anos).`);
-                }
-
-                const cargosValidos = ['Operador de Máquina', 'Técnico de Manutenção', 'Supervisor', 'Gerente'];
-                if (!cargo || !cargosValidos.includes(cargo)) {
-                    throw new Error('Por favor, selecione seu cargo: Operador de Máquina, Técnico de Manutenção, Supervisor ou Gerente.');
+                if (!codigoAtivacao) {
+                    throw new Error('Por favor, informe o código de uso único entregue pela empresa.');
                 }
 
                 if (!senha || senha.length < 6) {
@@ -364,56 +329,42 @@
                     throw new Error('As senhas informadas não coincidem. Digite a mesma senha nos dois campos.');
                 }
 
-                // Verifica se já existe localmente
-                const usuariosExistentes = obterUsuariosLocais();
-                if (usuariosExistentes.some(u => u.email && u.email.toLowerCase() === email)) {
-                    throw new Error('Este e-mail já está cadastrado no sistema. Faça o login diretamente.');
-                }
-
-                const papelMap = {
-                    'Supervisor': 'supervisor',
-                    'Gerente': 'gerente',
-                    'Técnico de Manutenção': 'tecnico',
-                    'Operador de Máquina': 'operador'
-                };
-                const papel = papelMap[cargo] || 'funcionario';
-
-                const matriculaGerada = dados.matricula || ('AM-' + Math.floor(10000 + Math.random() * 90000));
                 const payload = {
                     nome: nome,
-                    email: email,
-                    data_nascimento: dataNascStr,
-                    ano_nascimento: dataNascStr ? parseInt(dataNascStr.substring(0, 4), 10) : null,
-                    idade: idade,
-                    cargo: cargo,
-                    funcao: cargo,
-                    perfil: cargo,
-                    papel: papel,
+                    data_nascimento: dataNascimento,
+                    codigo_ativacao: codigoAtivacao,
+                    matricula: matricula,
                     senha: senha,
                     confirmar_senha: confirma,
-                    telefone: telefone,
-                    matricula: matriculaGerada
+                    email: email,
+                    telefone: telefone
                 };
 
                 let resultado = null;
                 try {
                     resultado = await enviarJSON(ENDPOINTS.cadastro, payload);
                 } catch (err) {
-                    // Se o servidor retornou erro explícito (ex: email duplicado 409), exibe para o usuário
-                    if (err.message && !err.message.includes('FILE_PROTOCOL') && !err.message.includes('NETWORK_ERROR') && !err.message.includes('servidor')) {
-                        throw new Error(err.message);
+                    if (err.dados && err.dados.requer_matricula) {
+                        const campoMat = $('#campoMatricula');
+                        if (campoMat) {
+                            campoMat.style.display = 'block';
+                            const inputMat = $('#matricula');
+                            if (inputMat) inputMat.focus();
+                        }
                     }
+                    throw err;
                 }
 
-                // Grava estritamente a conta criada pelo usuário
-                salvarUsuarioLocal(payload);
+                if (resultado && resultado.usuario) {
+                    salvarUsuarioLocal(resultado.usuario);
+                }
 
-                mensagem(form, 'Conta criada com sucesso! Redirecionando para o login...', false);
+                mensagem(form, resultado.message || 'Conta criada com sucesso! Redirecionando para o login...', false);
                 form.reset();
 
                 setTimeout(() => {
                     location.href = window.location.pathname.includes('/page/') ? '../pagina_inicial.html' : 'pagina_inicial.html';
-                }, 1200);
+                }, 1500);
             }
 
             // 3. CADASTRO DE ÁREA

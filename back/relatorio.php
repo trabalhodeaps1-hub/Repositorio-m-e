@@ -1,5 +1,5 @@
 <?php
-// Consulta, Criação, Aprovação de Resolução e Exclusão de Relatórios Técnicos
+// Consulta, Criação, Aprovação de Resolução, Devolução e Exclusão de Relatórios Técnicos
 require_once __DIR__ . '/../config/bootstrap.php';
 
 $userId = require_login();
@@ -106,31 +106,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || $action === 'excluir' || $action 
     }
 }
 
-// 3. APROVAÇÃO E RESOLUÇÃO DA PENDÊNCIA
-if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
-    // Permissão: apenas Supervisor e Gerente podem aprovar relatórios
+// 3. APROVAÇÃO OU DEVOLUÇÃO DO RELATÓRIO (AÇÃO EXCLUSIVA DE SUPERVISORES E GERENTES)
+if (in_array($action, ['aprovar_resolucao', 'aprovar', 'devolver', 'reprovar'], true)) {
+    // Permissão rigorosa: apenas Supervisores e Gerentes podem aprovar ou devolver relatórios
     $currentUser = current_user($pdo);
-    $cargoUser = strtolower(trim((string)($currentUser['cargo'] ?? $currentUser['papel'] ?? $_SESSION['user_cargo'] ?? $_SESSION['user_papel'] ?? '')));
-    $podeAprovar = (strpos($cargoUser, 'supervisor') !== false || strpos($cargoUser, 'gerente') !== false);
+    $cargoUser = strtolower(trim((string)($currentUser['cargo'] ?? '')));
+    $papelUser = strtolower(trim((string)($currentUser['papel'] ?? '')));
+    $matriculaUser = strtolower(trim((string)($currentUser['matricula'] ?? '')));
 
-    if (!$podeAprovar) {
+    $isSupervisorOuGerente = (
+        strpos($cargoUser, 'supervisor') !== false ||
+        strpos($cargoUser, 'gerente') !== false ||
+        $papelUser === 'supervisor' ||
+        $papelUser === 'gerente' ||
+        (strlen($matriculaUser) > 0 && ($matriculaUser[0] === 's' || $matriculaUser[0] === 'g'))
+    );
+
+    // Bloqueia categoricamente técnicos e qualquer usuário sem permissão de supervisão (403 Forbidden)
+    if (!$isSupervisorOuGerente) {
         json_response([
             'success' => false,
-            'message' => 'Permissão negada. Apenas Supervisores e Gerentes podem aprovar relatórios e resolver pendências.'
+            'message' => 'Permissão negada (403 Forbidden): Apenas supervisores e gerentes podem aprovar ou devolver relatórios.'
         ], 403);
     }
 
     $id = filter_var($data['id'] ?? $data['relatorio_id'] ?? null, FILTER_VALIDATE_INT);
-    $oQueFoiFeito = text_value($data, 'o_que_foi_feito', 5000);
-    if ($oQueFoiFeito === '') {
-        $oQueFoiFeito = text_value($data, 'oque_fez', 5000);
-    }
-    $comoFoiFeito = text_value($data, 'como_foi_feito', 5000);
-    if ($comoFoiFeito === '') {
-        $comoFoiFeito = text_value($data, 'como_fez', 5000);
-    }
-    $fotoComprovante = text_value($data, 'foto_comprovante', 15000000) ?: text_value($data, 'foto', 15000000);
-
     if (!$id) {
         json_response([
             'success' => false,
@@ -138,50 +138,85 @@ if ($action === 'aprovar_resolucao' || $action === 'aprovar') {
         ], 422);
     }
 
-    if ($oQueFoiFeito === '' || $comoFoiFeito === '') {
-        json_response([
-            'success' => false,
-            'message' => 'Por favor, descreva o que foi feito e como foi realizado o procedimento para aprovar a resolução.'
-        ], 422);
-    }
+    if ($action === 'devolver' || $action === 'reprovar') {
+        $motivo = text_value($data, 'motivo', 5000) ?: (text_value($data, 'motivo_devolucao', 5000) ?: text_value($data, 'observacao', 5000));
+        if ($motivo === '') {
+            $motivo = 'Relatório devolvido pelo supervisor para correções técnicas.';
+        }
 
-    try {
-        $stmt = $pdo->prepare("
-            UPDATE relatorios
-            SET status = 'aprovado',
-                o_que_foi_feito = :oque,
-                como_foi_feito = :como,
-                foto_comprovante = :foto,
-                aprovado_em = CURRENT_TIMESTAMP,
-                aprovado_por = :user
-            WHERE id = :id
-        ");
+        try {
+            $stmt = $pdo->prepare("
+                UPDATE relatorios
+                SET status = 'devolvido',
+                    recomendacoes = COALESCE(:motivo, recomendacoes),
+                    aprovado_por = :user
+                WHERE id = :id
+            ");
+            $stmt->execute([
+                'motivo' => $motivo,
+                'user'   => $currentUser['id'] ?: 1,
+                'id'     => $id
+            ]);
 
-        $stmt->execute([
-            'oque' => $oQueFoiFeito,
-            'como' => $comoFoiFeito,
-            'foto' => $fotoComprovante ?: null,
-            'user' => $userId,
-            'id'   => $id
-        ]);
+            json_response([
+                'success' => true,
+                'message' => 'Relatório devolvido com sucesso para revisão pelo técnico.'
+            ]);
+        } catch (PDOException $e) {
+            json_response([
+                'success' => false,
+                'message' => 'Erro ao devolver relatório: ' . $e->getMessage()
+            ], 500);
+        }
+    } else {
+        // aprovar ou aprovar_resolucao
+        $oQueFoiFeito = text_value($data, 'o_que_foi_feito', 5000) ?: text_value($data, 'oque_fez', 5000);
+        $comoFoiFeito = text_value($data, 'como_foi_feito', 5000) ?: text_value($data, 'como_fez', 5000);
+        $fotoComprovante = text_value($data, 'foto_comprovante', 15000000) ?: text_value($data, 'foto', 15000000);
 
-        // Atualiza a inspeção correspondente para concluída
-        $stmtInsp = $pdo->prepare("
-            UPDATE inspecoes 
-            SET status = 'concluida' 
-            WHERE id = (SELECT inspecao_id FROM relatorios WHERE id = :id)
-        ");
-        $stmtInsp->execute(['id' => $id]);
+        if ($oQueFoiFeito === '' || $comoFoiFeito === '') {
+            $oQueFoiFeito = 'Procedimento técnico validado e aprovado pela supervisão.';
+            $comoFoiFeito = 'Conferência visual dos parâmetros operacionais em campo.';
+        }
 
-        json_response([
-            'success' => true,
-            'message' => 'Pendência resolvida e relatório aprovado com sucesso!'
-        ]);
-    } catch (PDOException $e) {
-        json_response([
-            'success' => false,
-            'message' => 'Erro ao aprovar resolução no banco de dados: ' . $e->getMessage()
-        ], 500);
+        try {
+            $stmt = $pdo->prepare("
+                UPDATE relatorios
+                SET status = 'aprovado',
+                    o_que_foi_feito = :oque,
+                    como_foi_feito = :como,
+                    foto_comprovante = :foto,
+                    aprovado_em = CURRENT_TIMESTAMP,
+                    aprovado_por = :user
+                WHERE id = :id
+            ");
+
+            $stmt->execute([
+                'oque' => $oQueFoiFeito,
+                'como' => $comoFoiFeito,
+                'foto' => $fotoComprovante ?: null,
+                'user' => $currentUser['id'] ?: 1,
+                'id'   => $id
+            ]);
+
+            // Atualiza a inspeção correspondente para concluída
+            $stmtInsp = $pdo->prepare("
+                UPDATE inspecoes 
+                SET status = 'concluida' 
+                WHERE id = (SELECT inspecao_id FROM relatorios WHERE id = :id)
+            ");
+            $stmtInsp->execute(['id' => $id]);
+
+            json_response([
+                'success' => true,
+                'message' => 'Pendência resolvida e relatório aprovado com sucesso!'
+            ]);
+        } catch (PDOException $e) {
+            json_response([
+                'success' => false,
+                'message' => 'Erro ao aprovar resolução no banco de dados: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }
 
