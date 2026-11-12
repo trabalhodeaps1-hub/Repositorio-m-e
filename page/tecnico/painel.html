@@ -343,19 +343,32 @@
 
         <nav class="menu">
             <a href="painel.html" class="active">
-                <span>🏠</span> Painel do Técnico
+                <span class="menu-icon">📊</span>
+                Painel do Técnico
             </a>
             <a href="nova_inspecao.html">
-                <span>📝</span> Nova Inspeção
+                <span class="menu-icon">🔍</span>
+                Nova Inspeção
             </a>
             <a href="registrar_problema.html">
-                <span>📸</span> Registrar Problema
+                <span class="menu-icon">⚠️</span>
+                Apontar Problema
+            </a>
+            <a href="areas.html">
+                <span class="menu-icon">🏭</span>
+                Áreas Industriais
+            </a>
+            <a href="equipamentos.html">
+                <span class="menu-icon">⚙️</span>
+                Equipamentos
             </a>
             <a href="historico.html">
-                <span>📋</span> Meu Histórico
+                <span class="menu-icon">📋</span>
+                Meu Histórico
             </a>
             <a href="perfil.html">
-                <span>👤</span> Meu Perfil
+                <span class="menu-icon">👤</span>
+                Meu Perfil
             </a>
         </nav>
 
@@ -396,9 +409,14 @@
                 <h2>Pronto para iniciar uma nova ronda?</h2>
                 <p>Selecione a área, o maquinário e registre as anomalias detectadas com fotos.</p>
             </div>
-            <a href="nova_inspecao.html" class="btn-primary-action">
-                <span>+</span> Iniciar Nova Inspeção
-            </a>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="nova_inspecao.html" class="btn-primary-action">
+                    <span>+</span> Iniciar Nova Inspeção
+                </a>
+                <a href="registrar_problema.html" class="btn-primary-action" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4);">
+                    <span>⚠️</span> Apontar Problema
+                </a>
+            </div>
         </section>
 
         <!-- Cards de Métricas -->

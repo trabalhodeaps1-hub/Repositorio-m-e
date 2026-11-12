@@ -213,6 +213,18 @@ if (extension_loaded('pdo_pgsql') && ($config['driver'] ?? 'pgsql') === 'pgsql')
                     link VARCHAR(250) DEFAULT '',
                     criada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+
+                -- 8. TABELA DE MENSAGENS DE CHAT (COMUNICAÇÃO TÉCNICO <-> SUPERVISOR)
+                CREATE TABLE IF NOT EXISTS mensagens_chat (
+                    id BIGSERIAL PRIMARY KEY,
+                    remetente_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+                    destinatario_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+                    mensagem TEXT NOT NULL,
+                    lida BOOLEAN DEFAULT FALSE,
+                    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                CREATE INDEX IF NOT EXISTS idx_chat_remetente ON mensagens_chat(remetente_id);
+                CREATE INDEX IF NOT EXISTS idx_chat_destinatario ON mensagens_chat(destinatario_id);
             ");
 
         } catch (PDOException $e) {
@@ -225,6 +237,18 @@ if (extension_loaded('pdo_pgsql') && ($config['driver'] ?? 'pgsql') === 'pgsql')
             if ($pdo !== null) {
                 try {
                     $pdo->exec("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS funcionario_id BIGINT UNIQUE REFERENCES funcionarios(id);");
+                    $pdo->exec("
+                        CREATE TABLE IF NOT EXISTS mensagens_chat (
+                            id BIGSERIAL PRIMARY KEY,
+                            remetente_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+                            destinatario_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+                            mensagem TEXT NOT NULL,
+                            lida BOOLEAN DEFAULT FALSE,
+                            criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
+                        CREATE INDEX IF NOT EXISTS idx_chat_remetente ON mensagens_chat(remetente_id);
+                        CREATE INDEX IF NOT EXISTS idx_chat_destinatario ON mensagens_chat(destinatario_id);
+                    ");
                 } catch (Exception $ignored) {}
             }
 
@@ -345,6 +369,20 @@ if ($pdo === null) {
                 link TEXT,
                 criada_em DATETIME DEFAULT CURRENT_TIMESTAMP
             );
+
+            -- 8. TABELA DE MENSAGENS DE CHAT NO SQLITE
+            CREATE TABLE IF NOT EXISTS mensagens_chat (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                remetente_id INTEGER NOT NULL,
+                destinatario_id INTEGER NOT NULL,
+                mensagem TEXT NOT NULL,
+                lida INTEGER DEFAULT 0,
+                criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (remetente_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+                FOREIGN KEY (destinatario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+            );
+            CREATE INDEX IF NOT EXISTS idx_chat_sqlite_rem ON mensagens_chat(remetente_id);
+            CREATE INDEX IF NOT EXISTS idx_chat_sqlite_dest ON mensagens_chat(destinatario_id);
         ");
 
     } catch (PDOException $e) {
@@ -365,6 +403,20 @@ if ($pdo === null) {
             if (!in_array('funcionario_id', $cols, true)) {
                 $pdo->exec("ALTER TABLE usuarios ADD COLUMN funcionario_id INTEGER REFERENCES funcionarios(id)");
             }
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS mensagens_chat (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    remetente_id INTEGER NOT NULL,
+                    destinatario_id INTEGER NOT NULL,
+                    mensagem TEXT NOT NULL,
+                    lida INTEGER DEFAULT 0,
+                    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (remetente_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+                    FOREIGN KEY (destinatario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+                );
+                CREATE INDEX IF NOT EXISTS idx_chat_sqlite_rem ON mensagens_chat(remetente_id);
+                CREATE INDEX IF NOT EXISTS idx_chat_sqlite_dest ON mensagens_chat(destinatario_id);
+            ");
         } catch (Exception $ignored) {}
 
 // 5. SEED INICIAL (Gera dados padrão se o banco estiver vazio)

@@ -117,6 +117,16 @@ CREATE TABLE IF NOT EXISTS notificacoes (
     criada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 8. TABELA DE MENSAGENS DE CHAT INTERNO (TÉCNICO <-> SUPERVISOR)
+CREATE TABLE IF NOT EXISTS mensagens_chat (
+    id BIGSERIAL PRIMARY KEY,
+    remetente_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    destinatario_id BIGINT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    mensagem TEXT NOT NULL,
+    lida BOOLEAN NOT NULL DEFAULT FALSE,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ====================================================================
 -- ÍNDICES PARA OTIMIZAÇÃO DE BUSCA E PERFORMANCE
 -- ====================================================================
@@ -127,3 +137,5 @@ CREATE INDEX IF NOT EXISTS idx_equipamentos_patrimonio ON equipamentos(numero_pa
 CREATE INDEX IF NOT EXISTS idx_inspecoes_usuario ON inspecoes(realizada_por);
 CREATE INDEX IF NOT EXISTS idx_relatorios_status ON relatorios(status);
 CREATE INDEX IF NOT EXISTS idx_notificacoes_usuario ON notificacoes(usuario_id, lida);
+CREATE INDEX IF NOT EXISTS idx_chat_remetente ON mensagens_chat(remetente_id);
+CREATE INDEX IF NOT EXISTS idx_chat_destinatario ON mensagens_chat(destinatario_id);

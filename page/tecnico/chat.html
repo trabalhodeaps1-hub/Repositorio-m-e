@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicação Interna - AutoRelatório Industrial</title>
+    <style>
+        /* =========================================================
+           CONFIGURAÇÕES GERAIS E IDENTIDADE VISUAL PADRONIZADA
+        ========================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #f3f4f7;
+            color: #172033;
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           SIDEBAR PADRÃO DO SISTEMA (240px, #0b132b)
+        ========================================================= */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #0b132b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+            color: #3b82f6;
+            font-size: 8px;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        .menu {
+            padding: 17px 9px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .menu a {
+            height: 40px;
+            padding: 0 12px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 5px;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #12315c;
+            color: #3b82f6;
+            border-left: 2px solid #3b82f6;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        .badge-chat-menu {
+            margin-left: auto;
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 20px 18px;
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 22px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2867b5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 11px;
+            font-weight: bold;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+        }
+
+        .profile-info {
+            color: #7f8ba0;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .logout {
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+        /* =========================================================
+           ÁREA PRINCIPAL
+        ========================================================= */
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f3f4f7;
+        }
+
+        /* =========================================================
+           TOPBAR PADRÃO
+        ========================================================= */
+        .topbar {
+            height: 65px;
+            background: white;
+            border-bottom: 1px solid #dfe3e9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            flex-shrink: 0;
+            z-index: 50;
+        }
+
+        .topbar-info h1 {
+            font-size: 18px;
+            color: #0b132b;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-info p {
+            font-size: 11px;
+            color: #7c8797;
+            margin-top: 2px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .notification-wrapper {
+            position: relative;
+        }
+
+        .notification-button {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            color: #5f6b7c;
+            font-size: 19px;
+            transition: 0.2s;
+        }
+
+        .notification-button:hover {
+            background: #f1f4f8;
+            color: #2563eb;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            border-radius: 10px;
+            background: #e53935;
+            color: white;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .notification-count.vazio {
+            display: none;
+        }
+
+        .user-tag {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* =========================================================
+           CONTAINER DO CHAT (LAYOUT MODERNO DE 2 COLUNAS)
+        ========================================================= */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            margin: 16px 25px 20px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #dfe3e9;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        /* COLUNA 1: LISTA DE CONTATOS */
+        .chat-sidebar {
+            width: 320px;
+            border-right: 1px solid #e5e9f0;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .chat-sidebar-header {
+            padding: 16px 18px;
+            border-bottom: 1px solid #f0f3f8;
+            background: #fafbfe;
+        }
+
+        .chat-sidebar-header h2 {
+            font-size: 15px;
+            color: #0b132b;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-online-badge {
+            font-size: 11px;
+            font-weight: normal;
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .chat-search {
+            position: relative;
+        }
+
+        .chat-search input {
+            width: 100%;
+            height: 36px;
+            background: #f1f4f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0 12px 0 32px;
+            font-size: 12px;
+            color: #172033;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .chat-search input:focus {
+            background: white;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .chat-search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .chat-contacts-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .contact-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #f8fafc;
+            cursor: pointer;
+            transition: 0.15s;
+            position: relative;
+        }
+
+        .contact-item:hover {
+            background: #f8fafc;
+        }
+
+        .contact-item.active {
+            background: #eff6ff;
+            border-left: 3px solid #2563eb;
+        }
+
+        .contact-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .contact-avatar.supervisor { background: #2563eb; }
+        .contact-avatar.gerente { background: #7c3aed; }
+        .contact-avatar.tecnico { background: #059669; }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+
+        .contact-name {
+            font-size: 13px;
+            font-weight: bold;
+            color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-time {
+            font-size: 10px;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .contact-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-preview {
+            font-size: 11px;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 170px;
+        }
+
+        .contact-role-tag {
+            font-size: 9px;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .role-supervisor { background: #dbeafe; color: #1e40af; }
+        .role-gerente { background: #ede9fe; color: #5b21b6; }
+        .role-tecnico { background: #d1fae5; color: #065f46; }
+
+        .unread-count-pill {
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+        }
+
+        /* COLUNA 2: JANELA DE MENSAGENS ATIVA */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .chat-header {
+            height: 60px;
+            padding: 0 20px;
+            background: white;
+            border-bottom: 1px solid #e5e9f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .chat-header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-details h3 {
+            font-size: 14px;
+            color: #0b132b;
+            font-weight: bold;
+        }
+
+        .chat-header-details span {
+            font-size: 11px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot-active {
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .chat-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-chat-action {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #334155;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.15s;
+        }
+
+        .btn-chat-action:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* CORPO DAS MENSAGENS */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .date-divider {
+            text-align: center;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .date-divider span {
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .message-row {
+            display: flex;
+            gap: 8px;
+            max-width: 75%;
+            animation: fadeIn 0.15s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-row.outgoing {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-row.incoming {
+            align-self: flex-start;
+        }
+
+        .msg-bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.45;
+            position: relative;
+            word-break: break-word;
+        }
+
+        .message-row.outgoing .msg-bubble {
+            background: #2563eb;
+            color: white;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        }
+
+        .message-row.incoming .msg-bubble {
+            background: white;
+            color: #0f172a;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .msg-sender-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 4px;
+        }
+
+        .msg-meta {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 4px;
+            font-size: 10px;
+        }
+
+        .message-row.outgoing .msg-meta {
+            color: #bfdbfe;
+        }
+
+        .message-row.incoming .msg-meta {
+            color: #94a3b8;
+        }
+
+        .check-read {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .check-read.lida {
+            color: #60a5fa;
+        }
+
+        /* RESPOSTAS RÁPIDAS INDUSTRIAIS */
+        .quick-replies-bar {
+            padding: 8px 16px;
+            background: white;
+            border-top: 1px solid #eef2f6;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .quick-chip {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.15s;
+            user-select: none;
+        }
+
+        .quick-chip:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
+        /* ÁREA DE DIGITAÇÃO */
+        .chat-footer {
+            padding: 12px 16px;
+            background: white;
+            border-top: 1px solid #e5e9f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .chat-input {
+            width: 100%;
+            height: 44px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s;
+            resize: none;
+        }
+
+        .chat-input:focus {
+            background: white;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-enviar {
+            width: 44px;
+            height: 44px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-enviar:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-enviar:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ESTADO VAZIO / SEM SELEÇÃO */
+        .empty-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .empty-icon {
+            width: 72px;
+            height: 72px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .empty-chat h3 {
+            font-size: 18px;
+            color: #0b132b;
+            margin-bottom: 8px;
+        }
+
+        .empty-chat p {
+            font-size: 13px;
+            max-width: 380px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================================
+         SIDEBAR PADRONIZADA (IDÊNTICA AO SUPERVISOR)
+    ========================================================== -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">▰</div>
+            <div class="logo-text">
+                AutoRelatório
+                <span>INDUSTRIAL</span>
+            </div>
+        </div>
+
+        <nav class="menu" id="menuLateral">
+            <!-- Menu dinâmico adaptado para o perfil atual -->
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="profile-circle" id="sidebarIniciais">--</div>
+                <div>
+                    <div class="profile-name" id="sidebarNome">Carregando...</div>
+                    <div class="profile-info" id="sidebarPerfil">--</div>
+                </div>
+            </div>
+            <button class="logout" id="btnSair" title="Encerrar sessão com segurança">
+                ⇥ &nbsp; Sair
+            </button>
+        </div>
+    </aside>
+
+    <!-- =========================================================
+         CONTEÚDO PRINCIPAL
+    ========================================================== -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-info">
+                <h1>💬 Comunicação Interna em Tempo Real</h1>
+                <p>Canal direto e seguro para troca de mensagens entre Técnicos e Supervisores</p>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-tag" id="tagPerfilUsuario">
+                    <span>👤</span>
+                    <strong id="topbarNomeUsuario">Usuário</strong>
+                    <span id="topbarCargoUsuario" style="font-size: 11px; opacity: 0.85;">(Técnico)</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTAINER PRINCIPAL DO CHAT -->
+        <div class="chat-container">
+            <!-- COLUNA ESQUERDA: LISTA DE CONTATOS -->
+            <aside class="chat-sidebar">
+                <div class="chat-sidebar-header">
+                    <h2>
+                        <span>Contatos da Planta</span>
+                        <span class="total-online-badge" id="badgeTotalContatos">0 contatos</span>
+                    </h2>
+                    <div class="chat-search">
+                        <span class="chat-search-icon">🔍</span>
+                        <input type="text" id="inputFiltroContatos" placeholder="Pesquisar supervisor ou técnico...">
+                    </div>
+                </div>
+
+                <div class="chat-contacts-list" id="listaContatos">
+                    <div style="padding: 24px; text-align: center; color: #94a3b8; font-size: 12px;">
+                        Carregando contatos...
+                    </div>
+                </div>
+            </aside>
+
+            <!-- COLUNA DIREITA: CONVERSA ATIVA -->
+            <section class="chat-main" id="janelaConversa">
+                <!-- Estado vazio quando nenhuma conversa foi selecionada -->
+                <div class="empty-chat" id="estadoVazio">
+                    <div class="empty-icon">💬</div>
+                    <h3>Selecione uma conversa ao lado</h3>
+                    <p>
+                        Inicie um diálogo direto entre Técnico e Supervisor para alinhamento de inspeções, apontamento de anomalias críticas e validação de relatórios industriais.
+                    </p>
+                </div>
+
+                <!-- Painel da conversa selecionada (oculto até selecionar um contato) -->
+                <div id="painelConversaAtiva" style="display: none; flex-direction: column; height: 100%;">
+                    <!-- CABEÇALHO DA CONVERSA -->
+                    <div class="chat-header">
+                        <div class="chat-header-user">
+                            <div class="contact-avatar supervisor" id="avatarContatoAtivo">--</div>
+                            <div class="chat-header-details">
+                                <h3 id="nomeContatoAtivo">Nome do Contato</h3>
+                                <span>
+                                    <span class="status-dot-active"></span>
+                                    <span id="cargoContatoAtivo">Supervisor</span>
+                                    • Matrícula: <strong id="matriculaContatoAtivo">AM-0000</strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="chat-header-actions">
+                            <button type="button" class="btn-chat-action" id="btnAtualizarChat" title="Atualizar mensagens agora">
+                                🔄 Atualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- MENSAGENS -->
+                    <div class="chat-messages" id="corpoMensagens">
+                        <!-- Mensagens renderizadas dinamicamente -->
+                    </div>
+
+                    <!-- CHIPS DE RESPOSTAS RÁPIDAS DE CAMPO -->
+                    <div class="quick-replies-bar">
+                        <span class="quick-chip" onclick="inserirRespostaRapida('⚠️ Anomalia crítica identificada em campo. Favor analisar.')">⚠️ Anomalia crítica detectada</span>
+                        <span class="quick-chip" onclick="inserirRespostaRapida('✅ Ronda de inspeção finalizada com sucesso.')">✅ Inspeção concluída</span>
+                        <span class="quick-chip" onclick="inserirRespostaRapida('📑 Relatório técnico submetido, aguardo sua aprovação.')">📑 Aguardo aprovação de laudo</span>
+                        <span class="quick-chip" onclick="inserirRespostaRapida('⚙️ Equipamento isolado e pronto para manutenção.')">⚙️ Máquina isolada</span>
+                        <span class="quick-chip" onclick="inserirRespostaRapida('👍 Entendido, providenciando imediatamente.')">👍 Entendido</span>
+                    </div>
+
+                    <!-- CAMPO DE DIGITAÇÃO -->
+                    <form class="chat-footer" id="formEnvioMensagem">
+                        <div class="chat-input-wrapper">
+                            <input 
+                                type="text" 
+                                class="chat-input" 
+                                id="inputMensagem" 
+                                placeholder="Digite sua mensagem aqui... (Pressione Enter para enviar)" 
+                                autocomplete="off"
+                                maxlength="2000"
+                            >
+                        </div>
+                        <button type="submit" class="btn-enviar" id="btnEnviarMensagem" title="Enviar Mensagem">
+                            ➤
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Som sutil de notificação via Web Audio API (sem dependência externa) -->
+    <script>
+        function emitirBeepNotificacao() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.08); // A5
+                gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.28);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.28);
+            } catch(e) {}
+        }
+    </script>
+
+    <!-- LÓGICA COMPLETA DE INTEGRAÇÃO COM BACKEND -->
+    <script>
+        (() => {
+            // 1. Identificação de Perfil e Sessão Ativa
+            const sessaoRaw = sessionStorage.getItem('usuarioLogado') || 
+                              localStorage.getItem('usuarioLogado') || 
+                              sessionStorage.getItem('sessaoUsuario') || 
+                              localStorage.getItem('sessaoUsuario') || '{}';
+            
+            let usuarioLogado = {};
+            try {
+                usuarioLogado = JSON.parse(sessaoRaw);
+            } catch(e) {}
+
+            const papel = String(usuarioLogado.papel || '').toLowerCase();
+            const matricula = String(usuarioLogado.matricula || '').toLowerCase();
+            const cargo = String(usuarioLogado.cargo || '').toLowerCase();
+
+            const isSupervisor = papel === 'supervisor' || papel === 'gerente' || matricula.startsWith('s') || matricula.startsWith('g') || cargo.includes('supervisor') || cargo.includes('gerente');
+            const isTecnico = !isSupervisor;
+
+            const nomeUsuario = usuarioLogado.nome || (isSupervisor ? 'Marcos Supervisor' : 'Brenda Operadora');
+            const matriculaExibicao = (usuarioLogado.matricula || (isSupervisor ? 's1001' : 'f1001')).toUpperCase();
+            const cargoExibicao = usuarioLogado.cargo || (isSupervisor ? 'Supervisor Industrial' : 'Técnico de Manutenção');
+
+            // Renderiza cabeçalho e perfil
+            document.getElementById('sidebarNome').textContent = nomeUsuario;
+            document.getElementById('sidebarPerfil').textContent = cargoExibicao;
+            document.getElementById('topbarNomeUsuario').textContent = nomeUsuario.split(' ')[0];
+            document.getElementById('topbarCargoUsuario').textContent = `(${cargoExibicao})`;
+
+            const iniciais = nomeUsuario.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('sidebarIniciais').textContent = iniciais;
+
+            // 2. Renderiza Menu Lateral com Estilo Padronizado
+            const navMenu = document.getElementById('menuLateral');
+            const prefixoLink = isSupervisor ? '../supervisor/' : '../tecnico/';
+            const dashboardLink = isSupervisor ? 'dashboard.html' : 'painel.html';
+
+            navMenu.innerHTML = `
+                <a href="${dashboardLink}">
+                    <span class="menu-icon">📊</span>
+                    ${isSupervisor ? 'Dashboard Geral' : 'Painel do Técnico'}
+                </a>
+                <a href="nova_inspecao.html">
+                    <span class="menu-icon">🔍</span>
+                    Nova Inspeção
+                </a>
+                <a href="registrar_problema.html">
+                    <span class="menu-icon">⚠️</span>
+                    Apontar Problema
+                </a>
+                <a href="relatorios.html">
+                    <span class="menu-icon">📑</span>
+                    ${isSupervisor ? 'Relatórios & Aprovações' : 'Relatórios Técnicos'}
+                </a>
+                <a href="areas.html">
+                    <span class="menu-icon">🏭</span>
+                    Áreas Industriais
+                </a>
+                <a href="equipamentos.html">
+                    <span class="menu-icon">⚙️</span>
+                    Equipamentos
+                </a>
+                <a href="historico.html">
+                    <span class="menu-icon">📋</span>
+                    Histórico Geral
+                </a>
+                <a href="chat.html" class="active">
+                    <span class="menu-icon">💬</span>
+                    Comunicação Interna
+                    <span class="badge-chat-menu" id="badgeMenuChat">0</span>
+                </a>
+                <a href="perfil.html">
+                    <span class="menu-icon">👤</span>
+                    Meu Perfil
+                </a>
+            `;
+
+            // 3. Gerenciamento do Chat
+            let contatos = [];
+            let contatoAtivoId = null;
+            let ultimoIdMensagem = 0;
+            let pollingInterval = null;
+
+            // Elementos DOM
+            const listaContatosEl = document.getElementById('listaContatos');
+            const estadoVazioEl = document.getElementById('estadoVazio');
+            const painelConversaEl = document.getElementById('painelConversaAtiva');
+            const corpoMensagensEl = document.getElementById('corpoMensagens');
+            const formEnvioEl = document.getElementById('formEnvioMensagem');
+            const inputMensagemEl = document.getElementById('inputMensagem');
+            const btnEnviarEl = document.getElementById('btnEnviarMensagem');
+            const inputFiltroEl = document.getElementById('inputFiltroContatos');
+
+            // Carrega parâmetros da URL se houver contato selecionado
+            const urlParams = new URLSearchParams(window.location.search);
+            const contatoPreSelecionado = parseInt(urlParams.get('contato'), 10) || null;
+
+            // Busca Lista de Contatos
+            async function carregarContatos() {
+                try {
+                    const res = await fetch('../../back/chat.php?action=contatos', {
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-User-Matricula': matriculaExibicao
+                        }
+                    });
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        listaContatosEl.innerHTML = `<div style="padding: 20px; text-align: center; color: #ef4444; font-size: 12px;">${data.message || 'Erro ao carregar contatos.'}</div>`;
+                        return;
+                    }
+
+                    contatos = data.contatos || [];
+                    document.getElementById('badgeTotalContatos').textContent = `${contatos.length} contatos`;
+
+                    // Atualiza badge de mensagens não lidas no menu lateral
+                    const totalNaoLidas = data.total_nao_lidas || 0;
+                    const badgeMenu = document.getElementById('badgeMenuChat');
+                    if (badgeMenu) {
+                        badgeMenu.textContent = totalNaoLidas;
+                        badgeMenu.style.display = totalNaoLidas > 0 ? 'inline-block' : 'none';
+                    }
+
+                    renderizarListaContatos(contatos);
+
+                    // Se veio contato via URL e ainda não selecionamos
+                    if (contatoPreSelecionado && !contatoAtivoId) {
+                        selecionarContato(contatoPreSelecionado);
+                    }
+
+                } catch (err) {
+                    listaContatosEl.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b; font-size: 12px;">Falha na conexão de rede com o chat.</div>`;
+                }
+            }
+
+            // Renderiza Contatos no Painel Esquerdo
+            function renderizarListaContatos(lista) {
+                const termo = (inputFiltroEl.value || '').toLowerCase().trim();
+                const filtrados = lista.filter(c => 
+                    c.nome.toLowerCase().includes(termo) || 
+                    c.matricula.toLowerCase().includes(termo) ||
+                    c.cargo.toLowerCase().includes(termo)
+                );
+
+                if (filtrados.length === 0) {
+                    listaContatosEl.innerHTML = `
+                        <div style="padding: 30px 16px; text-align: center; color: #94a3b8; font-size: 12px;">
+                            Nenhum contato encontrado com este filtro.
+                        </div>
+                    `;
+                    return;
+                }
+
+                listaContatosEl.innerHTML = filtrados.map(c => {
+                    const isSelecionado = (c.id === contatoAtivoId);
+                    const papelClasse = c.papel === 'supervisor' ? 'supervisor' : (c.papel === 'gerente' ? 'gerente' : 'tecnico');
+                    const roleBadgeClass = c.papel === 'supervisor' ? 'role-supervisor' : (c.papel === 'gerente' ? 'role-gerente' : 'role-tecnico');
+                    const iniciaisC = c.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    const horaFormatada = c.ultima_data ? c.ultima_data.substring(11, 16) : '';
+                    const prevMsg = c.ultima_mensagem ? c.ultima_mensagem : 'Clique para iniciar conversa...';
+
+                    return `
+                        <div class="contact-item ${isSelecionado ? 'active' : ''}" onclick="window.selecionarContato(${c.id})">
+                            <div class="contact-avatar ${papelClasse}">
+                                ${iniciaisC}
+                                <span class="online-dot" title="Usuário disponível na planta"></span>
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-top">
+                                    <span class="contact-name">${c.nome}</span>
+                                    <span class="contact-time">${horaFormatada}</span>
+                                </div>
+                                <div class="contact-bottom">
+                                    <span class="contact-preview">${prevMsg}</span>
+                                    ${c.nao_lidas > 0 ? `<span class="unread-count-pill">${c.nao_lidas}</span>` : `<span class="contact-role-tag ${roleBadgeClass}">${c.cargo.split(' ')[0]}</span>`}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            inputFiltroEl.addEventListener('input', () => {
+                renderizarListaContatos(contatos);
+            });
+
+            // Seleciona um Contato e Abre o Histórico
+            window.selecionarContato = async function(id) {
+                contatoAtivoId = id;
+                const contato = contatos.find(c => c.id === id);
+                if (!contato) return;
+
+                renderizarListaContatos(contatos);
+
+                // Mostra painel de conversa
+                estadoVazioEl.style.display = 'none';
+                painelConversaEl.style.display = 'flex';
+
+                // Atualiza Header do Chat
+                document.getElementById('nomeContatoAtivo').textContent = contato.nome;
+                document.getElementById('cargoContatoAtivo').textContent = contato.cargo;
+                document.getElementById('matriculaContatoAtivo').textContent = (contato.matricula || 'N/A').toUpperCase();
+
+                const iniciaisC = contato.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                const avatarEl = document.getElementById('avatarContatoAtivo');
+                avatarEl.textContent = iniciaisC;
+                avatarEl.className = `contact-avatar ${contato.papel === 'supervisor' ? 'supervisor' : (contato.papel === 'gerente' ? 'gerente' : 'tecnico')}`;
+
+                inputMensagemEl.placeholder = `Digite sua mensagem para ${contato.nome.split(' ')[0]}...`;
+
+                corpoMensagensEl.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: #94a3b8; font-size: 13px;">
+                        Carregando histórico de mensagens...
+                    </div>
+                `;
+
+                // Carrega Histórico do Backend
+                try {
+                    const res = await fetch(`../../back/chat.php?action=historico&contato_id=${id}`, {
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-User-Matricula': matriculaExibicao
+                        }
+                    });
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        corpoMensagensEl.innerHTML = `<div style="padding: 20px; color: #ef4444; text-align: center;">${data.message}</div>`;
+                        return;
+                    }
+
+                    renderizarMensagens(data.mensagens || []);
+
+                    // Zera contador de não lidas localmente para este contato
+                    contato.nao_lidas = 0;
+                    renderizarListaContatos(contatos);
+
+                    inputMensagemEl.focus();
+
+                } catch (e) {
+                    corpoMensagensEl.innerHTML = `<div style="padding: 20px; color: #ef4444; text-align: center;">Erro ao carregar mensagens.</div>`;
+                }
+            };
+
+            // Renderiza Mensagens no Corpo
+            function renderizarMensagens(mensagens) {
+                if (mensagens.length === 0) {
+                    corpoMensagensEl.innerHTML = `
+                        <div style="text-align: center; color: #94a3b8; padding: 40px 20px; font-size: 13px;">
+                            Nenhuma mensagem trocada ainda com este usuário.<br>
+                            Digite uma mensagem abaixo para iniciar a comunicação direta!
+                        </div>
+                    `;
+                    ultimoIdMensagem = 0;
+                    return;
+                }
+
+                ultimoIdMensagem = mensagens[mensagens.length - 1].id;
+
+                let html = '';
+                let dataAnterior = '';
+
+                mensagens.forEach(m => {
+                    if (m.data !== dataAnterior) {
+                        html += `<div class="date-divider"><span>${formatarDataVisual(m.data)}</span></div>`;
+                        dataAnterior = m.data;
+                    }
+
+                    const checkmarkHtml = m.eh_meu 
+                        ? `<span class="check-read ${m.lida ? 'lida' : ''}" title="${m.lida ? 'Lida' : 'Entregue'}">${m.lida ? '✓✓' : '✓'}</span>` 
+                        : '';
+
+                    html += `
+                        <div class="message-row ${m.eh_meu ? 'outgoing' : 'incoming'}" id="msg-${m.id}">
+                            <div class="msg-bubble">
+                                ${!m.eh_meu ? `<div class="msg-sender-name">${m.remetente_nome}</div>` : ''}
+                                <div>${escaparHtml(m.mensagem)}</div>
+                                <div class="msg-meta">
+                                    <span>${m.hora || ''}</span>
+                                    ${checkmarkHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                corpoMensagensEl.innerHTML = html;
+                rolarParaFim();
+            }
+
+            function formatarDataVisual(dataStr) {
+                if (!dataStr) return 'Hoje';
+                const hoje = new Date().toISOString().substring(0, 10);
+                if (dataStr === hoje) return 'Hoje';
+                return dataStr.split('-').reverse().join('/');
+            }
+
+            function escaparHtml(texto) {
+                const div = document.createElement('div');
+                div.textContent = texto;
+                return div.innerHTML;
+            }
+
+            function rolarParaFim() {
+                corpoMensagensEl.scrollTop = corpoMensagensEl.scrollHeight;
+            }
+
+            // Envio de Mensagem
+            formEnvioEl.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const texto = inputMensagemEl.value.trim();
+                if (!texto || !contatoAtivoId) return;
+
+                btnEnviarEl.disabled = true;
+
+                try {
+                    const res = await fetch('../../back/chat.php?action=enviar', {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-User-Matricula': matriculaExibicao
+                        },
+                        body: JSON.stringify({
+                            destinatario_id: contatoAtivoId,
+                            mensagem: texto
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (!data.success) {
+                        alert(data.message || 'Não foi possível enviar a mensagem.');
+                        return;
+                    }
+
+                    inputMensagemEl.value = '';
+
+                    // Adiciona mensagem enviada diretamente na tela
+                    const nova = data.mensagem;
+                    adicionarMensagemAoCorpo(nova);
+                    ultimoIdMensagem = nova.id;
+
+                    // Atualiza pré-visualização no contato
+                    const c = contatos.find(cont => cont.id === contatoAtivoId);
+                    if (c) {
+                        c.ultima_mensagem = texto;
+                        c.ultima_data = nova.criado_em;
+                        renderizarListaContatos(contatos);
+                    }
+
+                } catch (err) {
+                    alert('Erro de conexão ao enviar mensagem.');
+                } finally {
+                    btnEnviarEl.disabled = false;
+                    inputMensagemEl.focus();
+                }
+            });
+
+            function adicionarMensagemAoCorpo(m) {
+                const msgExistente = document.getElementById(`msg-${m.id}`);
+                if (msgExistente) return;
+
+                const checkmarkHtml = m.eh_meu 
+                    ? `<span class="check-read ${m.lida ? 'lida' : ''}" title="${m.lida ? 'Lida' : 'Entregue'}">${m.lida ? '✓✓' : '✓'}</span>` 
+                    : '';
+
+                const div = document.createElement('div');
+                div.className = `message-row ${m.eh_meu ? 'outgoing' : 'incoming'}`;
+                div.id = `msg-${m.id}`;
+                div.innerHTML = `
+                    <div class="msg-bubble">
+                        ${!m.eh_meu ? `<div class="msg-sender-name">${m.remetente_nome}</div>` : ''}
+                        <div>${escaparHtml(m.mensagem)}</div>
+                        <div class="msg-meta">
+                            <span>${m.hora || ''}</span>
+                            ${checkmarkHtml}
+                        </div>
+                    </div>
+                `;
+                corpoMensagensEl.appendChild(div);
+                rolarParaFim();
+            }
+
+            // Respostas Rápidas
+            window.inserirRespostaRapida = function(frase) {
+                inputMensagemEl.value = frase;
+                inputMensagemEl.focus();
+            };
+
+            // Atualização Manual
+            document.getElementById('btnAtualizarChat').addEventListener('click', () => {
+                if (contatoAtivoId) {
+                    verificarNovasMensagens();
+                }
+            });
+
+            // Polling de Novas Mensagens em Tempo Real a cada 2.5 segundos
+            async function verificarNovasMensagens() {
+                if (!contatoAtivoId) {
+                    carregarContatos();
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`../../back/chat.php?action=novas&contato_id=${contatoAtivoId}&ultimo_id=${ultimoIdMensagem}`, {
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-User-Matricula': matriculaExibicao
+                        }
+                    });
+                    const data = await res.json();
+
+                    if (data.success && data.novas_mensagens && data.novas_mensagens.length > 0) {
+                        let tocouBeep = false;
+                        data.novas_mensagens.forEach(m => {
+                            adicionarMensagemAoCorpo(m);
+                            if (!m.eh_meu) {
+                                tocouBeep = true;
+                            }
+                            if (m.id > ultimoIdMensagem) {
+                                ultimoIdMensagem = m.id;
+                            }
+                        });
+
+                        if (tocouBeep) {
+                            emitirBeepNotificacao();
+                        }
+                    }
+
+                    // Atualiza badge de não lidas no menu lateral
+                    if (typeof data.total_nao_lidas !== 'undefined') {
+                        const badgeMenu = document.getElementById('badgeMenuChat');
+                        if (badgeMenu) {
+                            badgeMenu.textContent = data.total_nao_lidas;
+                            badgeMenu.style.display = data.total_nao_lidas > 0 ? 'inline-block' : 'none';
+                        }
+                    }
+
+                } catch(e) {}
+            }
+
+            // Inicia ciclo de execução
+            carregarContatos();
+            pollingInterval = setInterval(verificarNovasMensagens, 2500);
+
+            // Logout
+            document.getElementById('btnSair').addEventListener('click', () => {
+                if (confirm('Deseja realmente encerrar sua sessão?')) {
+                    sessionStorage.clear();
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('sessaoUsuario');
+                    window.location.href = '../../pagina_inicial.html';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

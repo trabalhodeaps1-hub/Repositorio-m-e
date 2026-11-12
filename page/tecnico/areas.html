@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas Industriais - Consulta Técnica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f3f4f7;
+            color: #172033;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR PADRONIZADA */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: #0b132b;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+            color: #3b82f6;
+            font-size: 8px;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        .role-badge {
+            background: #1e3a8a;
+            color: #bfdbfe;
+            font-size: 11px;
+            padding: 4px 8px;
+            margin: 12px 16px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .menu {
+            padding: 14px 8px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .menu a {
+            height: 40px;
+            padding: 0 12px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #12315c;
+            color: #3b82f6;
+            border-left: 2px solid #3b82f6;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 16px;
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 12px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .profile-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-info {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .btn-sair {
+            width: 100%;
+            padding: 8px;
+            background: #1e293b;
+            color: #ef4444;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #291b24;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main {
+            margin-left: 240px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 65px;
+            background: white;
+            border-bottom: 1px solid #e5e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .page-title h1 {
+            font-size: 18px;
+            color: #0b132b;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .user-chip-avatar {
+            width: 26px;
+            height: 26px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 28px 32px;
+            flex: 1;
+        }
+
+        .read-only-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .read-only-banner-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #1e40af;
+        }
+
+        .badge-consulta {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .area-count {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .area-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 22px;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .area-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .area-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .area-icon {
+            width: 44px;
+            height: 44px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .area-info h3 {
+            font-size: 16px;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .area-info span {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .area-desc {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .area-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .btn-ver {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* DETALHES DA ÁREA */
+        #areaDetalhes {
+            display: none;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 28px;
+        }
+
+        .btn-voltar {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-voltar:hover {
+            background: #e2e8f0;
+        }
+
+        .equipamentos-lista {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .equipamento-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-operando { background: #10b981; }
+        .status-manutencao { background: #f59e0b; }
+        .status-inativo { background: #ef4444; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR DO TÉCNICO -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">◆</div>
+            <div class="logo-text">
+                AutoRelatório
+                <span>CAMPO TÉCNICO</span>
+            </div>
+        </div>
+
+        <div class="role-badge">TÉCNICO / OPERADOR</div>
+
+        <nav class="menu">
+            <a href="painel.html">
+                <span class="menu-icon">📊</span> Painel do Técnico
+            </a>
+            <a href="nova_inspecao.html">
+                <span class="menu-icon">🔍</span> Nova Inspeção
+            </a>
+            <a href="registrar_problema.html">
+                <span class="menu-icon">⚠️</span> Apontar Problema
+            </a>
+            <a href="areas.html" class="active">
+                <span class="menu-icon">🏭</span> Áreas Industriais
+            </a>
+            <a href="equipamentos.html">
+                <span class="menu-icon">⚙️</span> Equipamentos
+            </a>
+            <a href="historico.html">
+                <span class="menu-icon">📋</span> Meu Histórico
+            </a>
+            <a href="perfil.html">
+                <span class="menu-icon">👤</span> Meu Perfil
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="profile-circle" id="sidebarIniciais">TC</div>
+                <div>
+                    <div class="profile-name" id="sidebarNome">Técnico</div>
+                    <div class="profile-info" id="sidebarMatricula">Matrícula: f001</div>
+                </div>
+            </div>
+            <button class="btn-sair" id="btnSair">
+                <span>🚪</span> Sair da Conta
+            </button>
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main">
+        <header class="topbar">
+            <div class="page-title">
+                <h1>Áreas Industriais</h1>
+                <p>Visualização e mapeamento de setores da fábrica para inspeções</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-chip">
+                    <div class="user-chip-avatar" id="topIniciais">TC</div>
+                    <span id="topNome">Técnico</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+            <!-- Aviso de Somente Leitura -->
+            <div class="read-only-banner">
+                <div class="read-only-banner-text">
+                    <span style="font-size: 18px;">ℹ️</span>
+                    <div>
+                        <strong>Modo de Consulta Técnica:</strong> O mapeamento e cadastro de novas áreas é restrito à Supervisão e Gerência. Os dados abaixo servem para orientação em campo e registro de rondas.
+                    </div>
+                </div>
+                <span class="badge-consulta">Somente Leitura</span>
+            </div>
+
+            <!-- Visualização da Lista de Áreas -->
+            <div id="areaLista">
+                <div class="content-header">
+                    <div class="area-count" id="contadorAreas">Carregando áreas...</div>
+                </div>
+                <div class="areas-grid" id="areasGrid">
+                    <!-- Cards carregados dinamicamente via JS -->
+                </div>
+            </div>
+
+            <!-- Detalhes da Área Selecionada -->
+            <div id="areaDetalhes">
+                <button type="button" class="btn-voltar" id="btnVoltar">
+                    ← Voltar para todas as áreas
+                </button>
+                <h2 id="detalheNome" style="font-size: 22px; color: #0b132b; margin-bottom: 6px;">Nome da Área</h2>
+                <p id="detalheDescricao" style="color: #64748b; font-size: 14px; margin-bottom: 24px;">Descrição detalhada da área selecionada.</p>
+                
+                <h3 style="font-size: 16px; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <span>⚙️</span> Equipamentos Alocados nesta Área
+                </h3>
+                <div class="equipamentos-lista" id="listaEquipamentos">
+                    <!-- Equipamentos listados aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Carrega dados da sessão do usuário
+            const sessao = JSON.parse(sessionStorage.getItem('usuarioLogado') || localStorage.getItem('usuarioLogado') || '{}');
+            const nome = sessao.nome || 'Técnico de Manutenção';
+            const mat = sessao.matricula || 'f001';
+            const iniciais = nome.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() || 'TC';
+
+            document.getElementById('sidebarNome').textContent = nome;
+            document.getElementById('sidebarMatricula').textContent = 'Matrícula: ' + mat;
+            document.getElementById('sidebarIniciais').textContent = iniciais;
+            document.getElementById('topNome').textContent = nome;
+            document.getElementById('topIniciais').textContent = iniciais;
+
+            // Logout
+            document.getElementById('btnSair').addEventListener('click', () => {
+                sessionStorage.clear();
+                localStorage.removeItem('usuarioLogado');
+                location.href = '../../pagina_inicial.html';
+            });
+
+            // 2. Busca áreas do backend (ou fallback local)
+            let areas = [];
+            let equipamentos = [];
+
+            try {
+                const resArea = await fetch('../../back/cadastro_area.php');
+                const dataArea = await resArea.json();
+                if (dataArea.success && Array.isArray(dataArea.areas)) {
+                    areas = dataArea.areas;
+                }
+            } catch (e) {
+                areas = JSON.parse(localStorage.getItem('autoRelatorio_areas') || '[]');
+            }
+
+            try {
+                const resEquip = await fetch('../../back/cadastrar_equip.php');
+                const dataEquip = await resEquip.json();
+                if (dataEquip.success && Array.isArray(dataEquip.equipamentos)) {
+                    equipamentos = dataEquip.equipamentos;
+                }
+            } catch (e) {
+                equipamentos = JSON.parse(localStorage.getItem('autoRelatorio_equipamentos') || '[]');
+            }
+
+            const areasGrid = document.getElementById('areasGrid');
+            const contadorAreas = document.getElementById('contadorAreas');
+            const areaLista = document.getElementById('areaLista');
+            const areaDetalhes = document.getElementById('areaDetalhes');
+            const btnVoltar = document.getElementById('btnVoltar');
+
+            function getIcon(tipo) {
+                const map = {
+                    'factory': '🏭',
+                    'carrinho': '🚜',
+                    'raio': '⚡',
+                    'engrenagem': '⚙️',
+                    'fogo': '🔥',
+                    'gota': '💧'
+                };
+                return map[tipo] || '🏭';
+            }
+
+            function renderizar() {
+                contadorAreas.textContent = `${areas.length} área(s) industrial(is) catalogada(s)`;
+                areasGrid.innerHTML = '';
+
+                if (areas.length === 0) {
+                    areasGrid.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b; background: white; border-radius: 8px;">Nenhuma área cadastrada no sistema até o momento.</div>';
+                    return;
+                }
+
+                areas.forEach(area => {
+                    const equipsDaArea = equipamentos.filter(eq => eq.area_id == area.id || eq.area == area.nome);
+                    const card = document.createElement('div');
+                    card.className = 'area-card';
+                    card.innerHTML = `
+                        <div>
+                            <div class="area-header">
+                                <div class="area-icon">${getIcon(area.icone)}</div>
+                                <div class="area-info">
+                                    <h3>${area.nome}</h3>
+                                    <span>${equipsDaArea.length} equipamento(s) vinculado(s)</span>
+                                </div>
+                            </div>
+                            <p class="area-desc">${area.descricao || 'Área industrial operacional de apoio técnico.'}</p>
+                        </div>
+                        <div class="area-footer">
+                            <span>Mapeamento Ativo</span>
+                            <span class="btn-ver">Ver Maquinários →</span>
+                        </div>
+                    `;
+
+                    card.addEventListener('click', () => {
+                        exibirDetalhes(area, equipsDaArea);
+                    });
+
+                    areasGrid.appendChild(card);
+                });
+            }
+
+            function exibirDetalhes(area, equips) {
+                areaLista.style.display = 'none';
+                areaDetalhes.style.display = 'block';
+
+                document.getElementById('detalheNome').textContent = area.nome;
+                document.getElementById('detalheDescricao').textContent = area.descricao || 'Área operacional sem descrição adicional.';
+
+                const lista = document.getElementById('listaEquipamentos');
+                lista.innerHTML = '';
+
+                if (equips.length === 0) {
+                    lista.innerHTML = '<div style="padding: 16px; color: #64748b; font-size: 13px;">Nenhum equipamento cadastrado especificamente para este setor.</div>';
+                    return;
+                }
+
+                equips.forEach(eq => {
+                    const item = document.createElement('div');
+                    item.className = 'equipamento-item';
+                    const statusClass = eq.status_operacional ? 'status-operando' : 'status-manutencao';
+                    const statusTexto = eq.status_operacional ? 'Operando Normalmente' : 'Em Manutenção';
+
+                    item.innerHTML = `
+                        <div>
+                            <strong>${eq.nome}</strong>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 2px;">
+                                Patrimônio: ${eq.numero_patrimonio || 'N/A'} | Local: ${eq.localizacao || 'Pátio Geral'}
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; font-weight: 600; display: flex; align-items: center;">
+                            <span class="status-dot ${statusClass}"></span> ${statusTexto}
+                        </div>
+                    `;
+                    lista.appendChild(item);
+                });
+            }
+
+            btnVoltar.addEventListener('click', () => {
+                areaDetalhes.style.display = 'none';
+                areaLista.style.display = 'block';
+            });
+
+            renderizar();
+        });
+    </script>
+</body>
+</html>

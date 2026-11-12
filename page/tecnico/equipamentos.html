@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipamentos - Consulta Técnica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f3f4f7;
+            color: #172033;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR PADRONIZADA */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: #0b132b;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1b243b;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            display: block;
+            color: #3b82f6;
+            font-size: 8px;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        .role-badge {
+            background: #1e3a8a;
+            color: #bfdbfe;
+            font-size: 11px;
+            padding: 4px 8px;
+            margin: 12px 16px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .menu {
+            padding: 14px 8px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .menu a {
+            height: 40px;
+            padding: 0 12px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aeb8ca;
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #151f3a;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #12315c;
+            color: #3b82f6;
+            border-left: 2px solid #3b82f6;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            width: 16px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 16px;
+            border-top: 1px solid #1b243b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 12px;
+        }
+
+        .profile-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .profile-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-info {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .btn-sair {
+            width: 100%;
+            padding: 8px;
+            background: #1e293b;
+            color: #ef4444;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #291b24;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main {
+            margin-left: 240px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 65px;
+            background: white;
+            border-bottom: 1px solid #e5e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .page-title h1 {
+            font-size: 18px;
+            color: #0b132b;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .user-chip-avatar {
+            width: 26px;
+            height: 26px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 28px 32px;
+            flex: 1;
+        }
+
+        .read-only-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .read-only-banner-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #1e40af;
+        }
+
+        .badge-consulta {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .filtro-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .filtro-input {
+            flex: 1;
+            padding: 9px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .filtro-input:focus {
+            border-color: #2563eb;
+        }
+
+        .filtro-select {
+            padding: 9px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            background: white;
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            padding: 14px 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+
+        table tr:hover td {
+            background: #f8fafc;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-operando {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-manutencao {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-inativo {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .dot-green { background: #16a34a; }
+        .dot-yellow { background: #d97706; }
+        .dot-red { background: #dc2626; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR DO TÉCNICO -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">◆</div>
+            <div class="logo-text">
+                AutoRelatório
+                <span>CAMPO TÉCNICO</span>
+            </div>
+        </div>
+
+        <div class="role-badge">TÉCNICO / OPERADOR</div>
+
+        <nav class="menu">
+            <a href="painel.html">
+                <span class="menu-icon">📊</span> Painel do Técnico
+            </a>
+            <a href="nova_inspecao.html">
+                <span class="menu-icon">🔍</span> Nova Inspeção
+            </a>
+            <a href="registrar_problema.html">
+                <span class="menu-icon">⚠️</span> Apontar Problema
+            </a>
+            <a href="areas.html">
+                <span class="menu-icon">🏭</span> Áreas Industriais
+            </a>
+            <a href="equipamentos.html" class="active">
+                <span class="menu-icon">⚙️</span> Equipamentos
+            </a>
+            <a href="historico.html">
+                <span class="menu-icon">📋</span> Meu Histórico
+            </a>
+            <a href="perfil.html">
+                <span class="menu-icon">👤</span> Meu Perfil
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="profile-circle" id="sidebarIniciais">TC</div>
+                <div>
+                    <div class="profile-name" id="sidebarNome">Técnico</div>
+                    <div class="profile-info" id="sidebarMatricula">Matrícula: f001</div>
+                </div>
+            </div>
+            <button class="btn-sair" id="btnSair">
+                <span>🚪</span> Sair da Conta
+            </button>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main">
+        <header class="topbar">
+            <div class="page-title">
+                <h1>Catálogo de Equipamentos</h1>
+                <p>Consulta do parque de máquinas e patrimônios para verificação em campo</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-chip">
+                    <div class="user-chip-avatar" id="topIniciais">TC</div>
+                    <span id="topNome">Técnico</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+            <!-- Aviso de Somente Leitura -->
+            <div class="read-only-banner">
+                <div class="read-only-banner-text">
+                    <span style="font-size: 18px;">ℹ️</span>
+                    <div>
+                        <strong>Modo de Consulta Técnica:</strong> O cadastro de novos patrimônios e equipamentos é exclusivo da Supervisão. Use esta listagem para checar números de patrimônio e status antes de iniciar inspeções.
+                    </div>
+                </div>
+                <span class="badge-consulta">Somente Leitura</span>
+            </div>
+
+            <!-- Filtros de Busca -->
+            <div class="filtro-box">
+                <input type="text" id="campoBusca" class="filtro-input" placeholder="🔍 Buscar por nome do equipamento ou número de patrimônio...">
+                <select id="filtroArea" class="filtro-select">
+                    <option value="">Todas as Áreas</option>
+                </select>
+                <select id="filtroStatus" class="filtro-select">
+                    <option value="">Todos os Status</option>
+                    <option value="1">Operando Normalmente</option>
+                    <option value="0">Em Manutenção</option>
+                </select>
+            </div>
+
+            <!-- Tabela de Equipamentos -->
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patrimônio</th>
+                            <th>Equipamento</th>
+                            <th>Área Industrial</th>
+                            <th>Localização Exata</th>
+                            <th>Status Operacional</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCorpo">
+                        <!-- Linhas geradas dinamicamente via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Sessão do usuário
+            const sessao = JSON.parse(sessionStorage.getItem('usuarioLogado') || localStorage.getItem('usuarioLogado') || '{}');
+            const nome = sessao.nome || 'Técnico de Manutenção';
+            const mat = sessao.matricula || 'f001';
+            const iniciais = nome.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() || 'TC';
+
+            document.getElementById('sidebarNome').textContent = nome;
+            document.getElementById('sidebarMatricula').textContent = 'Matrícula: ' + mat;
+            document.getElementById('sidebarIniciais').textContent = iniciais;
+            document.getElementById('topNome').textContent = nome;
+            document.getElementById('topIniciais').textContent = iniciais;
+
+            document.getElementById('btnSair').addEventListener('click', () => {
+                sessionStorage.clear();
+                localStorage.removeItem('usuarioLogado');
+                location.href = '../../pagina_inicial.html';
+            });
+
+            let equipamentos = [];
+            let areas = [];
+
+            try {
+                const resEquip = await fetch('../../back/cadastrar_equip.php');
+                const dataEquip = await resEquip.json();
+                if (dataEquip.success && Array.isArray(dataEquip.equipamentos)) {
+                    equipamentos = dataEquip.equipamentos;
+                }
+            } catch (e) {
+                equipamentos = JSON.parse(localStorage.getItem('autoRelatorio_equipamentos') || '[]');
+            }
+
+            try {
+                const resArea = await fetch('../../back/cadastro_area.php');
+                const dataArea = await resArea.json();
+                if (dataArea.success && Array.isArray(dataArea.areas)) {
+                    areas = dataArea.areas;
+                }
+            } catch (e) {
+                areas = JSON.parse(localStorage.getItem('autoRelatorio_areas') || '[]');
+            }
+
+            // Popula select de áreas
+            const selectArea = document.getElementById('filtroArea');
+            areas.forEach(a => {
+                const opt = document.createElement('option');
+                opt.value = a.id;
+                opt.textContent = a.nome;
+                selectArea.appendChild(opt);
+            });
+
+            const tabelaCorpo = document.getElementById('tabelaCorpo');
+            const campoBusca = document.getElementById('campoBusca');
+            const filtroStatus = document.getElementById('filtroStatus');
+
+            function renderizar() {
+                const termo = campoBusca.value.trim().toLowerCase();
+                const areaFiltro = selectArea.value;
+                const statusFiltro = filtroStatus.value;
+
+                const filtrados = equipamentos.filter(eq => {
+                    const matchBusca = (eq.nome || '').toLowerCase().includes(termo) || (eq.numero_patrimonio || '').toLowerCase().includes(termo);
+                    const matchArea = !areaFiltro || String(eq.area_id) === String(areaFiltro);
+                    const matchStatus = statusFiltro === '' || String(eq.status_operacional ? 1 : 0) === statusFiltro;
+                    return matchBusca && matchArea && matchStatus;
+                });
+
+                tabelaCorpo.innerHTML = '';
+
+                if (filtrados.length === 0) {
+                    tabelaCorpo.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px; color: #64748b;">Nenhum equipamento encontrado com os critérios de busca.</td></tr>';
+                    return;
+                }
+
+                filtrados.forEach(eq => {
+                    const tr = document.createElement('tr');
+                    const isOperando = eq.status_operacional === true || eq.status_operacional === 1 || eq.status_operacional === '1';
+                    const badgeClass = isOperando ? 'badge-operando' : 'badge-manutencao';
+                    const dotClass = isOperando ? 'dot-green' : 'dot-yellow';
+                    const statusTexto = isOperando ? 'Operacional' : 'Em Manutenção';
+                    const areaNome = eq.area_nome || (areas.find(a => a.id == eq.area_id) || {}).nome || 'Geral';
+
+                    tr.innerHTML = `
+                        <td><strong>${eq.numero_patrimonio || 'N/A'}</strong></td>
+                        <td>${eq.nome}</td>
+                        <td>${areaNome}</td>
+                        <td style="color: #64748b;">${eq.localizacao || 'Pátio Principal'}</td>
+                        <td>
+                            <span class="badge-status ${badgeClass}">
+                                <span class="dot ${dotClass}"></span> ${statusTexto}
+                            </span>
+                        </td>
+                    `;
+                    tabelaCorpo.appendChild(tr);
+                });
+            }
+
+            campoBusca.addEventListener('input', renderizar);
+            selectArea.addEventListener('change', renderizar);
+            filtroStatus.addEventListener('change', renderizar);
+
+            renderizar();
+        });
+    </script>
+</body>
+</html>
